@@ -1,6 +1,5 @@
-@extends('app.pages.layouts.nav')
+@extends('layouts.nav')
 
-@include('layouts.sidebar')
 
 @section('container')
     
