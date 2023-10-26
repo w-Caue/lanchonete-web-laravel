@@ -51,5 +51,17 @@ Route::prefix('/painel')->name('painel.')->group(function(){
 
     Route::get('/dashboard', function(){
         return view('pages.dashboard');
-    });
+    })->name('dashboard');
+
+    Route::get('/clientes', function(){
+        return view('cliente.index');
+    })->name('clientes');
+
+    Route::get('/itens', function(){
+        return view('item.index');
+    })->name('itens');
+
+    Route::get('/pedidos', function(){
+        return view('pedidos.index');
+    })->name('pedidos');
 });

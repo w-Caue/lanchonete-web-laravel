@@ -34,8 +34,8 @@
 
     <div class="">
 
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mx-5">
-            <table class="w-full text-sm text-left text-gray-500">
+        <div class="flex justify-center overflow-x-auto mx-5">
+            <table class="w-5/6 text-sm text-left text-gray-500 shadow-md sm:rounded-lg">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
                         <th scope="col" class="px-6 py-3">
@@ -184,7 +184,7 @@
         </div>
 
 
-        <div class="m-4">
+        <div class="m-5">
             {{ $pedidos->links('layouts.paginate') }}
             {{-- appends($request)-> --}}
         </div>
