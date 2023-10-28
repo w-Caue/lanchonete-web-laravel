@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Pedido;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
@@ -15,6 +16,12 @@ class SiteController extends Controller
     public function index(){
         // $itens = Item::all();
 
-        return view('pedidos.create');
+        return view('pages.pedidos.create');
+    }
+
+    public function store(Pedido $pedido){
+        $itens = Item::all();
+
+        return view('pages.pedidos.create');
     }
 }

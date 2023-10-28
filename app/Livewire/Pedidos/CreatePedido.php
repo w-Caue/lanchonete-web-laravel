@@ -65,7 +65,7 @@ class CreatePedido extends Component
                             ->where('status', 'Analise')->count();
 
         if($pedidoAnalise > 0){
-            $this->redirect('/site/Seu-Pedido');
+            return redirect()->route('site.seu-pedido', ['pedido' => $pedidoAnalise]);
         }
 
         $pedidoCliente = Pedido::where('user_id', auth()->user()->id)
@@ -186,7 +186,7 @@ class CreatePedido extends Component
 
         $this->visualizarPedido();
 
-        $this->redirect('/site/Seu-Pedido');
+        $this->redirect('/site/seu-pedido/{pedido}');
     }
 
     public function visualizarEntrega(){

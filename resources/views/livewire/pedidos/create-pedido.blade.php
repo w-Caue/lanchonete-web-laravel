@@ -289,9 +289,10 @@
 
                 <div class="flex justify-center gap-2 mb-2">
 
-                    <button wire:click.prevent="finalizarPedido()" wire:click="update({{$pedido->id}})"
+                    <a href="{{ $pedido->id }}" wire:click.prevent="finalizarPedido()" wire:click="update({{$pedido->id}})"
                         class="text-white font-semibold p-2 border rounded bg-blue-500">Finalizar
-                        Pedido</button>
+                        Pedido
+                    </a>
 
                 </div>
 

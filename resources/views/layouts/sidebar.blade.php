@@ -326,8 +326,41 @@
                     <h1 class="hover:text-gray-200 cursor-pointer">Item 4</h1>
                 </div>
             </div>
+
+            {{-- Logout --}}
+            <a href="{{ route('logout') }}" x-data="tooltip" x-on:mouseover="show = true"
+                x-on:mouseleave="show = false" x-on:click="$store.sidebar.active = 'item' "
+                class="relatice flex justify-between items-center font-semibold text-blue-100 hover:text-red-400 hover:bg-gray-800 space-x-2 rounded-md p-2 cursor-pointer"
+                x-bind:class="{
+                    'justify-start': $store.sidebar.full,
+                    'sm:justify-center': !$store.sidebar
+                        .full,
+                    'text-gray-400 bg-gray-800': $store.sidebar.active = 'sair',
+                    'text-gray-400': $store.sidebar
+                        .active≠ 'sair'
+                }"
+                onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+
+                <div class="flex items-center space-x-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                    </svg>
+
+                    <h1 x-clock
+                        x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
+                            'sm:hidden' : ''">
+                        Sair</h1>
+                </div>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </a>
         </div>
     </div>
+
     <script>
         document.addEventListener('alpine:init', () => {
             Alpine.store('sidebar', {
