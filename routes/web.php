@@ -54,14 +54,14 @@ Route::prefix('/painel')->name('painel.')->group(function(){
     })->name('dashboard');
 
     Route::get('/clientes', function(){
-        return view('cliente.index');
+        return view('pages.cliente.index');
     })->name('clientes');
 
     Route::get('/itens', function(){
-        return view('item.index');
+        return view('pages.item.index');
     })->name('itens');
 
     Route::get('/pedidos', function(){
-        return view('pedidos.index');
+        return view('pages.pedidos.index');
     })->name('pedidos');
 });

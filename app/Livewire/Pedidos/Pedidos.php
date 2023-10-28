@@ -46,6 +46,8 @@ class Pedidos extends Component
     public $pedidoCliente;
     public $itemSelect;
 
+    public $pedidoClienteAberto;
+
     public $count = '1';
     public $total = '';
 
@@ -66,6 +68,8 @@ class Pedidos extends Component
 
     public function pedidoAberto(Pedido $pedido){
         $this->pedidoCliente = $pedido->id;
+
+        $this->pedidoClienteAberto = $pedido;
 
         $this->itemNoPedido();
     }

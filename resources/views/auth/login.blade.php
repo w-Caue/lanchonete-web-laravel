@@ -1,12 +1,12 @@
-@extends('layouts.app')
+@extends('layouts.site')
 
 @section('content')
     <div class="container">
+
+        <h1 class="text-center font-semibold text-2xl ">Login</h1>
+
         <div class="flex justify-center">
-
-            <div class="text-center font-semibold text-2xl mb-3">{{ __('Login') }}</div>
-
-            <div class="w-full max-w-prose">
+            <div class="w-full max-w-prose m-4">
                 <form method="POST" action="{{ route('login') }}" class="bg-white rounded px-8 pt-6 pb-8 mb-4">
                     @csrf
                     <div class="mb-4">

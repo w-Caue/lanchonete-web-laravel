@@ -183,7 +183,6 @@
             </table>
         </div>
 
-
         <div class="m-5">
             {{ $pedidos->links('layouts.paginate') }}
             {{-- appends($request)-> --}}
@@ -253,7 +252,6 @@
                     </div>
 
                 </form>
-
             </div>
         </div>
 
@@ -437,7 +435,7 @@
     {{-- Visualizar o Pedido --}}
     @if ($meuPedido)
         <div class="flex justify-center">
-            <div class="fixed top-32 bg-white w-1/2 shadow-2xl rounded-lg">
+            <div class="fixed top-28 bg-white w-1/2 shadow-2xl rounded-lg">
 
                 <div class="flex justify-end m-2">
                     <button wire:click="visualizarPedido()" class="border rounded hover:bg-red-500 hover:text-white">
@@ -458,7 +456,7 @@
 
                         @foreach ($formasDePagamentos as $formaDePagamento)
                             <option class="font-semibold" value="{{ $formaDePagamento->id }}"
-                                {{ ($pedido->forma_de_pagamento_id ?? old('formaDePagamento->id ')) == $formaDePagamento->id ? 'selected' : '' }}>
+                                {{ ($pedidoClienteAberto->forma_de_pagamento_id ?? old('formaDePagamento->id ')) == $formaDePagamento->id ? 'selected' : '' }}>
                                 {{ $formaDePagamento->nome }}</option>
                         @endforeach
 
@@ -487,18 +485,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pedido->itens as $pedido)
+                                @foreach ($pedidoClienteAberto->itens as $pedido)
                                     <tr class="bg-white ">
                                         <th scope="row"
                                             class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap">
                                             {{ $pedido->nome }}
                                         </th>
                                         <td class="px-6 py-4">
-                                            {{ number_format($item->preco, 2, ',', '.') }}
+                                            {{ number_format($pedido->preco, 2, ',', '.') }}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ $pedido->quantidade }}
-                                            </>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
