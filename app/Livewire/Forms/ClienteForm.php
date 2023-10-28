@@ -9,6 +9,8 @@ use Livewire\Form;
 
 class ClienteForm extends Form
 {
+    public $clienteId;
+
     #[Rule('required|min:3|max:40')]
     public $nome = '';
 
@@ -29,5 +31,24 @@ class ClienteForm extends Form
             'password' =>  Hash::make('1234')
         ]);
 
+    }
+
+    public function edit(User $cliente)
+    {
+        $this->clienteId = $cliente->id;
+        $this->nome = $cliente->name;
+        $this->email = $cliente->email;
+        $this->telefone = $cliente->telefone;
+    }
+
+    public function updateCliente()
+    {
+        $this->validate();
+
+        User::findOrFail($this->clienteId)->update([
+            'name' => $this->nome,
+            'email' => $this->email,
+            'telefone' => $this->telefone
+        ]);
     }
 }

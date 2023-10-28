@@ -23,11 +23,20 @@ class Clientes extends Component
     public $search = '';
 
 
-    public function novoCliente(){
+    public function novoCliente()
+    {
         $this->newCliente = !$this->newCliente;
     }
 
-    public function save(){
+    public function fecharCliente()
+    {
+        $this->reset();
+        $this->newCliente = false;
+    }
+
+    #salvar cliente
+    public function save()
+    {
 
         $this->form->store();
 
@@ -37,17 +46,39 @@ class Clientes extends Component
             'position' => 'center',
             'timer' => 3000,
             'toast' => false,
-           ]);
-
+        ]);
     }
-    
+    #/salvar cliente
+
+    #editar cliente
+    public function editCliente(User $cliente)
+    {
+        $this->novoCliente();
+
+        $this->form->edit($cliente);
+    }
+
+    public function update()
+    {
+        $this->form->updateCliente();
+
+        $this->alert('success', 'Cadastro Atualizado!', [
+            'position' => 'center',
+            'timer' => '1000',
+            'toast' => false,
+        ]);
+
+        $this->fecharCliente();
+    }
+    #/editar cliente
+
     public function render()
     {
 
-        $clientes = User::where('name', 'like' , '%'. $this->search .'%')
-                        ->orWhere('email', 'like' , '%'. $this->search .'%')
-                        ->orWhere('telefone', 'like' , '%'. $this->search .'%')
-                                ->paginate(5);
+        $clientes = User::where('name', 'like', '%' . $this->search . '%')
+            ->orWhere('email', 'like', '%' . $this->search . '%')
+            ->orWhere('telefone', 'like', '%' . $this->search . '%')
+            ->paginate(5);
 
         return view('livewire.clientes.clientes', ['clientes' => $clientes]);
     }

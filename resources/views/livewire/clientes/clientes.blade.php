@@ -72,7 +72,14 @@
                                     {{ $cliente->telefone }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    Editar
+                                    <button wire:click="editCliente({{$cliente->id}})" class="flex items-center p-2 gap-1 text-white font-semibold bg-blue-400 rounded hover:bg-blue-500">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                                        </svg>
+                                        Editar
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -90,10 +97,10 @@
 
     @if ($newCliente)
         <div class="flex justify-center">
-            <div class="fixed top-32 bg-white w-3/4 border-2 rounded-lg">
+            <div class="fixed top-32 bg-white w-3/4 shadow-2xl border rounded-lg">
 
-                <div class="bg-gray-200 rounded-t-lg mb-4 flex justify-end ">
-                    <button wire:click.prevent='novoCliente()' class="rounded m-2 hover:text-white hover:bg-red-500">
+                <div class="bg-blue-400 rounded-t-lg mb-4 flex justify-end ">
+                    <button wire:click.prevent='fecharCliente()' class="text-white rounded m-2 hover:bg-red-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -101,10 +108,10 @@
                     </button>
                 </div>
 
-                <h1 class="text-center text-xl font-semibold mb-5">Cadastrar Cliente</h1>
+                <h1 class="text-center text-xl font-semibold mb-5">{{$form->clienteId ? 'Editar Cliente' :'Cadastrar Cliente'}}</h1>
 
                 <div class="flex justify-center">
-                    <form wire:submit.prevent="save" class="w-full max-w-2xl">
+                    <form wire:submit.prevent="{{$form->clienteId ? 'update()' :'save()'}}" class="w-full max-w-2xl">
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -112,7 +119,7 @@
                                     Nome
                                 </label>
                                 <input wire:model='form.nome'
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                    class="font-semibold appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     id="grid-first-name" type="text">
                             </div>
 
@@ -129,7 +136,7 @@
                                     Email
                                 </label>
                                 <input wire:model='form.email'
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                                    class="font-semibold appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                                     id="grid-password" type="text">
                             </div>
 
@@ -146,7 +153,7 @@
                                     Telefone
                                 </label>
                                 <input wire:model='form.telefone'
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                    class="font-semibold appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     id="grid-first-name" type="number">
                             </div>
 
@@ -159,7 +166,7 @@
                         <div class="flex justify-center mb-4">
                             <button type="submit"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Cadastrar
+                                {{$form->clienteId ? 'Salvar' : 'Cadastrar'}}
                             </button>
                         </div>
                     </form>
