@@ -32,8 +32,8 @@
 
         <div class="flex justify-center flex-wrap gap-3">
             @foreach ($itens as $item)
-                <div
-                    class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:w-1/3 hover:bg-gray-100 ">
+                <div wire:click="edit({{ $item->id }})"
+                    class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:w-1/3 hover:bg-gray-100 cursor-pointer">
                     <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
                         src="/docs/images/blog/image-4.jpg" alt="">
                     <div class="flex flex-col justify-between p-4 leading-normal">
@@ -56,10 +56,10 @@
 
     @if ($newItem)
         <div class="flex justify-center">
-            <div class="fixed top-32 bg-white w-3/4 border-2 rounded-lg">
+            <div class="fixed top-32 bg-white w-3/4 shadow-2xl border rounded-lg">
 
-                <div class="bg-gray-200 rounded-t-lg mb-4 flex justify-end ">
-                    <button wire:click.prevent='novoItem()' class="rounded m-2 hover:text-white hover:bg-red-500">
+                <div class="bg-blue-400 rounded-t-lg mb-4 flex justify-end ">
+                    <button wire:click.prevent='fecharItem()' class="text-white rounded m-2 hover:bg-red-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -67,10 +67,10 @@
                     </button>
                 </div>
 
-                <h1 class="text-center text-xl font-semibold mb-5">Cadastrar Item</h1>
+                <h1 class="text-center text-xl font-semibold mb-5">{{$form->itemId ? 'Editar Item' :'Cadastrar Item'}}</h1>
 
                 <div class="flex justify-center">
-                    <form wire:submit.prevent="save()" class="w-full max-w-2xl">
+                    <form wire:submit.prevent="{{$form->itemId ? 'update()' :'save()'}}" class="w-full max-w-2xl">
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -170,7 +170,7 @@
                         <div class="flex justify-center mb-4">
                             <button type="submit"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                Cadastrar
+                                {{$form->itemId ? 'Salvar' :'Cadastrar'}}
                             </button>
                         </div>
                     </form>

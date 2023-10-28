@@ -22,26 +22,52 @@ class Itens extends Component
 
     public $search = '';
 
-    public function novoItem(){
+    public function novoItem()
+    {
         $this->newItem = !$this->newItem;
     }
 
-    public function save(){
+    public function fecharItem()
+    {
+        $this->reset();
+        $this->newItem = false;
+    }
 
+    public function save()
+    {
         $this->form->store();
 
-        $this->reset();
+        $this->fecharItem();
 
         $this->alert('success', 'Item Cadastrado!', [
             'position' => 'center',
-            'timer' => 3000,
+            'timer' => 1000,
             'toast' => false,
-           ]);
+        ]);
+    }
+
+    public function edit(Item $item)
+    {
+        $this->novoItem();
+        $this->form->edit($item);
+    }
+
+    public function update()
+    {
+        $this->form->update();
+
+        $this->fecharItem();
+
+        $this->alert('success', 'Item Atualizado!', [
+            'position' => 'center',
+            'timer' => '1000',
+            'toast' => false,
+        ]);
     }
 
     public function render()
     {
-        $itens = Item::where('nome', 'like', '%'. $this->search .'%')->paginate(4);
+        $itens = Item::where('nome', 'like', '%' . $this->search . '%')->paginate(4);
         $tamanhos = Tamanho::all();
         $categorias = Categoria::all();
         return view('livewire.itens.itens', [
