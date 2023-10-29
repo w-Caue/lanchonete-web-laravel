@@ -15,7 +15,7 @@ class Pedido extends Model
     }
 
     public function pedidoItem(){
-        return $this->belongsToMany('App\Models\PedidoItem', 'pedidos_id');
+        return $this->belongsToMany('App\Models\PedidoItem', 'pedidos');
     }
 
     public function cliente(){
@@ -24,5 +24,9 @@ class Pedido extends Model
 
     public function formaPagamento(){
         return $this->belongsTo('App\Models\FormaDePagamento', 'forma_de_pagamento_id');
+    }
+
+    public function localEntrega(){
+        return $this->belongsTo('App\Models\LocalEntrega', 'local_entrega_id');
     }
 }

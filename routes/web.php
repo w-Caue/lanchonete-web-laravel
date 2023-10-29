@@ -28,8 +28,8 @@ Route::prefix('/site')->name('site.')->group(function(){
 
      Route::get('/Pedido', [\App\Http\Controllers\SiteController::class, 'index'])->name('pedido.index')->middleware('auth');
 
-     Route::get('/seu-pedido/{pedido}', function($pedido){
-        return view('pages.acompanhar-pedido', $pedido);
+     Route::get('/seu-pedido', function(){
+        return view('pages.acompanhar-pedido');
      })->name('seu-pedido');
     
 });

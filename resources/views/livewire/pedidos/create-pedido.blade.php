@@ -38,6 +38,7 @@
 
     </div>
 
+    {{-- Adicionar Item --}}
     @if ($addItem)
         <div class="flex justify-center">
             <div class="fixed top-32 bg-white w-96 shadow-2xl rounded-lg">
@@ -77,8 +78,8 @@
 
                             <div class="flex gap-2 flex-wrap">
                                 @foreach ($tamanhos as $tamanho)
-                                    <input class="" value="{{ $tamanho->id }}" id="checked-checkbox"
-                                        type="checkbox">
+                                    <input wire:model="tamanhoItem" class="" value="{{ $tamanho->id }}"
+                                        id="checked-checkbox" type="checkbox">
 
                                     <label class="text-gary-500 font-semibold"
                                         for="checked-checkbox">{{ $tamanho->descricao }}</label>
@@ -106,6 +107,7 @@
 
     @endif
 
+    {{-- Criar Pedido --}}
     @if ($criaPedido)
         <div class="flex justify-center">
             <div class="fixed top-32 bg-white w-1/2 shadow-2xl rounded-lg">
@@ -178,7 +180,7 @@
     {{-- Visualizar o Pedido --}}
     @if ($meuPedido)
         <div class="flex justify-center">
-            <div class="fixed top-32 bg-white w-1/2 shadow-2xl rounded-lg">
+            <div class="fixed top-20 bg-white w-1/2 shadow-2xl rounded-lg">
 
                 <div class="flex justify-end m-2">
                     <button wire:click="visualizarPedido()" class="border rounded hover:bg-red-500 hover:text-white">
@@ -194,8 +196,8 @@
 
                 <div class="m-3 flex gap-2">
                     <h1 class="text-xl font-semibold tracking-wider">Forma de pagamento: </h1>
-                    <select wire:model='form.formaPagamento' name="formaPagamento" class="font-semibold border-2 rounded"
-                        aria-label="Default select example">
+                    <select wire:model='form.formaPagamento' name="formaPagamento"
+                        class="font-semibold border-2 rounded" aria-label="Default select example">
 
                         @foreach ($formasDePagamentos as $formaDePagamento)
                             <option class="font-semibold" value="{{ $formaDePagamento->id }}"
@@ -236,10 +238,10 @@
                                             {{ $pedido->nome }}
                                         </th>
                                         <td class="px-6 py-4">
-                                            {{ number_format($item->preco, 2, ',', '.') }}
+                                            {{ number_format($pedido->preco, 2, ',', '.') }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $pedido->quantidade }}
+                                            {{ $pedido->pedidoItem }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -259,23 +261,41 @@
 
                 <div class="flex items-center m-3 gap-1">
                     <label for="countries" class="text-xl font-semibold tracking-wider">Tipo</label>
-                    <select wire:model="pedidoEntrega" wire:click="entregaDePedido()" id="countries"
+
+                    <div>
+                        <input wire:model.live="pedidoEntrega" wire:click="entregaDePedido()" class=""
+                            value="entrega" type="radio">
+
+                        <label class="text-gray-500 font-semibold">Entrega</label>
+                    </div>
+
+                    <div>
+                        <input wire:model.live="pedidoEntrega" class="rounded"
+                            value="retirada" type="radio">
+
+                        <label class="text-gray-500 font-semibold">Retirada</label>
+                    </div>
+
+
+                    {{-- <select wire:model.live="pedidoEntrega" wire:click="entregaDePedido()" id="countries"
                         class="font-semibold border-2 rounded">
                         <option selected></option>
                         <option class="font-semibold" value="entrega">Entrega</option>
                         <option class="font-semibold" value="retirada">Retirada</option>
-                    </select>
+                    </select> --}}
                 </div>
 
                 <div class="m-5 max-w-xs">
                     @if ($statusEntrega)
-                    <p class="text-lg font-semibold text-green-600 bg-gray-100 shadow p-2 rounded flex flex-wrap gap-1 ">Endereço De Entrega Salvo
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z" />
-                        </svg>
-                    </p>
+                        <p
+                            class="text-lg font-semibold text-green-600 bg-gray-100 shadow p-2 rounded flex flex-wrap gap-1 ">
+                            Endereço De Entrega Salvo
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z" />
+                            </svg>
+                        </p>
                     @endif
                 </div>
 
@@ -285,11 +305,12 @@
                         id="exampleFormControlTextarea1" placeholder="Adicione uma descrição para seu pedido" rows="3"></textarea>
                 </div>
 
-                
+
 
                 <div class="flex justify-center gap-2 mb-2">
 
-                    <a href="{{ $pedido->id }}" wire:click.prevent="finalizarPedido()" wire:click="update({{$pedido->id}})"
+                    <a href="{{ $pedido->id }}" wire:click.prevent="finalizarPedido()"
+                        wire:click="update({{ $pedido->id }})"
                         class="text-white font-semibold p-2 border rounded bg-blue-500">Finalizar
                         Pedido
                     </a>
@@ -300,9 +321,9 @@
         </div>
     @endif
 
-    @if ($entrega)
+    @if ($entrega)  
         <div class="flex justify-center">
-            <div class="fixed top-52 bg-white w-1/2 border shadow-2xl rounded-lg">
+            <div class="fixed top-32 bg-white w-1/2 border-2 border-blue-100 shadow-2xl rounded-lg">
 
                 <div class="flex float-right m-3">
                     <button wire:click="visualizarEntrega()" class="border rounded hover:bg-red-500 hover:text-white">

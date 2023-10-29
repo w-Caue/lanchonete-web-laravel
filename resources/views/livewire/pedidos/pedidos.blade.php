@@ -101,83 +101,43 @@
                 </thead>
                 <tbody>
                     @foreach ($pedidos as $pedido)
-                        @if ($pedido->site == 'S')
-                            <tr class="bg-blue-200 border-b">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $pedido->id }}
-                                </th>
-                                <td class="px-6 py-4">
-                                    {{ $pedido->cliente->name }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $pedido->telefone }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $pedido->status }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $pedido->descricao }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $pedido->formaPagamento->nome }}
-                                </td>
-                                <td class="px-6 py-4 text-right">
-                                    @if ($pedido->status == 'Finalizado')
-                                        <a href="#"
-                                            class="font-medium text-blue-600 hover:underline">Visualizar</a>
-                                    @endif
+                        <tr class="{{ $pedido->site == 'S' ? 'bg-blue-200 border-b' : 'bg-white border-b' }} ">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{ $pedido->id }}
+                            </th>
+                            <td class="px-6 py-4">
+                                {{ $pedido->cliente->name }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $pedido->telefone }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $pedido->status }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $pedido->descricao }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $pedido->formaPagamento->nome }}
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                @if ($pedido->status == 'Finalizado')
+                                    <a href="#" class="font-medium text-blue-600 hover:underline">Visualizar</a>
+                                @endif
 
-                                    @if ($pedido->status == 'Aberto')
-                                        <a wire:click="pedidoAberto({{ $pedido->id }})"
-                                            class="font-medium text-blue-600 hover:underline">Adicionar Itens</a>
-                                    @endif
+                                @if ($pedido->status == 'Aberto')
+                                    <a wire:click="pedidoAberto({{ $pedido->id }})"
+                                        class="font-medium text-blue-600 hover:underline">Adicionar Itens</a>
+                                @endif
 
-                                    @if ($pedido->status == 'Analise')
-                                        <a href="#" class="font-medium text-blue-600 hover:underline">Analisar
-                                            Pedido</a>
-                                    @endif
+                                @if ($pedido->status == 'Analise')
+                                    <a wire:click="analisarPedido({{ $pedido->id }})"
+                                        class="font-medium text-blue-600 hover:underline cursor-pointer">Analisar
+                                        Pedido</a>
+                                @endif
 
-                                </td>
-                            </tr>
-                        @else
-                            <tr class="bg-white border-b">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    {{ $pedido->id }}
-                                </th>
-                                <td class="px-6 py-4">
-                                    {{ $pedido->cliente->name }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $pedido->telefone }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $pedido->status }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $pedido->descricao }}
-                                </td>
-                                <td class="px-6 py-4">
-                                    {{ $pedido->formaPagamento->nome }}
-                                </td>
-                                <td class="px-6 py-4 text-right">
-                                    @if ($pedido->status == 'Finalizado')
-                                        <a href="#"
-                                            class="font-medium text-blue-600 hover:underline">Visualizar</a>
-                                    @endif
-
-                                    @if ($pedido->status == 'Aberto')
-                                        <a wire:click="pedidoAberto({{ $pedido->id }})"
-                                            class="font-medium text-blue-600 hover:underline">Adicionar Itens</a>
-                                    @endif
-
-                                    @if ($pedido->status == 'Analise')
-                                        <a href="#" class="font-medium text-blue-600 hover:underline">Analisar
-                                            Pedido</a>
-                                    @endif
-
-                                </td>
-                            </tr>
-                        @endif
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
@@ -189,8 +149,7 @@
         </div>
     </div>
 
-
-
+    {{-- Novo Pedido --}}
     @if ($newPedido)
         <div class="flex justify-center">
             <div class="fixed top-32 bg-white w-3/6 shadow-2xl rounded-lg">
@@ -257,6 +216,7 @@
 
     @endif
 
+    {{-- Pesquisar Cliente --}}
     @if ($searchCliente)
         <div class="flex justify-center">
             <div class="fixed top-44 bg-white w-3/5 shadow-2xl rounded-lg">
@@ -308,6 +268,7 @@
         </div>
     @endif
 
+    {{-- Itens No Pedido --}}
     @if ($pedidoItem)
         <div class="flex justify-center">
             <div class="fixed top-28 bg-white w-5/6 shadow-2xl border rounded-lg">
@@ -367,6 +328,7 @@
         </div>
     @endif
 
+    {{-- Adicionar Item --}}
     @if ($itemPedido)
         <div class="flex justify-center">
             <div class="fixed top-32 bg-white w-96 shadow-2xl rounded-lg">
@@ -523,6 +485,107 @@
                     <button wire:click.prevent="finalizarPedido()"
                         class="text-white font-semibold p-2 border rounded bg-blue-500">
                         Finalizar Pedido
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    {{-- Analisar Pedido --}}
+    @if ($pedidoAnalise)
+        <div class="flex justify-center">
+            <div class="fixed top-16 bg-white w-1/2 shadow-2xl rounded-lg">
+
+                <div class="flex justify-end m-2">
+                    <button wire:click="fecharAnalise()" class="border rounded hover:bg-red-500 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+
+                    </button>
+                </div>
+
+                <h1 class="text-xl font-semibold text-center tracking-widest mb-4">Analisar Pedido</h1>
+
+                <div class="m-3 flex items-center gap-2">
+                    <h1 class="text-xl font-semibold tracking-wider">Forma de pagamento: </h1>
+                    <p class="text-lg text-gray-600 font-semibold">{{ $pedidoCliente->formaPagamento->nome }}</p>
+                </div>
+
+                <hr class="my-5">
+
+                <div class="flex flex-wrap gap-2 m-3">
+                    <div class="relative overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-500 ">
+                            <thead class="text-xs text-gray-700 font-semibold uppercase">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 ">
+                                        Nome
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Preço
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 ">
+                                        Quantidade
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($pedidoCliente->itens as $pedido)
+                                    <tr class="bg-white ">
+                                        <th scope="row"
+                                            class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap">
+                                            {{ $pedido->nome }}
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {{ number_format($pedido->preco, 2, ',', '.') }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $pedido->quantidade }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr class="font-semibold text-gray-900 ">
+                                    <th scope="row" class="px-6 py-3 text-base">Total</th>
+                                    <td class="px-6 py-3"></td>
+                                    <td class="px-6 py-3">{{ $pedido->total }}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                @if ($pedidoCliente->local_entrega_id > 0)
+                    <div class="m-3">
+                        <h1 class="text-xl font-semibold tracking-wider">Local de Entrega</h1>
+
+                        <div class="flex gap-2 items-center">
+                            <p class="text-md text-gray-500 font-semibold">{{ $pedidoCliente->localEntrega->cep }}</p>
+                            <h1 class="text-md text-gray-700 font-semibold">
+                                {{ $pedidoCliente->localEntrega->endereco }}</h1>
+                            <p class="text-md text-gray-500 font-semibold">n:
+                                {{ $pedidoCliente->localEntrega->numero }}</p>
+                            <p class="text-md text-gray-700 font-semibold">bairro:
+                                {{ $pedidoCliente->localEntrega->bairro }}</p>
+                        </div>
+                    </div>
+                @endif
+
+                <div class="m-3 max-w-lg">
+                    <textarea value="{{ $pedidoCliente->descricao }}"
+                        class="block p-2.5 w-full text-lg font-semibold text-gray-600 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
+                        id="exampleFormControlTextarea1" placeholder="Adicione uma descrição para seu pedido" rows="3">{{ $pedidoCliente->descricao }}</textarea>
+                </div>
+
+                <div class="flex justify-center gap-2 mb-2">
+                    <button wire:click.prevent="prepararPedido({{ $pedidoCliente->id }})"
+                        class="text-white font-semibold p-2 border rounded bg-blue-500">
+                        Preparar Pedido
                     </button>
                 </div>
             </div>

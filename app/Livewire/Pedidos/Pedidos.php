@@ -47,6 +47,7 @@ class Pedidos extends Component
     public $itemSelect;
 
     public $pedidoClienteAberto;
+    public $pedidoAnalise;
 
     public $count = '1';
     public $total = '';
@@ -56,7 +57,8 @@ class Pedidos extends Component
         $this->newPedido = !$this->newPedido;
     }
 
-    public function itemNoPedido(){
+    public function itemNoPedido()
+    {
         $this->pedidoItem = !$this->pedidoItem;
     }
 
@@ -66,7 +68,8 @@ class Pedidos extends Component
         $this->searchCliente = !$this->searchCliente;
     }
 
-    public function pedidoAberto(Pedido $pedido){
+    public function pedidoAberto(Pedido $pedido)
+    {
         $this->pedidoCliente = $pedido->id;
 
         $this->pedidoClienteAberto = $pedido;
@@ -123,7 +126,7 @@ class Pedidos extends Component
             'forma_de_pagamento_id' => $this->form->formaPagamento,
             'descricao' => $this->form->descricao,
             'telefone' => $telefone
-        ]); 
+        ]);
 
         $this->alert('success', 'Pedido Criado!', [
             'position' => 'center',
@@ -208,6 +211,34 @@ class Pedidos extends Component
         $this->visualizarPedido();
 
         $this->itemNoPedido();
+    }
+
+    public function fecharAnalise()
+    {
+        $this->pedidoAnalise = false;
+    }
+
+    public function analisarPedido(Pedido $pedido)
+    {
+        $this->pedidoAnalise = true;
+
+        $this->pedidoCliente = $pedido;
+    }
+
+    public function prepararPedido($pedido)
+    {
+        Pedido::find($pedido)->update([
+            'status' => 'Preparando'
+        ]);
+
+        $this->pedidoAnalise = false;
+
+        $this->alert('success', 'Pedido Indo Para O Preparo', [
+            'position' => 'center',
+            'timer' => 2000,
+            'toast' => false,
+            'timerProgressBar' => true,
+        ]);
     }
 
     public function render()

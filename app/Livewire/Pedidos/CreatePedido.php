@@ -32,8 +32,7 @@ class CreatePedido extends Component
 
     public $addItem = false;
     public $itemSelect;
-
-    public $tamanhos = [];
+    public $tamanhoItem = [];
 
     public $itemPedido = '';
     public $formaPagamento = '';
@@ -62,21 +61,21 @@ class CreatePedido extends Component
     public function mount()
     {
         $pedidoAnalise = Pedido::where('user_id', auth()->user()->id)
-                            ->where('status', 'Analise')->count();
+            ->where('status', 'Analise')->count();
 
-        if($pedidoAnalise > 0){
-            return redirect()->route('site.seu-pedido', ['pedido' => $pedidoAnalise]);
+        if ($pedidoAnalise > 0) {
+            return redirect()->route('site.seu-pedido');
         }
 
         $pedidoCliente = Pedido::where('user_id', auth()->user()->id)
-                                ->where('status', 'Aberto')->count();
+            ->where('status', 'Aberto')->count();
 
         if ($pedidoCliente == 0) {
             $this->criaPedido = true;
         } else {
             $this->criaPedido = false;
             $this->pedido = Pedido::where('user_id', auth()->user()->id)
-                                ->where('status', 'Aberto')->get()->first();
+                ->where('status', 'Aberto')->get()->first();
         }
     }
 
@@ -85,10 +84,10 @@ class CreatePedido extends Component
         $this->meuPedido = !$this->meuPedido;
 
         $pedidoComEntrega = Pedido::where('user_id', auth()->user()->id)
-                                ->where('status', 'Aberto')
-                                ->where('local_entrega_id', !null)->count();
+            ->where('status', 'Aberto')
+            ->where('local_entrega_id', !null)->count();
 
-        if($pedidoComEntrega == 1){
+        if ($pedidoComEntrega == 1) {
             $this->statusEntrega = true;
         }
     }
@@ -110,7 +109,6 @@ class CreatePedido extends Component
                 'timer' => 1000,
                 'toast' => true,
             ]);
-
         } else {
             $this->item();
 
@@ -120,6 +118,7 @@ class CreatePedido extends Component
         }
     }
 
+    #quantidade
     public function increment()
     {
         $this->count++;
@@ -137,6 +136,7 @@ class CreatePedido extends Component
 
         $this->total = $this->total - $preco;
     }
+    #/quantidade
 
     public function save()
     {
@@ -154,22 +154,32 @@ class CreatePedido extends Component
         $this->mount();
     }
 
+    #adicionar item ao pedido
     public function pedidoItem($item)
     {
+
+        $tamanhos = implode(',', $this->tamanhoItem);
+
         PedidoItem::create([
             'pedido_id' => $this->pedido['id'],
             'item_id' => $item,
             'quantidade' => $this->count,
+            'tamanho' => $tamanhos,
             'total' => $this->total
         ]);
 
         $this->addItem = false;
     }
+    #/
 
-    public function update(){
+    #edicão forma de pagamento e descrição
+    public function update()
+    {
         $this->form->edit();
     }
+    #/
 
+    #finalizar pedido
     public function finalizarPedido()
     {
 
@@ -186,10 +196,13 @@ class CreatePedido extends Component
 
         $this->visualizarPedido();
 
-        $this->redirect('/site/seu-pedido/{pedido}');
+        return redirect()->route('site.seu-pedido');
     }
+    #finalizar pedido
 
-    public function visualizarEntrega(){
+    #entrega
+    public function visualizarEntrega()
+    {
         $this->entrega = false;
     }
 
@@ -215,10 +228,18 @@ class CreatePedido extends Component
         $this->bairro = $result->bairro;
     }
 
-    public function localizacaoEntrega($local){
-
+    public function localizacaoEntrega($local)
+    {
         Pedido::find($this->pedido['id'])->update([
             'local_entrega_id' => $local
+        ]);
+
+        $this->entrega = false;
+
+        $this->alert('success', 'Local Selecionado!', [
+            'position' => 'center',
+            'timer' => '1000',
+            'toast' => true,
         ]);
     }
 
@@ -233,13 +254,23 @@ class CreatePedido extends Component
             'bairro' => $this->bairro,
             'referencia' => $this->referencia
         ]);
+
+        $this->entrega = false;
+
+        $this->alert('success', 'Local de Entrega Foi Salvo!', [
+            'position' => 'center',
+            'timer' => '1000',
+            'toast' => true,
+        ]);
     }
+    #/entrega
 
     public function render()
     {
         $itens = Item::all();
-        #where('categoria_id', $this->menu)->get()
+
         $formasDePagamentos = FormaDePagamento::all();
+
         $tamanhos = Tamanho::all();
 
         return view('livewire.pedidos.create-pedido', [
