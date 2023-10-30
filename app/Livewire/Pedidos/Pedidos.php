@@ -3,6 +3,7 @@
 namespace App\Livewire\Pedidos;
 
 use App\Livewire\Forms\PedidoForm;
+use App\Models\Cliente;
 use App\Models\FormaDePagamento;
 use App\Models\Item;
 use App\Models\Pedido;
@@ -36,7 +37,7 @@ class Pedidos extends Component
     public $clienteSelecionado;
     public $clientes;
 
-    public $allClientes = [];
+    public $pesquisaClientes = [];
     public $cliente;
 
     public $pedidoItem = false;
@@ -91,20 +92,20 @@ class Pedidos extends Component
     public function pesquisaCliente()
     {
 
-        $users = User::select([
-            'users.id',
-            'users.name',
-            'users.email',
-            'users.telefone',
-        ])->where('name', 'like', '%' . $this->clientePedido . '%');
+        $clientes = Cliente::select([
+            'clientes.id',
+            'clientes.nome',
+            'clientes.email',
+            'clientes.telefone',
+        ])->where('nome', 'like', '%' . $this->clientePedido . '%');
 
-        $this->allClientes = $users->orderBy('name')->get()->toArray();
+        $this->pesquisaClientes = $clientes->orderBy('nome')->get();
     }
 
-    public function setCliente($user)
+    public function setCliente($cliente)
     {
         $this->clientePedido = '';
-        $this->clienteSelecionado = User::where('id', $user)->get()->first();
+        $this->clienteSelecionado = Cliente::where('id', $cliente)->get()->first();
 
         $this->alert('success', 'Cliente Selecionado', [
             'position' => 'center',
@@ -122,7 +123,7 @@ class Pedidos extends Component
         $telefone = $this->clienteSelecionado->telefone;
 
         $pedido = Pedido::create([
-            'user_id' => $this->clienteSelecionado->id,
+            'cliente_id' => $this->clienteSelecionado->id,
             'status' => $this->form->status,
             'forma_de_pagamento_id' => $this->form->formaPagamento,
             'descricao' => $this->form->descricao,
@@ -254,7 +255,7 @@ class Pedidos extends Component
 
     public function render()
     {
-        $users = User::all();
+        $clientes = Cliente::all();
 
         $formasDePagamentos = FormaDePagamento::all();
 
@@ -262,11 +263,11 @@ class Pedidos extends Component
 
         $tamanhos = Tamanho::all();
 
-        $pedidos = Pedido::where('user_id', 'like', '%' . $this->search . '%')->paginate(5);
+        $pedidos = Pedido::where('cliente_id', 'like', '%' . $this->search . '%')->paginate(5);
 
         return view('livewire.pedidos.pedidos', [
             'pedidos' => $pedidos,
-            'users' => $users,
+            'clientes' => $clientes,
             'itens' => $itens,
             'tamanhos' => $tamanhos,
             'formasDePagamentos' => $formasDePagamentos

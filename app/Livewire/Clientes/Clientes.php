@@ -51,7 +51,7 @@ class Clientes extends Component
     #/salvar cliente
 
     #editar cliente
-    public function editCliente(User $cliente)
+    public function editCliente(Cliente $cliente)
     {
         $this->novoCliente();
 
@@ -75,7 +75,7 @@ class Clientes extends Component
     public function render()
     {
 
-        $clientes = User::where('name', 'like', '%' . $this->search . '%')
+        $clientes = Cliente::where('nome', 'like', '%' . $this->search . '%')
             ->orWhere('email', 'like', '%' . $this->search . '%')
             ->orWhere('telefone', 'like', '%' . $this->search . '%')
             ->paginate(5);

@@ -106,7 +106,7 @@
                                 {{ $pedido->id }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $pedido->cliente->name }}
+                                {{ $pedido->cliente->nome }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $pedido->telefone }}
@@ -174,7 +174,7 @@
                             <button
                                 class="bg-blue-500 border-2 border-blue-500 hover:bg-blue-600 hover:border-blue-600 text-white font-semibold py-2 px-4 rounded"
                                 name="cliente" wire:click.prevent="visualizarClientes()">
-                                {{ $clienteSelecionado->name ?? 'Clique para selecionar o cliente' }}
+                                {{ $clienteSelecionado->nome ?? 'Clique para selecionar o cliente' }}
                             </button>
 
                         </div>
@@ -250,15 +250,15 @@
                 </div>
 
                 <div class="flex flex-wrap justify-center gap-3 mb-3">
-                    @foreach ($allClientes as $user)
-                        <div wire:click="setCliente({{ $user['id'] }})" class="cursor-pointer">
+                    @foreach ($pesquisaClientes as $cliente)
+                        <div wire:click="setCliente({{ $cliente->id }})" class="cursor-pointer">
                             <div
                                 class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:w-64 hover:bg-gray-100">
                                 <div class="flex flex-col justify-between p-4 leading-normal">
                                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-                                        {{ $user['name'] }}</h5>
-                                    <p class="mb-3 font-semibold text-gray-500 ">{{ $user['email'] }}</p>
-                                    <p class="mb-3 font-semibold text-gray-700 ">{{ $user['telefone'] }}</p>
+                                        {{ $cliente->nome }}</h5>
+                                    <p class="mb-3 font-semibold text-gray-500 ">{{ $cliente->email }}</p>
+                                    <p class="mb-3 font-semibold text-gray-700 ">{{ $cliente->telefone }}</p>
                                 </div>
                             </div>
                         </div>
@@ -513,7 +513,7 @@
                     <div class="flex m-3 gap-2">
                         <h1 class="text-xl font-semibold">Cliente: </h1>
                         <h1 class="text-lg font-bold text-gray-600 tracking-widest">
-                            {{ $pedidoCliente->cliente->name }}</h1>
+                            {{ $pedidoCliente->cliente->nome }}</h1>
                     </div>
                 @endif
 

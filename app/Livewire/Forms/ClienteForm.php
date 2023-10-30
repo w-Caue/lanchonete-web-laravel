@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\Cliente;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Rule;
@@ -24,8 +25,8 @@ class ClienteForm extends Form
     {
         $this->validate();
 
-        User::create([
-            'name' => $this->nome,
+        Cliente::create([
+            'nome' => $this->nome,
             'email' => $this->email,
             'telefone' => $this->telefone,
             'password' =>  Hash::make('1234')
@@ -33,10 +34,10 @@ class ClienteForm extends Form
 
     }
 
-    public function edit(User $cliente)
+    public function edit(Cliente $cliente)
     {
         $this->clienteId = $cliente->id;
-        $this->nome = $cliente->name;
+        $this->nome = $cliente->nome;
         $this->email = $cliente->email;
         $this->telefone = $cliente->telefone;
     }
@@ -46,7 +47,7 @@ class ClienteForm extends Form
         $this->validate();
 
         User::findOrFail($this->clienteId)->update([
-            'name' => $this->nome,
+            'nome' => $this->nome,
             'email' => $this->email,
             'telefone' => $this->telefone
         ]);

@@ -63,7 +63,7 @@
                                     {{ $cliente->id }}
                                 </th>
                                 <td class="px-6 py-4 font-bold">
-                                    {{ $cliente->name }}
+                                    {{ $cliente->nome }}
                                 </td>
                                 <td class="px-6 py-5">
                                     {{ $cliente->email }}

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pedido extends Model
 {
 
-    protected $fillable = ['user_id', 'status', 'forma_de_pagamento_id', 'descricao', 'site', 'local_entrega_id', 'telefone'];
+    protected $fillable = ['cliente_id', 'status', 'forma_de_pagamento_id', 'descricao', 'site', 'local_entrega_id', 'telefone'];
 
     public function itens(){
         return $this->belongsToMany('App\Models\Item', 'pedidos_itens');
@@ -19,7 +19,7 @@ class Pedido extends Model
     }
 
     public function cliente(){
-        return $this->belongsTo('App\Models\User', 'user_id');
+        return $this->belongsTo('App\Models\Cliente', 'cliente_id');
     }
 
     public function formaPagamento(){

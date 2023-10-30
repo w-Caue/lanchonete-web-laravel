@@ -11,15 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('clientes', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->string('nome', 60);
-        //     $table->timestamps();
-        // });
-        // $table->unsignedBigInteger('cliente_id');
-        // $table->foreign('cliente_id')->references('id')->on('clientes');
-
-
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();       
             $table->timestamps();
