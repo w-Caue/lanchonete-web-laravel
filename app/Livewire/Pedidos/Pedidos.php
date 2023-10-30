@@ -48,6 +48,7 @@ class Pedidos extends Component
 
     public $pedidoClienteAberto;
     public $pedidoAnalise;
+    public $pedidoConcluido;
 
     public $count = '1';
     public $total = '';
@@ -216,6 +217,7 @@ class Pedidos extends Component
     public function fecharAnalise()
     {
         $this->pedidoAnalise = false;
+        $this->pedidoConcluido = false;
     }
 
     public function analisarPedido(Pedido $pedido)
@@ -239,6 +241,15 @@ class Pedidos extends Component
             'toast' => false,
             'timerProgressBar' => true,
         ]);
+    }
+
+    public function pedidoVisualizar(Pedido $pedido)
+    {
+        $this->pedidoAnalise = true;
+
+        $this->pedidoCliente = $pedido;
+
+        $this->pedidoConcluido = true;
     }
 
     public function render()

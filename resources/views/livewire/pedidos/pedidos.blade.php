@@ -122,7 +122,8 @@
                             </td>
                             <td class="px-6 py-4 text-right">
                                 @if ($pedido->status == 'Finalizado')
-                                    <a href="#" class="font-medium text-blue-600 hover:underline">Visualizar</a>
+                                    <a wire:click="pedidoVisualizar({{ $pedido->id }})"
+                                        class="font-medium text-blue-600 hover:underline cursor-pointer">Visualizar</a>
                                 @endif
 
                                 @if ($pedido->status == 'Aberto')
@@ -506,7 +507,15 @@
                     </button>
                 </div>
 
-                <h1 class="text-xl font-semibold text-center tracking-widest mb-4">Analisar Pedido</h1>
+                <h1 class="text-xl font-semibold text-center tracking-widest mb-4">{{$pedidoConcluido ? 'Pedido Finalizado' : 'Analisar Pedido'}}</h1>
+
+                @if ($pedidoConcluido)
+                    <div class="flex m-3 gap-2">
+                        <h1 class="text-xl font-semibold">Cliente: </h1>
+                        <h1 class="text-lg font-bold text-gray-600 tracking-widest">
+                            {{ $pedidoCliente->cliente->name }}</h1>
+                    </div>
+                @endif
 
                 <div class="m-3 flex items-center gap-2">
                     <h1 class="text-xl font-semibold tracking-wider">Forma de pagamento: </h1>
@@ -583,10 +592,12 @@
                 </div>
 
                 <div class="flex justify-center gap-2 mb-2">
-                    <button wire:click.prevent="prepararPedido({{ $pedidoCliente->id }})"
-                        class="text-white font-semibold p-2 border rounded bg-blue-500">
-                        Preparar Pedido
-                    </button>
+                    @if (!$pedidoConcluido)
+                        <button wire:click.prevent="prepararPedido({{ $pedidoCliente->id }})"
+                            class="text-white font-semibold p-2 border rounded bg-blue-500">
+                            Preparar Pedido
+                        </button>
+                    @endif
                 </div>
             </div>
         </div>
