@@ -20,7 +20,7 @@ class ItemForm extends Form
     public $preco = '';
 
     #[Rule('required')]
-    public $tamanho = '';
+    public $tamanho = [];
 
     #[Rule('required')]
     public $categoria = '';
@@ -29,11 +29,13 @@ class ItemForm extends Form
     {
         $this->validate();
 
+        $tamanho = implode(',', $this->tamanho);
+
         Item::create([
             'nome' => $this->nome,
             'descricao' => $this->descricao,
             'preco' => $this->preco,
-            'tamanho_id' => $this->tamanho,
+            'tamanho' => $tamanho,
             'categoria_id' => $this->categoria
         ]);
     }
@@ -44,7 +46,7 @@ class ItemForm extends Form
         $this->nome = $item->nome;
         $this->descricao = $item->descricao;
         $this->preco = $item->preco;
-        $this->tamanho = $item->tamanho_id;
+        $this->tamanho = $item->tamanho;
         $this->categoria = $item->categoria_id;
     }
 
@@ -55,7 +57,7 @@ class ItemForm extends Form
             'descricao' => $this->descricao,
             'preco' => $this->preco,
             'tamanho' => $this->tamanho,
-            'categoria' => $this->categoria
+            'categoria_id' => $this->categoria
         ]);
     }
 }

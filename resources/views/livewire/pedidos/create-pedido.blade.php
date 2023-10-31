@@ -29,7 +29,6 @@
                         <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900">{{ $item->nome }}</h5>
                         <p class="mb-1 font-semibold text-gray-600">{{ $item->descricao }}</p>
                         <p class="mb-1 font-semibold text-gray-900">R${{ number_format($item->preco, 2, ',', '.') }}</p>
-                        <p class="mb-1 font-semibold text-blue-900">{{ $item->tamanho->descricao }}</p>
                         <p class="mb-1 font-semibold text-sky-700">{{ $item->categoria->categoria }}</p>
                     </div>
                 </div>

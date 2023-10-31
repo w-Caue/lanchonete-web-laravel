@@ -40,7 +40,7 @@
                         <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900">{{ $item->nome }}</h5>
                         <p class="mb-1 font-semibold text-gray-600">{{ $item->descricao }}</p>
                         <p class="mb-1 font-semibold text-gray-900">R${{ number_format($item->preco, 2, ',', '.') }}</p>
-                        <p class="mb-1 font-semibold text-blue-900">{{ $item->tamanho->descricao }}</p>
+                        <p class="mb-1 font-semibold text-blue-900">{{ $item->tamanho }}</p>
                         <p class="mb-1 font-semibold text-sky-700">{{ $item->categoria->categoria }}</p>
                     </div>
                 </div>
@@ -67,10 +67,12 @@
                     </button>
                 </div>
 
-                <h1 class="text-center text-xl font-semibold mb-5">{{$form->itemId ? 'Editar Item' :'Cadastrar Item'}}</h1>
+                <h1 class="text-center text-xl font-semibold mb-5">
+                    {{ $form->itemId ? 'Editar Item' : 'Cadastrar Item' }}
+                </h1>
 
                 <div class="flex justify-center">
-                    <form wire:submit.prevent="{{$form->itemId ? 'update()' :'save()'}}" class="w-full max-w-2xl">
+                    <form wire:submit.prevent="{{ $form->itemId ? 'update()' : 'save()' }}" class="w-full max-w-2xl">
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -123,14 +125,18 @@
                                     for="grid-first-name">
                                     Tamanhos
                                 </label>
-                                <select wire:model='form.tamanho'
-                                    class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
-                                    <option value="">Selecione</option>
 
+                                <div class="flex gap-2 flex-wrap items-center">
                                     @foreach ($tamanhos as $tamanho)
-                                        <option value="{{ $tamanho->id }}">{{ $tamanho->tamanho }}</option>
+                                        <label class="appearance-none font-semibold text-gray-700 leading-tight focus:outline-none focus:bg-white"
+                                            for="checked-checkbox">
+                                            <input wire:model='form.tamanho' class="" value="{{ $tamanho->id }}"
+                                                id="checked-checkbox" type="checkbox">
+
+                                            {{ $tamanho->descricao }}
+                                        </label>
                                     @endforeach
-                                </select>
+                                </div>
                             </div>
 
                             @error('form.tamanho')
@@ -170,7 +176,7 @@
                         <div class="flex justify-center mb-4">
                             <button type="submit"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                {{$form->itemId ? 'Salvar' :'Cadastrar'}}
+                                {{ $form->itemId ? 'Salvar' : 'Cadastrar' }}
                             </button>
                         </div>
                     </form>

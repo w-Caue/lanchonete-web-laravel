@@ -60,21 +60,21 @@ class CreatePedido extends Component
 
     public function mount()
     {
-        $pedidoAnalise = Pedido::where('user_id', auth()->user()->id)
+        $pedidoAnalise = Pedido::where('cliente_id', auth()->user()->id)
             ->where('status', 'Analise')->count();
 
         if ($pedidoAnalise > 0) {
             return redirect()->route('site.seu-pedido');
         }
 
-        $pedidoCliente = Pedido::where('user_id', auth()->user()->id)
+        $pedidoCliente = Pedido::where('cliente_id', auth()->user()->id)
             ->where('status', 'Aberto')->count();
 
         if ($pedidoCliente == 0) {
             $this->criaPedido = true;
         } else {
             $this->criaPedido = false;
-            $this->pedido = Pedido::where('user_id', auth()->user()->id)
+            $this->pedido = Pedido::where('cliente_id', auth()->user()->id)
                 ->where('status', 'Aberto')->get()->first();
         }
     }
@@ -83,7 +83,7 @@ class CreatePedido extends Component
     {
         $this->meuPedido = !$this->meuPedido;
 
-        $pedidoComEntrega = Pedido::where('user_id', auth()->user()->id)
+        $pedidoComEntrega = Pedido::where('cliente_id', auth()->user()->id)
             ->where('status', 'Aberto')
             ->where('local_entrega_id', !null)->count();
 
@@ -212,7 +212,7 @@ class CreatePedido extends Component
             $this->entrega = true;
         };
 
-        $this->localSalvo = LocalEntrega::where('user_id', auth()->user()->id)->get();
+        $this->localSalvo = LocalEntrega::where('cliente_id', auth()->user()->id)->get();
     }
 
     public function updatedCep()
@@ -246,7 +246,7 @@ class CreatePedido extends Component
     public function saveLocal()
     {
         $this->localDeEntrega = LocalEntrega::create([
-            'user_id' => auth()->user()->id,
+            'cliente_id' => auth()->user()->id,
             'cep' => $this->cep,
             'endereco' => $this->endereco,
             'numero' => $this->numero,

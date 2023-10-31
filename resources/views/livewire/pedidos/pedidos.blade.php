@@ -131,7 +131,7 @@
                                         class="font-medium text-blue-600 hover:underline">Adicionar Itens</a>
                                 @endif
 
-                                @if ($pedido->status == 'Analise')
+                                @if ($pedido->status == 'Analise' && $pedido->site == 'S')
                                     <a wire:click="analisarPedido({{ $pedido->id }})"
                                         class="font-medium text-blue-600 hover:underline cursor-pointer">Analisar
                                         Pedido</a>
@@ -320,7 +320,6 @@
                                 <p class="mb-1 font-semibold text-gray-600">{{ $item->descricao }}</p>
                                 <p class="mb-1 font-semibold text-gray-900">
                                     R${{ number_format($item->preco, 2, ',', '.') }}</p>
-                                <p class="mb-1 font-semibold text-blue-900">{{ $item->tamanho->descricao }}</p>
                             </div>
                         </div>
                     @endforeach

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     protected $table = 'itens';
-    protected $fillable = ['nome', 'descricao', 'preco', 'tamanho_id', 'categoria_id', 'imagem'];
+    protected $fillable = ['nome', 'descricao', 'preco', 'tamanho', 'categoria_id', 'imagem'];
 
     public function tamanho(){
         return $this->belongsTo('App\Models\Tamanho');

@@ -31,7 +31,7 @@ class PedidoSiteForm extends Form
         $this->validate();
 
         $pedido = Pedido::create([
-            'user_id' => auth()->user()->id,
+            'cliente_id' => auth()->user()->id,
             'status' => $this->status,
             'forma_de_pagamento_id' => $this->formaPagamento,
             'descricao' => $this->descricao,
