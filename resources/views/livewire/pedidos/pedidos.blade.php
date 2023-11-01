@@ -128,7 +128,7 @@
 
                                 @if ($pedido->status == 'Aberto')
                                     <a wire:click="pedidoAberto({{ $pedido->id }})"
-                                        class="font-medium text-blue-600 hover:underline">Adicionar Itens</a>
+                                        class="font-medium text-blue-600 hover:underline cursor-pointer">Adicionar Itens</a>
                                 @endif
 
                                 @if ($pedido->status == 'Analise' && $pedido->site == 'S')

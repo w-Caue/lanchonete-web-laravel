@@ -46,7 +46,7 @@ class ClienteForm extends Form
     {
         $this->validate();
 
-        User::findOrFail($this->clienteId)->update([
+        Cliente::findOrFail($this->clienteId)->update([
             'nome' => $this->nome,
             'email' => $this->email,
             'telefone' => $this->telefone
