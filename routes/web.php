@@ -37,18 +37,9 @@ Route::prefix('/site')->name('site.')->group(function(){
 
 Route::prefix('/painel')->name('painel.')->group(function(){
 
-
-    Route::resource('/item', App\Http\Controllers\ItemController::class);
-
-    Route::resource('/cliente', App\Http\Controllers\ClienteController::class);
-
-    Route::resource('/pedido', App\Http\Controllers\PedidoController::class);
-
-    // Route::resource('/pedido-item', App\Http\Controllers\PedidoItemController::class);
-
-    Route::get('pedido-item/create/{pedido}', [App\Http\Controllers\PedidoItemController::class, 'create'])->name('pedido-item.create');
-    Route::post('pedido-item/store/{pedido}', [App\Http\Controllers\PedidoItemController::class, 'store'])->name('pedido-item.store');
-    Route::get('pedido-item/show/{pedido}', [App\Http\Controllers\PedidoItemController::class, 'show'])->name('pedido-item.show');
+    // Route::get('pedido-item/create/{pedido}', [App\Http\Controllers\PedidoItemController::class, 'create'])->name('pedido-item.create');
+    // Route::post('pedido-item/store/{pedido}', [App\Http\Controllers\PedidoItemController::class, 'store'])->name('pedido-item.store');
+    // Route::get('pedido-item/show/{pedido}', [App\Http\Controllers\PedidoItemController::class, 'show'])->name('pedido-item.show');
 
     Route::get('/dashboard', function(){
         return view('pages.dashboard');

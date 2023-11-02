@@ -145,7 +145,7 @@
             </a>
 
             {{-- SCHEDULES --}}
-            <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
+            {{-- <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                 x-on:click="$store.sidebar.active = 'schedules' "
                 class="relatice flex justify-between items-center font-semibold text-gray-400 hover:text-gray-200 hover:bg-gray-800 space-x-2 rounded-md p-2 cursor-pointer"
                 x-bind:class="{
@@ -177,7 +177,7 @@
                     </svg>
                     <h1 class="w-5 h-5 p-1 bg-pink-400 rounded-sm text-sm leading-3 text-center text-gray-900">3</h1>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- Parametros --}}
             <div x-data="dropdown" class="relative">
@@ -221,12 +221,12 @@
                     <h1 class="hover:text-gray-200 cursor-pointer">Item 3</h1>
                     <h1 class="hover:text-gray-200 cursor-pointer">Item 4</h1>
                 </div>
-            </div>
+            </div> 
 
             {{-- INCOME --}}
-            <div x-data="dropdown" class="relative">
+            {{-- <div x-data="dropdown" class="relative">
                 {{-- Dropdown Head --}}
-                <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
+                {{-- <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                     x-on:click="toggle('income')"
                     class="flex justify-between text-gray-400 font-semibold hover:text-gray-200 hover:bg-gray-800 items-center space-x-2 rounded-md p-2 cursor-pointer"
                     x-bind:class="{
@@ -258,13 +258,13 @@
                     </svg>
                 </div>
                 {{-- Dropdown Content --}}
-                <div x-clock x-show="open" @click.outside="open = false"
+                {{-- <div x-clock x-show="open" @click.outside="open = false"
                     x-bind:class="$store.sidebar.full ? expandedClass : shrinkedClass"
                     class="text-gray-400 space-y-3">
                     <h1 class="hover:text-gray-200 cursor-pointer">Item 1</h1>
-                    <h1 class="hover:text-gray-200 cursor-pointer">Item 2</h1>
+                    <h1 class="hover:text-gray-200 cursor-pointer">Item 2</h1> --}}
                     {{-- Sub Dropdown --}}
-                    <div x-clock x-data="sub_dropdown" class="relative w-full">
+                    {{-- <div x-clock x-data="sub_dropdown" class="relative w-full">
                         <div x-on:click="sub_toggle()" class="flex items-center justify-between cursor-pointer">
                             <h1 class="hover:text-gray-200 cursor-pointer">Item 3</h1>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -281,13 +281,13 @@
                         </div>
                     </div>
                     <h1 class="hover:text-gray-200 cursor-pointer">Item 4</h1>
-                </div>
-            </div>
+                </div>  --}}
+            {{-- </div> --}} 
 
             {{-- PROMOTE --}}
-            <div x-data="dropdown" class="relative">
+            {{-- <div x-data="dropdown" class="relative">
                 {{-- Dropdown Head --}}
-                <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
+                {{-- <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                     x-on:click="toggle('promote')"
                     class="flex justify-between text-gray-400 font-semibold hover:text-gray-200 hover:bg-gray-800 items-center space-x-2 rounded-md p-2 cursor-pointer"
                     x-bind:class="{
@@ -315,17 +315,17 @@
                         <path fill-rule="evenodd"
                             d="M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67z" />
                     </svg>
-                </div>
+                </div> --}}
                 {{-- Dropdown Content --}}
-                <div x-clock x-show="open" @click.outside="open =false"
+                {{-- <div x-clock x-show="open" @click.outside="open =false"
                     x-bind:class="$store.sidebar.full ? expandedClass : shrinkedClass"
                     class="text-gray-400 space-y-3">
                     <h1 class="hover:text-gray-200 cursor-pointer">Item 1</h1>
                     <h1 class="hover:text-gray-200 cursor-pointer">Item 2</h1>
                     <h1 class="hover:text-gray-200 cursor-pointer">Item 3</h1>
                     <h1 class="hover:text-gray-200 cursor-pointer">Item 4</h1>
-                </div>
-            </div>
+                </div> --}}
+            {{-- </div> --}} 
 
             {{-- Logout --}}
             <a href="{{ route('logout') }}" x-data="tooltip" x-on:mouseover="show = true"

@@ -4,11 +4,11 @@
         <div class="mb-4">
             <h4 class="text-center text-lg font-medium">Pesquisa</h4>
 
-            <div class="flex justify-center gap-1">
+            <div class="flex justify-center items-center gap-1">
                 <input wire:model.lazy="search" type="text" name="seach"
-                    class="appearance-none block w-full md:w-1/3 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                    class="appearance-none block w-full md:w-1/3 bg-gray-200 text-gray-700 border rounded p-3 leading-tight focus:outline-none focus:bg-white"
                     value="">
-                <button class="bg-blue-500 text-white p-3 border border-blue-500 hover:border-transparent rounded">
+                <button class="bg-blue-500 text-white p-2 border border-blue-500 hover:border-transparent rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
