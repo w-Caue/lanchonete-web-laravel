@@ -3,6 +3,7 @@
 namespace App\Livewire\Pedidos;
 
 use App\Livewire\Forms\PedidoSiteForm;
+use App\Models\Categoria;
 use App\Models\FormaDePagamento;
 use App\Models\Item;
 use App\Models\LocalEntrega;
@@ -23,6 +24,7 @@ class CreatePedido extends Component
     public PedidoSiteForm $form;
 
     public $criaPedido;
+    public $menuCategoria = '';
     public $localizacao = '';
 
     public $pedido = '';
@@ -267,16 +269,19 @@ class CreatePedido extends Component
 
     public function render()
     {
-        $itens = Item::all();
+        $itens = Item::where('categoria_id', 'like', '%' . $this->menuCategoria)->get();
 
         $formasDePagamentos = FormaDePagamento::all();
 
         $tamanhos = Tamanho::all();
 
+        $categorias = Categoria::all();
+
         return view('livewire.pedidos.create-pedido', [
             'itens' => $itens,
             'formasDePagamentos' => $formasDePagamentos,
-            'tamanhos' => $tamanhos
+            'tamanhos' => $tamanhos,
+            'categorias' => $categorias
         ]);
     }
 }

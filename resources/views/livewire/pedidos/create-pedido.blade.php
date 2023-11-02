@@ -4,6 +4,35 @@
         <h1 class="text-center text-2xl font-semibold ">Cardapio</h1>
         <h1 class="text-center text-xl font-semibold text-gray-500 mb-5">Adicione os Itens ao Pedido</h1>
 
+        <div class="flex justify-center m-5">
+            <ul class="flex gap-3">
+                <li>
+                    <input wire:model.live="menuCategoria" type="radio" id="todos" name="hosting" value="" class="hidden peer" required>
+                    <label for="todos"
+                        class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                        <div class="block">
+                            <div class="w-full font-semibold">Todos</div>
+                        </div>
+
+                    </label>
+                </li>
+
+                @foreach ($categorias as $categoria)
+                    <li>
+                        <input wire:model.live="menuCategoria" type="radio" id="{{ $categoria->categoria }}"
+                            name="hosting" value="{{ $categoria->id }}" class="hidden peer" required>
+                        <label for="{{ $categoria->categoria }}"
+                            class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                            <div class="block">
+                                <div class="w-full font-semibold">{{ $categoria->categoria }}</div>
+                            </div>
+
+                        </label>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+
         <div class="flex justify-center">
             <button wire:click="visualizarPedido()"
                 class="flex gap-1 font-semibold text-gray-600 tracking-widest rounded p-2 hover:bg-gray-300">
@@ -269,8 +298,7 @@
                     </div>
 
                     <div>
-                        <input wire:model.live="pedidoEntrega" class="rounded"
-                            value="retirada" type="radio">
+                        <input wire:model.live="pedidoEntrega" class="rounded" value="retirada" type="radio">
 
                         <label class="text-gray-500 font-semibold">Retirada</label>
                     </div>
@@ -320,7 +348,7 @@
         </div>
     @endif
 
-    @if ($entrega)  
+    @if ($entrega)
         <div class="flex justify-center">
             <div class="fixed top-32 bg-white w-1/2 border-2 border-blue-100 shadow-2xl rounded-lg">
 

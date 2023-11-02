@@ -22,6 +22,8 @@ class Itens extends Component
 
     public $search = '';
 
+    public $menuCategoria = '';
+
     public function novoItem()
     {
         $this->newItem = !$this->newItem;
@@ -30,6 +32,7 @@ class Itens extends Component
     public function fecharItem()
     {
         $this->reset();
+        $this->resetValidation();
         $this->newItem = false;
     }
 
@@ -67,7 +70,9 @@ class Itens extends Component
 
     public function render()
     {
-        $itens = Item::where('nome', 'like', '%' . $this->search . '%')->paginate(4);
+        $itens = Item::where('nome', 'like', '%' . $this->search . '%')
+                        ->where('categoria_id', 'like', '%' . $this->menuCategoria)
+                        ->paginate(4);
         $tamanhos = Tamanho::all();
         $categorias = Categoria::all();
         return view('livewire.itens.itens', [

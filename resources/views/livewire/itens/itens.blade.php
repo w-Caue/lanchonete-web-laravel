@@ -1,8 +1,6 @@
 <div>
     <div class="flex flex-col w-full">
 
-        <h1 class="text-center text-3xl">Lista De Itens</h1>
-
         <div class="mb-4">
             <h4 class="text-center text-lg font-medium">Pesquisa</h4>
 
@@ -18,6 +16,36 @@
                     </svg>
                 </button>
             </div>
+        </div>
+
+        <div class="flex justify-center m-5">
+            <ul class="flex gap-3">
+                <li>
+                    <input wire:model.live="menuCategoria" type="radio" id="todos" name="hosting" value=""
+                        class="hidden peer" required>
+                    <label for="todos"
+                        class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                        <div class="block">
+                            <div class="w-full font-semibold">Todos</div>
+                        </div>
+
+                    </label>
+                </li>
+
+                @foreach ($categorias as $categoria)
+                    <li>
+                        <input wire:model.live="menuCategoria" type="radio" id="{{ $categoria->categoria }}"
+                            name="hosting" value="{{ $categoria->id }}" class="hidden peer" required>
+                        <label for="{{ $categoria->categoria }}"
+                            class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                            <div class="block">
+                                <div class="w-full font-semibold">{{ $categoria->categoria }}</div>
+                            </div>
+
+                        </label>
+                    </li>
+                @endforeach
+            </ul>
         </div>
 
         <div class="flex justify-end gap-1 m-5 ">
@@ -40,7 +68,6 @@
                         <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900">{{ $item->nome }}</h5>
                         <p class="mb-1 font-semibold text-gray-600">{{ $item->descricao }}</p>
                         <p class="mb-1 font-semibold text-gray-900">R${{ number_format($item->preco, 2, ',', '.') }}</p>
-                        <p class="mb-1 font-semibold text-blue-900">{{ $item->tamanho }}</p>
                         <p class="mb-1 font-semibold text-sky-700">{{ $item->categoria->categoria }}</p>
                     </div>
                 </div>
@@ -68,7 +95,7 @@
                 </div>
 
                 <h1 class="text-center text-xl font-semibold mb-5">
-                    {{ $form->itemId ? 'Editar Item' : 'Cadastrar Item' }}
+                    Cadastro
                 </h1>
 
                 <div class="flex justify-center">
@@ -114,7 +141,7 @@
                                 </label>
                                 <input wire:model='form.preco'
                                     class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                    id="grid-first-name" type="number">
+                                    id="grid-first-name" type="text">
                             </div>
 
                             @error('form.preco')
@@ -128,10 +155,11 @@
 
                                 <div class="flex gap-2 flex-wrap items-center">
                                     @foreach ($tamanhos as $tamanho)
-                                        <label class="appearance-none font-semibold text-gray-700 leading-tight focus:outline-none focus:bg-white"
+                                        <label
+                                            class="appearance-none font-semibold text-gray-700 leading-tight focus:outline-none focus:bg-white"
                                             for="checked-checkbox">
-                                            <input wire:model='form.tamanho' class="" value="{{ $tamanho->id }}"
-                                                id="checked-checkbox" type="checkbox">
+                                            <input wire:model='form.tamanho' class=""
+                                                value="{{ $tamanho->id }}" id="checked-checkbox" type="checkbox">
 
                                             {{ $tamanho->descricao }}
                                         </label>

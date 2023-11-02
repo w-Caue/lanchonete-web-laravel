@@ -16,7 +16,8 @@ class ItemForm extends Form
     #[Rule('required|max:80')]
     public $descricao = '';
 
-    #[Rule('required')]
+    #[Rule('required', message: 'Coloque o Valor do Item!')]
+    #[Rule('numeric', message: 'Insira um Preço Valido')]
     public $preco = '';
 
     #[Rule('required')]
