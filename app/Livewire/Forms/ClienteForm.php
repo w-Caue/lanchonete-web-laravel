@@ -29,7 +29,8 @@ class ClienteForm extends Form
             'nome' => $this->nome,
             'email' => $this->email,
             'telefone' => $this->telefone,
-            'password' =>  Hash::make('1234')
+            'password' =>  '1234'
+            #Hash::make('1234')
         ]);
 
     }

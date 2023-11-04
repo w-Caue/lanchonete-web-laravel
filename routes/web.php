@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use App\Models\Item;
 use App\Models\Pedido;
 use Illuminate\Support\Facades\Auth;
@@ -24,36 +25,35 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::prefix('/site')->name('site.')->group(function(){
+Route::prefix('/site')->name('site.')->group(function () {
 
-     Route::get('/Pedido', [\App\Http\Controllers\SiteController::class, 'index'])->name('pedido.index')->middleware('auth');
+    Route::get('/Pedido', [\App\Http\Controllers\SiteController::class, 'index'])->name('pedido.index')->middleware('auth');
 
-     Route::get('/seu-pedido', function(){
+    Route::get('/seu-pedido', function () {
         return view('pages.acompanhar-pedido');
-     })->name('seu-pedido');
-    
+    })->name('seu-pedido');
 });
 
 
-Route::prefix('/painel')->name('painel.')->group(function(){
+Route::prefix('/painel')->name('painel.')->group(function () {
 
     // Route::get('pedido-item/create/{pedido}', [App\Http\Controllers\PedidoItemController::class, 'create'])->name('pedido-item.create');
     // Route::post('pedido-item/store/{pedido}', [App\Http\Controllers\PedidoItemController::class, 'store'])->name('pedido-item.store');
     // Route::get('pedido-item/show/{pedido}', [App\Http\Controllers\PedidoItemController::class, 'show'])->name('pedido-item.show');
 
-    Route::get('/dashboard', function(){
+    Route::get('/dashboard', function () {
         return view('pages.dashboard');
     })->name('dashboard');
 
-    Route::get('/clientes', function(){
+    Route::get('/clientes', function () {
         return view('pages.cliente.index');
     })->name('clientes');
 
-    Route::get('/itens', function(){
+    Route::get('/itens', function () {
         return view('pages.item.index');
     })->name('itens');
 
-    Route::get('/pedidos', function(){
+    Route::get('/pedidos', function () {
         return view('pages.pedidos.index');
     })->name('pedidos');
 });
