@@ -35,7 +35,7 @@ Route::prefix('/site')->name('site.')->group(function () {
 });
 
 
-Route::prefix('/painel')->name('painel.')->group(function () {
+Route::middleware('can:painel')->prefix('/painel')->name('painel.')->group(function () {
 
     // Route::get('pedido-item/create/{pedido}', [App\Http\Controllers\PedidoItemController::class, 'create'])->name('pedido-item.create');
     // Route::post('pedido-item/store/{pedido}', [App\Http\Controllers\PedidoItemController::class, 'store'])->name('pedido-item.store');
