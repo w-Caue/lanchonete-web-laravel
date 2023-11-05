@@ -62,16 +62,20 @@ class CreatePedido extends Component
 
     public function mount()
     {
-        $pedido = Pedido::where('cliente_id', auth()->user()->id)->get()->first();
+        $pedido = Pedido::where('cliente_id', auth()->user()->id)
+                            ->where('status', 'Analise')->count();
+                            
+        $pedidoPreparo = Pedido::where('cliente_id', auth()->user()->id)
+                            ->where('status', 'Preparando')->count();
 
-        if ($pedido->status != "Concluido") {
+        if ($pedido > 0 or $pedidoPreparo > 0) {
             return redirect()->route('site.seu-pedido');
         }
 
-        // $pedidoCliente = Pedido::where('cliente_id', auth()->user()->id)
-        //     ->where('status', 'Aberto')->count();
+        $pedidoCliente = Pedido::where('cliente_id', auth()->user()->id)
+            ->where('status', 'Aberto')->count();
 
-        if ($pedido->status != "Aberto") {
+        if ($pedidoCliente == 0) {
             $this->criaPedido = true;
         } else {
             $this->criaPedido = false;
