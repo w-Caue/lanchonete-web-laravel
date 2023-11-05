@@ -15,7 +15,7 @@ class Pedido extends Model
     }
 
     public function pedidoItem(){
-        return $this->belongsToMany('App\Models\PedidoItem', 'pedidos');
+        return $this->belongsToMany('App\Models\PedidoItem', 'pedido_id');
     }
 
     public function cliente(){

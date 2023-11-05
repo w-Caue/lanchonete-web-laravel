@@ -62,17 +62,16 @@ class CreatePedido extends Component
 
     public function mount()
     {
-        $pedidoAnalise = Pedido::where('cliente_id', auth()->user()->id)
-            ->where('status', 'Analise')->count();
+        $pedido = Pedido::where('cliente_id', auth()->user()->id)->get()->first();
 
-        if ($pedidoAnalise > 0) {
+        if ($pedido->status != "Concluido") {
             return redirect()->route('site.seu-pedido');
         }
 
-        $pedidoCliente = Pedido::where('cliente_id', auth()->user()->id)
-            ->where('status', 'Aberto')->count();
+        // $pedidoCliente = Pedido::where('cliente_id', auth()->user()->id)
+        //     ->where('status', 'Aberto')->count();
 
-        if ($pedidoCliente == 0) {
+        if ($pedido->status != "Aberto") {
             $this->criaPedido = true;
         } else {
             $this->criaPedido = false;
@@ -159,7 +158,6 @@ class CreatePedido extends Component
     #adicionar item ao pedido
     public function pedidoItem($item)
     {
-
         $tamanhos = implode(',', $this->tamanhoItem);
 
         PedidoItem::create([

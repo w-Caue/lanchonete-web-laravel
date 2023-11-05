@@ -465,7 +465,7 @@
                                 <tr class="font-semibold text-gray-900 ">
                                     <th scope="row" class="px-6 py-3 text-base">Total</th>
                                     <td class="px-6 py-3"></td>
-                                    <td class="px-6 py-3">{{ $pedido->total }}</td>
+                                    <td class="px-6 py-3">{{ $pedido }}</td>
                                 </tr>
                             </tfoot>
                         </table>

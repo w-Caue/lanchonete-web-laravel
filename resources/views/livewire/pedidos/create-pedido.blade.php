@@ -157,7 +157,7 @@
                         <div class="m-5">
                             <h1 class="text-lg font-semibold tracking-wider">Telefone</h1>
                             <input wire:model="form.telefone" class="border-2 p-1 rounded w-25" type="number"
-                                placeholder="P/ Contato">
+                                value="{{ Auth::user()->telefone }}">
 
                             @error('form.telefone')
                                 <p class="font-semibold text-gray-400">{{ $message }}</p>
@@ -290,7 +290,30 @@
                 <div class="flex items-center m-3 gap-1">
                     <label for="countries" class="text-xl font-semibold tracking-wider">Tipo</label>
 
-                    <div>
+                    <ul class="flex gap-3">
+                        <li>
+                            <input wire:model.live="pedidoEntrega" wire:click="entregaDePedido()" type="radio" id="entrega" name="hosting" value="entrega" class="hidden peer" required>
+                            <label for="entrega"
+                                class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                                <div class="block">
+                                    <div class="w-full font-semibold">Entrega</div>
+                                </div>
+        
+                            </label>
+                        </li>
+
+                        <li>
+                            <input wire:model.live="pedidoEntrega" type="radio" id="retirada" name="hosting" value="retirada" class="hidden peer" required>
+                            <label for="retirada"
+                                class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                                <div class="block">
+                                    <div class="w-full font-semibold">Retirada</div>
+                                </div>
+        
+                            </label>
+                        </li>
+                    </ul>
+                    {{-- <div>
                         <input wire:model.live="pedidoEntrega" wire:click="entregaDePedido()" class=""
                             value="entrega" type="radio">
 
@@ -301,7 +324,7 @@
                         <input wire:model.live="pedidoEntrega" class="rounded" value="retirada" type="radio">
 
                         <label class="text-gray-500 font-semibold">Retirada</label>
-                    </div>
+                    </div> --}}
 
 
                     {{-- <select wire:model.live="pedidoEntrega" wire:click="entregaDePedido()" id="countries"

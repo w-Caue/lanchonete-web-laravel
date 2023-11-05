@@ -28,9 +28,7 @@ class ClienteForm extends Form
         Cliente::create([
             'nome' => $this->nome,
             'email' => $this->email,
-            'telefone' => $this->telefone,
-            'password' =>  '1234'
-            #Hash::make('1234')
+            'telefone' => $this->telefone  
         ]);
 
     }

@@ -56,8 +56,6 @@
     
                         </div>
     
-                        <input name="tipo" type="hidden" value="Cliente">
-    
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                                 <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Senha') }}</label>

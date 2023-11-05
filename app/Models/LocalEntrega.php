@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class LocalEntrega extends Model
 {
     protected $table = 'local_entrega';
-    protected $fillable = ['user_id', 'cep', 'endereco'
+    protected $fillable = ['cliente_id', 'cep', 'endereco'
                             , 'numero', 'complemento', 'bairro', 'referencia'];
 }

@@ -25,6 +25,10 @@ class User extends Authenticatable
         'access_level',
     ];
 
+    public function pedidos(){
+        return $this->belongsTo('App\Models\Pedido', 'cliente_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
