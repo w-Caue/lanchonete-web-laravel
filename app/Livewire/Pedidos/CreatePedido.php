@@ -28,7 +28,7 @@ class CreatePedido extends Component
     public $localizacao = '';
 
     public $pedido = '';
-    public $meuPedido = false;
+    public $meuPedido = true;
 
     public $clientePedido;
 
@@ -88,12 +88,12 @@ class CreatePedido extends Component
     {
         $this->meuPedido = !$this->meuPedido;
 
-        $pedidoComEntrega = Pedido::where('cliente_id', auth()->user()->id)
+        $pedido = Pedido::where('cliente_id', auth()->user()->id)
             ->where('status', 'Aberto')
             ->where('local_entrega_id', !null)->count();
 
-        if ($pedidoComEntrega == 1) {
-            $this->statusEntrega = true;
+        if ($pedido > 0) {
+            $this->pedidoEntrega = 'entrega';
         }
     }
 

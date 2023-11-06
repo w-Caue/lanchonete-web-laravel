@@ -7,7 +7,8 @@
         <div class="flex justify-center m-5">
             <ul class="flex gap-3">
                 <li>
-                    <input wire:model.live="menuCategoria" type="radio" id="todos" name="hosting" value="" class="hidden peer" required>
+                    <input wire:model.live="menuCategoria" type="radio" id="todos" name="hosting" value=""
+                        class="hidden peer" required>
                     <label for="todos"
                         class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
                         <div class="block">
@@ -288,54 +289,35 @@
                 <hr class="my-5">
 
                 <div class="flex items-center m-3 gap-1">
-                    <label for="countries" class="text-xl font-semibold tracking-wider">Tipo</label>
-
+                    
                     <ul class="flex gap-3">
                         <li>
-                            <input wire:model.live="pedidoEntrega" wire:click="entregaDePedido()" type="radio" id="entrega" name="hosting" value="entrega" class="hidden peer" required>
+                            <input wire:model.live="pedidoEntrega" wire:click="entregaDePedido()" type="radio"
+                                id="entrega" name="hosting" value="entrega" class="hidden peer" required>
                             <label for="entrega"
                                 class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
                                 <div class="block">
                                     <div class="w-full font-semibold">Entrega</div>
                                 </div>
-        
+
                             </label>
                         </li>
 
                         <li>
-                            <input wire:model.live="pedidoEntrega" type="radio" id="retirada" name="hosting" value="retirada" class="hidden peer" required>
+                            <input wire:model.live="pedidoEntrega" type="radio" id="retirada" name="hosting"
+                                value="retirada" class="hidden peer" required>
                             <label for="retirada"
                                 class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
                                 <div class="block">
                                     <div class="w-full font-semibold">Retirada</div>
                                 </div>
-        
+
                             </label>
                         </li>
                     </ul>
-                    {{-- <div>
-                        <input wire:model.live="pedidoEntrega" wire:click="entregaDePedido()" class=""
-                            value="entrega" type="radio">
-
-                        <label class="text-gray-500 font-semibold">Entrega</label>
-                    </div>
-
-                    <div>
-                        <input wire:model.live="pedidoEntrega" class="rounded" value="retirada" type="radio">
-
-                        <label class="text-gray-500 font-semibold">Retirada</label>
-                    </div> --}}
-
-
-                    {{-- <select wire:model.live="pedidoEntrega" wire:click="entregaDePedido()" id="countries"
-                        class="font-semibold border-2 rounded">
-                        <option selected></option>
-                        <option class="font-semibold" value="entrega">Entrega</option>
-                        <option class="font-semibold" value="retirada">Retirada</option>
-                    </select> --}}
                 </div>
 
-                <div class="m-5 max-w-xs">
+                {{-- <div class="m-5 max-w-xs">
                     @if ($statusEntrega)
                         <p
                             class="text-lg font-semibold text-green-600 bg-gray-100 shadow p-2 rounded flex flex-wrap gap-1 ">
@@ -347,7 +329,7 @@
                             </svg>
                         </p>
                     @endif
-                </div>
+                </div> --}}
 
                 <div class="m-3 max-w-lg">
                     <textarea wire:model="form.descricao" value="{{ $pedido->descricao }}"
@@ -373,9 +355,17 @@
 
     @if ($entrega)
         <div class="flex justify-center">
-            <div class="fixed top-32 bg-white w-1/2 border-2 border-blue-100 shadow-2xl rounded-lg">
+            <div class="fixed top-32 bg-white w-1/2 border-2 shadow-2xl rounded-lg">
 
-                <div class="flex float-right m-3">
+                <div class="flex justify-between m-3 mb-5">
+                    <svg class="w-6 h-6 text-gray-600 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
+                    </svg>
+
+                    <h1 class="text-xl font-semibold text-center tracking-widest">Local de Entrega</h1>
+
                     <button wire:click="visualizarEntrega()" class="border rounded hover:bg-red-500 hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -384,22 +374,21 @@
                     </button>
                 </div>
 
-                <h1 class="text-xl font-semibold text-center tracking-widest mb-5">Selecione o Local</h1>
-
                 @if (count($localSalvo) > 0)
 
                     <div class="w-96 flex justify-center">
                         @foreach ($localSalvo as $local)
                             <a wire:click="localizacaoEntrega({{ $local->id }})"
-                                class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-xl m-2 hover:bg-gray-100 cursor-pointer">
-                                <h5 class="mb-2 font-semibold tracking-tight text-gray-900 "><span
-                                        class="text-gray-700">Cep:</span> {{ $local->cep }}</h5>
+                                class="block max-w-sm p-6 mb-5 bg-white border border-gray-200 rounded-lg shadow-xl m-2 hover:bg-gray-100 cursor-pointer">
                                 <p class="font-semibold text-gray-700">{{ $local->endereco }}</p>
-                                <p class="font-semibold text-gray-700">N - {{ $local->numero }}</p>
+                                <p class="font-semibold text-gray-700">N° {{ $local->numero }}</p>
                                 <p class="font-semibold text-gray-700">{{ $local->bairro }}</p>
                             </a>
                         @endforeach
+                    </div>
 
+                    <div wire:click="" class="flex justify-center m-5">
+                        <button class="p-2 border rounded text-gray-600 font-semibold hover:bg-blue-500 hover:text-white">Novo Local</button>
                     </div>
                 @else
                     <div class="m-5">
@@ -466,6 +455,7 @@
                         </div>
                     </div>
                 @endif
+
             </div>
         </div>
     @endif
