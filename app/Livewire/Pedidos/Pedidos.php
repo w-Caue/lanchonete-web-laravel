@@ -44,12 +44,10 @@ class Pedidos extends Component
     public $itemPedido = false;
     public $meuPedido = false;
 
-    public $pedidoCliente;
     public $itemSelect;
 
     public $pedidoClienteAberto;
     public $pedidoAnalise;
-    public $pedidoConcluido;
 
     public $count = '1';
     public $total = '';
@@ -70,15 +68,7 @@ class Pedidos extends Component
         $this->searchCliente = !$this->searchCliente;
     }
 
-    public function pedidoAberto(Pedido $pedido)
-    {
-        $this->pedidoCliente = $pedido->id;
-
-        $this->pedidoClienteAberto = $pedido;
-
-        $this->itemNoPedido();
-    }
-
+    
     public function visualizarPedido()
     {
         $this->meuPedido = !$this->meuPedido;
@@ -218,14 +208,20 @@ class Pedidos extends Component
     public function fecharAnalise()
     {
         $this->pedidoAnalise = false;
-        $this->pedidoConcluido = false;
+    }
+
+    public function pedidoAberto(Pedido $pedido)
+    {
+        $this->pedido = $pedido;
+
+        $this->itemNoPedido();
     }
 
     public function analisarPedido(Pedido $pedido)
     {
         $this->pedidoAnalise = true;
 
-        $this->pedidoCliente = $pedido;
+        $this->pedido = $pedido;
     }
 
     public function prepararPedido($pedido)
@@ -248,9 +244,7 @@ class Pedidos extends Component
     {
         $this->pedidoAnalise = true;
 
-        $this->pedidoCliente = $pedido;
-
-        $this->pedidoConcluido = true;
+        $this->pedido = $pedido;
     }
 
     public function render()

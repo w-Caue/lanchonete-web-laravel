@@ -443,10 +443,13 @@
                                     <th scope="col" class="px-6 py-3 ">
                                         Quantidade
                                     </th>
+                                    <th scope="col" class="px-6 py-3 ">
+                                        Total
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pedidoClienteAberto->itens as $pedido)
+                                @foreach ($pedido->itens as $pedido)
                                     <tr class="bg-white ">
                                         <th scope="row"
                                             class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap">
@@ -456,7 +459,10 @@
                                             {{ number_format($pedido->preco, 2, ',', '.') }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $pedido->quantidade }}
+                                            {{ $pedido->pivot->quantidade }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ number_format($pedido->pivot->total, 2, ',', '.') }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -464,8 +470,7 @@
                             <tfoot>
                                 <tr class="font-semibold text-gray-900 ">
                                     <th scope="row" class="px-6 py-3 text-base">Total</th>
-                                    <td class="px-6 py-3"></td>
-                                    <td class="px-6 py-3">{{ $pedido }}</td>
+                                    <td class="px-6 py-3">{{ number_format($pedido->pivot->total, 2, ',', '.') }}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -506,23 +511,23 @@
                 </div>
 
                 <h1 class="text-xl font-semibold text-center tracking-widest mb-4">
-                    {{ $pedidoConcluido ? 'Pedido Finalizado' : 'Analisar Pedido' }}</h1>
+                    {{ $pedido->status == 'Finalizado' ? 'Pedido Finalizado' : 'Analisar Pedido' }}</h1>
 
-                @if ($pedidoConcluido)
+                @if ($pedido->status == 'Finalizado')
                     <div class="flex m-3 gap-2">
                         <h1 class="text-xl font-semibold">Cliente: </h1>
                         <h1 class="text-lg font-bold text-gray-600 tracking-widest">
-                            {{ $pedidoCliente->cliente->nome }}</h1>
+                            {{ $pedido->cliente->nome }}</h1>
                     </div>
                 @endif
-
+                
                 <div class="m-3 flex items-center gap-2">
                     <h1 class="text-xl font-semibold tracking-wider">Forma de pagamento: </h1>
-                    <p class="text-lg text-gray-600 font-semibold">{{ $pedidoCliente->formaPagamento->nome }}</p>
+                    <p class="text-lg text-gray-600 font-semibold">{{ $pedido->formaPagamento->nome }}</p>
                 </div>
 
                 <hr class="my-5">
-
+                
                 <div class="flex flex-wrap gap-2 m-3">
                     <div class="relative overflow-x-auto">
                         <table class="w-full text-sm text-left text-gray-500 ">
@@ -540,7 +545,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pedidoCliente->itens as $pedido)
+                                @foreach ($pedido->itens as $pedido)
                                     <tr class="bg-white ">
                                         <th scope="row"
                                             class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap">
@@ -550,7 +555,7 @@
                                             {{ number_format($pedido->preco, 2, ',', '.') }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $pedido->quantidade }}
+                                            {{ $pedido->pivot->quantidade }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -559,7 +564,7 @@
                                 <tr class="font-semibold text-gray-900 ">
                                     <th scope="row" class="px-6 py-3 text-base">Total</th>
                                     <td class="px-6 py-3"></td>
-                                    <td class="px-6 py-3">{{ $pedido->total }}</td>
+                                    <td class="px-6 py-3">{{ $pedido->pivot->total }}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -568,31 +573,33 @@
 
                 <hr class="my-5">
 
-                @if ($pedidoCliente->local_entrega_id > 0)
+                       
+
+                @if ($pedido->local_entrega_id > 0)
                     <div class="m-3">
                         <h1 class="text-xl font-semibold tracking-wider">Local de Entrega</h1>
 
                         <div class="flex gap-2 items-center">
-                            <p class="text-md text-gray-500 font-semibold">{{ $pedidoCliente->localEntrega->cep }}</p>
+                            <p class="text-md text-gray-500 font-semibold">{{ $pedido->localEntrega->cep }}</p>
                             <h1 class="text-md text-gray-700 font-semibold">
-                                {{ $pedidoCliente->localEntrega->endereco }}</h1>
+                                {{ $pedido->localEntrega->endereco }}</h1>
                             <p class="text-md text-gray-500 font-semibold">n:
-                                {{ $pedidoCliente->localEntrega->numero }}</p>
+                                {{ $pedido->localEntrega->numero }}</p>
                             <p class="text-md text-gray-700 font-semibold">bairro:
-                                {{ $pedidoCliente->localEntrega->bairro }}</p>
+                                {{ $pedido->localEntrega->bairro }}</p>
                         </div>
                     </div>
                 @endif
 
                 <div class="m-3 max-w-lg">
-                    <textarea value="{{ $pedidoCliente->descricao }}"
+                    <textarea value="{{ $pedido->descricao }}"
                         class="block p-2.5 w-full text-lg font-semibold text-gray-600 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
-                        id="exampleFormControlTextarea1" placeholder="Adicione uma descrição para seu pedido" rows="3">{{ $pedidoCliente->descricao }}</textarea>
+                        id="exampleFormControlTextarea1" placeholder="Adicione uma descrição para seu pedido" rows="3">{{ $pedido->descricao }}</textarea>
                 </div>
 
                 <div class="flex justify-center gap-2 mb-2">
-                    @if (!$pedidoConcluido)
-                        <button wire:click.prevent="prepararPedido({{ $pedidoCliente->id }})"
+                    @if ($pedido->status == 'Analise')
+                        <button wire:click.prevent="prepararPedido({{ $pedido->id }})"
                             class="text-white font-semibold p-2 border rounded bg-blue-500">
                             Preparar Pedido
                         </button>

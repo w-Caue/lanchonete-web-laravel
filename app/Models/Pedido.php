@@ -11,11 +11,11 @@ class Pedido extends Model
     protected $fillable = ['cliente_id', 'status', 'forma_de_pagamento_id', 'descricao', 'site', 'local_entrega_id', 'telefone'];
 
     public function itens(){
-        return $this->belongsToMany('App\Models\Item', 'pedidos_itens');
+        return $this->belongsToMany('App\Models\Item', 'pedidos_itens')->withPivot('quantidade', 'total');
     }
 
     public function pedidoItem(){
-        return $this->belongsToMany('App\Models\PedidoItem', 'pedido_id');
+        return $this->belongsToMany('App\Models\PedidoItem', 'pedidos');
     }
 
     public function cliente(){
