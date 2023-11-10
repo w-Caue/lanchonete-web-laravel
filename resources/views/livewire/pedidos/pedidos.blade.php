@@ -120,12 +120,12 @@
                             </td>
                             <td class="px-6 py-4 text-right">
                                 @if ($pedido->status == 'Finalizado')
-                                    <a wire:click="pedidoVisualizar({{ $pedido->id }})"
+                                    <a wire:click="mostrarPedido({{ $pedido->id }})"
                                         class="font-medium text-blue-600 hover:underline cursor-pointer">Visualizar</a>
                                 @endif
 
                                 @if ($pedido->status == 'Aberto')
-                                    <a wire:click="pedidoAberto({{ $pedido->id }})"
+                                    <a wire:click="mostrarPedido({{ $pedido->id }})"
                                         class="font-medium text-blue-600 hover:underline cursor-pointer">Adicionar
                                         Itens</a>
                                 @endif
@@ -216,6 +216,105 @@
 
     @endif
 
+    {{-- Visualizar o Pedido --}}
+    @if ($showPedido)
+        <div class="flex justify-center">
+            <div class="fixed top-28 bg-white w-1/2 shadow-2xl border rounded-lg">
+
+                <div class="flex justify-end m-2">
+                    <button wire:click="fecharPedido()" class="border rounded hover:bg-red-500 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+
+                    </button>
+                </div>
+
+                <h1 class="text-xl font-semibold text-center tracking-widest mb-4">Pedido</h1>
+
+                <form wire:submit.prevent="finalizarPedido()">
+                    <div class="m-3 flex flex-col gap-2">
+                        <h1 class="text-xl font-semibold tracking-wider">Forma de pagamento </h1>
+                        <select wire:model='formaPagamento' name="formaPagamento"
+                            class="font-semibold w-44 p-1 border-2 rounded" aria-label="Default select example">
+
+                            @foreach ($formasDePagamentos as $formaDePagamento)
+                                <option class="font-semibold" value="{{ $formaDePagamento->id }}"
+                                    {{ ($pedidoCliente->forma_de_pagamento_id ?? old('formaDePagamento->id ')) == $formaDePagamento->id ? 'selected' : '' }}>
+                                    {{ $formaDePagamento->nome }}</option>
+                            @endforeach
+
+                        </select>
+                        @error('form.formaPagamento')
+                            <p class="font-semibold text-gray-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg m-1">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        Nome
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Preço
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Quantidade
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Total
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($pedidoCliente->itens as $item)
+                                    <tr class="bg-white border-b hover:bg-gray-50">
+                                        <th scope="row"
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                            {{ $item->nome }}
+                                        </th>
+                                        <td class="px-6 py-4">
+                                            {{ number_format($item->preco, 2, ',', '.') }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $item->pivot->quantidade }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            {{ $item->pivot->total }}
+                                        </td>
+                                        <td class="px-6 py-4 text-right">
+                                            {{-- <a href="#"
+                                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a> --}}
+                                        </td>
+                                    </tr>s
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="m-3 max-w-lg">
+                        <textarea wire:model="form.descricao" value="{{ $pedidoCliente->descricao }}"
+                            class="block p-2.5 w-full text-lg font-semibold text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
+                            id="exampleFormControlTextarea1" placeholder="Adicione uma descrição para seu pedido" rows="3">{{ $pedidoCliente->descricao }}</textarea>
+                    </div>
+
+                    <div class="flex justify-center gap-2 mb-2">
+                        <button type="submit"
+                            class="text-white font-semibold p-2 border rounded bg-blue-500">
+                            Finalizar Pedido
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endif
+
     {{-- Pesquisar Cliente --}}
     @if ($searchCliente)
         <div class="flex justify-center">
@@ -296,7 +395,7 @@
                 </div>
 
                 <div class="flex justify-end m-3">
-                    <button wire:click="visualizarPedido()"
+                    <button wire:click="showPedido()"
                         class="flex gap-1 font-semibold text-gray-600 tracking-widest rounded p-2 hover:bg-gray-300">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -393,110 +492,9 @@
         </div>
     @endif
 
-    {{-- Visualizar o Pedido --}}
-    @if ($meuPedido)
-        <div class="flex justify-center">
-            <div class="fixed top-28 bg-white w-1/2 shadow-2xl rounded-lg">
-
-                <div class="flex justify-end m-2">
-                    <button wire:click="visualizarPedido()" class="border rounded hover:bg-red-500 hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-
-                    </button>
-                </div>
-
-                <h1 class="text-xl font-semibold text-center tracking-widest mb-4">Meu Pedido</h1>
-
-                <div class="m-3 flex gap-2">
-                    <h1 class="text-xl font-semibold tracking-wider">Forma de pagamento: </h1>
-                    <select wire:model='formaPagamento' name="formaPagamento" class="font-semibold border-2 rounded"
-                        aria-label="Default select example">
-
-                        @foreach ($formasDePagamentos as $formaDePagamento)
-                            <option class="font-semibold" value="{{ $formaDePagamento->id }}"
-                                {{ ($pedidoClienteAberto->forma_de_pagamento_id ?? old('formaDePagamento->id ')) == $formaDePagamento->id ? 'selected' : '' }}>
-                                {{ $formaDePagamento->nome }}</option>
-                        @endforeach
-
-                    </select>
-                    @error('form.formaPagamento')
-                        <p class="font-semibold text-gray-400">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <hr class="my-5">
-
-                <div class="flex flex-wrap gap-2 m-3">
-                    <div class="relative overflow-x-auto">
-                        <table class="w-full text-sm text-left text-gray-500 ">
-                            <thead class="text-xs text-gray-700 font-semibold uppercase">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 ">
-                                        Nome
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Preço
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 ">
-                                        Quantidade
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 ">
-                                        Total
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($pedido->itens as $pedido)
-                                    <tr class="bg-white ">
-                                        <th scope="row"
-                                            class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap">
-                                            {{ $pedido->nome }}
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            {{ number_format($pedido->preco, 2, ',', '.') }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $pedido->pivot->quantidade }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ number_format($pedido->pivot->total, 2, ',', '.') }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr class="font-semibold text-gray-900 ">
-                                    <th scope="row" class="px-6 py-3 text-base">Total</th>
-                                    <td class="px-6 py-3">{{ number_format($pedido->pivot->total, 2, ',', '.') }}</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                </div>
-
-                <hr class="my-5">
-
-                <div class="m-3 max-w-lg">
-                    <textarea wire:model="form.descricao" value="{{ $pedido->descricao }}"
-                        class="block p-2.5 w-full text-lg font-semibold text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
-                        id="exampleFormControlTextarea1" placeholder="Adicione uma descrição para seu pedido" rows="3"></textarea>
-                </div>
-
-                <div class="flex justify-center gap-2 mb-2">
-                    <button wire:click.prevent="finalizarPedido()"
-                        class="text-white font-semibold p-2 border rounded bg-blue-500">
-                        Finalizar Pedido
-                    </button>
-                </div>
-            </div>
-        </div>
-    @endif
 
     {{-- Analisar Pedido --}}
-    @if ($pedidoAnalise)
+    {{-- @if ($pedidoAnalise)
         <div class="flex justify-center">
             <div class="fixed top-16 bg-white w-1/2 shadow-2xl rounded-lg">
 
@@ -607,5 +605,5 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif --}}
 </div>

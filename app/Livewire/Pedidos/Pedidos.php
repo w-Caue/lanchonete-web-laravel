@@ -30,6 +30,9 @@ class Pedidos extends Component
     public $newPedido = false;
     public $pedido;
 
+    public $showPedido;
+    public $pedidoCliente;
+
     #Selecionar Cliente
     public $searchCliente = false;
     public $clientePedido;
@@ -42,7 +45,6 @@ class Pedidos extends Component
 
     public $pedidoItem = false;
     public $itemPedido = false;
-    public $meuPedido = false;
 
     public $itemSelect;
 
@@ -57,6 +59,24 @@ class Pedidos extends Component
         $this->newPedido = !$this->newPedido;
     }
 
+    public function mostrarPedido(Pedido $pedido)
+    {
+        $this->showPedido = true;
+        $this->pedidoCliente = $pedido;
+    }
+
+    public function fecharPedido()
+    {
+        $this->showPedido = false;
+    }
+
+    public function visualizarPedido(Pedido $pedido)
+    {
+        // $this->pedidoAnalise = true;
+
+        $this->pedido = $pedido;
+    }
+
     public function itemNoPedido()
     {
         $this->pedidoItem = !$this->pedidoItem;
@@ -68,11 +88,6 @@ class Pedidos extends Component
         $this->searchCliente = !$this->searchCliente;
     }
 
-    
-    public function visualizarPedido()
-    {
-        $this->meuPedido = !$this->meuPedido;
-    }
 
     public function visualizarItem()
     {
@@ -200,7 +215,7 @@ class Pedidos extends Component
             'timerProgressBar' => true,
         ]);
 
-        $this->visualizarPedido();
+        // $this->visualizarPedido();
 
         $this->itemNoPedido();
     }
@@ -238,13 +253,6 @@ class Pedidos extends Component
             'toast' => false,
             'timerProgressBar' => true,
         ]);
-    }
-
-    public function pedidoVisualizar(Pedido $pedido)
-    {
-        $this->pedidoAnalise = true;
-
-        $this->pedido = $pedido;
     }
 
     public function render()
