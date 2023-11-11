@@ -16,11 +16,7 @@ class PedidoSiteForm extends Form
     #[Rule('required', message: 'Selecione a Forma de Pagamento')]
     public $formaPagamento = '';
 
-    public $status = 'Aberto';
-
     public $descricao = '';
-
-    public $site = 'S';
 
     public $pedidoCliente;
 
@@ -32,10 +28,10 @@ class PedidoSiteForm extends Form
 
         $pedido = Pedido::create([
             'cliente_id' => auth()->user()->id,
-            'status' => $this->status,
+            'status' => 'Aberto',
             'forma_de_pagamento_id' => $this->formaPagamento,
             'descricao' => $this->descricao,
-            'site' => $this->site,
+            'site' => 'S',
             'telefone' => $this->telefone
 
         ]);

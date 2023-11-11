@@ -33,8 +33,12 @@ class Pedidos extends Component
     public $showPedido;
     public $pedidoCliente;
 
+    public $showItens = false;
+
+    public $itemPedido;
+
     #Selecionar Cliente
-    public $searchCliente = false;
+    public $showCliente = false;
     public $clientePedido;
 
     public $clienteSelecionado;
@@ -43,13 +47,12 @@ class Pedidos extends Component
     public $pesquisaClientes = [];
     public $cliente;
 
-    public $pedidoItem = false;
-    public $itemPedido = false;
+    
+    public $detalheItem;
 
-    public $itemSelect;
+    
 
-    public $pedidoClienteAberto;
-    public $pedidoAnalise;
+    // public $pedidoClienteAberto;
 
     public $count = '1';
     public $total = '';
@@ -62,36 +65,40 @@ class Pedidos extends Component
     public function mostrarPedido(Pedido $pedido)
     {
         $this->showPedido = true;
-        $this->pedidoCliente = $pedido;
+        $this->pedidoCliente = Pedido::where('id', $pedido->id)->get()->first();
+
+        $this->form->formaPagamento = $this->pedidoCliente->forma_de_pagamento_id;
+        $this->form->descricao = $this->pedidoCliente->descricao;
+    }
+
+    public function mostrarItens()
+    {
+        $this->showItens = !$this->showItens;
     }
 
     public function fecharPedido()
     {
+        $this->reset();
+        $this->resetValidation();
+
         $this->showPedido = false;
+        $this->newPedido = false;
     }
 
-    public function visualizarPedido(Pedido $pedido)
+    public function fecharItens()
     {
-        // $this->pedidoAnalise = true;
-
-        $this->pedido = $pedido;
+        $this->showItens = false;
     }
 
-    public function itemNoPedido()
+    public function fecharDetalheItem()
     {
-        $this->pedidoItem = !$this->pedidoItem;
+        $this->detalheItem = false;
     }
 
     #Selecionar Cliente
-    public function visualizarClientes()
+    public function mostrarClientes()
     {
-        $this->searchCliente = !$this->searchCliente;
-    }
-
-
-    public function visualizarItem()
-    {
-        $this->itemPedido = !$this->itemPedido;
+        $this->showCliente = !$this->showCliente;
     }
 
     public function pesquisaCliente()
@@ -148,26 +155,26 @@ class Pedidos extends Component
 
         $this->newPedido = false;
 
-        $this->pedidoItem = true;
+        // $this->pedidoItem = true;
     }
 
     public function item($item)
     {
 
-        $pedidoItem = PedidoItem::where('pedido_id', $this->pedidoCliente)->where('item_id', $item)->get()->count();
+        $itemPedido = PedidoItem::where('pedido_id', $this->pedidoCliente->id)->where('item_id', $item)->get()->count();
 
-        if ($pedidoItem != null && $pedidoItem > 0) {
+        if ($itemPedido != null && $itemPedido > 0) {
             $this->alert('warning', 'Item Já Adicionado!', [
                 'position' => 'center',
                 'timer' => 1000,
                 'toast' => true,
             ]);
         } else {
-            $this->itemPedido = true;
+            $this->detalheItem = true;
 
-            $this->itemSelect = Item::where('id', $item)->get()->first();
+            $this->itemPedido = Item::where('id', $item)->get()->first();
 
-            $this->total = $this->itemSelect->preco;
+            $this->total = $this->itemPedido->preco;
         }
     }
 
@@ -175,7 +182,7 @@ class Pedidos extends Component
     {
         $this->count++;
 
-        $preco = $this->itemSelect->preco;
+        $preco = $this->itemPedido->preco;
 
         $this->total = intval($this->count) * $preco;
     }
@@ -184,7 +191,7 @@ class Pedidos extends Component
     {
         $this->count--;
 
-        $preco = $this->itemSelect->preco;
+        $preco = $this->itemPedido->preco;
 
         $this->total = $this->total - $preco;
     }
@@ -192,19 +199,20 @@ class Pedidos extends Component
     public function adicionarItem($item)
     {
         PedidoItem::create([
-            'pedido_id' => $this->pedidoCliente,
+            'pedido_id' => $this->pedidoCliente->id,
             'item_id' => $item,
             'quantidade' => $this->count,
             'total' => $this->total
         ]);
 
-        $this->itemPedido = false;
+        $this->detalheItem = false;
     }
 
     public function finalizarPedido()
     {
-
-        Pedido::find($this->pedidoCliente)->update([
+        Pedido::find($this->pedidoCliente->id)->update([
+            'forma_de_pagamento_id' => $this->form->formaPagamento,
+            'descricao' => $this->form->descricao,
             'status' => 'Finalizado'
         ]);
 
@@ -212,42 +220,22 @@ class Pedidos extends Component
             'position' => 'center',
             'timer' => 1000,
             'toast' => false,
-            'timerProgressBar' => true,
         ]);
 
-        // $this->visualizarPedido();
+        $this->fecharPedido();
 
-        $this->itemNoPedido();
+        // $this->itemNoPedido();
     }
 
-    public function fecharAnalise()
+    public function prepararPedido()
     {
-        $this->pedidoAnalise = false;
-    }
-
-    public function pedidoAberto(Pedido $pedido)
-    {
-        $this->pedido = $pedido;
-
-        $this->itemNoPedido();
-    }
-
-    public function analisarPedido(Pedido $pedido)
-    {
-        $this->pedidoAnalise = true;
-
-        $this->pedido = $pedido;
-    }
-
-    public function prepararPedido($pedido)
-    {
-        Pedido::find($pedido)->update([
-            'status' => 'Preparando'
+        Pedido::find($this->pedidoCliente->id)->update([
+            'status' => 'Preparo'
         ]);
 
-        $this->pedidoAnalise = false;
+        $this->fecharPedido();
 
-        $this->alert('success', 'Pedido Indo Para O Preparo', [
+        $this->alert('success', 'Pedido Sendo Preparado', [
             'position' => 'center',
             'timer' => 2000,
             'toast' => false,

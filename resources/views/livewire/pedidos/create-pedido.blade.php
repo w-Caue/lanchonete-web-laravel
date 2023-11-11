@@ -35,7 +35,7 @@
         </div>
 
         <div class="flex justify-center">
-            <button wire:click="visualizarPedido()"
+            <button wire:click="mostrarPedido()"
                 class="flex gap-1 font-semibold text-gray-600 tracking-widest rounded p-2 hover:bg-gray-300">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
@@ -67,97 +67,26 @@
 
     </div>
 
-    {{-- Adicionar Item --}}
-    @if ($addItem)
-        <div class="flex justify-center">
-            <div class="fixed top-32 bg-white w-96 shadow-2xl rounded-lg">
-
-                <div class="flex float-right m-3">
-                    <button wire:click="item()" class="border rounded hover:bg-red-500 hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-
-                    </button>
-                </div>
-
-                <div class="m-5">
-                    <h1 class="text-xl font-semibold  text-center">{{ $itemSelect->nome }}</h1>
-                </div>
-
-                <div class="flex justify-center ">
-                    <form wire:submit.prevent="pedidoItem({{ $itemSelect->id }})" class="">
-                        @csrf
-
-                        <div class="mb-3">
-                            <label for="quantidade" class="text-lg font-semibold text-blue-400">Quantidade</label>
-                            <div class="flex gap-1 flex-wrap">
-                                <button wire:click.prevent="increment" class="border rounded p-1 text-2xl"> + </button>
-
-                                <input wire:model="count" class="text-center font-semibold" type="number"
-                                    placeholder="0" name="quantidade" style="max-width: 3.5rem">
-
-                                <button wire:click.prevent="decrement" class="border rounded p-1 text-2xl"> - </button>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <h1 class="text-lg font-semibold text-blue-400">Tamanho</h1>
-
-                            <div class="flex gap-2 flex-wrap">
-                                @foreach ($tamanhos as $tamanho)
-                                    <input wire:model="tamanhoItem" class="" value="{{ $tamanho->id }}"
-                                        id="checked-checkbox" type="checkbox">
-
-                                    <label class="text-gary-500 font-semibold"
-                                        for="checked-checkbox">{{ $tamanho->descricao }}</label>
-                                @endforeach
-                            </div>
-
-                        </div>
-
-                        <div class="mb-3">
-                            <div class="flex flex-wrap items-center gap-1 ">
-                                <h1 for="total" class="text-lg font-semibold text-blue-400">Total:</h1>
-                                <h1 class="text-lg font-medium">R${{ number_format($total, 2, ',', '.') }}</h1>
-                            </div>
-                        </div>
-
-                        <div class="flex justify-center m-3">
-                            <button type="submit"
-                                class="border p-2 rounded bg-blue-500 text-white font-medium hover:bg-blue-600">Adicionar</button>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-        </div>
-
-    @endif
-
     {{-- Criar Pedido --}}
-    @if ($criaPedido)
+    @if ($criarPedido)
         <div class="flex justify-center">
-            <div class="fixed top-32 bg-white w-1/2 shadow-2xl rounded-lg">
+            <div class="fixed top-20 bg-gray-50 sm:w-1/2 shadow-2xl rounded-lg border">
 
                 <h1 class="text-xl font-semibold text-center tracking-widest m-5">Criar Pedido</h1>
 
-
                 <form wire:submit.prevent="save()" class="flex flex-col">
-                    @csrf
 
                     <div class="flex flex-col gap-2">
-
                         <div class="mb-2 flex justify-center">
                             <input wire:model="userCliente"
                                 class="text-xl text-center text-white tracking-widest bg-blue-500 font-semibold border rounded w-75"
                                 name="cliente" value="{{ Auth::user()->name }}">
                         </div>
 
-                        <div class="m-5">
+                        <div class="m-3">
                             <h1 class="text-lg font-semibold tracking-wider">Telefone</h1>
-                            <input wire:model="form.telefone" class="border-2 p-1 rounded w-25" type="number"
+                            <input wire:model="form.telefone"
+                                class="border-2 p-1 rounded w-25 font-semibold text-gray-900" type="number"
                                 value="{{ Auth::user()->telefone }}">
 
                             @error('form.telefone')
@@ -165,15 +94,16 @@
                             @enderror
                         </div>
 
-                        <div class="m-5">
+                        <div class="m-3">
                             <h1 class="text-lg font-semibold tracking-wider">Forma de pagamento </h1>
                             <select wire:model="form.formaPagamento" name="formaPagamento"
-                                class="font-semibold p-1 border-2 rounded" aria-label="Default select example">
+                                class="p-1 border-2 rounded font-semibold text-gray-900"
+                                aria-label="Default select example">
 
                                 <option value=""></option>
 
                                 @foreach ($formasDePagamentos as $formaDePagamento)
-                                    <option value="{{ $formaDePagamento->id }}"
+                                    <option class="font-semibold text-gray-900" value="{{ $formaDePagamento->id }}"
                                         {{ ($pedido->forma_de_pagamento_id ?? old('formaDePagamento->id ')) == $formaDePagamento->id ? 'selected' : '' }}>
                                         {{ $formaDePagamento->nome }}</option>
                                 @endforeach
@@ -184,49 +114,47 @@
                             @enderror
                         </div>
 
-                        <div class="m-5">
-                            <label for="exampleFormControlTextarea1"
-                                class="text-lg font-semibold tracking-wider">Descrição</label>
+                        <div class="m-2">
                             <textarea wire:model="form.descricao"
                                 class="block p-2.5 w-full text-lg font-semibold tracking-wider text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
-                                id="exampleFormControlTextarea1" rows="3"></textarea>
+                                id="exampleFormControlTextarea1" rows="3" placeholder="Adicione uma descricão...">
+                            </textarea>
                         </div>
 
                     </div>
 
                     <div class="flex justify-center gap-3 mb-4">
-                        <button type="submit" class="text-white font-semibold p-2 border rounded bg-blue-500">Criar
+                        <button type="submit"
+                            class="font-semibold p-2 border rounded hover:bg-blue-500 hover:text-white">Criar
                             Pedido</button>
                     </div>
 
                 </form>
-
             </div>
         </div>
-
     @endif
 
     {{-- Visualizar o Pedido --}}
-    @if ($meuPedido)
+    @if ($showPedido)
         <div class="flex justify-center">
             <div class="fixed top-20 bg-white w-1/2 shadow-2xl rounded-lg">
 
                 <div class="flex justify-end m-2">
-                    <button wire:click="visualizarPedido()" class="border rounded hover:bg-red-500 hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <button wire:click="fecharPedido()" class="border rounded hover:bg-red-500 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
 
                     </button>
                 </div>
 
-                <h1 class="text-xl font-semibold text-center tracking-widest m-3">Meu Pedido</h1>
+                <h1 class="text-xl font-semibold text-center tracking-widest m-3">Pedido</h1>
 
-                <div class="m-3 flex gap-2">
-                    <h1 class="text-xl font-semibold tracking-wider">Forma de pagamento: </h1>
+                <div class="m-3 flex flex-col">
+                    <h1 class="text-xl font-semibold tracking-wider">Forma de pagamento </h1>
                     <select wire:model='form.formaPagamento' name="formaPagamento"
-                        class="font-semibold border-2 rounded" aria-label="Default select example">
+                        class="font-semibold border-2 rounded w-44 p-2" aria-label="Default select example">
 
                         @foreach ($formasDePagamentos as $formaDePagamento)
                             <option class="font-semibold" value="{{ $formaDePagamento->id }}"
@@ -240,56 +168,62 @@
                     @enderror
                 </div>
 
-                <hr class="my-5">
-
                 <div class="flex flex-wrap gap-2 m-3">
-
-                    <div class="relative overflow-x-auto">
-                        <table class="w-full text-sm text-left text-gray-500 ">
-                            <thead class="text-xs text-gray-700 font-semibold uppercase">
+                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg border">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                            <thead
+                                class="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 ">
+                                    <th scope="col" class="px-6 py-3">
                                         Nome
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Descricão
                                     </th>
                                     <th scope="col" class="px-6 py-3">
                                         Preço
                                     </th>
-                                    <th scope="col" class="px-6 py-3 ">
+                                    <th scope="col" class="px-6 py-3">
                                         Quantidade
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pedido->itens as $pedido)
-                                    <tr class="bg-white ">
+                                @foreach ($pedidoCliente->itens as $item)
+                                    <tr
+                                        class="bg-white border-b hover:bg-gray-50 ">
                                         <th scope="row"
-                                            class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap">
-                                            {{ $pedido->nome }}
+                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                            Apple MacBook Pro 17"
                                         </th>
                                         <td class="px-6 py-4">
-                                            {{ number_format($pedido->preco, 2, ',', '.') }}
+                                            Silver
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $pedido->pedidoItem }}
+                                            Laptop
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            $2999
+                                        </td>
+                                        <td class="px-6 py-4 text-right">
+                                            <a href="#"
+                                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
-                            <tfoot>
-                                <tr class="font-semibold text-gray-900 ">
-                                    <th scope="row" class="px-6 py-3 text-base">Total</th>
-                                    <td class="px-6 py-3"></td>
-                                    <td class="px-6 py-3">{{ $pedido->total }}</td>
-                                </tr>
-                            </tfoot>
                         </table>
                     </div>
+
                 </div>
 
                 <hr class="my-5">
 
                 <div class="flex items-center m-3 gap-1">
-                    
+
                     <ul class="flex gap-3">
                         <li>
                             <input wire:model.live="pedidoEntrega" wire:click="entregaDePedido()" type="radio"
@@ -353,6 +287,77 @@
         </div>
     @endif
 
+    {{-- Adicionar Item --}}
+    @if ($showItem)
+        <div class="flex justify-center">
+            <div class="fixed top-32 bg-white w-96 shadow-2xl rounded-lg">
+
+                <div class="flex float-right m-3">
+                    <button wire:click="item()" class="border rounded hover:bg-red-500 hover:text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+
+                    </button>
+                </div>
+
+                <div class="m-5">
+                    <h1 class="text-xl font-semibold  text-center">{{ $itemSelect->nome }}</h1>
+                </div>
+
+                <div class="flex justify-center ">
+                    <form wire:submit.prevent="pedidoItem({{ $itemSelect->id }})" class="">
+                        @csrf
+
+                        <div class="mb-3">
+                            <label for="quantidade" class="text-lg font-semibold text-blue-400">Quantidade</label>
+                            <div class="flex gap-1 flex-wrap">
+                                <button wire:click.prevent="increment" class="border rounded p-1 text-2xl"> +
+                                </button>
+
+                                <input wire:model="count" class="text-center font-semibold" type="number"
+                                    placeholder="0" name="quantidade" style="max-width: 3.5rem">
+
+                                <button wire:click.prevent="decrement" class="border rounded p-1 text-2xl"> -
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <h1 class="text-lg font-semibold text-blue-400">Tamanho</h1>
+
+                            <div class="flex gap-2 flex-wrap">
+                                @foreach ($tamanhos as $tamanho)
+                                    <input wire:model="tamanhoItem" class="" value="{{ $tamanho->id }}"
+                                        id="checked-checkbox" type="checkbox">
+
+                                    <label class="text-gary-500 font-semibold"
+                                        for="checked-checkbox">{{ $tamanho->descricao }}</label>
+                                @endforeach
+                            </div>
+
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="flex flex-wrap items-center gap-1 ">
+                                <h1 for="total" class="text-lg font-semibold text-blue-400">Total:</h1>
+                                <h1 class="text-lg font-medium">R${{ number_format($total, 2, ',', '.') }}</h1>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center m-3">
+                            <button type="submit"
+                                class="border p-2 rounded bg-blue-500 text-white font-medium hover:bg-blue-600">Adicionar</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    @endif
+
     @if ($entrega)
         <div class="flex justify-center">
             <div class="fixed top-32 bg-white w-1/2 border-2 shadow-2xl rounded-lg">
@@ -388,7 +393,9 @@
                     </div>
 
                     <div wire:click="" class="flex justify-center m-5">
-                        <button class="p-2 border rounded text-gray-600 font-semibold hover:bg-blue-500 hover:text-white">Novo Local</button>
+                        <button
+                            class="p-2 border rounded text-gray-600 font-semibold hover:bg-blue-500 hover:text-white">Novo
+                            Local</button>
                     </div>
                 @else
                     <div class="m-5">

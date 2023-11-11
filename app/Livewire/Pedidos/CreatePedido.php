@@ -23,16 +23,18 @@ class CreatePedido extends Component
 
     public PedidoSiteForm $form;
 
-    public $criaPedido;
-    public $menuCategoria = '';
-    public $localizacao = '';
+    public $criarPedido;
 
+    public $pedidoCliente;
     public $pedido = '';
-    public $meuPedido = true;
+    public $showPedido;
 
     public $clientePedido;
 
-    public $addItem = false;
+    public $menuCategoria = '';
+    public $localizacao = '';
+
+    public $showItem;
     public $itemSelect;
     public $tamanhoItem = [];
 
@@ -63,10 +65,10 @@ class CreatePedido extends Component
     public function mount()
     {
         $pedido = Pedido::where('cliente_id', auth()->user()->id)
-                            ->where('status', 'Analise')->count();
-                            
+            ->where('status', 'Analise')->count();
+
         $pedidoPreparo = Pedido::where('cliente_id', auth()->user()->id)
-                            ->where('status', 'Preparando')->count();
+            ->where('status', 'Preparando')->count();
 
         if ($pedido > 0 or $pedidoPreparo > 0) {
             return redirect()->route('site.seu-pedido');
@@ -76,39 +78,64 @@ class CreatePedido extends Component
             ->where('status', 'Aberto')->count();
 
         if ($pedidoCliente == 0) {
-            $this->criaPedido = true;
+            $this->criarPedido = true;
         } else {
-            $this->criaPedido = false;
+            $this->criarPedido = false;
             $this->pedido = Pedido::where('cliente_id', auth()->user()->id)
                 ->where('status', 'Aberto')->get()->first();
         }
     }
 
-    public function visualizarPedido()
+    public function mostrarPedido()
     {
-        $this->meuPedido = !$this->meuPedido;
+        $this->showPedido = true;
 
-        $pedido = Pedido::where('cliente_id', auth()->user()->id)
+        $this->pedidoCliente = Pedido::where('cliente_id', auth()->user()->id)
             ->where('status', 'Aberto')
-            ->where('local_entrega_id', !null)->count();
+            ->where('site', 'S')->get()->first();
 
-        if ($pedido > 0) {
+        // $pedido = Pedido::where('cliente_id', auth()->user()->id)
+        //     ->where('status', 'Aberto')
+        //     ->where('local_entrega_id', !null)->count();
+
+        if ($this->pedidoCliente->local_entrega_id > 0) {
             $this->pedidoEntrega = 'entrega';
         }
     }
 
-    public function item()
+    public function fecharPedido()
     {
-        $this->addItem = !$this->addItem;
+        $this->showPedido = false;
     }
 
+    public function save()
+    {
+        $this->form->store();
+
+        $this->alert('success', 'Pedido Criado!', [
+            'position' => 'center',
+            'timer' => 1000,
+            'toast' => false,
+            'text' => 'Adicione os itens ao seu pedido',
+        ]);
+
+        $this->criarPedido = false;
+
+        $this->mount();
+    }
+
+    public function detalheItem()
+    {
+        $this->showItem = !$this->showItem;
+    }
 
     public function setItem($item)
     {
 
-        $pedidoItem = PedidoItem::where('pedido_id', $this->pedido['id'])->where('item_id', $item)->get()->count();
+        $itemPedido = PedidoItem::where('pedido_id', $this->pedidoCliente->id)
+                    ->where('item_id', $item)->get()->count();
 
-        if ($pedidoItem != null && $pedidoItem > 0) {
+        if ($itemPedido != null && $itemPedido > 0) {
             $this->alert('warning', 'Item Já Adicionado!', [
                 'position' => 'center',
                 'timer' => 1000,
@@ -143,21 +170,7 @@ class CreatePedido extends Component
     }
     #/quantidade
 
-    public function save()
-    {
-        $this->form->store();
-
-        $this->alert('success', 'Pedido Criado!', [
-            'position' => 'center',
-            'timer' => 1000,
-            'toast' => false,
-            'text' => 'Adicione os itens ao seu pedido',
-        ]);
-
-        $this->criaPedido = false;
-
-        $this->mount();
-    }
+    
 
     #adicionar item ao pedido
     public function pedidoItem($item)
@@ -172,7 +185,7 @@ class CreatePedido extends Component
             'total' => $this->total
         ]);
 
-        $this->addItem = false;
+        $this->showItem = false;
     }
     #/
 
