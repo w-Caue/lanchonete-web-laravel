@@ -151,138 +151,125 @@
 
                 <h1 class="text-xl font-semibold text-center tracking-widest m-3">Pedido</h1>
 
-                <div class="m-3 flex flex-col">
-                    <h1 class="text-xl font-semibold tracking-wider">Forma de pagamento </h1>
-                    <select wire:model='form.formaPagamento' name="formaPagamento"
-                        class="font-semibold border-2 rounded w-44 p-2" aria-label="Default select example">
+                <form wire:submit.prevent="finalizarPedido()">
+                    <div class="m-3 flex flex-col">
+                        <h1 class="text-xl font-semibold tracking-wider">Forma de pagamento </h1>
+                        <select wire:model='form.formaPagamento' name="formaPagamento"
+                            class="font-semibold border-2 rounded w-44 p-2" aria-label="Default select example">
 
-                        @foreach ($formasDePagamentos as $formaDePagamento)
-                            <option class="font-semibold" value="{{ $formaDePagamento->id }}"
-                                {{ ($pedido->forma_de_pagamento_id ?? old('formaDePagamento->id ')) == $formaDePagamento->id ? 'selected' : '' }}>
-                                {{ $formaDePagamento->nome }}</option>
-                        @endforeach
+                            @foreach ($formasDePagamentos as $formaDePagamento)
+                                <option class="font-semibold" value="{{ $formaDePagamento->id }}"
+                                    {{ ($pedidoCliente->forma_de_pagamento_id ?? old('formaDePagamento->id ')) == $formaDePagamento->id ? 'selected' : '' }}>
+                                    {{ $formaDePagamento->nome }}</option>
+                            @endforeach
 
-                    </select>
-                    @error('form.formaPagamento')
-                        <p class="font-semibold text-gray-400">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="flex flex-wrap gap-2 m-3">
-                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg border">
-                        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                            <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3">
-                                        Nome
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Descricão
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Preço
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Quantidade
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($pedidoCliente->itens as $item)
-                                    <tr
-                                        class="bg-white border-b hover:bg-gray-50 ">
-                                        <th scope="row"
-                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                            Apple MacBook Pro 17"
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            Silver
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            Laptop
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            $2999
-                                        </td>
-                                        <td class="px-6 py-4 text-right">
-                                            <a href="#"
-                                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        </select>
+                        @error('form.formaPagamento')
+                            <p class="font-semibold text-gray-400">{{ $message }}</p>
+                        @enderror
                     </div>
 
-                </div>
+                    <div class="flex flex-wrap gap-2 m-3">
+                        <div class="relative overflow-x-auto shadow-md sm:rounded-lg border">
+                            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">
+                                            Nome
+                                        </th>
 
-                <hr class="my-5">
+                                        <th scope="col" class="px-6 py-3">
+                                            Preço
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
+                                            Quantidade
+                                        </th>
+                                        <th scope="col" class="px-6 py-3">
 
-                <div class="flex items-center m-3 gap-1">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($pedidoCliente->itens as $item)
+                                        <tr class="bg-white border-b hover:bg-gray-50 ">
+                                            <th scope="row"
+                                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                                {{ $item->nome }}
+                                            </th>
 
-                    <ul class="flex gap-3">
-                        <li>
-                            <input wire:model.live="pedidoEntrega" wire:click="entregaDePedido()" type="radio"
-                                id="entrega" name="hosting" value="entrega" class="hidden peer" required>
-                            <label for="entrega"
-                                class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
-                                <div class="block">
-                                    <div class="w-full font-semibold">Entrega</div>
-                                </div>
+                                            <td class="px-6 py-4">
+                                                {{ $item->preco }}
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                {{ $item->pivot->quantidade }}
+                                            </td>
+                                            <td class="px-6 py-4 text-right">
+                                                <a href="#"
+                                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
 
-                            </label>
-                        </li>
+                    </div>
 
-                        <li>
-                            <input wire:model.live="pedidoEntrega" type="radio" id="retirada" name="hosting"
-                                value="retirada" class="hidden peer" required>
-                            <label for="retirada"
-                                class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
-                                <div class="block">
-                                    <div class="w-full font-semibold">Retirada</div>
-                                </div>
+                    <div class="flex items-center m-3 gap-1">
+                        <ul class="flex gap-3">
+                            <li>
+                                <input wire:model.live="pedidoEntrega" wire:click="entregaDePedido()" type="radio"
+                                    id="entrega" name="hosting" value="entrega" class="hidden peer" required>
+                                <label for="entrega"
+                                    class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                                    <div class="block">
+                                        <div class="w-full font-semibold">Entrega</div>
+                                    </div>
 
-                            </label>
-                        </li>
-                    </ul>
-                </div>
+                                </label>
+                            </li>
 
-                {{-- <div class="m-5 max-w-xs">
-                    @if ($statusEntrega)
-                        <p
-                            class="text-lg font-semibold text-green-600 bg-gray-100 shadow p-2 rounded flex flex-wrap gap-1 ">
-                            Endereço De Entrega Salvo
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z" />
-                            </svg>
-                        </p>
-                    @endif
-                </div> --}}
+                            <li>
+                                <input wire:model.live="pedidoEntrega" type="radio" id="retirada" name="hosting"
+                                    value="retirada" class="hidden peer" required>
+                                <label for="retirada"
+                                    class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
+                                    <div class="block">
+                                        <div class="w-full font-semibold">Retirada</div>
+                                    </div>
 
-                <div class="m-3 max-w-lg">
-                    <textarea wire:model="form.descricao" value="{{ $pedido->descricao }}"
-                        class="block p-2.5 w-full text-lg font-semibold text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
-                        id="exampleFormControlTextarea1" placeholder="Adicione uma descrição para seu pedido" rows="3"></textarea>
-                </div>
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
 
+                    <div class="m-5 max-w-xs">
+                        @if ($statusEntrega)
+                            <p
+                                class="text-lg font-semibold text-green-600 bg-gray-100 shadow p-2 rounded flex flex-wrap gap-1 ">
+                                Endereço De Entrega Salvo
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z" />
+                                </svg>
+                            </p>
+                        @endif
+                    </div>
 
+                    <div class="m-3 max-w-lg">
+                        <textarea wire:model="form.descricao" value="{{ $pedidoCliente->descricao }}"
+                            class="block p-2.5 w-full text-lg font-semibold text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
+                            id="exampleFormControlTextarea1" placeholder="Adicione uma descrição para seu pedido" rows="3">{{ $pedidoCliente->descricao }}</textarea>
+                    </div>
 
-                <div class="flex justify-center gap-2 mb-2">
-
-                    <a href="{{ $pedido->id }}" wire:click.prevent="finalizarPedido()"
-                        wire:click="update({{ $pedido->id }})"
-                        class="text-white font-semibold p-2 border rounded bg-blue-500">Finalizar
-                        Pedido
-                    </a>
-
-                </div>
-
+                    <div class="flex justify-center gap-2 mb-2">
+                        <button type="submit"
+                            class="text-white font-semibold p-2 border rounded bg-blue-500">Finalizar
+                            Pedido
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     @endif
@@ -290,34 +277,29 @@
     {{-- Adicionar Item --}}
     @if ($showItem)
         <div class="flex justify-center">
-            <div class="fixed top-32 bg-white w-96 shadow-2xl rounded-lg">
+            <div class="fixed top-32 bg-gray-50 w-96 shadow-2xl rounded-lg border">
 
-                <div class="flex float-right m-3">
-                    <button wire:click="item()" class="border rounded hover:bg-red-500 hover:text-white">
+                <div class="flex justify-end m-1">
+                    <button wire:click="detalheItem()" class="border rounded hover:bg-red-500 hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
-
                     </button>
                 </div>
 
-                <div class="m-5">
-                    <h1 class="text-xl font-semibold  text-center">{{ $itemSelect->nome }}</h1>
-                </div>
+                <h1 class="text-xl font-semibold text-center mb-2">{{ $itemSelect->nome }}</h1>
 
-                <div class="flex justify-center ">
+                <div class="flex justify-center">
                     <form wire:submit.prevent="pedidoItem({{ $itemSelect->id }})" class="">
-                        @csrf
-
                         <div class="mb-3">
-                            <label for="quantidade" class="text-lg font-semibold text-blue-400">Quantidade</label>
+                            <label for="quantidade" class="text-lg font-semibold text-gray-900">Quantidade</label>
                             <div class="flex gap-1 flex-wrap">
                                 <button wire:click.prevent="increment" class="border rounded p-1 text-2xl"> +
                                 </button>
 
-                                <input wire:model="count" class="text-center font-semibold" type="number"
-                                    placeholder="0" name="quantidade" style="max-width: 3.5rem">
+                                <input wire:model="count" class="text-center font-semibold w-14" type="number"
+                                    placeholder="0" name="quantidade">
 
                                 <button wire:click.prevent="decrement" class="border rounded p-1 text-2xl"> -
                                 </button>
@@ -325,7 +307,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <h1 class="text-lg font-semibold text-blue-400">Tamanho</h1>
+                            <h1 class="text-lg font-semibold text-gray-900">Tamanho</h1>
 
                             <div class="flex gap-2 flex-wrap">
                                 @foreach ($tamanhos as $tamanho)
@@ -341,14 +323,14 @@
 
                         <div class="mb-3">
                             <div class="flex flex-wrap items-center gap-1 ">
-                                <h1 for="total" class="text-lg font-semibold text-blue-400">Total:</h1>
-                                <h1 class="text-lg font-medium">R${{ number_format($total, 2, ',', '.') }}</h1>
+                                <h1 for="total" class="text-lg font-semibold text-gray-900">Total:</h1>
+                                <h1 class="text-lg font-medium">R${{ number_format($total, 2, ',') }}</h1>
                             </div>
                         </div>
 
                         <div class="flex justify-center m-3">
                             <button type="submit"
-                                class="border p-2 rounded bg-blue-500 text-white font-medium hover:bg-blue-600">Adicionar</button>
+                                class="border p-2 rounded font-medium hover:bg-blue-500 hover:text-white">Adicionar</button>
                         </div>
 
                     </form>

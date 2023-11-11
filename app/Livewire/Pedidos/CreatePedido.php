@@ -81,7 +81,7 @@ class CreatePedido extends Component
             $this->criarPedido = true;
         } else {
             $this->criarPedido = false;
-            $this->pedido = Pedido::where('cliente_id', auth()->user()->id)
+            $this->pedidoCliente = Pedido::where('cliente_id', auth()->user()->id)
                 ->where('status', 'Aberto')->get()->first();
         }
     }
@@ -90,14 +90,9 @@ class CreatePedido extends Component
     {
         $this->showPedido = true;
 
-        $this->pedidoCliente = Pedido::where('cliente_id', auth()->user()->id)
-            ->where('status', 'Aberto')
-            ->where('site', 'S')->get()->first();
-
-        // $pedido = Pedido::where('cliente_id', auth()->user()->id)
-        //     ->where('status', 'Aberto')
-        //     ->where('local_entrega_id', !null)->count();
-
+        $this->form->formaPagamento = $this->pedidoCliente->forma_de_pagamento_id;
+        $this->form->descricao = $this->pedidoCliente->descricao;
+        
         if ($this->pedidoCliente->local_entrega_id > 0) {
             $this->pedidoEntrega = 'entrega';
         }
@@ -142,7 +137,7 @@ class CreatePedido extends Component
                 'toast' => true,
             ]);
         } else {
-            $this->item();
+            $this->detalheItem();
 
             $this->itemSelect = Item::where('id', $item)->get()->first();
 
@@ -150,7 +145,6 @@ class CreatePedido extends Component
         }
     }
 
-    #quantidade
     public function increment()
     {
         $this->count++;
@@ -168,17 +162,13 @@ class CreatePedido extends Component
 
         $this->total = $this->total - $preco;
     }
-    #/quantidade
 
-    
-
-    #adicionar item ao pedido
     public function pedidoItem($item)
     {
         $tamanhos = implode(',', $this->tamanhoItem);
 
         PedidoItem::create([
-            'pedido_id' => $this->pedido['id'],
+            'pedido_id' => $this->pedidoCliente->id,
             'item_id' => $item,
             'quantidade' => $this->count,
             'tamanho' => $tamanhos,
@@ -187,35 +177,25 @@ class CreatePedido extends Component
 
         $this->showItem = false;
     }
-    #/
 
-    #edicão forma de pagamento e descrição
-    public function update()
-    {
-        $this->form->edit();
-    }
-    #/
-
-    #finalizar pedido
     public function finalizarPedido()
     {
-
-        Pedido::find($this->pedido['id'])->update([
+        Pedido::find($this->pedidoCliente->id)->update([
+            'forma_de_pagamento_id' => $this->form->formaPagamento,
+            'descricao' => $this->form->descricao,
             'status' => 'Analise'
         ]);
 
-        $this->alert('success', 'Seu Pedido Foi Para Analise', [
+        $this->alert('success', 'Seu Pedido Sera Analisado', [
             'position' => 'center',
             'timer' => 1000,
             'toast' => false,
-            'timerProgressBar' => true,
         ]);
 
-        $this->visualizarPedido();
+        $this->fecharPedidoPedido();
 
         return redirect()->route('site.seu-pedido');
     }
-    #finalizar pedido
 
     #entrega
     public function visualizarEntrega()
