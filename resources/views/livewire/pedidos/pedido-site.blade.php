@@ -70,7 +70,7 @@
     {{-- Criar Pedido --}}
     @if ($criarPedido)
         <div class="flex justify-center">
-            <div class="fixed top-20 bg-gray-50 sm:w-1/2 shadow-2xl rounded-lg border">
+            <div class="fixed top-20 bg-gray-50 sm:w-2/5 shadow-2xl rounded-lg border">
 
                 <h1 class="text-xl font-semibold text-center tracking-widest m-5">Criar Pedido</h1>
 
@@ -83,18 +83,20 @@
                                 name="cliente" value="{{ Auth::user()->name }}">
                         </div>
 
-                        <div class="m-3">
-                            <h1 class="text-lg font-semibold tracking-wider">Telefone</h1>
+                        <div class="m-2">
+                            <h1 class="text-lg font-semibold tracking-wider">Whatsapp</h1>
                             <input wire:model="form.telefone"
-                                class="border-2 p-1 rounded w-25 font-semibold text-gray-900" type="number"
+                                class="border-2 p-1 rounded w-40 font-semibold text-gray-900" type="number"
                                 value="{{ Auth::user()->telefone }}">
+
+                                <p class="text-sm font-semibold text-gray-500 m-1">Com o seu Whatsapp vamos conseguir lhe informar sobre o seu pedido.</p>
 
                             @error('form.telefone')
                                 <p class="font-semibold text-gray-400">{{ $message }}</p>
                             @enderror
                         </div>
 
-                        <div class="m-3">
+                        <div class="m-2">
                             <h1 class="text-lg font-semibold tracking-wider">Forma de pagamento </h1>
                             <select wire:model="form.formaPagamento" name="formaPagamento"
                                 class="p-1 border-2 rounded font-semibold text-gray-900"

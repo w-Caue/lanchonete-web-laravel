@@ -17,7 +17,7 @@ use Livewire\Component;
 use Livewire\Features\SupportConsoleCommands\Commands\Upgrade\ThirdPartyUpgradeNotice;
 use RealRashid\SweetAlert\SweetAlertServiceProvider;
 
-class CreatePedido extends Component
+class PedidoSite extends Component
 {
     use LivewireAlert;
 
@@ -55,12 +55,13 @@ class CreatePedido extends Component
 
     public function mount()
     {
-        $pedido = Pedido::where('cliente_id', auth()->user()->id)->get()->first();
+        $pedido = Pedido::where('cliente_id', auth()->user()->id)
+            ->where('status', 'Analise')->count();
 
-        // $pedidoPreparo = Pedido::where('cliente_id', auth()->user()->id)
-        //     ->where('status', 'Preparando')->count();
+        $pedidoPreparo = Pedido::where('cliente_id', auth()->user()->id)
+            ->where('status', 'Preparando')->count();
 
-        if ($pedido->status == 'Analise' or $pedido->status == 'Preparo' ) {
+        if ($pedido > 0 or $pedidoPreparo > 0) {
             return redirect()->route('site.seu-pedido');
         }
 
@@ -69,7 +70,6 @@ class CreatePedido extends Component
 
         if ($pedidoCliente == 0) {
             $this->criarPedido = true;
-            
         } else {
             $this->criarPedido = false;
             $this->pedidoCliente = Pedido::where('cliente_id', auth()->user()->id)
@@ -83,7 +83,7 @@ class CreatePedido extends Component
 
         $this->form->formaPagamento = $this->pedidoCliente->forma_de_pagamento_id;
         $this->form->descricao = $this->pedidoCliente->descricao;
-        
+
         if ($this->pedidoCliente->local_entrega_id > 0) {
             $this->pedidoEntrega = 'entrega';
         }
@@ -119,7 +119,7 @@ class CreatePedido extends Component
     {
 
         $pedidoItem = PedidoItem::where('pedido_id', $this->pedidoCliente->id)
-                    ->where('item_id', $item)->get()->count();
+            ->where('item_id', $item)->get()->count();
 
         if ($pedidoItem != null && $pedidoItem > 0) {
             $this->alert('warning', 'Item Já Adicionado!', [
@@ -188,10 +188,11 @@ class CreatePedido extends Component
         return redirect()->route('site.seu-pedido');
     }
 
-    public function removerItem(Item $item){
+    public function removerItem(Item $item)
+    {
         $this->itemId = $item->id;
 
-        $this->alert('info','Remover Esse Item do Pedido?', [
+        $this->alert('info', 'Remover Esse Item do Pedido?', [
             'position' => 'center',
             'timer' => 5000,
             'toast' => false,
@@ -203,13 +204,14 @@ class CreatePedido extends Component
             'onDismissed' => '',
             'cancelButtonText' => 'Cancelar',
             'confirmButtonText' => 'Remover',
-           ]);
+        ]);
     }
 
-    public function deleteItem(){
+    public function deleteItem()
+    {
 
         PedidoItem::where('pedido_id', $this->pedidoCliente->id)
-                    ->where('item_id', $this->itemId)->delete();
+            ->where('item_id', $this->itemId)->delete();
 
         $this->alert('success', 'Item Removido!', [
             'position' => 'center',
@@ -291,7 +293,7 @@ class CreatePedido extends Component
 
         $categorias = Categoria::all();
 
-        return view('livewire.pedidos.create-pedido', [
+        return view('livewire.pedidos.pedido-site', [
             'itens' => $itens,
             'formasDePagamentos' => $formasDePagamentos,
             'tamanhos' => $tamanhos,

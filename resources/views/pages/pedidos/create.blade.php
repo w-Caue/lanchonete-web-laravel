@@ -5,6 +5,6 @@
 
 @section('content')
 
-  @livewire('Pedidos.CreatePedido')
+  @livewire('Pedidos.PedidoSite')
 
 @endsection

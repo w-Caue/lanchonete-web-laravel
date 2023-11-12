@@ -21,8 +21,8 @@
         <div class="flex justify-end m-5">
             <button wire:click.prevent="novoPedido()"
                 class="flex font-semibold text-md text-gray-700 p-2 shadow border rounded hover:shadow-xl">
-                <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                    fill="none" viewBox="0 0 18 20">
+                <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 18 20">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M8 5h4m-2 2V3M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.938-11H17l-2 7H5m0 0L3 4m0 0h2M3 4l-.792-3H1" />
                 </svg>
@@ -121,7 +121,7 @@
                                 {{ $pedido->status }}
                             </td>
                             <td class="px-6 py-4 text-right">
-                                @if ($pedido->status == 'Finalizado')
+                                @if ($pedido->status == 'Concluido' or $pedido->status == 'Entrega')
                                     <a wire:click="mostrarPedido({{ $pedido->id }})"
                                         class="font-medium text-blue-600 hover:underline cursor-pointer">Visualizar</a>
                                 @endif
@@ -138,7 +138,7 @@
                                 @endif
 
                                 @if ($pedido->status == 'Analise' && $pedido->site == 'S')
-                                    <a wire:click="analisarPedido({{ $pedido->id }})"
+                                    <a wire:click="mostrarPedido({{ $pedido->id }})"
                                         class="font-medium text-blue-600 hover:underline cursor-pointer">Analisar
                                         Pedido</a>
                                 @endif
@@ -162,7 +162,8 @@
             <div class="fixed top-32 bg-gray-50 w-3/6 shadow-2xl rounded-lg border">
 
                 <div class="rounded-t-lg mb-1 flex justify-end">
-                    <button wire:click.prevent='fecharPedido()' class="rounded border m-2 hover:text-white hover:bg-red-500">
+                    <button wire:click.prevent='fecharPedido()'
+                        class="rounded border m-2 hover:text-white hover:bg-red-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -240,96 +241,125 @@
 
                 <h1 class="text-xl font-semibold text-center tracking-widest mb-4">Pedido</h1>
 
-                <form
-                    wire:submit.prevent="{{ $pedidoCliente->status == 'Aberto' ? 'prepararPedido()' : 'finalizarPedido()' }}">
-                    <div class="m-3 flex justify-between items-center gap-2">
-                        <div>
-                            <h1 class="text-xl font-semibold tracking-wider">Forma de pagamento </h1>
-                            <select wire:model.live='form.formaPagamento' name="formaPagamento"
-                                class="font-semibold w-44 p-1 border-2 rounded" aria-label="Default select example">
+                @if ($pedidoCliente->status == 'Analise' or $pedidoCliente->status == 'Preparo')
+                    <form
+                        wire:submit.prevent="{{ $pedidoCliente->status == 'Analise' ? 'prepararPedido()' : 'entregarPedido()' }}">
+                    @else
+                        <form
+                            wire:submit.prevent="{{ $pedidoCliente->status == 'Aberto' ? 'prepararPedido()' : 'concluirPedido()' }}">
+                @endif
 
-                                @foreach ($formasDePagamentos as $formaDePagamento)
-                                    <option class="font-semibold" value="{{ $formaDePagamento->id }}">
-                                        {{ $formaDePagamento->nome }}</option>
-                                @endforeach
+                <div class="m-3 flex justify-between items-center gap-2">
+                    <div>
+                        <h1 class="text-xl font-semibold tracking-wider">Forma de pagamento </h1>
+                        <select wire:model.live='form.formaPagamento' name="formaPagamento"
+                            class="font-semibold w-44 p-1 border-2 rounded" aria-label="Default select example">
 
-                            </select>
-                            @error('form.formaPagamento')
-                                <p class="font-semibold text-gray-400">{{ $message }}</p>
-                            @enderror
+                            @foreach ($formasDePagamentos as $formaDePagamento)
+                                <option class="font-semibold" value="{{ $formaDePagamento->id }}">
+                                    {{ $formaDePagamento->nome }}</option>
+                            @endforeach
+
+                        </select>
+                        @error('form.formaPagamento')
+                            <p class="font-semibold text-gray-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    @if ($pedidoCliente->status == 'Aberto')
+                        <div class="m-3">
+                            <button wire:click.prevent="mostrarItens()"
+                                class="font-semibold text-md p-2 border rounded">Adicionar Itens</button>
                         </div>
+                    @endif
+                </div>
 
-                        @if ($pedidoCliente->status == 'Aberto')
-                            <div class="m-3">
-                                <button wire:click.prevent="mostrarItens()"
-                                    class="font-semibold text-md p-2 border rounded">Adicionar Itens</button>
-                            </div>
-                        @endif
-                    </div>
+                <div class="relative overflow-x-auto shadow-md border sm:rounded-lg m-2">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 bg-gray-50">
+                                    Nome
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Quantidade
+                                </th>
+                                <th scope="col" class="px-6 py-3 bg-gray-50">
+                                    Preço
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Total
+                                </th>
+                                <th scope="col" class="px-6 py-3">
 
-                    <div class="relative overflow-x-auto shadow-md border sm:rounded-lg m-2">
-                        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                            <thead class="text-xs text-gray-700 uppercase">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50">
-                                        Nome
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($pedidoCliente->itens as $item)
+                                <tr class="border-b border-gray-200">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
+                                        {{ $item->nome }}
                                     </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Quantidade
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50">
-                                        Preço
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Total
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-
-                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ $item->pivot->quantidade }}
+                                    </td>
+                                    <td class="px-6 py-4 bg-gray-50">
+                                        {{ number_format($item->preco, 2, ',') }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ number_format($item->pivot->total, 2, ',') }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        @if ($pedidoCliente->status == 'Aberto')
+                                            <button wire:click.prevent=""
+                                                class="text-red-500 font-semibold hover:underline">
+                                                remover
+                                            </button>
+                                        @endif
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($pedidoCliente->itens as $item)
-                                    <tr class="border-b border-gray-200">
-                                        <th scope="row"
-                                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
-                                            {{ $item->nome }}
-                                        </th>
-                                        <td class="px-6 py-4">
-                                            {{ $item->pivot->quantidade }}
-                                        </td>
-                                        <td class="px-6 py-4 bg-gray-50">
-                                            {{ number_format($item->preco, 2, ',') }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ number_format($item->pivot->total, 2, ',') }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            @if ($pedidoCliente->status == 'Aberto')
-                                                <button wire:click.prevent=""
-                                                    class="text-red-500 font-semibold hover:underline">
-                                                    remover
-                                                </button>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
 
-                    <div class="m-3 max-w-lg">
-                        <textarea wire:model="form.descricao" value="{{ $pedidoCliente->descricao }}"
-                            class="block p-2.5 w-full text-lg font-semibold text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
-                            id="exampleFormControlTextarea1" placeholder="Adicione uma descrição para seu pedido" rows="3">{{ $pedidoCliente->descricao }}</textarea>
-                    </div>
+                @if ($pedidoCliente->local_entrega_id > 0)
+                    <div class="w-1/2 m-3">
+                        <h1 class="text-xl font-semibold tracking-wider">Local de Entrega</h1>
 
-                    <div class="flex justify-center gap-2 mb-2">
+                        <a
+                            class="flex flex-wrap gap-5 max-w-sm p-2 rounded border shadow m-2 hover:bg-gray-100 cursor-pointer">
+                            <p class="font-semibold text-gray-700">Cep: {{ $pedidoCliente->localEntrega->cep }}</p>
+                            <p class="font-semibold text-gray-700">Rua: {{ $pedidoCliente->localEntrega->endereco }}
+                            </p>
+                            <p class="font-semibold text-gray-700">N° {{ $pedidoCliente->localEntrega->numero }}</p>
+                            <p class="font-semibold text-gray-700">Bairro: {{ $pedidoCliente->localEntrega->bairro }}
+                            </p>
+                        </a>
+                    </div>
+                @endif
+
+                <div class="m-3 max-w-lg">
+                    <textarea wire:model="form.descricao" value="{{ $pedidoCliente->descricao }}"
+                        class="block p-2.5 w-full text-lg font-semibold text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
+                        id="exampleFormControlTextarea1" placeholder="Adicione uma descrição para seu pedido" rows="3">{{ $pedidoCliente->descricao }}</textarea>
+                </div>
+
+                <div class="flex justify-center gap-2 mb-2">
+                    @if ($pedidoCliente->status == 'Analise' or $pedidoCliente->status == 'Preparo')
+                        <button type="submit"
+                            class="{{ $pedidoCliente->status == 'Preparo' ? 'hover:bg-purple-500' : 'hover:bg-orange-600' }} font-semibold p-2 border rounded hover:text-white">
+                            {{ $pedidoCliente->status == 'Preparo' ? 'Enviar Para Entrega' : '' }}
+                        </button>
+                    @else
                         <button type="submit"
                             class="{{ $pedidoCliente->status == 'Aberto' ? 'hover:bg-orange-600' : 'hover:bg-blue-500' }} font-semibold p-2 border rounded hover:text-white ">
-                            {{ $pedidoCliente->status == 'Aberto' ? 'Prepara Pedido' : 'Finalizar Pedido' }}
+                            {{ $pedidoCliente->status == 'Aberto' ? 'Preparar Pedido' : 'Concluir Pedido' }}
                         </button>
-                    </div>
+                    @endif
+                </div>
                 </form>
             </div>
         </div>

@@ -208,15 +208,15 @@ class Pedidos extends Component
         $this->detalheItem = false;
     }
 
-    public function finalizarPedido()
+    public function concluirPedido()
     {
         Pedido::find($this->pedidoCliente->id)->update([
             'forma_de_pagamento_id' => $this->form->formaPagamento,
             'descricao' => $this->form->descricao,
-            'status' => 'Finalizado'
+            'status' => 'Concluido'
         ]);
 
-        $this->alert('success', 'Pedido Finalizado', [
+        $this->alert('success', 'Pedido Concluido', [
             'position' => 'center',
             'timer' => 1000,
             'toast' => false,
@@ -238,6 +238,22 @@ class Pedidos extends Component
         $this->alert('success', 'Pedido Sendo Preparado', [
             'position' => 'center',
             'timer' => 2000,
+            'toast' => false,
+            'timerProgressBar' => true,
+        ]);
+    }
+
+    public function entregarPedido()
+    {
+        Pedido::find($this->pedidoCliente->id)->update([
+            'status' => 'Entrega'
+        ]);
+
+        $this->fecharPedido();
+
+        $this->alert('success', 'Pedido Foi Para Entrega!', [
+            'position' => 'center',
+            'timer' => 1000,
             'toast' => false,
             'timerProgressBar' => true,
         ]);

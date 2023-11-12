@@ -10,7 +10,8 @@ use Livewire\Form;
 class PedidoSiteForm extends Form
 {
 
-    #[Rule('required', message: 'Coloque Um Número Para Contato!')]
+    #[Rule('required', message: 'Coloque Seu Whatsapp!')]
+    #[Rule('max:13', message: 'Número Máximo de Digitos é 13!')]
     public $telefone = '';
 
     #[Rule('required', message: 'Selecione a Forma de Pagamento')]
