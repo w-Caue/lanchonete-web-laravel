@@ -24,53 +24,43 @@ class CreatePedido extends Component
     public PedidoSiteForm $form;
 
     public $criarPedido;
-
-    public $pedidoCliente;
-    public $pedido = '';
     public $showPedido;
-
-    public $clientePedido;
-
-    public $menuCategoria = '';
-    public $localizacao = '';
+    public $pedidoCliente;
 
     public $showItem;
-    public $itemSelect;
+    public $itemId;
+    public $itemPedido;
     public $tamanhoItem = [];
 
-    public $itemPedido = '';
-    public $formaPagamento = '';
-
     public $count = '1';
-    public $total = '';
+    public $total;
 
-    public $pedidoEntrega = '';
-    public $entrega = false;
+    public $menuCategoria = '';
 
-    public $localDeEntrega = '';
-    public $localSalvo;
+    public $pedidoEntrega;
+    public $showEntrega;
+    public $localEntrega;
 
-    public $statusEntrega;
-
-    #Pesquisa cep
     public $cep;
     public $endereco;
-
     public $numero;
-    public $complemento;
 
+    public $complemento;
     public $referencia;
     public $bairro;
 
+    protected $listeners = [
+        'deleteItem'
+    ];
+
     public function mount()
     {
-        $pedido = Pedido::where('cliente_id', auth()->user()->id)
-            ->where('status', 'Analise')->count();
+        $pedido = Pedido::where('cliente_id', auth()->user()->id)->get()->first();
 
-        $pedidoPreparo = Pedido::where('cliente_id', auth()->user()->id)
-            ->where('status', 'Preparando')->count();
+        // $pedidoPreparo = Pedido::where('cliente_id', auth()->user()->id)
+        //     ->where('status', 'Preparando')->count();
 
-        if ($pedido > 0 or $pedidoPreparo > 0) {
+        if ($pedido->status == 'Analise' or $pedido->status == 'Preparo' ) {
             return redirect()->route('site.seu-pedido');
         }
 
@@ -79,6 +69,7 @@ class CreatePedido extends Component
 
         if ($pedidoCliente == 0) {
             $this->criarPedido = true;
+            
         } else {
             $this->criarPedido = false;
             $this->pedidoCliente = Pedido::where('cliente_id', auth()->user()->id)
@@ -124,13 +115,13 @@ class CreatePedido extends Component
         $this->showItem = !$this->showItem;
     }
 
-    public function setItem($item)
+    public function selecionarItem($item)
     {
 
-        $itemPedido = PedidoItem::where('pedido_id', $this->pedidoCliente->id)
+        $pedidoItem = PedidoItem::where('pedido_id', $this->pedidoCliente->id)
                     ->where('item_id', $item)->get()->count();
 
-        if ($itemPedido != null && $itemPedido > 0) {
+        if ($pedidoItem != null && $pedidoItem > 0) {
             $this->alert('warning', 'Item Já Adicionado!', [
                 'position' => 'center',
                 'timer' => 1000,
@@ -139,9 +130,9 @@ class CreatePedido extends Component
         } else {
             $this->detalheItem();
 
-            $this->itemSelect = Item::where('id', $item)->get()->first();
+            $this->itemPedido = Item::where('id', $item)->get()->first();
 
-            $this->total = $this->itemSelect->preco;
+            $this->total = $this->itemPedido->preco;
         }
     }
 
@@ -149,7 +140,7 @@ class CreatePedido extends Component
     {
         $this->count++;
 
-        $preco = $this->itemSelect->preco;
+        $preco = $this->itemPedido->preco;
 
         $this->total = intval($this->count) * $preco;
     }
@@ -158,7 +149,7 @@ class CreatePedido extends Component
     {
         $this->count--;
 
-        $preco = $this->itemSelect->preco;
+        $preco = $this->itemPedido->preco;
 
         $this->total = $this->total - $preco;
     }
@@ -192,24 +183,53 @@ class CreatePedido extends Component
             'toast' => false,
         ]);
 
-        $this->fecharPedidoPedido();
+        $this->fecharPedido();
 
         return redirect()->route('site.seu-pedido');
     }
 
-    #entrega
-    public function visualizarEntrega()
+    public function removerItem(Item $item){
+        $this->itemId = $item->id;
+
+        $this->alert('info','Remover Esse Item do Pedido?', [
+            'position' => 'center',
+            'timer' => 5000,
+            'toast' => false,
+            'showConfirmButton' => true,
+            'confirmButtonColor' => '#3085d6',
+            'onConfirmed' => 'deleteItem',
+            'showCancelButton' => true,
+            'cancelButtonColor' => '#d33',
+            'onDismissed' => '',
+            'cancelButtonText' => 'Cancelar',
+            'confirmButtonText' => 'Remover',
+           ]);
+    }
+
+    public function deleteItem(){
+
+        PedidoItem::where('pedido_id', $this->pedidoCliente->id)
+                    ->where('item_id', $this->itemId)->delete();
+
+        $this->alert('success', 'Item Removido!', [
+            'position' => 'center',
+            'timer' => '1000',
+            'toast' => false,
+        ]);
+    }
+
+    public function fecharEntrega()
     {
-        $this->entrega = false;
+        $this->showEntrega = false;
     }
 
     public function entregaDePedido()
     {
         if ($this->pedidoEntrega = 'entrega') {
-            $this->entrega = true;
+            $this->showEntrega = true;
         };
 
-        $this->localSalvo = LocalEntrega::where('cliente_id', auth()->user()->id)->get();
+        $this->localEntrega = LocalEntrega::where('cliente_id', auth()->user()->id)->get();
     }
 
     public function updatedCep()
@@ -227,11 +247,11 @@ class CreatePedido extends Component
 
     public function localizacaoEntrega($local)
     {
-        Pedido::find($this->pedido['id'])->update([
+        Pedido::find($this->pedidoCliente->id)->update([
             'local_entrega_id' => $local
         ]);
 
-        $this->entrega = false;
+        $this->showEntrega = false;
 
         $this->alert('success', 'Local Selecionado!', [
             'position' => 'center',
@@ -242,7 +262,7 @@ class CreatePedido extends Component
 
     public function saveLocal()
     {
-        $this->localDeEntrega = LocalEntrega::create([
+        LocalEntrega::create([
             'cliente_id' => auth()->user()->id,
             'cep' => $this->cep,
             'endereco' => $this->endereco,
@@ -252,7 +272,7 @@ class CreatePedido extends Component
             'referencia' => $this->referencia
         ]);
 
-        $this->entrega = false;
+        $this->showEntrega = false;
 
         $this->alert('success', 'Local de Entrega Foi Salvo!', [
             'position' => 'center',
@@ -260,7 +280,6 @@ class CreatePedido extends Component
             'toast' => true,
         ]);
     }
-    #/entrega
 
     public function render()
     {

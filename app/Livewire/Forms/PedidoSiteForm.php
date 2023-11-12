@@ -18,15 +18,11 @@ class PedidoSiteForm extends Form
 
     public $descricao = '';
 
-    public $pedidoCliente;
-
-   
-
     public function store()
     {
         $this->validate();
 
-        $pedido = Pedido::create([
+        Pedido::create([
             'cliente_id' => auth()->user()->id,
             'status' => 'Aberto',
             'forma_de_pagamento_id' => $this->formaPagamento,
@@ -35,16 +31,6 @@ class PedidoSiteForm extends Form
             'telefone' => $this->telefone
 
         ]);
-
-        $this->pedidoCliente = $pedido;
     }
-
-    public function edit(){
-        Pedido::find($this->pedidoCliente['id'])->update([
-            'forma_de_pagamento_id' => $this->formaPagamento,
-            'descricao' => $this->descricao
-        ]);
-    }
-
     
 }
