@@ -188,12 +188,12 @@
 
                         <div class="ml-3">
                             <select wire:model="form.formaPagamento" name="formaPagamento"
-                                class="bg-gray-50 border-2 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5"
+                                class="bg-gray-50 border-2 border-gray-300 text-gray-900 font-semibold text-md rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5"
                                 aria-label="Default select example">
-                                <option>Forma de Pagamento </option>
+                                <option></option>
 
                                 @foreach ($formasDePagamentos as $formaDePagamento)
-                                    <option value="{{ $formaDePagamento->id }}"
+                                    <option value="{{ $formaDePagamento->id }}" class="font-semibold text-md text-gray-600"
                                         {{ ($pedido->forma_de_pagamento_id ?? old('formaDePagamento->id ')) == $formaDePagamento->id ? 'selected' : '' }}>
                                         {{ $formaDePagamento->nome }}</option>
                                 @endforeach
@@ -206,7 +206,7 @@
 
                         <div class="m-3 max-w-lg">
                             <textarea wire:model="form.descricao"
-                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
+                                class="block p-2.5 w-full font-semibold text-md text-gray-800 bg-gray-50 rounded-lg border border-gray-300"
                                 id="exampleFormControlTextarea1" placeholder="Adicione uma descrição para seu pedido" rows="3"></textarea>
                         </div>
 
@@ -281,11 +281,11 @@
                                 <th scope="col" class="px-6 py-3 bg-gray-50">
                                     Nome
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Quantidade
-                                </th>
                                 <th scope="col" class="px-6 py-3 bg-gray-50">
                                     Preço
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Quantidade
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Total
@@ -302,18 +302,18 @@
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50">
                                         {{ $item->nome }}
                                     </th>
-                                    <td class="px-6 py-4">
-                                        {{ $item->pivot->quantidade }}
-                                    </td>
                                     <td class="px-6 py-4 bg-gray-50">
                                         {{ number_format($item->preco, 2, ',') }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        {{ $item->pivot->quantidade }}
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ number_format($item->pivot->total, 2, ',') }}
                                     </td>
                                     <td class="px-6 py-4">
                                         @if ($pedidoCliente->status == 'Aberto')
-                                            <button wire:click.prevent=""
+                                            <button wire:click.prevent="removerItem({{ $item->id }})"
                                                 class="text-red-500 font-semibold hover:underline">
                                                 remover
                                             </button>
@@ -322,6 +322,16 @@
                                 </tr>
                             @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr class="font-semibold text-gray-900">
+                                <th scope="row" class="px-6 py-3 text-base">Total</th>
+                                <td class="px-6 py-3"></td>
+                                <td class="px-6 py-3">3</td>
+                                <td class="px-6 py-3">
+                                    <h1 wire:model.live="totalPedido">{{ number_format($totalPedido, 2, ',') }}</h1>
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
 
@@ -527,5 +537,4 @@
             </div>
         </div>
     @endif
-
 </div>

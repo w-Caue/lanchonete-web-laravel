@@ -33,29 +33,28 @@ class Pedidos extends Component
     public $showPedido;
     public $pedidoCliente;
 
+    #Item
     public $showItens = false;
-
+    public $detalheItem;
     public $itemPedido;
+    public $pedidoItem;
 
-    #Selecionar Cliente
+    #Cliente
     public $showCliente = false;
     public $clientePedido;
-
     public $clienteSelecionado;
     public $clientes;
-
     public $pesquisaClientes = [];
     public $cliente;
 
-    
-    public $detalheItem;
-
-    
-
-    // public $pedidoClienteAberto;
-
+    #Item pedido
     public $count = '1';
     public $total = '';
+    public $totalPedido = '0';
+
+    protected $listeners = [
+        'deleteItem'
+    ];
 
     public function novoPedido()
     {
@@ -68,6 +67,7 @@ class Pedidos extends Component
         $this->pedidoCliente = Pedido::where('id', $pedido->id)->get()->first();
 
         $this->form->formaPagamento = $this->pedidoCliente->forma_de_pagamento_id;
+        $this->totalPedido = $this->pedidoCliente->total;
         $this->form->descricao = $this->pedidoCliente->descricao;
     }
 
@@ -95,7 +95,6 @@ class Pedidos extends Component
         $this->detalheItem = false;
     }
 
-    #Selecionar Cliente
     public function mostrarClientes()
     {
         $this->showCliente = !$this->showCliente;
@@ -205,7 +204,43 @@ class Pedidos extends Component
             'total' => $this->total
         ]);
 
+        $this->totalPedido = $this->total + $this->totalPedido;
+
         $this->detalheItem = false;
+    }
+
+    public function removerItem(Item $item)
+    {
+        $this->pedidoItem = $item;
+
+        $this->alert('info', 'Remover Esse Item do Pedido?', [
+            'position' => 'center',
+            'timer' => 5000,
+            'toast' => false,
+            'showConfirmButton' => true,
+            'confirmButtonColor' => '#3085d6',
+            'onConfirmed' => 'deleteItem',
+            'showCancelButton' => true,
+            'cancelButtonColor' => '#d33',
+            'onDismissed' => '',
+            'cancelButtonText' => 'Cancelar',
+            'confirmButtonText' => 'Deletar',
+        ]);
+    }
+
+    public function deleteItem()
+    {
+
+        PedidoItem::where('pedido_id', $this->pedidoCliente->id)
+            ->where('item_id', $this->pedidoItem->id)->delete();
+
+        $this->totalPedido = $this->totalPedido - $this->pedidoItem->preco;
+
+        $this->alert('success', 'Item Removido!', [
+            'position' => 'center',
+            'timer' => '1000',
+            'toast' => false,
+        ]);
     }
 
     public function concluirPedido()
@@ -230,6 +265,7 @@ class Pedidos extends Component
     public function prepararPedido()
     {
         Pedido::find($this->pedidoCliente->id)->update([
+            'total' => $this->totalPedido,
             'status' => 'Preparo'
         ]);
 
