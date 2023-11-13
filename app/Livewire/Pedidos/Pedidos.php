@@ -125,7 +125,7 @@ class Pedidos extends Component
             'toast' => true,
         ]);
 
-        $this->visualizarClientes();
+        $this->mostrarClientes();
     }
 
     public function save()
