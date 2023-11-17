@@ -207,7 +207,8 @@
                                 <option></option>
 
                                 @foreach ($formasDePagamentos as $formaDePagamento)
-                                    <option value="{{ $formaDePagamento->id }}" class="font-semibold text-md text-gray-600"
+                                    <option value="{{ $formaDePagamento->id }}"
+                                        class="font-semibold text-md text-gray-600"
                                         {{ ($pedido->forma_de_pagamento_id ?? old('formaDePagamento->id ')) == $formaDePagamento->id ? 'selected' : '' }}>
                                         {{ $formaDePagamento->nome }}</option>
                                 @endforeach
@@ -489,26 +490,12 @@
     {{-- Adicionar Item --}}
     @if ($detalheItem)
         <div class="flex justify-center">
-            <div class="fixed top-32 bg-white w-96 shadow-2xl rounded-lg">
+            <div class="fixed top-32 bg-white w-80 shadow-2xl rounded-lg">
 
-                <div class="flex float-right m-3">
-                    <button wire:click="fecharDetalheItem()" class="border rounded hover:bg-red-500 hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-
-                <div class="m-5">
-                    <h1 class="text-xl font-semibold  text-center">{{ $itemPedido->nome }}</h1>
-                </div>
-
-                <div class="flex justify-center ">
-
-                    <form wire:submit.prevent="adicionarItem({{ $itemPedido->id }})" class="">
-                        <div class="mb-3">
-                            <label for="quantidade" class="text-lg font-semibold text-blue-400">Quantidade</label>
+                <div class=" mt-5">
+                    <form wire:submit.prevent="adicionarItem({{ $itemPedido->id }})" class="flex flex-col">
+                        <div class="flex items-center gap-1 m-4">
+                            <label for="quantidade" class="text-xl font-semibold text-gray-600">Quantidade</label>
                             <div class="flex gap-1 flex-wrap">
                                 <button wire:click.prevent="increment" class="border rounded p-1 text-2xl"> +
                                 </button>
@@ -521,10 +508,10 @@
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <h1 class="text-lg font-semibold text-blue-400">Tamanho</h1>
+                        <div class="m-4">
+                            <h1 class="text-lg font-semibold text-gray-600">Tamanho</h1>
 
-                            <div class="flex gap-2 flex-wrap">
+                            <div class="flex gap-1 flex-wrap">
                                 @foreach ($tamanhos as $tamanho)
                                     <input class="" value="{{ $tamanho->id }}" id="checked-checkbox"
                                         type="checkbox">
@@ -535,16 +522,16 @@
                             </div>
                         </div>
 
-                        <div class="mb-3">
+                        <div class="m-4">
                             <div class="flex flex-wrap items-center gap-1 ">
-                                <h1 for="total" class="text-lg font-semibold text-blue-400">Total:</h1>
-                                <h1 class="text-lg font-medium">R${{ number_format($total, 2, ',') }}</h1>
+                                <h1 for="total" class="text-lg font-semibold text-gray-600">Total:</h1>
+                                <h1 class="text-lg font-medium bg-gray-100 p-2 rounded">{{ number_format($total, 2, ',') }}</h1>
                             </div>
                         </div>
 
                         <div class="flex justify-center m-3">
                             <button type="submit"
-                                class="border p-2 rounded bg-blue-500 text-white font-medium hover:bg-blue-600">Adicionar</button>
+                                class="border p-2 rounded font-semibold hover:text-white hover:bg-blue-500">Adicionar</button>
                         </div>
                     </form>
                 </div>

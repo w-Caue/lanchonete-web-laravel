@@ -34,10 +34,8 @@ class Clientes extends Component
         $this->newCliente = false;
     }
 
-    #salvar cliente
     public function save()
     {
-
         $this->form->store();
 
         $this->reset();
@@ -48,9 +46,7 @@ class Clientes extends Component
             'toast' => false,
         ]);
     }
-    #/salvar cliente
 
-    #editar cliente
     public function editCliente(Cliente $cliente)
     {
         $this->novoCliente();
@@ -70,7 +66,6 @@ class Clientes extends Component
 
         $this->fecharCliente();
     }
-    #/editar cliente
 
     public function render()
     {
