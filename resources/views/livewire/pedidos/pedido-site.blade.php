@@ -89,8 +89,6 @@
                                 class="border-2 p-1 rounded w-40 font-semibold text-gray-900" type="number"
                                 value="{{ Auth::user()->telefone }}">
 
-                                <p class="text-sm font-semibold text-gray-500 m-1">Com o seu Whatsapp vamos conseguir lhe informar sobre o seu pedido.</p>
-
                             @error('form.telefone')
                                 <p class="font-semibold text-gray-400">{{ $message }}</p>
                             @enderror
@@ -286,7 +284,7 @@
                 <h1 class="text-xl font-semibold text-center mb-2">{{ $itemPedido->nome }}</h1>
 
                 <div class="flex justify-center">
-                    <form wire:submit.prevent="pedidoItem({{ $itemPedido->id }})" class="">
+                    <form wire:submit.prevent="adicionarItem({{ $itemPedido->id }})" class="">
                         <div class="mb-3">
                             <label for="quantidade" class="text-lg font-semibold text-gray-900">Quantidade</label>
                             <div class="flex gap-1 flex-wrap">

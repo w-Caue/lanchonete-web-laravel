@@ -143,7 +143,7 @@ class Pedidos extends Component
 
         $this->alert('success', 'Pedido Criado!', [
             'position' => 'center',
-            'timer' => 3000,
+            'timer' => 1000,
             'toast' => false,
             'timerProgressBar' => true,
         ]);
@@ -206,6 +206,10 @@ class Pedidos extends Component
 
         $this->totalPedido = $this->total + $this->totalPedido;
 
+        Pedido::findOrFail($this->pedidoCliente->id)->update([
+            'total' => $this->totalPedido,
+        ]);
+
         $this->detalheItem = false;
     }
 
@@ -230,11 +234,17 @@ class Pedidos extends Component
 
     public function deleteItem()
     {
+        $pedido = PedidoItem::where('pedido_id', $this->pedidoCliente->id)
+            ->where('item_id', $this->pedidoItem->id)->get()->first();
+
+        $this->totalPedido = $this->totalPedido - ($this->pedidoItem->preco * $pedido->quantidade);
+
+        Pedido::findOrFail($this->pedidoCliente->id)->update([
+            'total' => $this->totalPedido,
+        ]);
 
         PedidoItem::where('pedido_id', $this->pedidoCliente->id)
             ->where('item_id', $this->pedidoItem->id)->delete();
-
-        $this->totalPedido = $this->totalPedido - $this->pedidoItem->preco;
 
         $this->alert('success', 'Item Removido!', [
             'position' => 'center',

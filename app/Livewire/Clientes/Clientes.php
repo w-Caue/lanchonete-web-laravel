@@ -21,6 +21,11 @@ class Clientes extends Component
     public $newCliente = false;
 
     public $search = '';
+    public $cliente;
+
+    protected $listeners = [
+        'delete'
+    ];
 
 
     public function novoCliente()
@@ -67,12 +72,43 @@ class Clientes extends Component
         $this->fecharCliente();
     }
 
-    public function render()
+    public function remover(Cliente $cliente)
+    {
+        $this->cliente = $cliente;
+
+        $this->alert('info', 'Deletar esse cliente?', [
+            'position' => 'center',
+            'timer' => 5000,
+            'toast' => false,
+            'showConfirmButton' => true,
+            'confirmButtonColor' => '#3085d6',
+            'onConfirmed' => 'delete',
+            'showCancelButton' => true,
+            'cancelButtonColor' => '#d33',
+            'onDismissed' => '',
+            'cancelButtonText' => 'Cancelar',
+            'confirmButtonText' => 'Deletar',
+        ]);
+    }
+
+    public function delete()
     {
 
+        Cliente::where('id', $this->cliente->id)->update([
+            'status' => 'Deletado'
+        ]);
+
+        $this->alert('success', 'Cliente Deletado!', [
+            'position' => 'center',
+            'timer' => '1000',
+            'toast' => false,
+        ]);
+    }
+
+    public function render()
+    {
         $clientes = Cliente::where('nome', 'like', '%' . $this->search . '%')
-            ->orWhere('email', 'like', '%' . $this->search . '%')
-            ->orWhere('telefone', 'like', '%' . $this->search . '%')
+            ->where('status', 'Ativo')
             ->paginate(5);
 
         return view('livewire.clientes.clientes', ['clientes' => $clientes]);

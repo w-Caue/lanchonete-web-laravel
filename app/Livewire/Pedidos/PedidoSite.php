@@ -27,6 +27,7 @@ class PedidoSite extends Component
     public $showPedido;
     public $pedidoCliente;
 
+    #Item
     public $showItem;
     public $itemId;
     public $itemPedido;
@@ -34,17 +35,19 @@ class PedidoSite extends Component
 
     public $count = '1';
     public $total;
+    public $totalPedido;
 
     public $menuCategoria = '';
 
+    #Entrega
     public $pedidoEntrega;
     public $showEntrega;
     public $localEntrega;
 
+    #Endereço entrega
     public $cep;
     public $endereco;
     public $numero;
-
     public $complemento;
     public $referencia;
     public $bairro;
@@ -154,7 +157,7 @@ class PedidoSite extends Component
         $this->total = $this->total - $preco;
     }
 
-    public function pedidoItem($item)
+    public function adicionarItem($item)
     {
         $tamanhos = implode(',', $this->tamanhoItem);
 
@@ -164,6 +167,12 @@ class PedidoSite extends Component
             'quantidade' => $this->count,
             'tamanho' => $tamanhos,
             'total' => $this->total
+        ]);
+
+        $this->totalPedido = $this->total + $this->totalPedido;
+
+        Pedido::findOrFail($this->pedidoCliente->id)->update([
+            'total' => $this->totalPedido,
         ]);
 
         $this->showItem = false;
@@ -209,6 +218,14 @@ class PedidoSite extends Component
 
     public function deleteItem()
     {
+        $pedido = PedidoItem::where('pedido_id', $this->pedidoCliente->id)
+            ->where('item_id', $this->itemPedido->id)->get()->first();
+
+        $this->totalPedido = $this->totalPedido - ($this->itemPedido->preco * $pedido->quantidade);
+
+        Pedido::findOrFail($this->pedidoCliente->id)->update([
+            'total' => $this->totalPedido,
+        ]);
 
         PedidoItem::where('pedido_id', $this->pedidoCliente->id)
             ->where('item_id', $this->itemId)->delete();

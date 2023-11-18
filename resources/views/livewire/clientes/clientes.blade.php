@@ -32,55 +32,82 @@
         </div>
 
         <div class="">
-            <div class="flex justify-center overflow-x-auto">
-                <table class="w-5/6 text-sm text-left text-gray-500 shadow-md sm:rounded-lg">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+            <div class="flex justify-center overflow-x-auto mx-5">
+                <table class="w-11/12 text-sm text-left text-gray-500 shadow-md sm:rounded-lg">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                         <tr>
-                            <th scope="col" class="px-6 py-3 font-bold">
-                                Id
-                            </th>
-                            <th scope="col" class="px-6 py-3 font-bold">
-                                Nome
+                            <th scope="col" class="px-6 py-3">
+                                #
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Email
+                                <div class="flex items-center">
+                                    Nome
+                                    <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                        </svg></a>
+                                </div>
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Telefone
+                                <div class="flex items-center">
+                                    Email
+                                    <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                        </svg></a>
+                                </div>
                             </th>
                             <th scope="col" class="px-6 py-3">
-
+                                <div class="flex items-center">
+                                    Telefone
+                                    <a href="#"><svg class="w-3 h-3 ms-1.5" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                        </svg></a>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($clientes as $cliente)
                             <tr class="bg-white border-b">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                                     {{ $cliente->id }}
                                 </th>
-                                <td class="px-6 py-4 font-bold">
+                                <td class="px-6 py-4">
                                     {{ $cliente->nome }}
                                 </td>
-                                <td class="px-6 py-5">
+                                <td class="px-6 py-4">
                                     {{ $cliente->email }}
                                 </td>
                                 <td class="px-6 py-4">
                                     {{ $cliente->telefone }}
                                 </td>
-                                <td class="px-6 py-4 flex gap-1">
+                                <td class="px-6 py-4 text-right flex justify-center gap-1">
                                     <button wire:click="editCliente({{ $cliente->id }})"
-                                        class="flex items-center p-2 gap-1 text-white font-semibold bg-blue-400 rounded hover:bg-blue-500">
+                                        class="flex items-center p-2 gap-1 text-white font-semibold bg-blue-500 rounded">
                                         <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="currentColor" viewBox="0 0 20 18">
-                                            <path
-                                                d="M6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm-1.391 7.361.707-3.535a3 3 0 0 1 .82-1.533L7.929 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h4.259a2.975 2.975 0 0 1-.15-1.639ZM8.05 17.95a1 1 0 0 1-.981-1.2l.708-3.536a1 1 0 0 1 .274-.511l6.363-6.364a3.007 3.007 0 0 1 4.243 0 3.007 3.007 0 0 1 0 4.243l-6.365 6.363a1 1 0 0 1-.511.274l-3.536.708a1.07 1.07 0 0 1-.195.023Z" />
+                                            fill="none" viewBox="0 0 20 18">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M4.109 17H1v-2a4 4 0 0 1 4-4h.87M10 4.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm7.95 2.55a2 2 0 0 1 0 2.829l-6.364 6.364-3.536.707.707-3.536 6.364-6.364a2 2 0 0 1 2.829 0Z" />
                                         </svg>
-
+                                        Editar
                                     </button>
-                                    <button
+                                    <button wire:click.prevent="remover({{ $cliente->id }})"
                                         class="flex items-center p-2 gap-1 text-white font-semibold bg-red-500 rounded">
-                                        Remover
+                                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 20 18">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M13 8h6m-9-3.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0ZM5 11h3a4 4 0 0 1 4 4v2H1v-2a4 4 0 0 1 4-4Z" />
+                                        </svg>
+                                        Excluir
                                     </button>
                                 </td>
                             </tr>
@@ -102,9 +129,10 @@
             <div class="fixed top-11 bg-gray-100 w-1/2 shadow-2xl border rounded-lg">
 
                 <div class="rounded-t-lg mb-4 flex justify-end ">
-                    <button wire:click.prevent='fecharCliente()' class="rounded m-2 border hover:text-white hover:bg-red-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
+                    <button wire:click.prevent='fecharCliente()'
+                        class="rounded m-2 border hover:text-white hover:bg-red-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
@@ -113,7 +141,8 @@
                 <h1 class="text-center text-2xl font-semibold mb-5">Cliente</h1>
 
                 <div class="flex justify-center">
-                    <form wire:submit.prevent="{{ $form->clienteId ? 'update()' : 'save()' }}" class="w-full max-w-2xl">
+                    <form wire:submit.prevent="{{ $form->clienteId ? 'update()' : 'save()' }}"
+                        class="w-full max-w-2xl">
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"

@@ -48,14 +48,16 @@
             </ul>
         </div>
 
-        <div class="flex justify-end gap-1 m-5 ">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-
-            <button wire:click='novoItem()' class="font-medium">Cadastrar</button>
+        <div class="flex justify-end m-5 ">
+            <button wire:click='novoItem()'
+                class="text-lg text-gray-600 font-semibold flex items-center gap-1 p-2 shadow-xl border rounded-lg hover:bg-blue-500 hover:text-white hover:shadow-2xl">
+                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                Novo Item
+            </button>
         </div>
 
         <div class="flex justify-center flex-wrap gap-3">
@@ -83,10 +85,11 @@
 
     @if ($newItem)
         <div class="flex justify-center">
-            <div class="fixed top-32 bg-white w-3/4 shadow-2xl border rounded-lg">
+            <div class="fixed top-14 bg-gray-50 w-1/2 shadow-2xl border rounded-lg">
 
-                <div class="bg-blue-400 rounded-t-lg mb-4 flex justify-end ">
-                    <button wire:click.prevent='fecharItem()' class="text-white rounded m-2 hover:bg-red-500">
+                <div class="rounded-t-lg mb-1 flex justify-end ">
+                    <button wire:click.prevent='fecharItem()'
+                        class="border rounded m-2 hover:text-white hover:bg-red-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -94,15 +97,15 @@
                     </button>
                 </div>
 
-                <h1 class="text-center text-xl font-semibold mb-5">
-                    Cadastro
+                <h1 class="text-center text-xl font-semibold m-2">
+                    Item
                 </h1>
 
                 <div class="flex justify-center">
                     <form wire:submit.prevent="{{ $form->itemId ? 'update()' : 'save()' }}" class="w-full max-w-2xl">
-                        <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="flex flex-wrap m-3">
                             <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                <label class="uppercase tracking-wide text-sm font-semibold text-gray-900"
                                     for="grid-first-name">
                                     Nome
                                 </label>
@@ -117,9 +120,9 @@
 
                         </div>
 
-                        <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="flex flex-wrap m-3">
                             <div class="w-full px-3 md:w-3/4">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                                <label class="uppercase tracking-wide text-sm font-semibold text-gray-900">
                                     Descrição
                                 </label>
                                 <input wire:model='form.descricao'
@@ -133,9 +136,9 @@
 
                         </div>
 
-                        <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="flex flex-wrap m-3">
                             <div class="w-full md:w-32 px-3 mb-6 md:mb-0">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                <label class="uppercase tracking-wide text-sm font-semibold text-gray-900"
                                     for="grid-first-name">
                                     Preço
                                 </label>
@@ -148,7 +151,7 @@
                                 <span class="error">{{ $message }}</span>
                             @enderror
                             <div class="w-full md:w-64 px-3 mb-6 md:mb-0">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                <label class="uppercase tracking-wide text-sm font-semibold text-gray-900"
                                     for="grid-first-name">
                                     Tamanhos
                                 </label>
@@ -172,8 +175,8 @@
                             @enderror
 
                             <div class="w-full md:w-64 px-3 mb-6 md:mb-0">
-                                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                    for="grid-first-name">
+                                <label class="uppercase tracking-wide text-sm font-semibold text-gray-900"
+                                    for="">
                                     Categoria
                                 </label>
 
@@ -187,21 +190,24 @@
                                 </select>
                             </div>
 
-                            <div class="w-full md:w-80">
-                                <label class="block mb-2 text-sm font-medium text-gray-900"
-                                    for="file_input">Imagem</label>
-                                <input
-                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                                    aria-describedby="file_input_help" id="file_input" type="file">
-                            </div>
-
                             @error('form.categoria')
                                 <span class="error">{{ $message }}</span>
                             @enderror
 
+                            <div class="w-full md:w-80 m-3">
+                                <label class="uppercase tracking-wide text-sm font-semibold text-gray-900"
+                                    for="file_input">Imagem</label>
+
+                                
+                                <input
+                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded cursor-pointer bg-gray-50"
+                                    id="multiple_files" type="file" multiple>
+
+                            </div>
+
                         </div>
 
-                        <div class="flex justify-center mb-4">
+                        <div class="flex justify-center m-3">
                             <button type="submit"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 {{ $form->itemId ? 'Salvar' : 'Cadastrar' }}

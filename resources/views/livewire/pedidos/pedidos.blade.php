@@ -256,12 +256,18 @@
 
                 <h1 class="text-xl font-semibold text-center tracking-widest mb-4">Pedido</h1>
 
-                @if ($pedidoCliente->status == 'Analise' or $pedidoCliente->status == 'Preparo')
+                @if ($pedidoCliente->status == 'Aberto' or $pedidoCliente->status == 'Analise')
+                    <form wire:submit.prevent="prepararPedido()">
+                @endif
+
+                @if ($pedidoCliente->status == 'Preparo' && $pedidoCliente->site == 'S')
                     <form
-                        wire:submit.prevent="{{ $pedidoCliente->status == 'Analise' ? 'prepararPedido()' : 'entregarPedido()' }}">
-                    @else
-                        <form
-                            wire:submit.prevent="{{ $pedidoCliente->status == 'Aberto' ? 'prepararPedido()' : 'concluirPedido()' }}">
+                        wire:submit.prevent="entregarPedido()">
+                @endif
+
+                @if ($pedidoCliente->status == 'Preparo' && $pedidoCliente->site == null)
+                    <form
+                        wire:submit.prevent="concluirPedido()">
                 @endif
 
                 <div class="m-3 flex justify-between items-center gap-2">
@@ -284,7 +290,8 @@
                     @if ($pedidoCliente->status == 'Aberto')
                         <div class="m-3">
                             <button wire:click.prevent="mostrarItens()"
-                                class="font-semibold text-md p-2 border rounded">Adicionar Itens</button>
+                                class="font-semibold text-md p-2 border rounded">Adicionar
+                                Itens</button>
                         </div>
                     @endif
                 </div>
@@ -373,17 +380,27 @@
                 </div>
 
                 <div class="flex justify-center gap-2 mb-2">
-                    @if ($pedidoCliente->status == 'Analise' or $pedidoCliente->status == 'Preparo')
-                        <button type="submit"
-                            class="{{ $pedidoCliente->status == 'Preparo' ? 'hover:bg-purple-500' : 'hover:bg-orange-600' }} font-semibold p-2 border rounded hover:text-white">
-                            {{ $pedidoCliente->status == 'Preparo' ? 'Enviar Para Entrega' : '' }}
-                        </button>
-                    @else
+                    @if ($pedidoCliente->status == 'Aberto' or $pedidoCliente->status == 'Analise')
                         <button type="submit"
                             class="{{ $pedidoCliente->status == 'Aberto' ? 'hover:bg-orange-600' : 'hover:bg-blue-500' }} font-semibold p-2 border rounded hover:text-white ">
-                            {{ $pedidoCliente->status == 'Aberto' ? 'Preparar Pedido' : 'Concluir Pedido' }}
+                            Preparar Pedido
                         </button>
                     @endif
+
+                    @if ($pedidoCliente->status == 'Preparo' && $pedidoCliente->site == 'S')
+                        <button type="submit"
+                            class="{{ $pedidoCliente->status == 'Preparo' ? 'hover:bg-purple-500' : 'hover:bg-orange-600' }} font-semibold p-2 border rounded hover:text-white">
+                            Enviar Para Entrega
+                        </button>
+                    @endif
+
+                    @if ($pedidoCliente->status == 'Preparo' && $pedidoCliente->site == null)
+                        <button type="submit"
+                            class="font-semibold p-2 border rounded hover:text-white hover:bg-blue-500">
+                            Concluir Pedido
+                        </button>
+                    @endif
+
                 </div>
                 </form>
             </div>
@@ -458,7 +475,7 @@
 
                 <div class="flex justify-center items-center gap-1 m-2">
                     <input wire:model.lazy="search" type="text" name="seach"
-                        class="appearance-none block w-full md:w-1/3 bg-gray-200 text-gray-700 border rounded p-3 leading-tight focus:outline-none focus:bg-white"
+                        class="appearance-none block w-full md:w-1/3 text-gray-700 border rounded p-3 leading-tight focus:outline-none focus:bg-white"
                         value="" placeholder="Pesquisar Item">
                     <button class="bg-blue-500 text-white p-2 border border-blue-500 hover:border-transparent rounded">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -525,7 +542,8 @@
                         <div class="m-4">
                             <div class="flex flex-wrap items-center gap-1 ">
                                 <h1 for="total" class="text-lg font-semibold text-gray-600">Total:</h1>
-                                <h1 class="text-lg font-medium bg-gray-100 p-2 rounded">{{ number_format($total, 2, ',') }}</h1>
+                                <h1 class="text-lg font-medium bg-gray-100 p-2 rounded">
+                                    {{ number_format($total, 2, ',') }}</h1>
                             </div>
                         </div>
 
