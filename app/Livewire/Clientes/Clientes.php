@@ -47,7 +47,7 @@ class Clientes extends Component
 
         $this->alert('success', 'Cliente Cadastrado!', [
             'position' => 'center',
-            'timer' => 3000,
+            'timer' => 1000,
             'toast' => false,
         ]);
     }

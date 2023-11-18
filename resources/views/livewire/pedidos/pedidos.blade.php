@@ -96,6 +96,17 @@
 
                         <th scope="col" class="px-6 py-3">
                             <div class="flex items-center">
+                                Total do Itens
+                                <a href="#"><svg class="w-3 h-3 ml-1.5" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z" />
+                                    </svg></a>
+                            </div>
+                        </th>
+
+                        <th scope="col" class="px-6 py-3">
+                            <div class="flex items-center">
                                 Total do Pedido
                                 <a href="#"><svg class="w-3 h-3 ml-1.5" aria-hidden="true"
                                         xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
@@ -132,7 +143,10 @@
                                 {{ $pedido->formaPagamento->nome }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ number_format($pedido->total, 2, ',') }}
+                                {{ number_format($pedido->total_itens, 2, ',') }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ number_format($pedido->total_pedido, 2, ',') }}
                             </td>
                             <td class="px-6 py-4 text-right">
                                 @if ($pedido->status == 'Concluido' or $pedido->status == 'Entrega')
@@ -261,13 +275,11 @@
                 @endif
 
                 @if ($pedidoCliente->status == 'Preparo' && $pedidoCliente->site == 'S')
-                    <form
-                        wire:submit.prevent="entregarPedido()">
+                    <form wire:submit.prevent="entregarPedido()">
                 @endif
 
-                @if ($pedidoCliente->status == 'Preparo' && $pedidoCliente->site == null)
-                    <form
-                        wire:submit.prevent="concluirPedido()">
+                @if ($pedidoCliente->status == 'Preparo' && $pedidoCliente->site == null or $pedidoCliente->status == 'Entrega')
+                    <form wire:submit.prevent="concluirPedido()">
                 @endif
 
                 <div class="m-3 flex justify-between items-center gap-2">
@@ -350,7 +362,7 @@
                                 <td class="px-6 py-3"></td>
                                 <td class="px-6 py-3"></td>
                                 <td class="px-6 py-3">
-                                    <h1 wire:model.live="totalPedido">{{ number_format($totalPedido, 2, ',') }}</h1>
+                                    <h1 wire:model.live="totalPedido">{{ number_format($totalItens, 2, ',') }}</h1>
                                 </td>
                             </tr>
                         </tfoot>
@@ -360,7 +372,6 @@
                 @if ($pedidoCliente->local_entrega_id > 0)
                     <div class="w-1/2 m-3">
                         <h1 class="text-xl font-semibold tracking-wider">Local de Entrega</h1>
-
                         <a
                             class="flex flex-wrap gap-5 max-w-sm p-2 rounded border shadow m-2 hover:bg-gray-100 cursor-pointer">
                             <p class="font-semibold text-gray-700">Cep: {{ $pedidoCliente->localEntrega->cep }}</p>
@@ -394,7 +405,7 @@
                         </button>
                     @endif
 
-                    @if ($pedidoCliente->status == 'Preparo' && $pedidoCliente->site == null)
+                    @if ($pedidoCliente->status == 'Preparo' && $pedidoCliente->site == null or $pedidoCliente->status == 'Entrega')
                         <button type="submit"
                             class="font-semibold p-2 border rounded hover:text-white hover:bg-blue-500">
                             Concluir Pedido
@@ -517,8 +528,8 @@
                                 <button wire:click.prevent="increment" class="border rounded p-1 text-2xl"> +
                                 </button>
 
-                                <input wire:model="count" class="text-center font-semibold" type="number"
-                                    placeholder="0" name="quantidade" style="max-width: 3.5rem">
+                                <input wire:model.live="quantidade" class="text-center font-semibold" type="number"
+                                    name="quantidade" style="max-width: 3.5rem">
 
                                 <button wire:click.prevent="decrement" class="border rounded p-1 text-2xl"> -
                                 </button>
@@ -543,7 +554,7 @@
                             <div class="flex flex-wrap items-center gap-1 ">
                                 <h1 for="total" class="text-lg font-semibold text-gray-600">Total:</h1>
                                 <h1 class="text-lg font-medium bg-gray-100 p-2 rounded">
-                                    {{ number_format($total, 2, ',') }}</h1>
+                                    {{ number_format($totalItens, 2, ',') }}</h1>
                             </div>
                         </div>
 
@@ -552,6 +563,51 @@
                                 class="border p-2 rounded font-semibold hover:text-white hover:bg-blue-500">Adicionar</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if (false)
+        <div class="flex justify-center">
+            <div class="fixed top-32 bg-white w-96 shadow-2xl rounded-lg">
+                <div class="m-3">
+                    <h1 class="text-xl font-semibold tracking-wider">Forma de pagamento </h1>
+                    <select wire:model.live='form.formaPagamento' name="formaPagamento"
+                        class="font-semibold w-44 p-1 border-2 rounded" aria-label="Default select example">
+
+                        @foreach ($formasDePagamentos as $formaDePagamento)
+                            <option class="font-semibold" value="{{ $formaDePagamento->id }}">
+                                {{ $formaDePagamento->nome }}</option>
+                        @endforeach
+
+                    </select>
+                    @error('form.formaPagamento')
+                        <p class="font-semibold text-gray-400">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="m-3 flex flex-wrap gap-1">
+                    <h1 class="text-xl text-gray-700 font-semibold tracking-wider">Desconto </h1>
+                    <input wire:model.live="desconto" type="number" class="w-16 border border-gray-400 rounded text-md font-semibold text-gray-900 p-1">
+                </div>
+
+                <div class="m-3 flex flex-wrap justify-end gap-1">
+                    <h1 class="text-xl text-gray-600 font-semibold tracking-wider">Total do Pedido: </h1>
+                    <h1 wire:model.live="totalPedido" class="text-xl text-gray-900 font-semibold tracking-wider">{{ number_format($totalPedido, 2, ',') }} </h1>
+                </div>
+
+                <div class="m-3 max-w-lg">
+                    <textarea wire:model="form.descricao" value="" @disabled(true)
+                        class="block p-2.5 w-full text-lg font-semibold text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
+                        placeholder="Descrição do Pedido" rows="3"></textarea>
+                </div>
+
+                <div class="m-2 flex justify-center">
+                    <button type="submit"
+                        class="font-semibold p-2 border rounded hover:text-white hover:bg-blue-500">
+                        Concluir Pedido
+                    </button>
                 </div>
             </div>
         </div>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pedido extends Model
 {
 
-    protected $fillable = ['cliente_id', 'status', 'forma_de_pagamento_id', 'descricao', 'site', 'local_entrega_id', 'telefone', 'total'];
+    protected $fillable = ['cliente_id', 'status', 'forma_de_pagamento_id', 'descricao', 'site', 'local_entrega_id', 'telefone', 'total_itens', 'desconto', 'total_pedido'];
 
     public function itens(){
         return $this->belongsToMany('App\Models\Item', 'pedidos_itens')->withPivot('quantidade', 'total');

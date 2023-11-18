@@ -48,9 +48,13 @@ class Pedidos extends Component
     public $cliente;
 
     #Item pedido
-    public $count = '1';
+    public $quantidade = 1;
     public $total = '';
-    public $totalPedido = '0';
+    
+    #Autenticar Pedido
+    public $totalItens;
+    public $totalPedido;
+    public $desconto;
 
     protected $listeners = [
         'deleteItem'
@@ -67,7 +71,8 @@ class Pedidos extends Component
         $this->pedidoCliente = Pedido::where('id', $pedido->id)->get()->first();
 
         $this->form->formaPagamento = $this->pedidoCliente->forma_de_pagamento_id;
-        $this->totalPedido = $this->pedidoCliente->total;
+        $this->totalPedido = $this->pedidoCliente->total_pedido;
+        $this->totalItens = $this->pedidoCliente->total_itens;
         $this->form->descricao = $this->pedidoCliente->descricao;
     }
 
@@ -93,6 +98,7 @@ class Pedidos extends Component
     public function fecharDetalheItem()
     {
         $this->detalheItem = false;
+        $this->quantidade = 1;
     }
 
     public function mostrarClientes()
@@ -153,8 +159,6 @@ class Pedidos extends Component
         $this->reset();
 
         $this->newPedido = false;
-
-        // $this->pedidoItem = true;
     }
 
     public function item($item)
@@ -173,26 +177,26 @@ class Pedidos extends Component
 
             $this->itemPedido = Item::where('id', $item)->get()->first();
 
-            $this->total = $this->itemPedido->preco;
+            $this->totalItens = $this->itemPedido->preco;
         }
     }
 
     public function increment()
     {
-        $this->count++;
+        $this->quantidade++;
 
         $preco = $this->itemPedido->preco;
 
-        $this->total = intval($this->count) * $preco;
+        $this->totalItens = intval($this->quantidade) * $preco;
     }
 
     public function decrement()
     {
-        $this->count--;
+        $this->quantidade--;
 
         $preco = $this->itemPedido->preco;
 
-        $this->total = $this->total - $preco;
+        $this->totalItens = $this->totalItens - $preco;
     }
 
     public function adicionarItem($item)
@@ -200,15 +204,19 @@ class Pedidos extends Component
         PedidoItem::create([
             'pedido_id' => $this->pedidoCliente->id,
             'item_id' => $item,
-            'quantidade' => $this->count,
-            'total' => $this->total
+            'quantidade' => $this->quantidade,
+            'total' => $this->totalItens
         ]);
 
-        $this->totalPedido = $this->total + $this->totalPedido;
+        $this->totalPedido = $this->totalItens + $this->totalPedido;
+        $this->totalItens = $this->totalItens + $this->pedidoCliente->total_itens;
 
         Pedido::findOrFail($this->pedidoCliente->id)->update([
-            'total' => $this->totalPedido,
+            'total_pedido' => $this->totalPedido,
+            'total_itens' => $this->totalItens,
         ]);
+
+        $this->quantidade = 1;
 
         $this->detalheItem = false;
     }
@@ -238,9 +246,11 @@ class Pedidos extends Component
             ->where('item_id', $this->pedidoItem->id)->get()->first();
 
         $this->totalPedido = $this->totalPedido - ($this->pedidoItem->preco * $pedido->quantidade);
+        $this->totalItens = $this->totalItens - ($this->pedidoItem->preco * $pedido->quantidade);
 
         Pedido::findOrFail($this->pedidoCliente->id)->update([
-            'total' => $this->totalPedido,
+            'total_pedido' => $this->totalPedido,
+            'total_itens' => $this->totalItens,
         ]);
 
         PedidoItem::where('pedido_id', $this->pedidoCliente->id)
@@ -275,17 +285,16 @@ class Pedidos extends Component
     public function prepararPedido()
     {
         Pedido::find($this->pedidoCliente->id)->update([
-            'total' => $this->totalPedido,
+            'total_pedido' => $this->totalPedido,
             'status' => 'Preparo'
         ]);
 
         $this->fecharPedido();
 
-        $this->alert('success', 'Pedido Sendo Preparado', [
+        $this->alert('success', 'Pedido Indo Para O Preparo', [
             'position' => 'center',
-            'timer' => 2000,
+            'timer' => 1000,
             'toast' => false,
-            'timerProgressBar' => true,
         ]);
     }
 
@@ -301,7 +310,6 @@ class Pedidos extends Component
             'position' => 'center',
             'timer' => 1000,
             'toast' => false,
-            'timerProgressBar' => true,
         ]);
     }
 
