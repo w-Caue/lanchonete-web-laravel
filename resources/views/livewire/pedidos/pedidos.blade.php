@@ -270,16 +270,16 @@
 
                 <h1 class="text-xl font-semibold text-center tracking-widest mb-4">Pedido</h1>
 
-                @if ($pedidoCliente->status == 'Aberto' or $pedidoCliente->status == 'Analise')
-                    <form wire:submit.prevent="prepararPedido()">
+                @if ($pedidoCliente->status == 'Aberto' or $pedidoCliente->status == 'Analise' or $pedidoCliente->status == 'Preparo')
+                    <form wire:submit.prevent="editarPedido()">
+                    @else
+                        <form wire:submit.prevent="concluirPedido()">
                 @endif
 
                 @if ($pedidoCliente->status == 'Preparo' && $pedidoCliente->site == 'S')
-                    <form wire:submit.prevent="entregarPedido()">
-                @endif
-
-                @if ($pedidoCliente->status == 'Preparo' && $pedidoCliente->site == null or $pedidoCliente->status == 'Entrega')
-                    <form wire:submit.prevent="concluirPedido()">
+                    <form wire:submit.prevent="editarPedido()">
+                    @else
+                        <form wire:submit.prevent="concluirPedido()">
                 @endif
 
                 <div class="m-3 flex justify-between items-center gap-2">
@@ -304,6 +304,18 @@
                             <button wire:click.prevent="mostrarItens()"
                                 class="font-semibold text-md p-2 border rounded">Adicionar
                                 Itens</button>
+                        </div>
+                    @else
+                        <div>
+                            <select wire:model.live='statusPedido' name="status"
+                                class="font-semibold w-44 p-1 border-2 rounded">
+
+                                @foreach ($statusPedidos as $status)
+                                    <option class="font-semibold" value="{{ $status->nome }}">
+                                        {{ $status->nome }}</option>
+                                @endforeach
+
+                            </select>
                         </div>
                     @endif
                 </div>
@@ -391,24 +403,15 @@
                 </div>
 
                 <div class="flex justify-center gap-2 mb-2">
-                    @if ($pedidoCliente->status == 'Aberto' or $pedidoCliente->status == 'Analise')
+                    @if ($pedidoCliente->status == 'Preparo' or $pedidoCliente->status == 'Concluido')
                         <button type="submit"
-                            class="{{ $pedidoCliente->status == 'Aberto' ? 'hover:bg-orange-600' : 'hover:bg-blue-500' }} font-semibold p-2 border rounded hover:text-white ">
-                            Preparar Pedido
+                            class="font-semibold p-2 border rounded hover:text-white hover:bg-purple-500">
+                            Salvar Pedido
                         </button>
-                    @endif
-
-                    @if ($pedidoCliente->status == 'Preparo' && $pedidoCliente->site == 'S')
-                        <button type="submit"
-                            class="{{ $pedidoCliente->status == 'Preparo' ? 'hover:bg-purple-500' : 'hover:bg-orange-600' }} font-semibold p-2 border rounded hover:text-white">
-                            Enviar Para Entrega
-                        </button>
-                    @endif
-
-                    @if ($pedidoCliente->status == 'Preparo' && $pedidoCliente->site == null or $pedidoCliente->status == 'Entrega')
+                    @else
                         <button type="submit"
                             class="font-semibold p-2 border rounded hover:text-white hover:bg-blue-500">
-                            Concluir Pedido
+                            Finalizar Pedido
                         </button>
                     @endif
 
@@ -541,8 +544,8 @@
 
                             <div class="flex gap-1 flex-wrap">
                                 @foreach ($tamanhos as $tamanho)
-                                    <input class="" value="{{ $tamanho->id }}" id="checked-checkbox"
-                                        type="checkbox">
+                                    <input wire:model="tamanhosItens" class="" value="{{ $tamanho->tamanho }}"
+                                        id="checked-checkbox" type="checkbox">
 
                                     <label class="text-gary-500 font-semibold"
                                         for="checked-checkbox">{{ $tamanho->descricao }}</label>
@@ -568,7 +571,7 @@
         </div>
     @endif
 
-    @if (false)
+    @if ($showAutenticacao)
         <div class="flex justify-center">
             <div class="fixed top-32 bg-white w-96 shadow-2xl rounded-lg">
                 <div class="m-3">
@@ -589,12 +592,14 @@
 
                 <div class="m-3 flex flex-wrap gap-1">
                     <h1 class="text-xl text-gray-700 font-semibold tracking-wider">Desconto </h1>
-                    <input wire:model.live="desconto" type="number" class="w-16 border border-gray-400 rounded text-md font-semibold text-gray-900 p-1">
+                    <input wire:model.live="desconto" type="number"
+                        class="w-16 border border-gray-400 rounded text-md font-semibold text-gray-900 p-1">
                 </div>
 
                 <div class="m-3 flex flex-wrap justify-end gap-1">
                     <h1 class="text-xl text-gray-600 font-semibold tracking-wider">Total do Pedido: </h1>
-                    <h1 wire:model.live="totalPedido" class="text-xl text-gray-900 font-semibold tracking-wider">{{ number_format($totalPedido, 2, ',') }} </h1>
+                    <h1 wire:model.live="totalPedido" class="text-xl text-gray-900 font-semibold tracking-wider">
+                        {{ number_format($totalPedido, 2, ',') }} </h1>
                 </div>
 
                 <div class="m-3 max-w-lg">

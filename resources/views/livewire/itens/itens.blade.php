@@ -162,7 +162,7 @@
                                             class="appearance-none font-semibold text-gray-700 leading-tight focus:outline-none focus:bg-white"
                                             for="checked-checkbox">
                                             <input wire:model='form.tamanho' class=""
-                                                value="{{ $tamanho->id }}" id="checked-checkbox" type="checkbox">
+                                                value="{{ $tamanho->tamanho }}" id="checked-checkbox" type="checkbox">
 
                                             {{ $tamanho->descricao }}
                                         </label>

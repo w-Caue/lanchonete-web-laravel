@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('local_entrega', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->integer('cep');
             $table->string('endereco', 100);
             $table->integer('numero');
@@ -21,9 +20,6 @@ return new class extends Migration
             $table->string('bairro', 20);
             $table->string('referencia', 100);
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users');
-
         });
     }
 

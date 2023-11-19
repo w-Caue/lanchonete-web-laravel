@@ -8,6 +8,7 @@ use App\Models\FormaDePagamento;
 use App\Models\Item;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
+use App\Models\StatusPedido;
 use App\Models\Tamanho;
 use App\Models\User;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -38,6 +39,7 @@ class Pedidos extends Component
     public $detalheItem;
     public $itemPedido;
     public $pedidoItem;
+    public $tamanhosItens = [];
 
     #Cliente
     public $showCliente = false;
@@ -50,11 +52,13 @@ class Pedidos extends Component
     #Item pedido
     public $quantidade = 1;
     public $total = '';
-    
+
     #Autenticar Pedido
+    public $showAutenticacao;
     public $totalItens;
     public $totalPedido;
     public $desconto;
+    public $statusPedido;
 
     protected $listeners = [
         'deleteItem'
@@ -201,10 +205,13 @@ class Pedidos extends Component
 
     public function adicionarItem($item)
     {
+        $tamanhos = implode(',', $this->tamanhosItens);
+
         PedidoItem::create([
             'pedido_id' => $this->pedidoCliente->id,
             'item_id' => $item,
             'quantidade' => $this->quantidade,
+            'tamanho' => $tamanhos,
             'total' => $this->totalItens
         ]);
 
@@ -271,46 +278,44 @@ class Pedidos extends Component
             'status' => 'Concluido'
         ]);
 
-        $this->alert('success', 'Pedido Concluido', [
-            'position' => 'center',
-            'timer' => 1000,
-            'toast' => false,
-        ]);
+        // $this->alert('success', 'Pedido Concluido', [
+        //     'position' => 'center',
+        //     'timer' => 1000,
+        //     'toast' => false,
+        // ]);
 
-        $this->fecharPedido();
-
-        // $this->itemNoPedido();
+        $this->showAutenticacao = true;
     }
 
-    public function prepararPedido()
+    public function editarPedido()
     {
+        if($this->pedidoCliente->status == 'Aberto'){
+            $this->statusPedido = 'Preparo';
+        }
+
         Pedido::find($this->pedidoCliente->id)->update([
-            'total_pedido' => $this->totalPedido,
-            'status' => 'Preparo'
+            'forma_de_pagamento_id' => $this->form->formaPagamento,
+            'descricao' => $this->form->descricao,
+            'status' => $this->statusPedido
         ]);
+
+        if ($this->statusPedido == 'Preparo') {
+            $this->alert('success', 'Pedido Indo Para O Preparo', [
+                'position' => 'center',
+                'timer' => 1000,
+                'toast' => false,
+            ]);
+        }
+
+        if ($this->statusPedido == 'Entrega') {
+            $this->alert('success', 'Pedido Indo Para O Preparo', [
+                'position' => 'center',
+                'timer' => 1000,
+                'toast' => false,
+            ]);
+        }
 
         $this->fecharPedido();
-
-        $this->alert('success', 'Pedido Indo Para O Preparo', [
-            'position' => 'center',
-            'timer' => 1000,
-            'toast' => false,
-        ]);
-    }
-
-    public function entregarPedido()
-    {
-        Pedido::find($this->pedidoCliente->id)->update([
-            'status' => 'Entrega'
-        ]);
-
-        $this->fecharPedido();
-
-        $this->alert('success', 'Pedido Foi Para Entrega!', [
-            'position' => 'center',
-            'timer' => 1000,
-            'toast' => false,
-        ]);
     }
 
     public function render()
@@ -323,6 +328,8 @@ class Pedidos extends Component
 
         $tamanhos = Tamanho::all();
 
+        $statusPedidos = StatusPedido::all();
+
         $pedidos = Pedido::where('cliente_id', 'like', '%' . $this->search . '%')->paginate(5);
 
         return view('livewire.pedidos.pedidos', [
@@ -330,6 +337,7 @@ class Pedidos extends Component
             'clientes' => $clientes,
             'itens' => $itens,
             'tamanhos' => $tamanhos,
+            'statusPedidos' => $statusPedidos,
             'formasDePagamentos' => $formasDePagamentos
         ]);
     }

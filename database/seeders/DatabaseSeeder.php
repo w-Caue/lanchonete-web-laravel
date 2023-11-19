@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Categoria;
+use App\Models\StatusPedido;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,5 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TamanhoSeeder::class);
         $this->call(CategoriaSeeder::class);
         $this->call(FormaDePagamentoSeeder::class);
+        $this->call(StatusPedidoSeeder::class);
     }
 }
