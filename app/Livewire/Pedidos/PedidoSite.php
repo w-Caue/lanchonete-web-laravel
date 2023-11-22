@@ -251,7 +251,7 @@ class PedidoSite extends Component
             $this->showEntrega = true;
         };
 
-        $this->localEntrega = LocalEntrega::where('cliente_id', auth()->user()->id)->get();
+        $this->localEntrega = LocalEntrega::where('user_id', auth()->user()->id)->get();
     }
 
     public function updatedCep()
@@ -285,7 +285,7 @@ class PedidoSite extends Component
     public function saveLocal()
     {
         $local = LocalEntrega::create([
-            'cliente_id' => auth()->user()->id,
+            'user_id' => auth()->user()->id,
             'cep' => $this->cep,
             'endereco' => $this->endereco,
             'numero' => $this->numero,

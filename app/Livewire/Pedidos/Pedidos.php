@@ -6,6 +6,7 @@ use App\Livewire\Forms\PedidoForm;
 use App\Models\Cliente;
 use App\Models\FormaDePagamento;
 use App\Models\Item;
+use App\Models\LocalEntrega;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
 use App\Models\StatusPedido;
@@ -61,6 +62,19 @@ class Pedidos extends Component
     public $pedidoDesconto;
     public $statusPedido;
 
+    #Entrega Pedido
+    public $pedidoEntrega = 'retirada';
+    public $showEntrega;
+    public $localEntrega;
+
+    #Endereço entrega
+    public $cep;
+    public $endereco;
+    public $numero;
+    public $complemento;
+    public $referencia;
+    public $bairro;
+
     protected $listeners = [
         'deleteItem'
     ];
@@ -81,6 +95,10 @@ class Pedidos extends Component
         $this->statusPedido = $this->pedidoCliente->status;
         $this->totalItens = $this->pedidoCliente->total_itens;
         $this->form->descricao = $this->pedidoCliente->descricao;
+
+        if ($this->pedidoCliente->local_entrega_id > 0) {
+            $this->pedidoEntrega = 'entrega';
+        }
     }
 
     public function mostrarItens()
@@ -270,6 +288,77 @@ class Pedidos extends Component
             'position' => 'center',
             'timer' => '1000',
             'toast' => false,
+        ]);
+    }
+
+    public function fecharEntrega()
+    {
+        $this->showEntrega = false;
+    }
+
+    public function entregaDePedido()
+    {
+        if ($this->pedidoEntrega = 'entrega') {
+            $this->showEntrega = true;
+        };
+
+        if ($this->pedidoCliente->site == 'S') {
+            $this->localEntrega = LocalEntrega::where('user_id', auth()->user()->id)->get();
+        } else {
+            $this->localEntrega = LocalEntrega::where('cliente_id', $this->pedidoCliente->cliente_id)->get();
+        }
+    }
+
+    public function updatedCep()
+    {
+
+        $uri = curl_init("https://viacep.com.br/ws/{$this->cep}/json/");
+        curl_setopt($uri, CURLOPT_RETURNTRANSFER, true);
+        $result = json_decode(curl_exec($uri));
+        curl_close($uri);
+
+        $this->endereco = $result->logradouro;
+        $this->complemento = $result->complemento;
+        $this->bairro = $result->bairro;
+    }
+
+    public function salvarLocalEntrega()
+    {
+        $local = LocalEntrega::create([
+            'cliente_id' => $this->pedidoCliente->cliente_id,
+            'cep' => $this->cep,
+            'endereco' => $this->endereco,
+            'numero' => $this->numero,
+            'complemento' => $this->complemento,
+            'bairro' => $this->bairro,
+            'referencia' => $this->referencia
+        ]);
+
+        $this->showEntrega = false;
+
+        $this->alert('success', 'Local de Entrega Foi Salvo!', [
+            'position' => 'center',
+            'timer' => '1000',
+            'toast' => true,
+        ]);
+
+        Pedido::find($this->pedidoCliente->id)->update([
+            'local_entrega_id' => $local->id
+        ]);
+    }
+
+    public function localizacaoEntrega($local)
+    {
+        Pedido::find($this->pedidoCliente->id)->update([
+            'local_entrega_id' => $local
+        ]);
+
+        $this->showEntrega = false;
+
+        $this->alert('success', 'Local Selecionado!', [
+            'position' => 'center',
+            'timer' => '1000',
+            'toast' => true,
         ]);
     }
 

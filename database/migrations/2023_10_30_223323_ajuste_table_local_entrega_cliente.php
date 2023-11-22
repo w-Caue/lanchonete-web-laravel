@@ -12,8 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('local_entrega', function (Blueprint $table) {
-            $table->unsignedBigInteger('cliente_id')->after('id');
+            $table->unsignedBigInteger('cliente_id')->nullable()->after('id');
             $table->foreign('cliente_id')->references('id')->on('clientes');
+
+            $table->unsignedBigInteger('user_id')->nullable()->after('cliente_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -26,6 +29,9 @@ return new class extends Migration
         Schema::table('local_entrega', function (Blueprint $table) {
             $table->dropForeign('local_entrega_cliente_id_foreign');
             $table->dropColumn('cliente_id');
+
+            $table->dropForeign('local_entrega_user_id_foreign');
+            $table->dropColumn('user_id');
         });
         Schema::enableForeignKeyConstraints();
     }
