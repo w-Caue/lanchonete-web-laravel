@@ -193,7 +193,7 @@
     {{-- Novo Pedido --}}
     @if ($newPedido)
         <div class="flex justify-center">
-            <div class="fixed top-32 bg-gray-50 w-3/6 shadow-2xl rounded-lg border">
+            <div class="fixed top-20 bg-gray-50 w-80 sm:w-3/6 shadow-2xl rounded-lg border">
 
                 <div class="rounded-t-lg mb-1 flex justify-end">
                     <button wire:click.prevent='fecharPedido()'
@@ -262,19 +262,19 @@
     {{-- Visualizar o Pedido --}}
     @if ($showPedido)
         <div class="flex justify-center">
-            <div class="fixed top-11 bg-gray-50 w-1/2 shadow-2xl border rounded-lg overflow-auto h-4/5">
+            <div class="fixed top-9 bg-gray-50 w-80 sm:w-1/2 shadow-2xl border rounded-lg overflow-auto max-h-screen">
 
-                <div class="flex justify-end m-2">
-                    <button wire:click="fecharPedido()" class="border rounded hover:bg-red-500 hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <div class="m-1 flex justify-between">
+                    <h1 class="text-center font-bold text-gray-700 text-2xl tracking-widest mb-2">Pedido</h1>
+
+                    <button wire:click.prevent='fecharPedido()'
+                        class="rounded m-2 p-0 border hover:text-white hover:bg-red-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
-
                     </button>
                 </div>
-
-                <h1 class="text-xl font-semibold text-center tracking-widest mb-4">Pedido</h1>
 
                 @if ($pedidoCliente->status != 'Concluido')
                     <form wire:submit.prevent="editarPedido()">
@@ -282,10 +282,11 @@
                         <form wire:submit.prevent="concluirPedido()">
                 @endif
 
-                <div class="m-3 flex justify-between items-center gap-2">
+                <div class="m-3 flex justify-between flex-col sm:flex-row items-center gap-2">
                     <div>
                         <h1 class="text-xl font-semibold tracking-wider">Forma de pagamento </h1>
                         <select wire:model.live='form.formaPagamento' name="formaPagamento"
+                            @if ($pedidoCliente->status == 'Concluido' or $pedidoCliente->site == 'S') @disabled(true) @endif
                             class="font-semibold w-44 p-1 border-2 rounded" aria-label="Default select example">
 
                             @foreach ($formasDePagamentos as $formaDePagamento)
@@ -302,8 +303,9 @@
                     @if ($pedidoCliente->status == 'Aberto')
                         <div class="m-3">
                             <button wire:click.prevent="mostrarItens()"
-                                class="font-semibold text-md p-2 border rounded">Adicionar
-                                Itens</button>
+                                class="font-semibold text-md p-2 border rounded">
+                                Adicionar Itens
+                            </button>
                         </div>
                     @else
                         <div>
@@ -323,7 +325,7 @@
                     @endif
                 </div>
 
-                <div class="relative overflow-x-auto shadow-md border sm:rounded-lg m-2">
+                <div class="relative overflow-auto h-36 shadow-md border sm:rounded-lg m-2">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase">
                             <tr>
@@ -344,7 +346,8 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="">
+
                             @foreach ($pedidoCliente->itens as $item)
                                 <tr class="border-b border-gray-200">
                                     <th scope="row"
@@ -370,6 +373,7 @@
                                     </td>
                                 </tr>
                             @endforeach
+
                         </tbody>
                         <tfoot>
                             <tr class="font-semibold text-gray-900">
@@ -377,7 +381,13 @@
                                 <td class="px-6 py-3"></td>
                                 <td class="px-6 py-3"></td>
                                 <td class="px-6 py-3">
-                                    <h1 wire:model.live="totalPedido">{{ number_format($totalItens, 2, ',') }}</h1>
+                                    @if ($pedidoCliente->site == 'S')
+                                        <h1 wire:model.live="totalPedido">{{ number_format($totalPedido, 2, ',') }}
+                                        </h1>
+                                    @else
+                                        <h1 wire:model.live="totalPedido">{{ number_format($totalItens, 2, ',') }}
+                                        </h1>
+                                    @endif
                                 </td>
                             </tr>
                         </tfoot>
@@ -385,11 +395,11 @@
                 </div>
 
                 <div class="flex gap-3">
-                    {{-- <div class="flex items-center m-3 gap-1">
+                    <div class="flex items-center m-3 gap-1">
                         <ul class="flex gap-3">
                             <li>
-                                <input wire:model.live="pedidoEntrega" type="radio"
-                                    id="entrega" name="hosting" value="entrega" class="hidden peer" required>
+                                <input wire:model.live="pedidoEntrega" type="radio" id="entrega" name="hosting"
+                                    value="entrega" class="hidden peer" required>
                                 <label for="entrega"
                                     class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
                                     <div class="block">
@@ -398,7 +408,7 @@
                                 </label>
                             </li>
                         </ul>
-                    </div> --}}
+                    </div>
 
                     @if ($pedidoCliente->local_entrega_id > 0)
                         <div class="w-1/2 m-3">
@@ -423,6 +433,7 @@
 
                 <div class="m-3">
                     <textarea wire:model="form.descricao" value="{{ $pedidoCliente->descricao }}"
+                        @if ($pedidoCliente->status == 'Concluido' or $pedidoCliente->site == 'S') @disabled(true) @endif
                         class="block p-2.5 w-full text-lg font-semibold text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
                         id="exampleFormControlTextarea1" placeholder="Adicione uma descrição para seu pedido" rows="3">{{ $pedidoCliente->descricao }}</textarea>
                 </div>
@@ -432,11 +443,6 @@
                         <button type="submit"
                             class="font-semibold p-2 border rounded hover:text-white hover:bg-blue-500">
                             {{ $pedidoCliente->status == 'Aberto' ? 'Preparar Pedido' : 'Salvar Pedido' }}
-                        </button>
-                    @else
-                        <button wire:click.prevent="mostrarAutenticacao()"
-                            class="font-semibold p-2 border rounded hover:text-white hover:bg-blue-500">
-                            Finalizar Pedido
                         </button>
                     @endif
 
@@ -456,7 +462,7 @@
     {{-- Pesquisar Cliente --}}
     @if ($showCliente)
         <div class="flex justify-center">
-            <div class="fixed top-44 bg-white w-1/2 shadow-2xl rounded-lg border">
+            <div class="fixed top-44 bg-white w-72 sm:w-1/2 shadow-2xl rounded-lg border">
                 <div class="rounded-t-lg mb-1 flex justify-end ">
                     <button wire:click.prevent='mostrarClientes()'
                         class="rounded m-1 hover:text-white hover:bg-red-500">
@@ -508,7 +514,7 @@
     {{-- Itens --}}
     @if ($showItens)
         <div class="flex justify-center">
-            <div class="fixed top-36 bg-white w-1/2 shadow-2xl border rounded-lg">
+            <div class="fixed top-11 bg-white w-72 sm:w-1/2 shadow-2xl border rounded-lg overflow-auto h-96">
                 <div class="rounded-t-lg mb-1 flex justify-end ">
                     <button wire:click.prevent='fecharItens()'
                         class="rounded m-2 border hover:bg-red-500 hover:text-white">
@@ -539,7 +545,7 @@
                             <div class="flex flex-col justify-between p-4 leading-normal">
                                 <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900">{{ $item->nome }}
                                 </h5>
-                                <p class="mb-1 font-semibold text-gray-600">{{ $item->descricao }}</p>
+                                <p class="mb-1 font-semibold text-gray-600 hidden sm:block">{{ $item->descricao }}</p>
                                 <p class="mb-1 font-semibold text-gray-900">
                                     R${{ number_format($item->preco, 2, ',', '.') }}</p>
                             </div>
@@ -603,6 +609,7 @@
         </div>
     @endif
 
+    {{-- Autenticar Pedido --}}
     @if ($showAutenticacao)
         <div class="flex justify-center">
             <div class="fixed top-32 bg-white w-96 shadow-2xl rounded-lg">

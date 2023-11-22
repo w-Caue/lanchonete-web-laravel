@@ -114,24 +114,24 @@
 
     @if ($newCliente)
         <div class="flex justify-center">
-            <div class="fixed top-11 bg-gray-100 w-1/2 shadow-2xl border rounded-lg">
+            <div class="fixed top-11 bg-gray-50 w-80 sm:w-1/2 shadow-2xl border rounded-lg">
 
-                <div class="rounded-t-lg mb-4 flex justify-end ">
+                <div class="m-1 flex justify-between">
+                    <h1 class="text-center font-bold text-gray-700 text-2xl tracking-widest mb-2">Cliente</h1>
+
                     <button wire:click.prevent='fecharCliente()'
-                        class="rounded m-2 border hover:text-white hover:bg-red-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        class="rounded m-2 p-0 border hover:text-white hover:bg-red-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
 
-                <h1 class="text-center text-2xl font-semibold mb-5">Cliente</h1>
-
                 <div class="flex justify-center">
                     <form wire:submit.prevent="{{ $form->clienteId ? 'update()' : 'save()' }}"
-                        class="w-full max-w-2xl">
-                        <div class="flex flex-wrap -mx-3 mb-6">
+                        class="w-full max-w-2xl m-3">
+                        <div class="flex flex-wrap -mx-3 mb-3">
                             <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-first-name">
@@ -148,7 +148,7 @@
 
                         </div>
 
-                        <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="flex flex-wrap -mx-3 mb-3">
                             <div class="w-full px-3 md:w-3/4">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-password">
@@ -165,7 +165,7 @@
 
                         </div>
 
-                        <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="flex flex-wrap -mx-3 mb-3">
                             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                                     for="grid-first-name">
@@ -184,7 +184,7 @@
 
                         <div class="flex justify-center mb-4">
                             <button type="submit"
-                                class="text-xl font-semibold p-2 border rounded bg-white hover:text-white hover:bg-blue-500">
+                                class="text-xl font-bold text-gray-600 p-2 border rounded hover:text-white hover:bg-blue-500">
                                 {{ $form->clienteId ? 'Salvar' : 'Cadastrar' }}
                             </button>
                         </div>

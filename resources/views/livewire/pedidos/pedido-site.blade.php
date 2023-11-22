@@ -137,7 +137,7 @@
     {{-- Visualizar o Pedido --}}
     @if ($showPedido)
         <div class="flex justify-center">
-            <div class="fixed top-11 bg-white w-1/2 shadow-2xl rounded-lg overflow-auto h-5/6">
+            <div class="fixed top-11 bg-white w-1/2 shadow-2xl rounded-lg overflow-auto max-h-screen">
 
                 <div class="flex justify-end m-2">
                     <button wire:click="fecharPedido()" class="border rounded hover:bg-red-500 hover:text-white">
@@ -170,7 +170,7 @@
                     </div>
 
                     <div class="flex flex-wrap justify-center gap-2 m-1">
-                        <div class="relative overflow-x-auto shadow-md sm:rounded-lg border">
+                        <div class="relative overflow-auto h-36 shadow-md sm:rounded-lg border">
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                                     <tr>

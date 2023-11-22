@@ -72,9 +72,12 @@ class Itens extends Component
     {
         $itens = Item::where('nome', 'like', '%' . $this->search . '%')
                         ->where('categoria_id', 'like', '%' . $this->menuCategoria)
-                        ->paginate(4);
+                        ->paginate(6);
+
         $tamanhos = Tamanho::all();
+        
         $categorias = Categoria::all();
+
         return view('livewire.itens.itens', [
             'itens' => $itens,
             'tamanhos' => $tamanhos,
