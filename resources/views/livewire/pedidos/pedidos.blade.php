@@ -267,10 +267,10 @@
                 <div class="m-1 flex justify-between">
                     <h1 class="text-center font-bold text-gray-700 text-2xl tracking-widest mb-2">Pedido</h1>
 
-                    <button wire:click.prevent='fecharPedido()'
+                    <button wire:click='fecharPedido()' type="submit"
                         class="rounded m-2 p-0 border hover:text-white hover:bg-red-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
@@ -398,8 +398,9 @@
                     <div class="flex items-center m-3 gap-1">
                         <ul class="flex gap-3">
                             <li>
-                                <input wire:model.live="pedidoEntrega" wire:click.prevent="entregaDePedido()" type="radio" id="entrega" name="hosting"
-                                    value="entrega" class="hidden peer" required>
+                                <input wire:model.live="pedidoEntrega" wire:click.prevent="entregaDePedido()"
+                                    type="radio" id="entrega" name="hosting" value="entrega"
+                                    class="hidden peer">
                                 <label for="entrega"
                                     class="inline-flex items-center justify-between w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer  peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100">
                                     <div class="block">
@@ -442,10 +443,10 @@
     {{-- Pesquisar Cliente --}}
     @if ($showCliente)
         <div class="flex justify-center">
-            <div class="fixed top-44 bg-white w-72 sm:w-1/2 shadow-2xl rounded-lg border">
+            <div class="fixed top-28 bg-white w-72 sm:w-1/2 shadow-2xl rounded-lg border overflow-auto h-56">
                 <div class="rounded-t-lg mb-1 flex justify-end ">
                     <button wire:click.prevent='mostrarClientes()'
-                        class="rounded m-1 hover:text-white hover:bg-red-500">
+                        class="rounded m-1 border hover:text-white hover:bg-red-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -455,15 +456,13 @@
                 <h1 class="text-center text-xl font-semibold mb-5">Pesquise o Cliente</h1>
 
                 <div class="mb-4">
-
-                    <div class="flex justify-center gap-1">
+                    <div class="flex justify-center items-center gap-1">
                         <input wire:model.lazy="searchCli" type="text" name="seach"
-                            class="appearance-none block w-full md:w-1/3 bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            class="appearance-none block w-full md:w-1/3 text-gray-700 border rounded p-3 leading-tight focus:outline-none focus:bg-white"
                             value="">
-                        <button wire:click="pesquisaCliente()"
-                            class="bg-blue-500 text-white p-3 border border-blue-500 hover:border-transparent rounded">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <button class="bg-blue-500 text-white p-2 border border-blue-500 hover:border-transparent rounded">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                             </svg>
@@ -642,7 +641,7 @@
     @endif
 
     {{-- Entrega Pedido --}}
-    @if ($showEntrega)
+    @if ($mostrarEntrega)
         <div class="flex justify-center">
             <div class="fixed top-32 bg-white w-1/2 border-2 shadow-2xl rounded-lg">
 
@@ -651,8 +650,8 @@
 
                     <button wire:click.prevent='fecharEntrega()'
                         class="rounded m-2 p-0 border hover:text-white hover:bg-red-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
@@ -663,18 +662,19 @@
                     <div class="w-96 flex justify-center">
                         @foreach ($localEntrega as $local)
                             <a wire:click="localizacaoEntrega({{ $local->id }})"
-                                class="block max-w-sm p-6 mb-5 bg-white rounded-lg shadow-xl m-2 hover:bg-gray-100 cursor-pointer {{$pedidoCliente->local_entrega_id == $local->id ? 'border-2 border-blue-500' : 'border border-gray-200'}}">
-                                <p class="font-semibold text-gray-700">{{ $local->endereco }}</p>
-                                <p class="font-semibold text-gray-700">N° {{ $local->numero }}</p>
-                                <p class="font-semibold text-gray-700">{{ $local->bairro }}</p>
+                                class="block max-w-sm p-6 mb-5 text-gray-700 bg-white rounded-lg shadow-xl m-2 hover:bg-gray-100 cursor-pointer {{ $pedidoCliente->local_entrega_id == $local->id ? 'border border-blue-100 bg-blue-100' : ' border-gray-200' }}">
+                                <p class="font-semibold">{{ $local->endereco }}</p>
+                                <p class="font-semibold">N° {{ $local->numero }}</p>
+                                <p class="font-semibold">{{ $local->bairro }}</p>
                             </a>
                         @endforeach
                     </div>
 
-                    <div wire:click.prevent="" class="flex justify-center m-5">
-                        <button
-                            class="p-2 border rounded text-gray-600 font-semibold hover:bg-blue-500 hover:text-white">Novo
-                            Local</button>
+                    <div class="flex justify-center m-5">
+                        <button wire:click.prevent="telaEntrega()"
+                            class="p-2 border rounded text-gray-600 font-semibold hover:bg-blue-500 hover:text-white">
+                            Novo Local
+                        </button>
                     </div>
                 @else
                     <div class="m-5">
@@ -740,6 +740,87 @@
                         </div>
                     </div>
                 @endif
+            </div>
+        </div>
+    @endif
+
+    @if ($showEntrega)
+        <div class="flex justify-center">
+            <div class="fixed top-32 bg-white w-1/2 border-2 shadow-2xl rounded-lg">
+
+                <div class="m-1 flex justify-between">
+                    <h1 class="text-center font-bold text-gray-700 text-2xl tracking-widest mb-2">Local da Entrega</h1>
+
+                    <button wire:click.prevent='fecharEntrega()'
+                        class="rounded m-2 p-0 border hover:text-white hover:bg-red-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="m-5">
+                    <div class="flex flex-wrap gap-1">
+                        <label class="m-2">
+                            <span for="cep" class="text-lg font-semibold text-gray-700">Cep</span>
+                            <div class="flex flex-row">
+                                <input wire:model.lazy="cep" type="number"
+                                    class="border rounded p-1 w-24 font-semibold text-gray-500" id="cep"
+                                    placeholder="">
+                                <button type="button" class="rounded p-1 text-white bg-blue-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                    </svg>
+
+                                </button>
+                            </div>
+                        </label>
+
+                        <label class="m-2 flex flex-col">
+                            <span class="text-lg font-semibold text-gray-700">Endereço</span>
+                            <input wire:model.defer="endereco" type="text"
+                                class="border rounded p-1 w-64 font-semibold text-gray-500" id="endereco"
+                                placeholder="">
+                        </label>
+
+                        <label class="m-2 flex flex-col">
+                            <span class="text-lg font-semibold text-gray-700">Número</span>
+                            <input wire:model.defer="numero" type="number"
+                                class="border rounded p-1 w-11 font-semibold text-gray-500" id="numero"
+                                placeholder="">
+                        </label>
+
+                        <label class="m-2 flex flex-col">
+                            <span class="text-lg font-semibold text-gray-700">Complemento</span>
+                            <input wire:model.defer="complemento" type="text"
+                                class="border rounded p-1 w-36 font-semibold text-gray-500" id="complemento"
+                                placeholder="">
+                        </label>
+
+                        <label class="m-2 flex flex-col">
+                            <span class="text-lg font-semibold text-gray-700">Ponto de Referencia</span>
+                            <input wire:model.defer="referencia" type="text"
+                                class="border rounded p-1 w-48 font-semibold text-gray-500" id="complemento"
+                                placeholder="">
+                        </label>
+
+                        <label class="m-2 flex flex-col">
+                            <span class="text-lg font-semibold text-gray-700">Bairro</span>
+                            <input wire:model.defer="bairro" type="text"
+                                class="border rounded p-1 w-40 font-semibold text-gray-500" id="bairro"
+                                placeholder="">
+                        </label>
+
+                    </div>
+
+                    <div class="flex justify-center m-4">
+                        <button type="submit" wire:click.prevent="salvarLocalEntrega()"
+                            class="text-md text-white font-semibold bg-blue-500 rounded p-2 hover:bg-blue-600">Salvar
+                            Local</button>
+                    </div>
+                </div>
             </div>
         </div>
     @endif

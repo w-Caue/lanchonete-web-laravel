@@ -64,6 +64,7 @@ class Pedidos extends Component
 
     #Entrega Pedido
     public $pedidoEntrega = 'retirada';
+    public $mostrarEntrega;
     public $showEntrega;
     public $localEntrega;
 
@@ -82,11 +83,13 @@ class Pedidos extends Component
     public function novoPedido()
     {
         $this->newPedido = !$this->newPedido;
+        $this->form->formaPagamento = '';
     }
 
     public function mostrarPedido(Pedido $pedido)
     {
         $this->showPedido = true;
+
         $this->pedidoCliente = Pedido::where('id', $pedido->id)->get()->first();
 
         $this->form->formaPagamento = $this->pedidoCliente->forma_de_pagamento_id;
@@ -108,8 +111,9 @@ class Pedidos extends Component
 
     public function fecharPedido()
     {
-        $this->reset();
+        
         $this->resetValidation();
+        $this->reset('form.formaPagamento', 'form.descricao');
 
         $this->showPedido = false;
         $this->newPedido = false;
@@ -293,13 +297,21 @@ class Pedidos extends Component
 
     public function fecharEntrega()
     {
+        $this->reset('cep','endereco','complemento', 'bairro', 'numero', 'complemento', 'referencia');
+
+        $this->mostrarEntrega = false;
         $this->showEntrega = false;
+    }
+
+    public function telaEntrega()
+    {
+        $this->showEntrega = true;
     }
 
     public function entregaDePedido()
     {
         if ($this->pedidoEntrega = 'entrega') {
-            $this->showEntrega = true;
+            $this->mostrarEntrega = true;
         };
 
         if ($this->pedidoCliente->site == 'S') {
@@ -334,7 +346,10 @@ class Pedidos extends Component
             'referencia' => $this->referencia
         ]);
 
+        $this->mostrarEntrega = false;
         $this->showEntrega = false;
+
+        $this->pedidoEntrega = 'entrega';
 
         $this->alert('success', 'Local de Entrega Foi Salvo!', [
             'position' => 'center',
@@ -353,7 +368,9 @@ class Pedidos extends Component
             'local_entrega_id' => $local
         ]);
 
-        $this->showEntrega = false;
+        $this->mostrarEntrega = false;
+
+        $this->pedidoEntrega = 'entrega';
 
         $this->alert('success', 'Local Selecionado!', [
             'position' => 'center',
