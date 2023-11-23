@@ -52,4 +52,14 @@ Route::middleware('can:painel')->prefix('/painel')->name('painel.')->group(funct
     Route::get('/pedidos', function () {
         return view('pages.pedidos.index');
     })->name('pedidos');
+
+    Route::get('/relatorios', function () {
+        return view('pages.relatorios');
+    })->name('relatorios');
+
+    Route::prefix('/relatorio')->name('relatorio.')->group(function (){
+        Route::get('/pedidos', function () {
+            return view('pages.relatorios.relatorio-pedidos');
+        })->name('relatorio-pedidos');
+    });
 });

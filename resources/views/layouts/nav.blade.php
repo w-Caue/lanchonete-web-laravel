@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Lanchonete</title>
 
     @livewireStyles
 
@@ -14,7 +15,6 @@
 </head>
 
 <body>
-    {{-- @include('layouts.sidebar') --}}
     <nav class="bg-white shadow-md">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div class="relative flex h-14 items-center justify-between">
@@ -25,7 +25,7 @@
                     </div>
                 </div>
 
-                <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                {{-- <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <button type="button"
                         class="relative rounded-full bg-gray-800 p-1 text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span class="absolute -inset-1.5"></span>
@@ -36,7 +36,7 @@
                         </svg>
 
                     </button>
-                </div>
+                </div> --}}
 
             </div>
         </div>

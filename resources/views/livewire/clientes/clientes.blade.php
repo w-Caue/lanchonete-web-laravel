@@ -143,7 +143,7 @@
                             </div>
 
                             @error('form.nome')
-                                <span class="error">{{ $message }}</span>
+                                <span class="error ml-5 text-md font-semibold text-gray-500">{{ $message }}</span>
                             @enderror
 
                         </div>
@@ -160,7 +160,7 @@
                             </div>
 
                             @error('form.email')
-                                <span class="error">{{ $message }}</span>
+                                <span class="error ml-5 text-md font-semibold text-gray-500">{{ $message }}</span>
                             @enderror
 
                         </div>
@@ -177,7 +177,7 @@
                             </div>
 
                             @error('form.telefone')
-                                <span class="error">{{ $message }}</span>
+                                <span class="error ml-5 text-md font-semibold text-gray-500">{{ $message }}</span>
                             @enderror
 
                         </div>

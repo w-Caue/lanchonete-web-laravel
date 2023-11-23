@@ -12,13 +12,19 @@ class ClienteForm extends Form
 {
     public $clienteId;
 
-    #[Rule('required|min:3|max:40')]
+    #[Rule('min:3', message: 'O nome ter que conter mais de 3 caracteres!')]
+    #[Rule('max:40', message: 'O nome ter que conter menos de 40 caracteres!')]
+    #[Rule('required', message: 'Preencha o nome do seu Cliente!')]
     public $nome = '';
 
-    #[Rule('required|email|min:7|max:80')]
+    #[Rule('min:7', message: 'O email ter que conter mais de 7 caracteres!')]
+    #[Rule('max:100', message: 'O email ter que conter menos de 100 caracteres!')]
+    #[Rule('email', message: 'Preencha com um email válido!')]
     public $email = '';
 
-    #[Rule('required|min:10|max:13')]
+    #[Rule('min:8', message: 'O telefone ter que conter mais de 8 caracteres!')]
+    #[Rule('max:12', message: 'O telefone ter que conter menos de 12 caracteres!')]
+    #[Rule('numeric', message: 'Preencha com um número válido!')]
     public $telefone = '';
 
     public function store()

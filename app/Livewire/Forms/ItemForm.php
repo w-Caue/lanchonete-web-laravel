@@ -10,20 +10,23 @@ class ItemForm extends Form
 {
     public $itemId;
 
-    #[Rule('required|min:3|max:40')]
+    #[Rule('min:3', message: 'O nome ter que conter mais de 3 caracteres!')]
+    #[Rule('max:40', message: 'O nome ter que conter menos de 40 caracteres!')]
+    #[Rule('required', message: 'Preencha o nome do Produto!')]
     public $nome = '';
 
-    #[Rule('required|max:80')]
+    #[Rule('max:100', message: 'A descrição ter que conter menos de 100 caracteres!')]
+    #[Rule('required', message: 'Coloque uma descrição para o seu Produto!')]
     public $descricao = '';
 
-    #[Rule('required', message: 'Coloque o Valor do Item!')]
-    #[Rule('numeric', message: 'Insira um Preço Valido')]
+    #[Rule('required', message: 'Coloque o preço ao seu Produto!')]
+    #[Rule('numeric', message: 'Preencha com um preço Valido!')]
     public $preco = '';
 
-    #[Rule('required')]
+    #[Rule('required', message: 'Coloque os tamanhos do seu Produto!')]
     public $tamanho = [];
 
-    #[Rule('required')]
+    #[Rule('required', message: 'Coloque a categoria do seu Produto!')]
     public $categoria = '';
 
     public function store()

@@ -1,7 +1,6 @@
 @extends('layouts.nav')
 
 @section('title', 'Pedidos')
-@section('nav', 'Dashboard')
 
 @section('content')
 

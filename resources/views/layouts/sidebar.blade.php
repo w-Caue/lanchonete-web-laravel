@@ -193,7 +193,7 @@
                         'text-gray-400': $store
                             .sidebar.active≠ 'relatorios'
                     }">
-                    <div class="relative flex space-x-2 items-center">
+                    <a href="{{ route('painel.relatorios') }}" class="relative flex space-x-2 items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -204,7 +204,7 @@
                             x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
                                 'sm:hidden' : ''">
                             Relatórios</h1>
-                    </div>
+                    </a>
                     <svg x-clock x-bind:class="$store.sidebar.full ? '' : 'sm:hidden'"
                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-chevron-compact-down" viewBox="0 0 16 16">
@@ -216,7 +216,7 @@
                 <div x-clock x-show="open" @click.outside="open =false"
                     x-bind:class="$store.sidebar.full ? expandedClass : shrinkedClass"
                     class="text-gray-400 space-y-3">
-                    <a href=""
+                    <a href="{{ route('painel.relatorio.relatorio-pedidos') }}"
                         class="hover:text-gray-200 font-semibold cursor-pointer flex items-center gap-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-basket2-fill" viewBox="0 0 16 16">

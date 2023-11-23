@@ -6,7 +6,7 @@
 
             <div class="flex justify-center items-center gap-1">
                 <input wire:model.lazy="search" type="text" name="seach"
-                    class="appearance-none block w-full md:w-1/3 bg-gray-200 text-gray-700 border rounded p-3 leading-tight focus:outline-none focus:bg-white"
+                    class="appearance-none block w-full md:w-1/3 text-gray-700 border rounded p-3 leading-tight focus:outline-none focus:bg-white"
                     value="">
                 <button class="bg-blue-500 text-white p-2 border border-blue-500 hover:border-transparent rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -113,7 +113,7 @@
                             </div>
 
                             @error('form.nome')
-                                <span class="error">{{ $message }}</span>
+                                <span class="error ml-5 text-md font-semibold text-gray-500">{{ $message }}</span>
                             @enderror
 
                         </div>
@@ -130,7 +130,7 @@
                             </div>
 
                             @error('form.descricao')
-                                <span class="error">{{ $message }}</span>
+                                <span class="error ml-5 text-md font-semibold text-gray-500">{{ $message }}</span>
                             @enderror
 
                         </div>
@@ -147,8 +147,9 @@
                             </div>
 
                             @error('form.preco')
-                                <span class="error">{{ $message }}</span>
+                                <span class="error ml-5 text-md font-semibold text-gray-500">{{ $message }}</span>
                             @enderror
+
                             <div class="w-full md:w-64 px-3 mb-6 md:mb-0">
                                 <label class="uppercase tracking-wide text-sm font-semibold text-gray-900"
                                     for="grid-first-name">
@@ -170,7 +171,7 @@
                             </div>
 
                             @error('form.tamanho')
-                                <span class="error">{{ $message }}</span>
+                                <span class="error ml-5 text-md font-semibold text-gray-500">{{ $message }}</span>
                             @enderror
 
                             <div class="w-full md:w-64 px-3 mb-6 md:mb-0">
@@ -191,7 +192,7 @@
                             </div>
 
                             @error('form.categoria')
-                                <span class="error">{{ $message }}</span>
+                                <span class="error ml-5 text-md font-semibold text-gray-500">{{ $message }}</span>
                             @enderror
 
                             <div class="w-full md:w-80 m-3">

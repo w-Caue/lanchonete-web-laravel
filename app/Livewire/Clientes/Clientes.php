@@ -35,7 +35,9 @@ class Clientes extends Component
 
     public function fecharCliente()
     {
-        $this->reset();
+        $this->reset('form.nome', 'form.email', 'form.telefone');
+        $this->resetValidation();
+
         $this->newCliente = false;
     }
 
@@ -43,7 +45,7 @@ class Clientes extends Component
     {
         $this->form->store();
 
-        $this->reset();
+        $this->fecharCliente();
 
         $this->alert('success', 'Cliente Cadastrado!', [
             'position' => 'center',

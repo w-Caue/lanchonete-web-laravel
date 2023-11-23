@@ -49,10 +49,12 @@ class Pedidos extends Component
     public $clientes;
     public $pesquisaClientes = [];
     public $cliente;
+    public $searchCliente;
 
     #Item pedido
     public $quantidade = 1;
     public $total = '';
+    public $searchItem;
 
     #Autenticar Pedido
     public $showAutenticacao;
@@ -143,7 +145,7 @@ class Pedidos extends Component
             'clientes.nome',
             'clientes.email',
             'clientes.telefone',
-        ])->where('nome', 'like', '%' . $this->clientePedido . '%');
+        ])->where('nome', 'like', '%' . $this->searchCliente . '%');
 
         $this->pesquisaClientes = $clientes->orderBy('nome')->get();
     }
@@ -459,7 +461,7 @@ class Pedidos extends Component
 
         $formasDePagamentos = FormaDePagamento::all();
 
-        $itens = Item::all();
+        $itens = Item::where('nome', 'like', '%'. $this->searchItem .'%')->paginate(4);
 
         $tamanhos = Tamanho::all();
 

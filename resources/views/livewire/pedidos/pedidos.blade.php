@@ -214,7 +214,7 @@
 
                             <button
                                 class="bg-blue-500 border-2 border-blue-500 hover:bg-blue-600 hover:border-blue-600 text-white font-semibold py-2 px-4 rounded"
-                                name="cliente" wire:click.prevent="mostrarClientes()">
+                                name="cliente" wire:click.prevent="mostrarClientes()" wire:click="pesquisaCliente()">
                                 {{ $clienteSelecionado->nome ?? 'Clique para selecionar o cliente' }}
                             </button>
 
@@ -443,7 +443,7 @@
     {{-- Pesquisar Cliente --}}
     @if ($showCliente)
         <div class="flex justify-center">
-            <div class="fixed top-28 bg-white w-72 sm:w-1/2 shadow-2xl rounded-lg border overflow-auto h-56">
+            <div class="fixed top-28 bg-white w-72 sm:w-1/2 shadow-2xl rounded-lg border overflow-auto h-80">
                 <div class="rounded-t-lg mb-1 flex justify-end ">
                     <button wire:click.prevent='mostrarClientes()'
                         class="rounded m-1 border hover:text-white hover:bg-red-500">
@@ -457,10 +457,10 @@
 
                 <div class="mb-4">
                     <div class="flex justify-center items-center gap-1">
-                        <input wire:model.lazy="searchCli" type="text" name="seach"
-                            class="appearance-none block w-full md:w-1/3 text-gray-700 border rounded p-3 leading-tight focus:outline-none focus:bg-white"
+                        <input wire:model.lazy="searchCliente" type="text" name="seach"
+                            class="appearance-none block w-full md:w-1/3 text-gray-700 font-semibold border rounded p-3 leading-tight focus:outline-none focus:bg-white"
                             value="">
-                        <button class="bg-blue-500 text-white p-2 border border-blue-500 hover:border-transparent rounded">
+                        <button wire:click="pesquisaCliente()" class="bg-blue-500 text-white p-2 border border-blue-500 hover:border-transparent rounded">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -494,9 +494,11 @@
     @if ($showItens)
         <div class="flex justify-center">
             <div class="fixed top-11 bg-white w-72 sm:w-1/2 shadow-2xl border rounded-lg overflow-auto h-96">
-                <div class="rounded-t-lg mb-1 flex justify-end ">
-                    <button wire:click.prevent='fecharItens()'
-                        class="rounded m-2 border hover:bg-red-500 hover:text-white">
+                <div class="m-1 flex justify-between">
+                    <h1 class="text-center font-bold text-gray-700 text-2xl tracking-widest mb-2">Itens</h1>
+
+                    <button wire:click='fecharItens()' type="submit"
+                        class="rounded m-2 p-0 border hover:text-white hover:bg-red-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -505,8 +507,8 @@
                 </div>
 
                 <div class="flex justify-center items-center gap-1 m-2">
-                    <input wire:model.lazy="search" type="text" name="seach"
-                        class="appearance-none block w-full md:w-1/3 text-gray-700 border rounded p-3 leading-tight focus:outline-none focus:bg-white"
+                    <input wire:model.lazy="searchItem" type="text" name="seach"
+                        class="appearance-none block w-full md:w-1/3 text-gray-700 font-semibold border rounded p-3 leading-tight focus:outline-none focus:bg-white"
                         value="" placeholder="Pesquisar Item">
                     <button class="bg-blue-500 text-white p-2 border border-blue-500 hover:border-transparent rounded">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
