@@ -378,8 +378,7 @@
                         <tfoot>
                             <tr class="font-semibold text-gray-900">
                                 <th scope="row" class="px-6 py-3 text-base">Total</th>
-                                <td class="px-6 py-3"></td>
-                                <td class="px-6 py-3"></td>
+                                <td colspan="2" class="px-6 py-3"></td>
                                 <td class="px-6 py-3">
                                     @if ($pedidoCliente->site == 'S')
                                         <h1 wire:model.live="totalPedido">{{ number_format($totalPedido, 2, ',') }}
