@@ -1,11 +1,11 @@
 <div>
-    <div class="flex flex-col w-full">
+    <div class="flex flex-col">
 
-        <h1 class="text-center text-2xl font-semibold ">Cardapio</h1>
-        <h1 class="text-center text-xl font-semibold text-gray-500 mb-5">Adicione os Itens ao Pedido</h1>
+        <h1 class="text-center text-2xl font-semibold mt-4">Cardapio</h1>
+        <h1 class="text-center text-xl font-semibold text-gray-500 mb-2">Adicione os Itens ao Pedido</h1>
 
         <div class="flex justify-center m-5">
-            <ul class="flex gap-3">
+            <ul class="flex gap-3 flex-wrap">
                 <li>
                     <input wire:model.live="menuCategoria" type="radio" id="todos" name="hosting" value=""
                         class="hidden peer" required>
@@ -34,7 +34,7 @@
             </ul>
         </div>
 
-        <div class="flex justify-center">
+        <div class="flex justify-center mb-3">
             <button wire:click="mostrarPedido()"
                 class="flex gap-1 font-semibold text-gray-700 tracking-widest border rounded p-2 hover:bg-blue-500 hover:text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -47,15 +47,13 @@
             </button>
         </div>
 
-        <hr class="h-px my-8 bg-gray-200 border-0 ">
-
         <div class="flex justify-center flex-wrap gap-3">
             @foreach ($itens as $item)
                 <div wire:click='selecionarItem({{ $item->id }})'
-                    class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:w-1/3 hover:bg-gray-100 cursor-pointer">
-                    <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                    class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow w-60 sm:flex-row sm:w-1/3 hover:bg-gray-100 cursor-pointer">
+                    <img class="object-cover w-16 rounded-t-lg h-auto md:w-48 md:rounded-none md:rounded-l-lg"
                         src="/docs/images/blog/image-4.jpg" alt="">
-                    <div class="flex flex-col justify-between p-4 leading-normal">
+                    <div class="flex flex-col flex-wrap justify-between p-4 leading-normal">
                         <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900">{{ $item->nome }}</h5>
                         <p class="mb-1 font-semibold text-gray-600">{{ $item->descricao }}</p>
                         <p class="mb-1 font-semibold text-gray-900">R${{ number_format($item->preco, 2, ',', '.') }}</p>
@@ -70,7 +68,7 @@
     {{-- Criar Pedido --}}
     @if ($criarPedido)
         <div class="flex justify-center">
-            <div class="fixed top-20 bg-gray-50 sm:w-2/5 shadow-2xl rounded-lg border">
+            <div class="fixed top-20 bg-gray-50 w-80 sm:w-2/5 shadow-2xl rounded-lg border">
 
                 <h1 class="text-xl font-semibold text-center tracking-widest m-5">Criar Pedido</h1>
 
@@ -137,19 +135,19 @@
     {{-- Visualizar o Pedido --}}
     @if ($showPedido)
         <div class="flex justify-center">
-            <div class="fixed top-11 bg-white w-1/2 shadow-2xl rounded-lg overflow-auto max-h-screen">
+            <div class="fixed top-11 bg-white w-80 sm:w-1/2 shadow-2xl rounded-lg overflow-auto max-h-screen">
 
-                <div class="flex justify-end m-2">
-                    <button wire:click="fecharPedido()" class="border rounded hover:bg-red-500 hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
+                <div class="m-1 flex justify-between items-center">
+                    <h1 class="text-center font-bold text-gray-700 text-xl tracking-widest mb-2">Pedido</h1>
+
+                    <button wire:click='fecharPedido()' type="submit"
+                        class="rounded m-2 p-0 border hover:text-white hover:bg-red-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
-
                     </button>
                 </div>
-
-                <h1 class="text-xl font-semibold text-center tracking-widest m-3">Pedido</h1>
 
                 <form wire:submit.prevent="finalizarPedido()">
                     <div class="m-3 flex flex-col">
@@ -216,9 +214,7 @@
                                 <tfoot>
                                     <tr class="font-semibold text-gray-900">
                                         <th scope="row" class="px-6 py-3 text-base">Total</th>
-                                        <td class="px-6 py-3"></td>
-                                        <td class="px-6 py-3"></td>
-                                        <td class="px-6 py-3"></td>
+                                        <td colspan="2" class="px-6 py-3"></td>
                                         <td class="px-6 py-3">{{ number_format($totalPedido, 2, ',') }}</td>
                                     </tr>
                                 </tfoot>
@@ -336,18 +332,13 @@
 
     @if ($showEntrega)
         <div class="flex justify-center">
-            <div class="fixed top-32 bg-white w-1/2 border-2 shadow-2xl rounded-lg">
+            <div class="fixed top-32 bg-white w-80 sm:w-1/2 border-2 shadow-2xl rounded-lg overflow-auto h-60">
 
-                <div class="flex justify-between m-3 mb-5">
-                    <svg class="w-6 h-6 text-gray-600 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z" />
-                    </svg>
+                <div class="m-1 flex justify-between">
+                    <h1 class="text-center font-bold text-gray-700 text-xl tracking-widest mb-2">Local da Entrega</h1>
 
-                    <h1 class="text-xl font-semibold text-center tracking-widest">Local de Entrega</h1>
-
-                    <button wire:click="fecharEntrega()" class="border rounded hover:bg-red-500 hover:text-white">
+                    <button wire:click.prevent='fecharEntrega()'
+                        class="rounded m-2 p-0 border hover:text-white hover:bg-red-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -357,10 +348,10 @@
 
                 @if (count($localEntrega) > 0)
 
-                    <div class="w-96 flex justify-center">
+                    <div class="flex justify-center">
                         @foreach ($localEntrega as $local)
                             <a wire:click="localizacaoEntrega({{ $local->id }})"
-                                class="block max-w-sm p-6 mb-5 bg-white border border-gray-200 rounded-lg shadow-xl m-2 hover:bg-gray-100 cursor-pointer">
+                                class="block max-w-sm p-6 mb-5 text-gray-700 bg-white rounded-lg shadow-xl m-2 hover:bg-gray-100 cursor-pointer {{ $pedidoCliente->local_entrega_id == $local->id ? 'border border-blue-100 bg-blue-100' : ' border-gray-200' }}">
                                 <p class="font-semibold text-gray-700">{{ $local->endereco }}</p>
                                 <p class="font-semibold text-gray-700">N° {{ $local->numero }}</p>
                                 <p class="font-semibold text-gray-700">{{ $local->bairro }}</p>
@@ -368,10 +359,11 @@
                         @endforeach
                     </div>
 
-                    <div wire:click.prevent="" class="flex justify-center m-5">
-                        <button
-                            class="p-2 border rounded text-gray-600 font-semibold hover:bg-blue-500 hover:text-white">Novo
-                            Local</button>
+                    <div class="flex justify-center m-5">
+                        <button wire:click.prevent="telaEntrega()"
+                            class="p-2 border rounded text-gray-600 font-semibold hover:bg-blue-500 hover:text-white">
+                            Novo Local
+                        </button>
                     </div>
                 @else
                     <div class="m-5">
@@ -437,6 +429,88 @@
                         </div>
                     </div>
                 @endif
+            </div>
+        </div>
+    @endif
+
+    @if ($mostrarEntrega)
+        <div class="flex justify-center">
+            <div class="fixed top-20 sm:top-32 bg-white w-80 sm:w-1/2 border-2 shadow-2xl rounded-lg">
+
+                <div class="m-1 flex justify-between">
+                    <h1 class="text-center font-bold text-gray-700 text-2xl tracking-widest mb-2">Local da Entrega</h1>
+
+                    <button wire:click.prevent='fecharEntrega()'
+                        class="rounded m-2 p-0 border hover:text-white hover:bg-red-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="m-5">
+                    <div class="flex flex-wrap gap-1">
+                        <label class="m-2">
+                            <span for="cep" class="text-lg font-semibold text-gray-700">Cep</span>
+                            <div class="flex flex-row">
+                                <input wire:model.lazy="cep" type="number"
+                                    class="border rounded p-1 w-24 font-semibold text-gray-500" id="cep"
+                                    placeholder="">
+                                <button type="button" class="rounded p-1 text-white bg-blue-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                    </svg>
+
+                                </button>
+                            </div>
+                        </label>
+
+                        <label class="m-2 flex flex-col">
+                            <span class="text-lg font-semibold text-gray-700">Endereço</span>
+                            <input wire:model.defer="endereco" type="text"
+                                class="border rounded p-1 w-64 font-semibold text-gray-500" id="endereco"
+                                placeholder="">
+                        </label>
+
+                        <label class="m-2 flex flex-col">
+                            <span class="text-lg font-semibold text-gray-700">Número</span>
+                            <input wire:model.defer="numero" type="number"
+                                class="border rounded p-1 w-11 font-semibold text-gray-500" id="numero"
+                                placeholder="">
+                        </label>
+
+                        <label class="m-2 flex flex-col">
+                            <span class="text-lg font-semibold text-gray-700">Complemento</span>
+                            <input wire:model.defer="complemento" type="text"
+                                class="border rounded p-1 w-36 font-semibold text-gray-500" id="complemento"
+                                placeholder="">
+                        </label>
+
+                        <label class="m-2 flex flex-col">
+                            <span class="text-lg font-semibold text-gray-700">Ponto de Referencia</span>
+                            <input wire:model.defer="referencia" type="text"
+                                class="border rounded p-1 w-48 font-semibold text-gray-500" id="complemento"
+                                placeholder="">
+                        </label>
+
+                        <label class="m-2 flex flex-col">
+                            <span class="text-lg font-semibold text-gray-700">Bairro</span>
+                            <input wire:model.defer="bairro" type="text"
+                                class="border rounded p-1 w-40 font-semibold text-gray-500" id="bairro"
+                                placeholder="">
+                        </label>
+
+                    </div>
+
+                    <div class="flex justify-center m-4">
+                        <button type="submit" wire:click.prevent="salvarLocalEntrega()"
+                            class="text-md text-white font-semibold bg-blue-500 rounded p-2 hover:bg-blue-600">Salvar
+                            Local</button>
+                    </div>
+                </div>
             </div>
         </div>
     @endif

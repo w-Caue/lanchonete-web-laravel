@@ -19,7 +19,7 @@
         </div>
 
         <div class="flex justify-center m-5">
-            <ul class="flex gap-3">
+            <ul class="flex gap-3 flex-wrap">
                 <li>
                     <input wire:model.live="menuCategoria" type="radio" id="todos" name="hosting" value=""
                         class="hidden peer" required>
@@ -63,10 +63,10 @@
         <div class="flex justify-center flex-wrap gap-3">
             @foreach ($itens as $item)
                 <div wire:click="edit({{ $item->id }})"
-                    class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:w-1/3 hover:bg-gray-100 cursor-pointer">
-                    <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                    class="flex flex-row items-center bg-white border border-gray-200 rounded-lg shadow w-60 md:flex-row md:w-1/3 hover:bg-gray-100 cursor-pointer">
+                    <img class="object-cover w-16 rounded-t-lg h-auto md:w-48 md:rounded-none md:rounded-l-lg"
                         src="/docs/images/blog/image-4.jpg" alt="">
-                    <div class="flex flex-col justify-between p-4 leading-normal">
+                    <div class="flex flex-col flex-wrap justify-between p-4 leading-normal">
                         <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900">{{ $item->nome }}</h5>
                         <p class="mb-1 font-semibold text-gray-600">{{ $item->descricao }}</p>
                         <p class="mb-1 font-semibold text-gray-900">R${{ number_format($item->preco, 2, ',', '.') }}</p>
@@ -85,7 +85,7 @@
 
     @if ($newItem)
         <div class="flex justify-center">
-            <div class="fixed top-14 bg-gray-50 w-80 sm:w-1/2  shadow-2xl border rounded-lg">
+            <div class="fixed top-1 sm:top-14  bg-gray-50 w-80 sm:w-1/2  shadow-2xl border rounded-lg">
 
                 <div class="flex justify-between m-1">
                     <h1 class="text-center font-bold text-gray-700 text-2xl tracking-widest mb-2">Item</h1>
@@ -102,7 +102,7 @@
                 <div class="flex justify-center">
                     <form wire:submit.prevent="{{ $form->itemId ? 'update()' : 'save()' }}" class="w-full max-w-2xl">
                         <div class="flex flex-wrap m-3">
-                            <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
+                            <div class="w-full md:w-2/3 px-3 mb-3 md:mb-0">
                                 <label class="uppercase tracking-wide text-sm font-semibold text-gray-900"
                                     for="nome">
                                     Nome
@@ -136,7 +136,7 @@
                         </div>
 
                         <div class="flex flex-wrap m-3">
-                            <div class="w-full md:w-32 px-3 mb-6 md:mb-0">
+                            <div class="w-24 sm:w-36 px-3 mb-6 md:mb-0">
                                 <label class="uppercase tracking-wide text-sm font-semibold text-gray-900"
                                     for="preco">
                                     Preço
@@ -150,7 +150,7 @@
                                 <span class="error ml-5 text-md font-semibold text-gray-500">{{ $message }}</span>
                             @enderror
 
-                            <div class="w-full md:w-64 px-3 mb-6 md:mb-0">
+                            <div class="w-44 md:w-64 px-3 mb-3 md:mb-0">
                                 <label class="uppercase tracking-wide text-sm font-semibold text-gray-900"
                                     for="grid-first-name">
                                     Tamanhos
@@ -174,7 +174,7 @@
                                 <span class="error ml-5 text-md font-semibold text-gray-500">{{ $message }}</span>
                             @enderror
 
-                            <div class="w-full md:w-64 px-3 mb-6 md:mb-0">
+                            <div class="w-full md:w-64 px-3 mb-3 md:mb-0">
                                 <label class="uppercase tracking-wide text-sm font-semibold text-gray-900"
                                     for="">
                                     Categoria
@@ -195,7 +195,7 @@
                                 <span class="error ml-5 text-md font-semibold text-gray-500">{{ $message }}</span>
                             @enderror
 
-                            <div class="w-full md:w-80 m-3">
+                            <div class="w-full md:w-80 ml-3">
                                 <label class="uppercase tracking-wide text-sm font-semibold text-gray-900"
                                     for="file_input">Imagem</label>
 

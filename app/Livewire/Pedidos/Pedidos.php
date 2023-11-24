@@ -108,7 +108,7 @@ class Pedidos extends Component
 
     public function mostrarItens()
     {
-        $this->showItens = !$this->showItens;
+        $this->showItens = true;
     }
 
     public function fecharPedido()
@@ -461,7 +461,7 @@ class Pedidos extends Component
 
         $formasDePagamentos = FormaDePagamento::all();
 
-        $itens = Item::where('nome', 'like', '%'. $this->searchItem .'%')->paginate(4);
+        $itens = Item::all();
 
         $tamanhos = Tamanho::all();
 

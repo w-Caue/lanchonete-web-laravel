@@ -42,6 +42,7 @@ class PedidoSite extends Component
     #Entrega
     public $pedidoEntrega;
     public $showEntrega;
+    public $mostrarEntrega;
     public $localEntrega;
 
     #Endereço entrega
@@ -229,20 +230,18 @@ class PedidoSite extends Component
             'status' => 'Analise'
         ]);
 
-        $this->alert('success', 'Seu Pedido Sera Analisado', [
-            'position' => 'center',
-            'timer' => 1000,
-            'toast' => false,
-        ]);
-
-        $this->fecharPedido();
-
         return redirect()->route('site.seu-pedido');
     }
 
     public function fecharEntrega()
     {
         $this->showEntrega = false;
+        $this->mostrarEntrega = false;
+    }
+
+    public function telaEntrega()
+    {
+        $this->mostrarEntrega = true;
     }
 
     public function entregaDePedido()
@@ -295,6 +294,9 @@ class PedidoSite extends Component
         ]);
 
         $this->showEntrega = false;
+        $this->mostrarEntrega = false;
+
+        $this->pedidoEntrega = 'entrega';
 
         $this->alert('success', 'Local de Entrega Foi Salvo!', [
             'position' => 'center',

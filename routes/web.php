@@ -62,4 +62,8 @@ Route::middleware('can:painel')->prefix('/painel')->name('painel.')->group(funct
             return view('pages.relatorios.relatorio-pedidos');
         })->name('relatorio-pedidos');
     });
+
+    Route::get('/configuracao', function () {
+        return view('pages.configuracao');
+    })->name('configuracao');
 });

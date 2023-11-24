@@ -193,18 +193,21 @@
                         'text-gray-400': $store
                             .sidebar.active≠ 'relatorios'
                     }">
-                    <a href="{{ route('painel.relatorios') }}" class="relative flex space-x-2 items-center">
+                    <div class="relative flex space-x-2 items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605" />
                         </svg>
 
-                        <h1 x-clock
-                            x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
-                                'sm:hidden' : ''">
-                            Relatórios</h1>
-                    </a>
+                        <a href="{{ route('painel.relatorios') }}">
+                            <h1 x-clock
+                                x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
+                                    'sm:hidden' : ''">
+                                Relatórios
+                            </h1>
+                        </a>
+                    </div>
                     <svg x-clock x-bind:class="$store.sidebar.full ? '' : 'sm:hidden'"
                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-chevron-compact-down" viewBox="0 0 16 16">
@@ -218,11 +221,11 @@
                     class="text-gray-400 space-y-3">
                     <a href="{{ route('painel.relatorio.relatorio-pedidos') }}"
                         class="hover:text-gray-200 font-semibold cursor-pointer flex items-center gap-1">
-                        {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            class="w-5 h-5" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor"
+                            class="bi bi-basket2-fill" viewBox="0 0 16 16">
                             <path
-                                d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
-                        </svg> --}}
+                                d="M5.929 1.757a.5.5 0 1 0-.858-.514L2.217 6H.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.623l1.844 6.456A.75.75 0 0 0 3.69 15h8.622a.75.75 0 0 0 .722-.544L14.877 8h.623a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1.717L10.93 1.243a.5.5 0 1 0-.858.514L12.617 6H3.383L5.93 1.757zM4 10a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0zm3 0a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0zm4-1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1" />
+                        </svg>
                         Pedidos
                     </a>
                 </div>
@@ -311,11 +314,13 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
-
-                        <h1 x-clock
-                            x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
-                                'sm:hidden' : ''">
-                            Configuração</h1>
+                        <a href="{{ route('painel.configuracao') }}">
+                            <h1 x-clock
+                                x-bind:class="!$store.sidebar.full && show ? visibleClass : '' || !$store.sidebar.full && !show ?
+                                    'sm:hidden' : ''">
+                                Configuração
+                            </h1>
+                        </a>
                     </div>
                     <svg x-clock x-bind:class="$store.sidebar.full ? '' : 'sm:hidden'"
                         xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
