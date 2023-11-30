@@ -21,6 +21,10 @@ Route::get('/', function () {
     return view('site');
 });
 
+Route::get('/phpinfo', function () {
+    return phpinfo();
+});
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
