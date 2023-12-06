@@ -52,12 +52,12 @@
                 <div class="grid grid-cols-2 gap-4 m-3 mt-8">
                     <div>
                         @foreach ($users as $user)
-                            <h1 class="font-semibold border p-2 rounded-xl w-52 hover:bg-gray-100 cursor-pointer">
+                            <h1 class="font-semibold border p-2 rounded-xl w-52 hover:bg-gray-100 cursor-pointer mb-1">
                                 {{ $user->name }}</h1>
                         @endforeach
                     </div>
                     <div>
-                        
+
                     </div>
                 </div>
 
@@ -79,6 +79,34 @@
                         </svg>
                     </button>
                 </div>
+
+                <form wire:submit.prevent="saveUser()">
+                    <div class="m-3 flex flex-col">
+                        <label>
+                            <span class="text-sm font-semibold text-gray-600">Nome</span>
+                            <input wire:model.lazy="nomeUser" type="text" class="border rounded-lg p-1 w-full">
+                        </label>
+                        <label>
+                            <span class="text-sm font-semibold text-gray-600">Email</span>
+                            <input wire:model.lazy="emailUser" type="email" class="border rounded-lg p-1 w-full">
+                        </label>
+    
+                        <div class="flex gap-1 mt-3">
+                            <label for="password">
+                                <span class="text-sm font-semibold text-gray-600">Senha</span>
+                                <input name="password" wire:model.lazy="senhaUser" type="password" class="border rounded-lg p-1 w-28" required autocomplete="new-password">
+                            </label>
+                            <label for="password-confirm">
+                                <span class="text-sm font-semibold text-gray-600">Confirmar Senha</span>
+                                <input name="password_confirmation" wire:model.lazy="" type="password" class="border rounded-lg p-1 w-28" required autocomplete="new-password">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center m-3">
+                        <button type="submit" class="border p-1 rounded font-semibold hover:text-white hover:bg-blue-500">Salvar</button>
+                    </div>
+                </form>
             </div>
         </div>
     @endif
