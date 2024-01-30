@@ -27,6 +27,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/suaempresa', function () {
+    return view('ecommerce.index');
+})->name('ecommerce');
+
 Route::prefix('/site')->name('site.')->group(function () {
 
     Route::get('/Pedido', [\App\Http\Controllers\SiteController::class, 'index'])->name('pedido.index')->middleware('auth');
