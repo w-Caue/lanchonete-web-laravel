@@ -21,7 +21,7 @@
     @vite('resources/css/app.css')
 </head>
 <body>
-    <div id="app">
+    {{-- <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/painel/dashboard') }}">
@@ -76,7 +76,7 @@
             </div>
         </nav>
 
-    </div>
+    </div> --}}
 
     <main class="w-full">
         @yield('content')

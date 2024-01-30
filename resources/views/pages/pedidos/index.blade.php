@@ -1,4 +1,4 @@
-@extends('layouts.nav')
+@extends('layouts.app')
 
 @section('title', 'Pedidos')
 @section('nav', 'Dashboard')

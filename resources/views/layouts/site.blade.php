@@ -16,8 +16,8 @@
     <header class="">
         <nav class="p-2 flex items-center">
             <div class="flex">
-                <a class="" href="#" class="">
-                    <span class="text-2xl font-semibold">Lanchonete</span>
+                <a class="" href="/" class="">
+                    <span class="text-2xl font-semibold">LancheCode</span>
                 </a>
 
                 {{-- <button class="navbar-toggler" type="button">
