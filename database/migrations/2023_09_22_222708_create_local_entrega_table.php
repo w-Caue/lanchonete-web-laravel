@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('local_entrega', function (Blueprint $table) {
+        Schema::create('enderecos', function (Blueprint $table) {
             $table->id();
             $table->integer('cep');
             $table->string('endereco', 100);
@@ -29,7 +29,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('local_entrega');
+        Schema::dropIfExists('enderecos');
         Schema::enableForeignKeyConstraints();
     }
 };

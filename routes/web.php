@@ -27,9 +27,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/suaempresa', function () {
-    return view('ecommerce.index');
-})->name('ecommerce');
+
+Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
+
+    Route::get('/cardapio', function () {
+        return view('ecommerce.index');
+    })->name('produtos');
+
+    Route::get('/pedido', function () {
+        return view('ecommerce.show');
+    })->name('pedido');
+});
 
 Route::prefix('/site')->name('site.')->group(function () {
 

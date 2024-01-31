@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('clientes', function (Blueprint $table) {
-            $table->string('status')->default('Ativo')->after('telefone');
+            $table->string('status')->default('Ativo')->after('whatsapp');
         });
     }
 

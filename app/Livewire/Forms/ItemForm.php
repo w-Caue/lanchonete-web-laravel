@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Item;
+use App\Models\Produto;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
 
@@ -32,7 +33,7 @@ class ItemForm extends Form
 
         $tamanho = implode(',', $this->tamanho);
 
-        Item::create([
+        Produto::create([
             'nome' => $this->nome,
             'descricao' => $this->descricao,
             'preco' => $this->preco,
@@ -41,24 +42,24 @@ class ItemForm extends Form
         ]);
     }
 
-    public function edit(Item $item)
-    {
-        $this->itemId = $item->id;
-        $this->nome = $item->nome;
-        $this->descricao = $item->descricao;
-        $this->preco = $item->preco;
-        $this->tamanho = $item->tamanho;
-        $this->categoria = $item->categoria_id;
-    }
+    // public function edit(Item $item)
+    // {
+    //     $this->itemId = $item->id;
+    //     $this->nome = $item->nome;
+    //     $this->descricao = $item->descricao;
+    //     $this->preco = $item->preco;
+    //     $this->tamanho = $item->tamanho;
+    //     $this->categoria = $item->categoria_id;
+    // }
 
-    public function update()
-    {
-        Item::findOrFail($this->itemId)->update([
-            'nome' => $this->nome,
-            'descricao' => $this->descricao,
-            'preco' => $this->preco,
-            'tamanho' => $this->tamanho,
-            'categoria_id' => $this->categoria
-        ]);
-    }
+    // public function update()
+    // {
+    //     Item::findOrFail($this->itemId)->update([
+    //         'nome' => $this->nome,
+    //         'descricao' => $this->descricao,
+    //         'preco' => $this->preco,
+    //         'tamanho' => $this->tamanho,
+    //         'categoria_id' => $this->categoria
+    //     ]);
+    // }
 }

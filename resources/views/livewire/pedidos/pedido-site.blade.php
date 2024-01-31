@@ -50,7 +50,7 @@
         <hr class="h-px my-8 bg-gray-200 border-0 ">
 
         <div class="flex justify-center flex-wrap gap-3">
-            @foreach ($itens as $item)
+            {{-- @foreach ($itens as $item)
                 <div wire:click='selecionarItem({{ $item->id }})'
                     class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:w-1/3 hover:bg-gray-100 cursor-pointer">
                     <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
@@ -62,7 +62,7 @@
                         <p class="mb-1 font-semibold text-sky-700">{{ $item->categoria->categoria }}</p>
                     </div>
                 </div>
-            @endforeach
+            @endforeach --}}
         </div>
 
     </div>

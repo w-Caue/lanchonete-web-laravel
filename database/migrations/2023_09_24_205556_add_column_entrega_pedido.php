@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pedidos', function (Blueprint $table) {
-            $table->unsignedBigInteger('local_entrega_id')->nullable()->after('site'); 
+            $table->unsignedBigInteger('endereco_id')->nullable()->after('ecommerce'); 
 
-            $table->foreign('local_entrega_id')->references('id')->on('local_entrega');
+            $table->foreign('endereco_id')->references('id')->on('enderecos');
         });
     }
 
@@ -24,8 +24,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('pedidos', function (Blueprint $table) {
-            $table->dropForeign('pedidos_local_entrega_id_foreign');
-            $table->dropColumn('local_entrega_id');
+            $table->dropForeign('pedidos_endereco_id_foreign');
+            $table->dropColumn('endereco_id');
         });
     }
 };

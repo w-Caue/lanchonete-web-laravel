@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Item extends Model
+class Produto extends Model
 {
-    protected $table = 'itens';
+    // protected $table = 'itens';
     protected $fillable = ['nome', 'descricao', 'preco', 'tamanho', 'categoria_id', 'imagem'];
 
     public function tamanho(){

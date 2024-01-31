@@ -23,16 +23,13 @@
 </head>
 
 <body>
-    <div class="flex h-screen" :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <div class="flex flex-col h-screen" :class="{ 'overflow-hidden': isSideMenuOpen }">
         @include('layouts.ecommerce.ecommerce-nav')
 
         <div class="flex flex-col flex-1 w-full">
-
-            <main class="h-full mt-16 overflow-y-auto">
-                <div class="container px-6 mx-auto grid">
-                    @yield('content')
-                </div>
-            </main>
+            <div class="mt-2">
+                @yield('content')
+            </div>
         </div>
 
         {{-- @include('layouts.ecommerce.ecommerce-footer') --}}

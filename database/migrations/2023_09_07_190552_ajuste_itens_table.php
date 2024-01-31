@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('itens', function(Blueprint $table){
-            $table->unsignedBigInteger('tamanho_id')->after('preco');
-            $table->unsignedBigInteger('categoria_id')->after('tamanho_id');
+        Schema::table('produtos', function(Blueprint $table){
+            $table->string('tamanho')->after('preco');
+            $table->unsignedBigInteger('categoria_id')->after('tamanho');
 
-            $table->foreign('tamanho_id')->references('id')->on('tamanhos');
             $table->foreign('categoria_id')->references('id')->on('categorias');
         });
     }
@@ -25,11 +24,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('itens', function(Blueprint $table){
-            $table->dropForeign('itens_tamanho_id_foreign');
-            $table->dropColumn('tamanho_id');
+        Schema::table('produtos', function(Blueprint $table){
+            $table->dropColumn('tamanho');
 
-            $table->dropForeign('itens_categoria_id_foreign');
+            $table->dropForeign('produtos_categoria_id_foreign');
             $table->dropColumn('categoria_id');
         });
     }

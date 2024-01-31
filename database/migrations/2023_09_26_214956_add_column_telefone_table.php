@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pedidos', function (Blueprint $table) {
-            $table->string('telefone', 13)->nullable()->after('local_entrega_id');
-        });
+        // Schema::table('pedidos', function (Blueprint $table) {
+        //     $table->string('telefone', 13)->nullable()->after('local_entrega_id');
+        // });
     }
 
     /**
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pedidos', function (Blueprint $table) {
-            $table->dropColumn('telefone');
-        });
+        // Schema::table('pedidos', function (Blueprint $table) {
+        //     $table->dropColumn('telefone');
+        // });
     }
 };

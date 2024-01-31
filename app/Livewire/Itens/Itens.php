@@ -5,6 +5,7 @@ namespace App\Livewire\Itens;
 use App\Livewire\Forms\ItemForm;
 use App\Models\Categoria;
 use App\Models\Item;
+use App\Models\Produto;
 use App\Models\Tamanho;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -49,15 +50,15 @@ class Itens extends Component
         ]);
     }
 
-    public function edit(Item $item)
+    public function edit(Produto $item)
     {
         $this->novoItem();
-        $this->form->edit($item);
+        // $this->form->edit($item);
     }
 
     public function update()
     {
-        $this->form->update();
+        // $this->form->update();
 
         $this->fecharItem();
 
@@ -70,13 +71,13 @@ class Itens extends Component
 
     public function render()
     {
-        $itens = Item::where('nome', 'like', '%' . $this->search . '%')
+        $produtos = Produto::where('nome', 'like', '%' . $this->search . '%')
                         ->where('categoria_id', 'like', '%' . $this->menuCategoria)
                         ->paginate(4);
         $tamanhos = Tamanho::all();
         $categorias = Categoria::all();
         return view('livewire.itens.itens', [
-            'itens' => $itens,
+            'produtos' => $produtos,
             'tamanhos' => $tamanhos,
             'categorias' => $categorias
         ]);

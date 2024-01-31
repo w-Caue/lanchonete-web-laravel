@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('itens', function (Blueprint $table) {
-            $table->dropForeign('itens_tamanho_id_foreign');
-            $table->dropColumn('tamanho_id');
-        });
+        // Schema::table('itens', function (Blueprint $table) {
+        //     $table->dropForeign('itens_tamanho_id_foreign');
+        //     $table->dropColumn('tamanho_id');
+        // });
 
-        Schema::table('itens', function (Blueprint $table) {
-            $table->string('tamanho')->after('preco');
-        });
+        // Schema::table('itens', function (Blueprint $table) {
+        //     $table->string('tamanho')->after('preco');
+        // });
       
     }
 
@@ -27,13 +27,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('itens', function (Blueprint $table) {
-            $table->dropColumn('tamanho');
-        });
+        // Schema::table('itens', function (Blueprint $table) {
+        //     $table->dropColumn('tamanho');
+        // });
 
-        Schema::table('itens', function (Blueprint $table) {
-            $table->unsignedBigInteger('tamanho_id')->nullable()->after('preco');
-            $table->foreign('tamanho_id')->references('id')->on('tamanhos');
-        });
+        // Schema::table('itens', function (Blueprint $table) {
+        //     $table->unsignedBigInteger('tamanho_id')->nullable()->after('preco');
+        //     $table->foreign('tamanho_id')->references('id')->on('tamanhos');
+        // });
     }
 };

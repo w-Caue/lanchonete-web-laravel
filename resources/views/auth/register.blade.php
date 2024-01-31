@@ -40,11 +40,11 @@
                     <label class="w-full" for="">
                         <p class="uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">{{ __('Whatsapp') }}</p>
 
-                        <input id="telefone" type="telefone"
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white @error('telefone') is-invalid @enderror"
-                            name="telefone" value="{{ old('telefone') }}" required autocomplete="telefone">
+                        <input id="whatsapp" type="whatsapp"
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white @error('whatsapp') is-invalid @enderror"
+                            name="whatsapp" value="{{ old('whatsapp') }}" required autocomplete="whatsapp">
 
-                        @error('telefone')
+                        @error('whatsapp')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

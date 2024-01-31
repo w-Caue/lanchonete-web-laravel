@@ -9,6 +9,7 @@ use App\Models\Item;
 use App\Models\LocalEntrega;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
+use App\Models\Produto;
 use App\Models\Tamanho;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -133,7 +134,7 @@ class PedidoSite extends Component
         } else {
             $this->detalheItem();
 
-            $this->itemPedido = Item::where('id', $item)->get()->first();
+            // $this->itemPedido = Item::where('id', $item)->get()->first();
 
             $this->total = $this->itemPedido->preco;
         }
@@ -197,7 +198,7 @@ class PedidoSite extends Component
         return redirect()->route('site.seu-pedido');
     }
 
-    public function removerItem(Item $item)
+    public function removerItem(Produto $item)
     {
         $this->itemId = $item->id;
 
@@ -248,7 +249,7 @@ class PedidoSite extends Component
             $this->showEntrega = true;
         };
 
-        $this->localEntrega = LocalEntrega::where('cliente_id', auth()->user()->id)->get();
+        // $this->localEntrega = LocalEntrega::where('cliente_id', auth()->user()->id)->get();
     }
 
     public function updatedCep()
@@ -281,15 +282,15 @@ class PedidoSite extends Component
 
     public function saveLocal()
     {
-        LocalEntrega::create([
-            'cliente_id' => auth()->user()->id,
-            'cep' => $this->cep,
-            'endereco' => $this->endereco,
-            'numero' => $this->numero,
-            'complemento' => $this->complemento,
-            'bairro' => $this->bairro,
-            'referencia' => $this->referencia
-        ]);
+        // LocalEntrega::create([
+        //     'cliente_id' => auth()->user()->id,
+        //     'cep' => $this->cep,
+        //     'endereco' => $this->endereco,
+        //     'numero' => $this->numero,
+        //     'complemento' => $this->complemento,
+        //     'bairro' => $this->bairro,
+        //     'referencia' => $this->referencia
+        // ]);
 
         $this->showEntrega = false;
 
@@ -302,7 +303,7 @@ class PedidoSite extends Component
 
     public function render()
     {
-        $itens = Item::where('categoria_id', 'like', '%' . $this->menuCategoria)->get();
+        // $itens = Item::where('categoria_id', 'like', '%' . $this->menuCategoria)->get();
 
         $formasDePagamentos = FormaDePagamento::all();
 
@@ -311,7 +312,7 @@ class PedidoSite extends Component
         $categorias = Categoria::all();
 
         return view('livewire.pedidos.pedido-site', [
-            'itens' => $itens,
+            // 'itens' => $itens,
             'formasDePagamentos' => $formasDePagamentos,
             'tamanhos' => $tamanhos,
             'categorias' => $categorias

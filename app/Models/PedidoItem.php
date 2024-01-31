@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class PedidoItem extends Model
 {
     protected $table = 'pedidos_itens';
-    protected $fillable = ['pedido_id', 'item_id', 'quantidade', 'tamanho', 'total'];
+    protected $fillable = ['pedido_id', 'produto_id', 'quantidade', 'tamanho', 'total'];
 }

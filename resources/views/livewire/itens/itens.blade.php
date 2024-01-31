@@ -61,23 +61,23 @@
         </div>
 
         <div class="flex justify-center flex-wrap gap-3">
-            @foreach ($itens as $item)
-                <div wire:click="edit({{ $item->id }})"
+            @foreach ($produtos as $produto)
+                <div wire:click="edit({{ $produto->id }})"
                     class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:w-1/3 hover:bg-gray-100 cursor-pointer">
                     <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
                         src="/docs/images/blog/image-4.jpg" alt="">
                     <div class="flex flex-col justify-between p-4 leading-normal">
-                        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900">{{ $item->nome }}</h5>
-                        <p class="mb-1 font-semibold text-gray-600">{{ $item->descricao }}</p>
-                        <p class="mb-1 font-semibold text-gray-900">R${{ number_format($item->preco, 2, ',', '.') }}</p>
-                        <p class="mb-1 font-semibold text-sky-700">{{ $item->categoria->categoria }}</p>
+                        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900">{{ $produto->nome }}</h5>
+                        <p class="mb-1 font-semibold text-gray-600">{{ $produto->descricao }}</p>
+                        <p class="mb-1 font-semibold text-gray-900">R${{ number_format($produto->preco, 2, ',', '.') }}</p>
+                        <p class="mb-1 font-semibold text-sky-700">{{ $produto->categoria->categoria }}</p>
                     </div>
                 </div>
             @endforeach
         </div>
 
         <div class="m-4">
-            {{ $itens->links('layouts.paginate') }}
+            {{-- {{ $itens->links('layouts.paginate') }} --}}
             {{-- appends($request)-> --}}
         </div>
 
