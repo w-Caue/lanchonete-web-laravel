@@ -1,18 +1,14 @@
 <div>
-    <div class="bg-indigo-500 py-1 mx-auto text-center">
-        <div class="flex justify-center m-2">
-
-        </div>
-    </div>
+    
     {{-- @if ($totalItens > 0) --}}
-    <div class="flex flex-col my-10 mx-7 shadow-md md:flex-row">
+    <div class="flex flex-col my-10 mx-7  shadow-md md:flex-row">
 
-        <div class="w-full px-10 py-10  bg-white dark:bg-gray-700 md:w-3/4">
-            <div class="flex justify-between pb-8 border-b">
+        <div class="w-full px-10 py-10 rounded-l bg-white dark:bg-gray-700 md:w-3/4">
+            <div class="flex justify-between pb-8 border-b dark:text-white">
                 <h1 class="text-2xl font-semibold">Carrinho</h1>
                 <h2 class="text-2xl font-semibold">{{ $totalItens ?? '' }} Itens</h2>
             </div>
-            <div class="flex justify-between mt-5">
+            <div class="flex justify-between mt-5 dark:text-white">
                 <h3 class="w-2/5 text-xs font-semibold uppercase">Detalhe</h3>
                 <h3 class="w-1/5 text-xs font-semibold text-center uppercase">Quantidade</h3>
                 <h3 class="w-1/5 text-xs font-semibold text-center uppercase">Total</h3>
@@ -29,7 +25,7 @@
                         </div>
                         <div class="flex flex-col justify-between flex-grow ml-4">
                             <span class="text-sm font-semibold text-blue-500">{{ $produto['descricao'] ?? '' }}</span>
-                            <span class="text-md font-bold text-gray-700">{{ $produto['nome'] ?? '' }}</span>
+                            <span class="text-md font-bold text-gray-700 dark:text-white">{{ $produto['nome'] ?? '' }}</span>
                             <span class="text-sm font-semibold text-blue-500">#{{ $produto['codigo'] ?? '' }}</span>
                             <span class="text-md font-semibold text-green-500">R${{ number_format($produto['preco'], 2, ',') }} </span>
                             <button wire:click="remover({{ $produto['codigo'] }})"
@@ -37,27 +33,27 @@
                         </div>
                     </div>
                     <div class="flex justify-center w-1/5 my-auto">
-                        <button>
+                        <button class=" dark:text-blue-500">
                             <svg class="w-5 fill-current" viewBox="0 0 448 512">
                                 <path
                                     d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
                             </svg>
                         </button>
 
-                        <span
-                            class="w-12 mx-2 font-semibold text-center text-blue-500 text-md">{{ $produto['qtd'] ?? '' }}</span>
+                        {{-- <span
+                            class="w-12 mx-2 font-semibold text-center text-blue-500 text-md">{{ $produto['quantidade'] }}</span> --}}
 
                         <input class="w-12 mx-2 text-center border rounded-full" type="text"
                             value="{{ $produto['quantidade'] }}">
 
-                        <button>
+                        <button class=" dark:text-blue-500">
                             <svg class="w-5 fill-current" viewBox="0 0 448 512">
                                 <path
                                     d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
                             </svg>
                         </button>
                     </div>
-                    <span class="w-1/5 text-sm font-semibold text-center">{{ $produto['total'] ?? '' }}</span>
+                    <span class="w-1/5 text-md font-semibold text-green-500 text-center">R${{ number_format($produto['total'], 2, ',') }}</span>
                 </div>
             @endforeach
 
@@ -71,14 +67,14 @@
             </a>
         </div>
 
-        <div id="summary" class="w-full px-8 py-10 bg-gray-100 dark:bg-gray-800 md:w-1/4">
+        <div id="summary" class="w-full px-8 py-10 rounded-r bg-gray-100 dark:bg-gray-800 md:w-1/4">
             <div class="mt-8 border-t">
-                <div class="flex justify-between py-6 text-sm font-bold uppercase">
+                <div class="flex justify-between py-6 text-sm font-bold uppercase dark:text-white">
                     <span>Total: </span>
                     <span> </span>
                 </div>
                 {{-- @if (auth()->check() && auth()->user()->CAD_PENDENTE != 'E') --}}
-                <a style="background-color:;"
+                <a href="{{ route('ecommerce.cliente') }}"
                     class="flex justify-center w-full py-3 text-sm font-semibold text-center text-white uppercase hover:opacity-75">
                     Finalizar Pedido
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"

@@ -35,8 +35,12 @@ Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
     })->name('produtos');
 
     Route::get('/pedido', function () {
-        return view('ecommerce.show');
+        return view('ecommerce.carrinho');
     })->name('pedido');
+
+    Route::get('/cliente', function () {
+        return view('ecommerce.pessoa');
+    })->name('cliente');
 });
 
 Route::prefix('/site')->name('site.')->group(function () {

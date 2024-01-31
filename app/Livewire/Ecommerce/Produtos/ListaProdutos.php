@@ -25,6 +25,11 @@ class ListaProdutos extends Component
         $this->readyLoad = true;
     }
 
+    public function mount(){
+        $this->carrinho = session()->get('carrinho');
+        $this->atualizar();
+    }
+
     public function dados()
     {
         $produtos = Produto::select([
@@ -53,19 +58,17 @@ class ListaProdutos extends Component
     {
         $novo = true;
 
-        if (is_array($this->carrinho) || is_object($this->carrinho)) {
-            foreach ($this->carrinho as $index => $item) {
-                if ($codigo == $item['codigo']) {
-                    //Produto já está no carrinho, só somar a quantidade
-                    $this->carrinho[$index]['quantidade'] += $this->quantidade;
-                    $this->carrinho[$index]['codigo'] = $codigo;
-                    $this->carrinho[$index]['preco'] = $preco;
-                    $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
-                    $this->carrinho[$index]['descricao'] = $descricao;
-                    
+        foreach ($this->carrinho as $index => $item) {
+            if ($codigo == $item['codigo']) {
+                //Produto já está no carrinho, só somar a quantidade
+                $this->carrinho[$index]['quantidade'] = $this->quantidade++;
+                $this->carrinho[$index]['codigo'] = $codigo;
+                $this->carrinho[$index]['preco'] = $preco;
+                $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
+                $this->carrinho[$index]['descricao'] = $descricao;
 
-                    $novo = false;
-                }
+
+                $novo = false;
             }
         }
 
@@ -83,7 +86,7 @@ class ListaProdutos extends Component
 
         session()->put('carrinho', $this->carrinho);
 
-        if ($novo) {
+        if ($codigo) {
             $this->alert('success', 'Item Adicionado!', [
                 'position' => 'center',
                 'timer' => 1000,
@@ -94,6 +97,17 @@ class ListaProdutos extends Component
 
             return;
         }
+    }
+
+    public function atualizar()
+    {
+        if ($this->carrinho == null)
+            $this->carrinho = array();
+
+        // if ($this->carrinho != null)
+        //     $this->totalItens = sizeof($this->carrinho);
+        // else
+        //     $this->totalItens = 0;
     }
 
     public function render()
