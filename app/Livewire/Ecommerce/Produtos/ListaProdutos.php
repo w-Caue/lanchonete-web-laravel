@@ -18,7 +18,7 @@ class ListaProdutos extends Component
     public $produtoDetalhe;
 
     public $carrinho = [];
-    public $quantidade = 1;
+    public $quantidade = 0;
 
     public function load()
     {
@@ -27,6 +27,7 @@ class ListaProdutos extends Component
 
     public function mount(){
         $this->carrinho = session()->get('carrinho');
+        // dd($this->carrinho);
         $this->atualizar();
     }
 
@@ -54,21 +55,22 @@ class ListaProdutos extends Component
         $this->dispatch('open-detalhe');
     }
 
-    public function adicionarItem($codigo, $nome, $descricao, $preco)
+    public function adicionarItem($codigo, $nome, $descricao, $quantidade, $preco)
     {
         $novo = true;
 
         foreach ($this->carrinho as $index => $item) {
             if ($codigo == $item['codigo']) {
                 //Produto já está no carrinho, só somar a quantidade
-                $this->carrinho[$index]['quantidade'] = $this->quantidade++;
+                $this->carrinho[$index]['quantidade'] += $quantidade;
                 $this->carrinho[$index]['codigo'] = $codigo;
                 $this->carrinho[$index]['preco'] = $preco;
                 $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
                 $this->carrinho[$index]['descricao'] = $descricao;
 
-
+                // dd($this->carrinho[$index]);
                 $novo = false;
+                $this->quantidade = $this->carrinho[$index]['quantidade'];
             }
         }
 
@@ -77,10 +79,12 @@ class ListaProdutos extends Component
                 'codigo' => $codigo,
                 'nome' => $nome,
                 'descricao' => $descricao,
-                'quantidade' => $this->quantidade,
+                'quantidade' => $quantidade,
                 'preco' => $preco,
-                'total' => $preco * $this->quantidade,
+                'total' => $preco * $quantidade,
             );
+           
+            $this->quantidade = $quantidade;
             array_push($this->carrinho, $novoItem);
         }
 
@@ -90,7 +94,7 @@ class ListaProdutos extends Component
             $this->alert('success', 'Item Adicionado!', [
                 'position' => 'center',
                 'timer' => 1000,
-                'toast' => false,
+                'toast' => true,
             ]);
 
             $this->dispatch('close-detalhe');

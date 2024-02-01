@@ -19,7 +19,7 @@
 
                 <!--Arrow -->
                 <button
-                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-gray-300 transition-colors duration-150"
+                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-300 transition-colors duration-150"
                     aria-label="Edit">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
@@ -30,21 +30,21 @@
 
 
                 <!-- User -->
-                <button 
-                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-gray-400 border border-transparent rounded-full active:bg-blue-600 focus:shadow-outline-blue"
+                <a href="{{ route('ecommerce.cliente') }}"
+                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-400 border border-transparent rounded-full active:bg-blue-600 focus:shadow-outline-blue"
                     aria-label="Edit">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                         stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
                             d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                     </svg>
-                </button>
+                </a>
                 <!--/User -->
 
 
                 <!-- Arrow -->
                 <button
-                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-gray-300 transition-colors duration-150"
+                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-300 transition-colors duration-150"
                     aria-label="Edit">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
@@ -54,8 +54,8 @@
                 <!--/Arrow -->
 
                 <!-- Entrega -->
-                <button
-                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-gray-400 border border-transparent rounded-full active:bg-blue-600 focus:shadow-outline-blue"
+                <a href="{{ route('ecommerce.localizacao') }}"
+                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-400 border border-transparent rounded-full active:bg-blue-600 focus:shadow-outline-blue"
                     aria-label="Edit">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
@@ -63,7 +63,7 @@
                             d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
-                </button>
+                </a>
                 <!--/Entrega -->
 
                 <!-- Arrow -->
@@ -91,5 +91,5 @@
             </div>
         </div>
     </div>
-    @livewire('Ecommerce.Pedidos.Pedido')
+    @livewire('Ecommerce.Localizacao.Endereco')
 @endsection

@@ -6,7 +6,16 @@
         </a>
         <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <a href="{{ route('ecommerce.pedido') }}"
-                class="text-white bg-blue-500 hover:bg-blue-700 font-semibold rounded-xl text-md px-4 py-2 text-center"> Seu Pedido</a>
+                class="flex gap-1 text-white bg-blue-500 hover:bg-blue-700 font-semibold rounded-xl text-md px-4 py-2 text-center">
+                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd"
+                        d="M4 4c0-.6.4-1 1-1h1.5c.5 0 .9.3 1 .8L7.9 6H19a1 1 0 0 1 1 1.2l-1.3 6a1 1 0 0 1-1 .8h-8l.2 1H17a3 3 0 1 1-2.8 2h-2.4a3 3 0 1 1-4-1.8L5.7 5H5a1 1 0 0 1-1-1Z"
+                        clip-rule="evenodd" />
+                </svg>
+
+                Carrinho
+            </a>
             <button data-collapse-toggle="navbar-sticky" type="button"
                 class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 aria-controls="navbar-sticky" aria-expanded="false">

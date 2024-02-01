@@ -41,6 +41,10 @@ Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
     Route::get('/cliente', function () {
         return view('ecommerce.pessoa');
     })->name('cliente');
+
+    Route::get('/localizacao', function () {
+        return view('ecommerce.endereco');
+    })->name('localizacao');
 });
 
 Route::prefix('/site')->name('site.')->group(function () {
