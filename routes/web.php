@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Models\Item;
 use App\Models\Pedido;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -78,4 +79,13 @@ Route::middleware('can:painel')->prefix('/painel')->name('painel.')->group(funct
     Route::get('/pedidos', function () {
         return view('pages.pedidos.index');
     })->name('pedidos');
+});
+
+Route::get('/limpar', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('route:cache');
+    Artisan::call('view:clear');
+    Artisan::call('config:cache');
+    return  "foi limpo meu patrão";
+
 });

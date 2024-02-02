@@ -17,7 +17,7 @@
                             <div class="flex flex-row items-center gap-1">
                                 <input wire:model.lazy="cep" type="text"
                                     class="appearance-none block w-32 font-semibold text-gray-700 border-2 rounded py-3 px-4">
-                                <button wire:click="" type="button"
+                                <button wire:click="updatedCep()" type="button"
                                     class="rounded py-3 px-2 text-white bg-blue-500">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -29,14 +29,14 @@
                             </div>
                         </label>
 
-                        {{-- <h1>{{ $endereco }}</h1> --}}
                         <label class="">
                             <p class="uppercase tracking-wide text-gray-600 text-md font-semibold mb-2">
                                 {{ __('Endereço') }}
                             </p>
 
                             <input wire:model.defer="endereco" 
-                                class=" w-86 font-semibold text-gray-700 border-2 rounded py-3 px-4 mb-3">
+                                class=" w-86 font-semibold text-gray-700 border-2 rounded py-3 px-4 mb-3" id="endereco">
+
                         </label>
 
                         <label class="">
@@ -72,7 +72,7 @@
                             </p>
 
                             <input wire:model="bairro" type="text"
-                                class="appearance-none block w-44 font-semibold text-gray-700 border-2 rounded py-3 px-4 mb-3">
+                                class="appearance-none block w-56 font-semibold text-gray-700 border-2 rounded py-3 px-4 mb-3">
                         </label>
 
                         <label class="">
