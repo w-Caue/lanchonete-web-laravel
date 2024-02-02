@@ -3,7 +3,7 @@
         <div class="w-full px-10 py-10 rounded-lg shadow-lg bg-white md:w-2/3">
             <div class="flex justify-between pb-8 border-b">
                 <h1 class="text-2xl font-semibold">Sua Localização</h1>
-                <h2 class="text-2xl font-semibold">Endereço</h2>
+                <h2 class="text-2xl font-semibold">Entrega</h2>
             </div>
 
             <div class="">
@@ -100,7 +100,7 @@
             <div class="mt-8 border-t">
 
                 @if ($localizacao != null)
-                    <a href="{{ route('ecommerce.localizacao') }}"
+                    <a href="{{ route('ecommerce.concluir') }}"
                         class="flex justify-center w-full py-3 text-sm font-semibold text-center text-white uppercase hover:opacity-75">
                         Concluir Pedido
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -110,7 +110,7 @@
                     </a>
                 @endif
 
-                <a
+                <a href="{{ route('ecommerce.produtos') }}"
                     class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-blue-500 uppercase border border-blue-500 bg-white-500">
                     Voltar à loja
                 </a>

@@ -81,7 +81,7 @@
                     </a>
                 @endif
 
-                <a
+                <a href="{{ route('ecommerce.produtos') }}"
                     class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-blue-500 uppercase border border-blue-500 bg-white-500">
                     Voltar à loja
                 </a>

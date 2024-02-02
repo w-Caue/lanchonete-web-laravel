@@ -12,6 +12,9 @@ class Pedido extends Component
 
     public $carrinho;
 
+    public $codigoItem;
+    public $pagamento;
+
     public $valorTotal = 0;
 
     public function mount()
@@ -22,6 +25,49 @@ class Pedido extends Component
         $this->atualizar();
     }
 
+    public function adicionarItem($codigo, $quantidade, $preco)
+    {
+        foreach ($this->carrinho as $index => $item) {
+            if ($codigo == $item['codigo']) {
+                
+                $this->carrinho[$index]['quantidade'] += $quantidade;
+                $this->carrinho[$index]['codigo'] = $codigo;
+                $this->carrinho[$index]['preco'] = $preco;
+                $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
+            }
+        }
+
+        $this->atualizar();
+    }
+
+    public function removerItem($codigo, $quantidade)
+    {
+        foreach ($this->carrinho as $index => $item) {
+            if ($codigo == $item['codigo']) {
+
+                $this->carrinho[$index]['quantidade'] += $quantidade;
+
+                if ($this->carrinho[$index]['quantidade'] < 1) {
+                    $this->carrinho[$index]['quantidade'] = 0;
+                }
+                
+                $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
+            }
+        }
+
+        $this->atualizar();
+    }
+    public function formaPagamento(){
+        foreach ($this->carrinho as $index => $item) {
+            if ($this->codigoItem == $item['codigo']) {
+                
+                $this->carrinho[$index]['pagamento'] = $this->pagamento;
+            }
+        }
+
+        $this->atualizar();
+    }
+
     public function remover($codigo)
     {
         // $this->valorTotal = 0;
@@ -29,9 +75,11 @@ class Pedido extends Component
             if ($codigo == $item['codigo']) {
                 unset($this->carrinho[$index]);
             } else {
-                // $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
-                // $this->valorTotal += $this->carrinho[$index]['total'];
+                $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
+                $this->valorTotal += $this->carrinho[$index]['total'];
             }
+
+            $this->codigoItem = $this->carrinho[$index]['codigo'];
         }
 
         // dd($this->carrinho);
@@ -52,7 +100,11 @@ class Pedido extends Component
             if($this->carrinho[$index]['quantidade'] == 0){
                 unset($this->carrinho[$index]);
             }
+
+            $this->pagamento = $this->carrinho[$index]['pagamento'];
         }
+
+        session()->put('carrinho', $this->carrinho);
     }
 
     public function render()

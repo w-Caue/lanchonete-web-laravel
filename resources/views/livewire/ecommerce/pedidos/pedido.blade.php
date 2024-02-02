@@ -39,20 +39,18 @@
                         </div>
                     </div>
                     <div class="flex justify-center w-1/5 my-auto">
-                        <button class=" dark:text-blue-500">
+                        <button wire:click="removerItem({{ $produto['codigo'] }}, {{ '-1' }})" class=" dark:text-blue-500">
                             <svg class="w-5 fill-current" viewBox="0 0 448 512">
                                 <path
                                     d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
                             </svg>
                         </button>
 
-                        {{-- <span
-                            class="w-12 mx-2 font-semibold text-center text-blue-500 text-md">{{ $produto['quantidade'] }}</span> --}}
-
+                        
                         <input class="w-12 mx-2 text-center border rounded-full" type="text"
                             value="{{ $produto['quantidade'] }}">
 
-                        <button class=" dark:text-blue-500">
+                        <button wire:click="adicionarItem({{ $produto['codigo'] }}, {{ '+1' }}, {{ $produto['preco'] }})" class=" dark:text-blue-500">
                             <svg class="w-5 fill-current" viewBox="0 0 448 512">
                                 <path
                                     d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
@@ -76,12 +74,23 @@
 
         <div id="summary" class="w-full px-8 py-10 rounded-r bg-gray-100 dark:bg-gray-800 md:w-1/4">
             <div class="mt-8 border-t">
-                <div class="flex justify-between py-6 text-sm font-bold uppercase dark:text-white">
+                <div class="flex justify-between py-4 text-sm font-bold uppercase dark:text-white">
                     <span>Total: </span>
                     <span>R${{ number_format($valorTotal, 2, ',', '') }} </span>
                 </div>
+
+                <div class="flex justify-between items-center py-4 text-sm font-bold uppercase dark:text-white">
+                    <span>Pagamento: </span>
+                    <select wire:model="pagamento"
+                        class="w-40 py-2 mt-4 text-sm font-semibold text-center text-blue-500 uppercase border rounded border-blue-500 bg-gray-800">
+                        <option></option>
+                        <option>Dinheiro</option>
+                        <option>Pix</option>
+                        <option>Cartão</option>   
+                    </select>
+                </div>
                 @if ($carrinho != null)
-                    <a href="{{ route('ecommerce.cliente') }}"
+                    <a href="{{ route('ecommerce.cliente') }}" wire:click="formaPagamento()"
                         class="flex justify-center w-full py-3 text-sm font-semibold text-center text-white uppercase hover:opacity-75">
                         Preencher Informações
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -91,12 +100,12 @@
                     </a>
                 @endif
 
-                <a
+                <a href="{{ route('ecommerce.produtos') }}"
                     class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-blue-500 uppercase border border-blue-500 bg-white-500">
                     Voltar à loja
                 </a>
             </div>
         </div>
     </div>
-    
+
 </div>

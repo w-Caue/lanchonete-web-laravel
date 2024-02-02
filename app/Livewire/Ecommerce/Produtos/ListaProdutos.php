@@ -83,6 +83,7 @@ class ListaProdutos extends Component
                 'quantidade' => $quantidade,
                 'preco' => $preco,
                 'total' => $preco * $quantidade,
+                'pagamento' => '',
             );
 
             $this->quantidade = $quantidade;

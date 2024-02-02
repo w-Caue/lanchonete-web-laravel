@@ -6,6 +6,7 @@ use App\Models\Pedido;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,10 @@ Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
     Route::get('/localizacao', function () {
         return view('ecommerce.endereco');
     })->name('localizacao');
+
+    Route::get('/concluir', function () {
+        return view('ecommerce.finalizar');
+    })->name('concluir');
 });
 
 Route::prefix('/site')->name('site.')->group(function () {
@@ -82,10 +87,24 @@ Route::middleware('can:painel')->prefix('/painel')->name('painel.')->group(funct
 });
 
 Route::get('/limpar', function() {
-    Artisan::call('cache:clear');
-    Artisan::call('route:cache');
-    Artisan::call('view:clear');
-    Artisan::call('config:cache');
-    return  "foi limpo meu patrão";
+    try {
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('clear-compiled');
+        Artisan::call('config:cache');
+        Artisan::call('config:clear');
+
+        $oldFiles = Storage::files('livewire-tmp');
+        foreach ($oldFiles as $file) {
+            echo "Deletando arquivos temporarios\n";
+            Storage::delete($file);
+        }
+        exec('echo "" > ' . storage_path('logs/laravel.log'));
+
+        echo "Foi limpo meu patrão";
+    } catch (Exception $e) {
+        return response()->make($e->getMessage(), 500);
+    }
 
 });
