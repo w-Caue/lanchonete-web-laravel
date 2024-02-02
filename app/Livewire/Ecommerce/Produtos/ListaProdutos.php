@@ -25,7 +25,8 @@ class ListaProdutos extends Component
         $this->readyLoad = true;
     }
 
-    public function mount(){
+    public function mount()
+    {
         $this->carrinho = session()->get('carrinho');
         // dd($this->carrinho);
         $this->atualizar();
@@ -83,7 +84,7 @@ class ListaProdutos extends Component
                 'preco' => $preco,
                 'total' => $preco * $quantidade,
             );
-           
+
             $this->quantidade = $quantidade;
             array_push($this->carrinho, $novoItem);
         }
@@ -103,15 +104,31 @@ class ListaProdutos extends Component
         }
     }
 
+    public function removerItem($codigo, $quantidade)
+    {
+        foreach ($this->carrinho as $index => $item) {
+            if ($codigo == $item['codigo']) {
+
+                $this->carrinho[$index]['quantidade'] += $quantidade;
+
+                if ($this->carrinho[$index]['quantidade'] < 1) {
+                    $this->carrinho[$index]['quantidade'] = 0;
+                }
+                
+                $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
+            }
+        }
+
+        $this->atualizar();
+    }
+
     public function atualizar()
     {
         if ($this->carrinho == null)
             $this->carrinho = array();
 
-        // if ($this->carrinho != null)
-        //     $this->totalItens = sizeof($this->carrinho);
-        // else
-        //     $this->totalItens = 0;
+        // // dd($this->carrinho);
+        session()->put('carrinho', $this->carrinho);
     }
 
     public function render()

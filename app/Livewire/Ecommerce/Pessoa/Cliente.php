@@ -10,6 +10,8 @@ class Cliente extends Component
 
     public $whatsapp;
 
+    public $email;
+
     public $cliente = [];
 
     public function mount()
@@ -24,6 +26,7 @@ class Cliente extends Component
         $clienteEcommerce = array(
             'nome' => $this->nome,
             'whatsapp' => $this->whatsapp,
+            'email' => $this->email,
         );
 
         array_push($this->cliente, $clienteEcommerce);
@@ -41,6 +44,7 @@ class Cliente extends Component
 
                 $this->nome = $this->cliente[$index]['nome'];
                 $this->whatsapp = $this->cliente[$index]['whatsapp'];
+                $this->email = $this->cliente[$index]['email'];
             }
         }
     }

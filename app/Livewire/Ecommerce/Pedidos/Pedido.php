@@ -12,11 +12,14 @@ class Pedido extends Component
 
     public $carrinho;
 
+    public $valorTotal = 0;
+
     public function mount()
     {
         $this->carrinho = session()->get('carrinho');
 
         // dd($this->carrinho);
+        $this->atualizar();
     }
 
     public function remover($codigo)
@@ -39,6 +42,17 @@ class Pedido extends Component
             'timer' => 1000,
             'toast' => false,
         ]);
+    }
+
+    public function atualizar()
+    {
+        foreach ($this->carrinho as $index => $item) {
+            $this->valorTotal += $this->carrinho[$index]['total'];
+
+            if($this->carrinho[$index]['quantidade'] == 0){
+                unset($this->carrinho[$index]);
+            }
+        }
     }
 
     public function render()
