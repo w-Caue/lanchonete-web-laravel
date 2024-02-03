@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tamanhos', function (Blueprint $table) {
             $table->id();
-            $table->string('tamanho', 4);
+            $table->string('nome', 4);
             $table->string('descricao', 25);
             $table->timestamps();
         });

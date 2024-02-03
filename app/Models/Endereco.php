@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Endereco extends Model
 {
-    protected $table = 'local_entrega';
+    // protected $table = 'local_entrega';
     protected $fillable = ['cliente_id', 'cep', 'endereco'
                             , 'numero', 'complemento', 'bairro', 'referencia'];
 }

@@ -17,7 +17,6 @@ class Cliente extends Component
     public function mount()
     {
         $this->cliente = session()->get('cliente');
-        // dd($this->carrinho);
         $this->atualizar();
     }
 

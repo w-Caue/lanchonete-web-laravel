@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('numero');
             $table->string('complemento', 70)->nullable();
             $table->string('bairro', 20);
-            $table->string('referencia', 100);
+            $table->string('referencia', 100)->nullable();
             $table->timestamps();
         });
     }

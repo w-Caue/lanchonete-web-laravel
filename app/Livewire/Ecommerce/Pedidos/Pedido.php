@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Ecommerce\Pedidos;
 
+use App\Models\FormaDePagamento;
 use Illuminate\Contracts\Session\Session;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -13,7 +14,7 @@ class Pedido extends Component
     public $carrinho;
 
     public $codigoItem;
-    public $pagamento;
+    public $pagamento = '';
 
     public $valorTotal = 0;
 
@@ -21,7 +22,7 @@ class Pedido extends Component
     {
         $this->carrinho = session()->get('carrinho');
 
-        // dd($this->carrinho);
+        // dd(session()->all());
         $this->atualizar();
     }
 
@@ -58,14 +59,7 @@ class Pedido extends Component
         $this->atualizar();
     }
     public function formaPagamento(){
-        foreach ($this->carrinho as $index => $item) {
-            if ($this->codigoItem == $item['codigo']) {
-                
-                $this->carrinho[$index]['pagamento'] = $this->pagamento;
-            }
-        }
-
-        $this->atualizar();
+        session()->put('pagamento', $this->pagamento);
     }
 
     public function remover($codigo)
@@ -101,14 +95,16 @@ class Pedido extends Component
                 unset($this->carrinho[$index]);
             }
 
-            $this->pagamento = $this->carrinho[$index]['pagamento'];
         }
+        $this->pagamento = session()->get('pagamento');
 
         session()->put('carrinho', $this->carrinho);
     }
 
     public function render()
     {
-        return view('livewire.ecommerce.pedidos.pedido');
+        return view('livewire.ecommerce.pedidos.pedido', [
+            'formaPagamento' => FormaDePagamento::all(),
+        ]);
     }
 }

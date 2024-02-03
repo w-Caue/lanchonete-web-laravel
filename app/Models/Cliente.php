@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Cliente extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome', 'email', 'whatsapp'];
+    protected $fillable = ['nome', 'email', 'whatsapp', 'tipo_ecommerce'];
 
 }

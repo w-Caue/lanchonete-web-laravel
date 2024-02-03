@@ -27,6 +27,10 @@ class ListaProdutos extends Component
 
     public function mount()
     {
+        // session()->remove('carrinho');
+        // session()->remove('cliente');
+        // session()->remove('localizacao');
+        // session()->remove('pagamento');
         $this->carrinho = session()->get('carrinho');
         // dd($this->carrinho);
         $this->atualizar();
@@ -83,7 +87,6 @@ class ListaProdutos extends Component
                 'quantidade' => $quantidade,
                 'preco' => $preco,
                 'total' => $preco * $quantidade,
-                'pagamento' => '',
             );
 
             $this->quantidade = $quantidade;

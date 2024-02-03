@@ -29,7 +29,6 @@ class Endereco extends Component
         $response = $response->json();
 
         $this->endereco = $response['logradouro'];
-
         $this->complemento = $response['complemento'];
         $this->bairro = $response['bairro'];
         $this->cidade = $response['localidade'];

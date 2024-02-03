@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->nullable();
             $table->string('whatsapp', 14);
             $table->string('status')->default('Ativo');
             $table->string('tipo_ecommerce')->default('N');

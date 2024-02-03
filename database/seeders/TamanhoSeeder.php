@@ -13,8 +13,8 @@ class TamanhoSeeder extends Seeder
      */
     public function run(): void
     {
-        Tamanho::create(['tamanho' => 'P', 'descricao' => 'Pequeno']);
-        Tamanho::create(['tamanho' => 'M', 'descricao' => 'Medio']);
-        Tamanho::create(['tamanho' => 'G', 'descricao' => 'Grande']);
+        Tamanho::create(['nome' => 'P', 'descricao' => 'Pequeno']);
+        Tamanho::create(['nome' => 'M', 'descricao' => 'Medio']);
+        Tamanho::create(['nome' => 'G', 'descricao' => 'Grande']);
     }
 }
