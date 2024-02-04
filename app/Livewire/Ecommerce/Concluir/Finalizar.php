@@ -92,7 +92,8 @@ class Finalizar extends Component
         if ($this->pedidoEcommerce == null) {
             $this->dados();
         }
-        // dd($this->pedidoEcommerce);
+        
+        
         return view('livewire.ecommerce.concluir.finalizar');
     }
 }

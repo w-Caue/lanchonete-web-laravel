@@ -23,7 +23,7 @@
 
     <!-- Alpine Core -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
+
     <!-- Scripts -->
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
     @vite('resources/css/app.css', 'resources/js/alpine/start.js')
@@ -35,7 +35,7 @@
             @include('layouts.sidebar')
 
             <div class="flex flex-col flex-1 w-full">
-                {{-- @include('layouts.navbar') --}}
+                @include('layouts.navbar')
 
                 <main class="h-full pb-16 overflow-y-auto">
                     <!-- Remove everything INSIDE this div to a really blank page -->
@@ -56,6 +56,37 @@
 
     <x-livewire-alert::scripts />
 
+    <script>
+        const sidebar = document.getElementById('sidebar');
+
+if (sidebar) {
+    const toggleSidebarMobile = (sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose) => {
+        sidebar.classList.toggle('hidden');
+        sidebarBackdrop.classList.toggle('hidden');
+        toggleSidebarMobileHamburger.classList.toggle('hidden');
+        toggleSidebarMobileClose.classList.toggle('hidden');
+    }
+    
+    const toggleSidebarMobileEl = document.getElementById('toggleSidebarMobile');
+    const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+    const toggleSidebarMobileHamburger = document.getElementById('toggleSidebarMobileHamburger');
+    const toggleSidebarMobileClose = document.getElementById('toggleSidebarMobileClose');
+    const toggleSidebarMobileSearch = document.getElementById('toggleSidebarMobileSearch');
+    
+    toggleSidebarMobileSearch.addEventListener('click', () => {
+        toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose);
+    });
+    
+    toggleSidebarMobileEl.addEventListener('click', () => {
+        toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose);
+    });
+    
+    sidebarBackdrop.addEventListener('click', () => {
+        toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose);
+    });
+}
+
+    </script>
 </body>
 
 </html>

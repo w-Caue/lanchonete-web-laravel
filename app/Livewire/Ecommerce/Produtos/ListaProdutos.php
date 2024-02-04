@@ -20,6 +20,8 @@ class ListaProdutos extends Component
     public $carrinho = [];
     public $quantidade = 0;
 
+    public $pedidoEcommerce;
+
     public function load()
     {
         $this->readyLoad = true;
@@ -27,12 +29,8 @@ class ListaProdutos extends Component
 
     public function mount()
     {
-        // session()->remove('carrinho');
-        // session()->remove('cliente');
-        // session()->remove('localizacao');
-        // session()->remove('pagamento');
         $this->carrinho = session()->get('carrinho');
-        // dd($this->carrinho);
+        $this->pedidoEcommerce = session()->get('pedidoEcommerce');
         $this->atualizar();
     }
 
@@ -62,68 +60,82 @@ class ListaProdutos extends Component
 
     public function adicionarItem($codigo, $nome, $descricao, $quantidade, $preco)
     {
-        $novo = true;
+        if ($this->pedidoEcommerce == null) {
+            $novo = true;
 
-        foreach ($this->carrinho as $index => $item) {
-            if ($codigo == $item['codigo']) {
-                //Produto já está no carrinho, só somar a quantidade
-                $this->carrinho[$index]['quantidade'] += $quantidade;
-                $this->carrinho[$index]['codigo'] = $codigo;
-                $this->carrinho[$index]['preco'] = $preco;
-                $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
-                $this->carrinho[$index]['descricao'] = $descricao;
+            foreach ($this->carrinho as $index => $item) {
+                if ($codigo == $item['codigo']) {
+                    //Produto já está no carrinho, só somar a quantidade
+                    $this->carrinho[$index]['quantidade'] += $quantidade;
+                    $this->carrinho[$index]['codigo'] = $codigo;
+                    $this->carrinho[$index]['preco'] = $preco;
+                    $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
+                    $this->carrinho[$index]['descricao'] = $descricao;
 
-                // dd($this->carrinho[$index]);
-                $novo = false;
-                $this->quantidade = $this->carrinho[$index]['quantidade'];
+                    $novo = false;
+                }
             }
-        }
 
-        if ($novo) {
-            $novoItem = array(
-                'codigo' => $codigo,
-                'nome' => $nome,
-                'descricao' => $descricao,
-                'quantidade' => $quantidade,
-                'preco' => $preco,
-                'total' => $preco * $quantidade,
-            );
+            if ($novo) {
+                $novoItem = array(
+                    'codigo' => $codigo,
+                    'nome' => $nome,
+                    'descricao' => $descricao,
+                    'quantidade' => $quantidade,
+                    'preco' => $preco,
+                    'total' => $preco * $quantidade,
+                );
+                array_push($this->carrinho, $novoItem);
+            }
 
-            $this->quantidade = $quantidade;
-            array_push($this->carrinho, $novoItem);
-        }
+            session()->put('carrinho', $this->carrinho);
 
-        session()->put('carrinho', $this->carrinho);
+            if ($codigo) {
+                $this->alert('success', 'Item Adicionado!', [
+                    'position' => 'center',
+                    'timer' => 1000,
+                    'toast' => true,
+                ]);
 
-        if ($codigo) {
-            $this->alert('success', 'Item Adicionado!', [
+                $this->dispatch('close-detalhe');
+
+                return;
+            }
+        } else {
+            $this->alert('info', 'Não é possivel adicionar mais itens!', [
                 'position' => 'center',
-                'timer' => 1000,
-                'toast' => true,
+                'text' => 'seu pedido já esta sendo preparado',
+                'timer' => 2000,
+                'toast' => false,
             ]);
-
-            $this->dispatch('close-detalhe');
-
-            return;
         }
     }
 
     public function removerItem($codigo, $quantidade)
     {
-        foreach ($this->carrinho as $index => $item) {
-            if ($codigo == $item['codigo']) {
-
-                $this->carrinho[$index]['quantidade'] += $quantidade;
-
-                if ($this->carrinho[$index]['quantidade'] < 1) {
-                    $this->carrinho[$index]['quantidade'] = 0;
+        if($this->pedidoEcommerce == null){
+            foreach ($this->carrinho as $index => $item) {
+                if ($codigo == $item['codigo']) {
+    
+                    $this->carrinho[$index]['quantidade'] += $quantidade;
+    
+                    if ($this->carrinho[$index]['quantidade'] < 1) {
+                        $this->carrinho[$index]['quantidade'] = 0;
+                    }
+    
+                    $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
                 }
-                
-                $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
             }
+    
+            $this->atualizar();
+        } else {
+            $this->alert('info', 'Não é possivel adicionar mais itens!', [
+                'position' => 'center',
+                'text' => 'seu pedido já esta sendo preparado',
+                'timer' => 2000,
+                'toast' => false,
+            ]);
         }
-
-        $this->atualizar();
     }
 
     public function atualizar()
@@ -131,7 +143,6 @@ class ListaProdutos extends Component
         if ($this->carrinho == null)
             $this->carrinho = array();
 
-        // // dd($this->carrinho);
         session()->put('carrinho', $this->carrinho);
     }
 

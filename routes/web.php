@@ -95,12 +95,11 @@ Route::get('/limpar', function() {
         Artisan::call('config:cache');
         Artisan::call('config:clear');
 
-        $oldFiles = Storage::files('livewire-tmp');
-        foreach ($oldFiles as $file) {
-            echo "Deletando arquivos temporarios\n";
-            Storage::delete($file);
-        }
-        exec('echo "" > ' . storage_path('logs/laravel.log'));
+        
+        session()->remove('carrinho');
+        session()->remove('cliente');
+        session()->remove('localizacao');
+        session()->remove('pagamento');
 
         echo "Foi limpo meu patrão";
     } catch (Exception $e) {

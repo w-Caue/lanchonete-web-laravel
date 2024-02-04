@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const PEDIDO = '/site/Pedido';
+    public const PEDIDO = '/painel/dashboard';
     public const HOME = '/';
 
     /**

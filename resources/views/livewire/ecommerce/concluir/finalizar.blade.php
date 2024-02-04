@@ -9,7 +9,7 @@
             <div class="text-gray-700 text-sm font-bold uppercase">
                 <div class="flex justify-between py-4">
                     <span>Seu nome: </span>
-                    <span>{{ $pedido->cliente->nome }}</span>
+                    <span>{{ $pedido->cliente->nome ?? ''}}</span>
                 </div>
                 <div class="flex justify-between py-4 border-b">
                     <span>Whatsapp: </span>
