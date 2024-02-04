@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html x-data="data()" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -21,7 +21,6 @@
     <!-- Alpine Plugins -->
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/mask@3.x.x/dist/cdn.min.js"></script>
 
-    <!-- Alpine Core -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <!-- Scripts -->
@@ -29,7 +28,7 @@
     @vite('resources/css/app.css', 'resources/js/alpine/start.js')
 </head>
 
-<body>
+<body class="">
     <div id="app">
         <div class="flex h-screen" :class="{ 'overflow-hidden': isSideMenuOpen }">
             @include('layouts.sidebar')
@@ -55,37 +54,61 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <x-livewire-alert::scripts />
-
+   
     <script>
-        const sidebar = document.getElementById('sidebar');
+        function data() {
+            
 
-if (sidebar) {
-    const toggleSidebarMobile = (sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose) => {
-        sidebar.classList.toggle('hidden');
-        sidebarBackdrop.classList.toggle('hidden');
-        toggleSidebarMobileHamburger.classList.toggle('hidden');
-        toggleSidebarMobileClose.classList.toggle('hidden');
-    }
-    
-    const toggleSidebarMobileEl = document.getElementById('toggleSidebarMobile');
-    const sidebarBackdrop = document.getElementById('sidebarBackdrop');
-    const toggleSidebarMobileHamburger = document.getElementById('toggleSidebarMobileHamburger');
-    const toggleSidebarMobileClose = document.getElementById('toggleSidebarMobileClose');
-    const toggleSidebarMobileSearch = document.getElementById('toggleSidebarMobileSearch');
-    
-    toggleSidebarMobileSearch.addEventListener('click', () => {
-        toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose);
-    });
-    
-    toggleSidebarMobileEl.addEventListener('click', () => {
-        toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose);
-    });
-    
-    sidebarBackdrop.addEventListener('click', () => {
-        toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose);
-    });
-}
-
+            return {
+                dark: false,
+     
+                darkMode() {
+                    this.dark = !this.dark
+                    if(this.dark){
+                        document.documentElement.classList.add("dark");
+                    } else {
+                        document.documentElement.classList.remove("dark");
+                    }
+                },
+                isUserOpen: false,
+                toggleUser() {
+                    this.isUserOpen = !this.isUserOpen
+                },
+                isAppsMenuOpen: false,
+                toggleAppsMenu() {
+                    this.isAppsMenuOpen = !this.isAppsMenuOpen
+                },
+                isSidebarOpen: true,
+                toggleSidebar() {
+                    this.isSidebarOpen = !this.isSidebarOpen
+                },
+                // closeNotificationsMenu() {
+                //     this.isNotificationsMenuOpen = false
+                // },
+                // isProfileMenuOpen: false,
+                // toggleProfileMenu() {
+                //     this.isProfileMenuOpen = !this.isProfileMenuOpen
+                // },
+                // closeProfileMenu() {
+                //     this.isProfileMenuOpen = false
+                // },
+                // isPagesMenuOpen: false,
+                // togglePagesMenu() {
+                //     this.isPagesMenuOpen = !this.isPagesMenuOpen
+                // },
+                // // Modal
+                // isModalOpen: false,
+                // trapCleanup: null,
+                // openModal() {
+                //     this.isModalOpen = true
+                //     this.trapCleanup = focusTrap(document.querySelector('#modal'))
+                // },
+                // closeModal() {
+                //     this.isModalOpen = false
+                //     this.trapCleanup()
+                // },
+            }
+        }
     </script>
 </body>
 
