@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Livewire\Clientes;
+namespace App\Livewire\Pessoas;
 
-use App\Livewire\Forms\ClienteForm;
-use App\Models\Cliente;
-use App\Models\User;
+use App\Livewire\Forms\PessoaForm;
+use App\Models\Pessoa;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Rule;
 
-class Clientes extends Component
+class Pessoas extends Component
 {
     use LivewireAlert;
 
     use WithPagination;
 
-    public ClienteForm $form;
+    public PessoaForm $form;
 
     public $newCliente = false;
 
@@ -28,51 +27,43 @@ class Clientes extends Component
     ];
 
 
-    public function novoCliente()
-    {
-        $this->newCliente = !$this->newCliente;
-    }
-
-    public function fecharCliente()
-    {
-        $this->reset();
-        $this->newCliente = false;
-    }
-
     public function save()
     {
-        $this->form->store();
+        $this->form->save();
 
-        $this->reset();
+        $this->dispatch('close-modal');
 
-        $this->alert('success', 'Cliente Cadastrado!', [
+        $this->alert('success', 'Cadastro Realizado!', [
             'position' => 'center',
-            'timer' => 1000,
+            'timer' => 2000,
             'toast' => false,
+            'text' => 'com sucesso',
         ]);
+
+        $this->js('window.location.reload()');
     }
 
-    public function editCliente(Cliente $cliente)
+    public function editCliente(Pessoa $cliente)
     {
         $this->novoCliente();
 
-        $this->form->edit($cliente);
+        // $this->form->edit($cliente);
     }
 
-    public function update()
-    {
-        $this->form->updateCliente();
+    // public function update()
+    // {
+    //     $this->form->updateCliente();
 
-        $this->alert('success', 'Cadastro Atualizado!', [
-            'position' => 'center',
-            'timer' => '1000',
-            'toast' => false,
-        ]);
+    //     $this->alert('success', 'Cadastro Atualizado!', [
+    //         'position' => 'center',
+    //         'timer' => '1000',
+    //         'toast' => false,
+    //     ]);
 
-        $this->fecharCliente();
-    }
+    //     $this->fecharCliente();
+    // }
 
-    public function remover(Cliente $cliente)
+    public function remover(Pessoa $cliente)
     {
         $this->cliente = $cliente;
 
@@ -94,7 +85,7 @@ class Clientes extends Component
     public function delete()
     {
 
-        Cliente::where('id', $this->cliente->id)->update([
+        Pessoa::where('id', $this->cliente->id)->update([
             'status' => 'Deletado'
         ]);
 
@@ -107,10 +98,10 @@ class Clientes extends Component
 
     public function render()
     {
-        $clientes = Cliente::where('nome', 'like', '%' . $this->search . '%')
+        $clientes = Pessoa::where('nome', 'like', '%' . $this->search . '%')
             ->where('status', 'Ativo')
             ->paginate(5);
 
-        return view('livewire.clientes.clientes', ['clientes' => $clientes]);
+        return view('livewire.pessoas.pessoas', ['clientes' => $clientes]);
     }
 }

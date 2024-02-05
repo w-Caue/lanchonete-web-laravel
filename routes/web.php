@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PessoalController;
 use App\Models\Item;
 use App\Models\Pedido;
 use Illuminate\Support\Facades\Artisan;
@@ -19,16 +20,11 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-Route::get('/', function () {
-    return view('site');
-});
-
 Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
 });
-
 
 Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
 
@@ -53,40 +49,43 @@ Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
     })->name('concluir');
 });
 
-Route::prefix('/site')->name('site.')->group(function () {
-
-    Route::get('/Pedido', [\App\Http\Controllers\SiteController::class, 'index'])->name('pedido.index')->middleware('auth');
-
-    Route::get('/seu-pedido', function () {
-        return view('pages.acompanhar-pedido');
-    })->name('seu-pedido');
-});
-
-
-Route::middleware('can:painel')->prefix('/painel')->name('painel.')->group(function () {
-
-    // Route::get('pedido-item/create/{pedido}', [App\Http\Controllers\PedidoItemController::class, 'create'])->name('pedido-item.create');
-    // Route::post('pedido-item/store/{pedido}', [App\Http\Controllers\PedidoItemController::class, 'store'])->name('pedido-item.store');
-    // Route::get('pedido-item/show/{pedido}', [App\Http\Controllers\PedidoItemController::class, 'show'])->name('pedido-item.show');
+Route::prefix('/admin')->name('admin.')->group(function () {
 
     Route::get('/dashboard', function () {
         return view('pages.dashboard');
     })->name('dashboard');
 
-    Route::get('/clientes', function () {
-        return view('pages.cliente.index');
-    })->name('clientes');
+    Route::prefix('/pessoal')->name('pessoal.')->group(function () {
+        Route::get('/', function () {
+            return view('pages.pessoal.index');
+        })->name('index');
 
-    Route::get('/itens', function () {
-        return view('pages.item.index');
-    })->name('itens');
+        Route::get('/{codigo}', [PessoalController::class, 'show'])->name('show');
 
-    Route::get('/pedidos', function () {
-        return view('pages.pedidos.index');
-    })->name('pedidos');
+    });
 });
 
-Route::get('/limpar', function() {
+// Route::middleware('can:painel')->prefix('/painel')->name('painel.')->group(function () {
+
+
+//     Route::get('/dashboard', function () {
+//         return view('pages.dashboard');
+//     })->name('dashboard');
+
+//     Route::get('/clientes', function () {
+//         return view('pages.cliente.index');
+//     })->name('clientes');
+
+//     Route::get('/itens', function () {
+//         return view('pages.item.index');
+//     })->name('itens');
+
+//     Route::get('/pedidos', function () {
+//         return view('pages.pedidos.index');
+//     })->name('pedidos');
+// });
+
+Route::get('/limpar', function () {
     try {
         Artisan::call('cache:clear');
         Artisan::call('view:clear');
@@ -95,7 +94,7 @@ Route::get('/limpar', function() {
         Artisan::call('config:cache');
         Artisan::call('config:clear');
 
-        
+
         session()->remove('carrinho');
         session()->remove('cliente');
         session()->remove('localizacao');
@@ -105,5 +104,4 @@ Route::get('/limpar', function() {
     } catch (Exception $e) {
         return response()->make($e->getMessage(), 500);
     }
-
 });

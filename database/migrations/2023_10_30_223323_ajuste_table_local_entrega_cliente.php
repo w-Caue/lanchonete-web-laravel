@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('enderecos', function (Blueprint $table) {
-            $table->unsignedBigInteger('cliente_id')->after('id');
-            $table->foreign('cliente_id')->references('id')->on('clientes');
+            $table->unsignedBigInteger('pessoa_id')->after('id');
+            $table->foreign('pessoa_id')->references('id')->on('pessoas');
         });
     }
 
@@ -24,8 +24,8 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
         Schema::table('enderecos', function (Blueprint $table) {
-            $table->dropForeign('enderecos_cliente_id_foreign');
-            $table->dropColumn('cliente_id');
+            $table->dropForeign('enderecos_pessoa_id_foreign');
+            $table->dropColumn('pessoa_id');
         });
         Schema::enableForeignKeyConstraints();
     }

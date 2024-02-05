@@ -28,43 +28,36 @@
     @vite('resources/css/app.css', 'resources/js/alpine/start.js')
 </head>
 
-<body class="">
-    <div id="app">
-        <div class="flex h-screen" :class="{ 'overflow-hidden': isSideMenuOpen }">
-            @include('layouts.sidebar')
+<body class="dark">
+    @include('layouts.navbar')
+    <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
 
-            <div class="flex flex-col flex-1 w-full">
-                @include('layouts.navbar')
+        @include('layouts.sidebar')
 
-                <main class="h-full pb-16 overflow-y-auto">
-                    <!-- Remove everything INSIDE this div to a really blank page -->
-                    <div class="container px-6 mx-auto grid">
-                        @yield('content')
-                    </div>
-                </main>
-            </div>
-
-
+        <div class="relative w-full h-screen overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
+            <main class="m-2 bg-gray-50 dark:bg-gray-900">
+                @yield('content')
+            </main>
         </div>
     </div>
 
+    @livewireScripts
+
     @include('sweetalert::alert')
 
-    @livewireScripts
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <x-livewire-alert::scripts />
-   
+
     <script>
         function data() {
-            
 
             return {
                 dark: false,
-     
+
                 darkMode() {
                     this.dark = !this.dark
-                    if(this.dark){
+                    if (this.dark) {
                         document.documentElement.classList.add("dark");
                     } else {
                         document.documentElement.classList.remove("dark");
@@ -81,6 +74,10 @@
                 isSidebarOpen: true,
                 toggleSidebar() {
                     this.isSidebarOpen = !this.isSidebarOpen
+                },
+                isPessoalOpen: false,
+                togglePessoalMenu() {
+                    this.isPessoalOpen = !this.isPessoalOpen
                 },
                 // closeNotificationsMenu() {
                 //     this.isNotificationsMenuOpen = false
