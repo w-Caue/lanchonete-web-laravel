@@ -61,53 +61,53 @@
                             </div>
                         </th>
                         <th class="px-4 py-3">
-                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('Nome')">
-                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Nome</button>
-                                @include('includes.icon-filter', ['field' => 'nome'])
+                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('Cliente')">
+                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Cliente</button>
+                                @include('includes.icon-filter', ['field' => 'cliente'])
                             </div>
                         </th>
                         <th class="px-4 py-3">
-                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('Whatsapp')">
-                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Whatsapp</button>
-                                @include('includes.icon-filter', ['field' => 'whatsapp'])
+                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('Descricao')">
+                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Descrição</button>
+                                @include('includes.icon-filter', ['field' => 'descricao'])
                             </div>
                         </th>
-                        <th class="px-4 py-3">Email</th>
-                        <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3">
+                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('Descricao')">
+                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Forma Pagamento</button>
+                                @include('includes.icon-filter', ['field' => 'descricao'])
+                            </div>
+                        </th>
+                        <th class="px-4 py-3">Total dos Itens</th>
+                        <th class="px-4 py-3">Total do Pedido</th>
                         <th class="px-4 py-3">Ações</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    @foreach ($pessoas as $pessoa)
-                        <tr wire:key="{{ $pessoa->id }}" class="text-gray-700 font-semibold dark:text-gray-400">
+                    @foreach ($pedidos as $pedido)
+                        <tr wire:key="{{ $pedido->id }}" class="text-gray-700 font-semibold dark:text-gray-400">
                             <td class="px-4 py-3 text-sm">
-                                #{{ $pessoa->id }}
+                                #{{ $pedido->id }}
                             </td>
                             <td class="px-2 py-3">
-                                <p class="">{{ $pessoa->nome }}</p>
+                                <p class="">{{ $pedido->pessoa->nome }}</p>
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                {{ $pessoa->whatsapp }}
+                                {{ $pedido->descricao }}
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                {{ $pessoa->email }}
+                                {{ $pedido->formaPagamento->nome }}
                             </td>
-                            <td class="px-4 py-3 text-xs">
-                                @if ($pessoa->status == 'Ativo')
-                                    <span
-                                        class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                        {{ $pessoa->status }}
-                                    </span>
-                                @else
-                                    <span
-                                        class="px-2 py-1 font-semibold leading-tight text-red-700 bg-green-100 rounded-full dark:bg-red-700 dark:text-green-100">
-                                        {{ $pessoa->status }}
-                                    </span>
-                                @endif
+                            <td class="px-4 py-3 text-sm">
+                                {{ number_format($pedido->total_itens, 2, ',', '.') }}
                             </td>
+                            <td class="px-4 py-3 text-sm">
+                                {{ number_format($pedido->total_pedido, 2, ',', '.') }}
+                            </td>
+                            
                             <td class="px-4 py-3">
                                 <div class="flex items-center space-x-2 text-sm">
-                                    <a href="{{ route('admin.pessoal.show', ['codigo' => $pessoa->id]) }}"
+                                    <a href=""
                                         class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-105 dark:hover:text-blue-600 dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Edit">
                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
@@ -117,7 +117,7 @@
                                         </svg>
                                     </a>
 
-                                    <button wire:click="remover({{ $pessoa->id }})"
+                                    <button wire:click="remover({{ $pedido->id }})"
                                         class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-95 dark:hover:text-blue-600
                                          dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Delete">

@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('nome', 50);
             $table->text('descricao', 200);
             $table->double('preco', 10, 2);
+            $table->string('tipo_promocao')->default('N');
+            $table->string('valor_promocao')->nullable();
+            $table->string('tamanho')->nullable();      
             $table->string('imagem')->nullable();
             $table->timestamps();
         });

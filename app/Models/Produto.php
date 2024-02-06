@@ -8,17 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Produto extends Model
 {
     // protected $table = 'itens';
-    protected $fillable = ['nome', 'descricao', 'preco', 'tamanho', 'categoria_id', 'imagem'];
+    protected $fillable = ['nome', 'descricao', 'preco', 'tamanho', 'categoria_id', 'marca_id', 'grupo_id', 'imagem'];
 
-    public function tamanho(){
+    public function tamanho()
+    {
         return $this->belongsTo('App\Models\Tamanho');
     }
 
-    public function categoria(){
+    public function categoria()
+    {
         return $this->belongsTo('App\Models\Categoria');
     }
 
-    public function pedidos(){
+    public function pedidos()
+    {
         return $this->belongsToMany('App\Models\Pedido', 'pedidos_itens', 'item_id', 'pedido_id');
     }
 }

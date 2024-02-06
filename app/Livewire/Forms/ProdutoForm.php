@@ -7,7 +7,7 @@ use App\Models\Produto;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
 
-class ItemForm extends Form
+class ProdutoForm extends Form
 {
     public $itemId;
 
@@ -17,28 +17,23 @@ class ItemForm extends Form
     #[Rule('required|max:80')]
     public $descricao = '';
 
-    #[Rule('required', message: 'Coloque o Valor do Item!')]
-    #[Rule('numeric', message: 'Insira um Preço Valido')]
-    public $preco = '';
+    #[Rule('required', message: 'Coloque o Preço do Produto!')]
+    public $preco;
 
-    #[Rule('required')]
-    public $tamanho = [];
+    public $categoria;
 
-    #[Rule('required')]
-    public $categoria = '';
+    public $marca;
 
-    public function store()
+    public function save()
     {
         $this->validate();
-
-        $tamanho = implode(',', $this->tamanho);
 
         Produto::create([
             'nome' => $this->nome,
             'descricao' => $this->descricao,
             'preco' => $this->preco,
-            'tamanho' => $tamanho,
-            'categoria_id' => $this->categoria
+            'categoria_id' => $this->categoria,
+            'marca_id' => $this->marca,
         ]);
     }
 

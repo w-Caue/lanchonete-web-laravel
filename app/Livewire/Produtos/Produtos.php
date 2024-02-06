@@ -1,53 +1,40 @@
 <?php
 
-namespace App\Livewire\Itens;
+namespace App\Livewire\Produtos;
 
-use App\Livewire\Forms\ItemForm;
+use App\Livewire\Forms\ProdutoForm;
 use App\Models\Categoria;
-use App\Models\Item;
 use App\Models\Produto;
 use App\Models\Tamanho;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Itens extends Component
+class Produtos extends Component
 {
     use LivewireAlert;
 
     use WithPagination;
 
-    public ItemForm $form;
+    public ProdutoForm $form;
 
     public $newItem = false;
 
     public $search = '';
 
-    public $menuCategoria = '';
-
-    public function novoItem()
-    {
-        $this->newItem = !$this->newItem;
-    }
-
-    public function fecharItem()
-    {
-        $this->reset();
-        $this->resetValidation();
-        $this->newItem = false;
-    }
 
     public function save()
     {
-        $this->form->store();
+        $this->form->save();
 
-        $this->fecharItem();
-
-        $this->alert('success', 'Item Cadastrado!', [
+        $this->alert('success', 'Cadastro Realizado!', [
             'position' => 'center',
-            'timer' => 1000,
+            'timer' => 2000,
             'toast' => false,
+            'text' => 'com sucesso',
         ]);
+
+        $this->js('window.location.reload()');
     }
 
     public function edit(Produto $item)
@@ -71,14 +58,9 @@ class Itens extends Component
 
     public function render()
     {
-        $produtos = Produto::where('nome', 'like', '%' . $this->search . '%')
-                        ->where('categoria_id', 'like', '%' . $this->menuCategoria)
-                        ->paginate(4);
-        $tamanhos = Tamanho::all();
         $categorias = Categoria::all();
-        return view('livewire.itens.itens', [
-            'produtos' => $produtos,
-            'tamanhos' => $tamanhos,
+        return view('livewire.produtos.produtos', [
+            // 'tamanhos' => $tamanhos,
             'categorias' => $categorias
         ]);
     }

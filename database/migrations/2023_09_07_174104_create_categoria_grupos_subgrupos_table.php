@@ -16,6 +16,12 @@ return new class extends Migration
             $table->string('nome');
             $table->timestamps();
         });
+
+        Schema::create('grupos', function (Blueprint $table) {
+            $table->id();
+            $table->string('nome');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -24,5 +30,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('categorias');
+        Schema::dropIfExists('grupos');
     }
 };

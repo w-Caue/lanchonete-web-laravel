@@ -79,6 +79,10 @@
                 togglePessoalMenu() {
                     this.isPessoalOpen = !this.isPessoalOpen
                 },
+                isProdutoOpen: false,
+                toggleProdutoMenu() {
+                    this.isProdutoOpen = !this.isProdutoOpen
+                },
                 // closeNotificationsMenu() {
                 //     this.isNotificationsMenuOpen = false
                 // },

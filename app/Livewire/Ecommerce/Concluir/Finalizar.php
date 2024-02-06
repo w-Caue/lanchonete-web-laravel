@@ -6,6 +6,7 @@ use App\Models\Cliente;
 use App\Models\Endereco;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
+use App\Models\Pessoa;
 use Livewire\Component;
 
 class Finalizar extends Component
@@ -29,7 +30,7 @@ class Finalizar extends Component
 
     public function dados()
     {
-        $cliente = Cliente::create([
+        $pessoa = Pessoa::create([
             'nome' => $this->cliente[0]['nome'],
             'whatsapp' => $this->cliente[0]['whatsapp'],
             'email' => $this->cliente[0]['email'],
@@ -37,7 +38,7 @@ class Finalizar extends Component
         ]);
 
         $endereco = Endereco::create([
-            'cliente_id' => $cliente->id,
+            'pessoa_id' => $pessoa->id,
             'cep' => $this->localizacao[0]['cep'],
             'endereco' => $this->localizacao[0]['endereco'],
             'numero' => $this->localizacao[0]['numero'],
@@ -47,7 +48,7 @@ class Finalizar extends Component
         ]);
 
         $pedido = Pedido::create([
-            'cliente_id' => $cliente->id,
+            'pessoa_id' => $pessoa->id,
             'status' => 'Ecommerce',
             'ecommerce' => 'S',
             'forma_de_pagamento_id' => $this->pagamento,
