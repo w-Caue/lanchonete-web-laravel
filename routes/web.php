@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PessoalController;
 use App\Http\Controllers\ProdutoController;
 use App\Models\Item;
@@ -79,7 +80,7 @@ Route::prefix('/admin')->name('admin.')->group(function () {
             return view('pages.pedidos.index');
         })->name('index');
 
-        // Route::get('/{codigo}', [ProdutoController::class, 'show'])->name('show');
+        Route::get('/{codigo}', [PedidoController::class, 'show'])->name('show');
 
     });
 });

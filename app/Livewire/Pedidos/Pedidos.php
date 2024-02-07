@@ -70,14 +70,14 @@ class Pedidos extends Component
 
     public function selecionarCliente($codigo)
     {
-        $this->cliente = Pessoa::where('id', $codigo)->get('nome')->first();
+        $this->cliente = Pessoa::where('id', $codigo)->get()->first();
 
         $this->dispatch('close-detalhe');
     }
 
     public function save()
     {
-        Pedido::create([
+        $pedido = Pedido::create([
             'pessoa_id' => $this->cliente->id,
             'status' => 'Aberto',
             'forma_de_pagamento_id' => $this->form->pagamento,
@@ -90,7 +90,9 @@ class Pedidos extends Component
             'toast' => false,
         ]);
 
-        // $this->reset();
+        $this->dispatch('close-modal');
+
+        $this->redirectRoute('admin.pedido.show', ['codigo'=> $pedido->id]);
     }
 
     public function parametros()
