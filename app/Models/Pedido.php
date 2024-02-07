@@ -11,7 +11,7 @@ class Pedido extends Model
     protected $fillable = ['pessoa_id', 'status', 'forma_de_pagamento_id', 'descricao', 'ecommerce', 'endereco_id', 'telefone', 'total_itens', 'desconto', 'total_pedido'];
 
     public function itens(){
-        return $this->belongsToMany('App\Models\Item', 'pedidos_itens')->withPivot('quantidade', 'total');
+        return $this->belongsToMany('App\Models\Produto', 'pedidos_itens')->withPivot('quantidade', 'total');
     }
 
     public function pedidoItem(){

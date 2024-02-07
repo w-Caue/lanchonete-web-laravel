@@ -1,6 +1,6 @@
-@props(['title'])
+@props(['name', 'title'])
 <div class="flex justify-center">
-    <div x-data="{ open: false }" x-show="open" x-cloak x-on:open-detalhe.window="open = true"
+    <div x-data="{ open: false, name: '{{ $name ?? ''}}' }" x-show="open" x-cloak x-on:open-detalhe.window="open = ($event.detail.name === name)"
         x-on:close-detalhe.window="open = false" x-on:keydown.escape.window="open = false"
         x-on:escape.window="open = false"
         x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"

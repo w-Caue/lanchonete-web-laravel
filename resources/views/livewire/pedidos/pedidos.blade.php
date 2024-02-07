@@ -49,7 +49,7 @@
                         <div class="flex item-center">
                             <x-input value="{{ $cliente->nome ?? '' }}" class="w-80"></x-input>
 
-                            <button type="button" x-data x-on:click="$dispatch('open-detalhe')"
+                            <button type="button" x-data x-on:click="$dispatch('open-detalhe', { name : 'clientes' })"
                                 class="p-2 text-white bg-blue-500 rounded-r">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" class="w-6 h-6">
@@ -92,7 +92,7 @@
     </x-modal>
 
     {{-- Pesquisar Cliente --}}
-    <x-modal-detalhe title="Clientes">
+    <x-modal-detalhe name="clientes" title="Clientes">
         @slot('body')
             <div class="flex justify-center gap-1">
                 <input wire:model.lazy="searchCli" type="text" name="seach"
