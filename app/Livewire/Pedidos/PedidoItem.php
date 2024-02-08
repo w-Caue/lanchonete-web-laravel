@@ -70,22 +70,16 @@ class PedidoItem extends Component
 
         foreach ($pedidoItem as $index => $item) {
             if ($item->quantidade >= 1) {
-                $quantidade = $this->quantidade + $item->quantidade;
+                $this->quantidade += $item->quantidade;
 
                 if ($this->produtoDetalhe->id == $item->produto_id) {
                     ModelsPedidoItem::findOrFail($pedidoItem[$index]['id'])->update([
-                        'quantidade' => $quantidade,
-                        'total' => $quantidade * $this->produtoDetalhe->preco
+                        'quantidade' => $this->quantidade,
+                        'total' => $this->quantidade * $this->produtoDetalhe->preco
                     ]);
                 }
             }
-            // $this->total = $quantidade * $this->produtoDetalhe->preco;
-
-            // $this->totalPedido = $this->pedido->total_pedido;
-            // $this->totalPedido += $this->total;
-            // $this->totalItens = $this->pedido->total_itens;
-            // $this->totalItens += $this->total;
-
+            $this->total = $this->quantidade * $this->produtoDetalhe->preco;
             $novo = false;
         }
 
