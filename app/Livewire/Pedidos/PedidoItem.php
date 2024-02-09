@@ -69,17 +69,28 @@ class PedidoItem extends Component
         $pedidoItem = ModelsPedidoItem::where('pedido_id', $this->pedido->id)->where('produto_id', $this->produtoDetalhe->id)->get();
 
         foreach ($pedidoItem as $index => $item) {
-            if ($item->quantidade >= 1) {
-                $this->quantidade += $item->quantidade;
 
-                if ($this->produtoDetalhe->id == $item->produto_id) {
-                    ModelsPedidoItem::findOrFail($pedidoItem[$index]['id'])->update([
-                        'quantidade' => $this->quantidade,
-                        'total' => $this->quantidade * $this->produtoDetalhe->preco
-                    ]);
-                }
+            if ($this->produtoDetalhe->id == $item->produto_id) {
+                
+                return $this->alert('warning', 'Produto Já Adicionado!', [
+                    'position' => 'center',
+                    'timer' => '2000',
+                    'toast' => false,
+                ]);
+                // $this->total = $pedidoItem[$index]['quantidade'] * $this->produtoDetalhe->preco;
+
+                // $this->totalPedido = $this->pedido->total_pedido + $this->total;
+                // $this->totalItens = $this->pedido->total_itens+ $this->total;
+                
+                // $this->quantidade = $pedidoItem[$index]['quantidade'] +  $this->quantidade;
+
+                // ModelsPedidoItem::findOrFail($pedidoItem[$index]['id'])->update([
+                //     'quantidade' => $this->quantidade,
+                //     'total' => $this->quantidade * $this->produtoDetalhe->preco
+                // ]);
+
             }
-            $this->total = $this->quantidade * $this->produtoDetalhe->preco;
+
             $novo = false;
         }
 
@@ -97,7 +108,6 @@ class PedidoItem extends Component
             $this->totalPedido += $this->total;
             $this->totalItens = $this->pedido->total_itens;
             $this->totalItens += $this->total;
-
         }
         $this->atualizarTotais();
 

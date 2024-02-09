@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EncarteController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PessoalController;
@@ -63,7 +64,6 @@ Route::prefix('/admin')->name('admin.')->group(function () {
         })->name('index');
 
         Route::get('/{codigo}', [PessoalController::class, 'show'])->name('show');
-
     });
 
     Route::prefix('/produto')->name('produto.')->group(function () {
@@ -71,8 +71,16 @@ Route::prefix('/admin')->name('admin.')->group(function () {
             return view('pages.produtos.index');
         })->name('index');
 
-        Route::get('/{codigo}', [ProdutoController::class, 'show'])->name('show');
+        
+        Route::prefix('/encarte')->name('encarte.')->group(function () {
+            Route::get('/', function () {
+                return view('pages.encarte.index');
+            })->name('index');
+            
+            Route::get('/{codigo}', [EncarteController::class, 'show'])->name('show');
+        });
 
+        Route::get('/{codigo}', [ProdutoController::class, 'show'])->name('show');
     });
 
     Route::prefix('/pedido')->name('pedido.')->group(function () {
@@ -81,7 +89,6 @@ Route::prefix('/admin')->name('admin.')->group(function () {
         })->name('index');
 
         Route::get('/{codigo}', [PedidoController::class, 'show'])->name('show');
-
     });
 });
 

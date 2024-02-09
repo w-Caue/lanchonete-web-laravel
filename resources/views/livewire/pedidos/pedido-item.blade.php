@@ -75,22 +75,22 @@
                             </td>
                             <td class="px-4 py-3 text-sm">
                                 <div class="flex items-center gap-1">
-                                    <button>
+                                    {{-- <button>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
                                         </svg>
-                                    </button>
+                                    </button> --}}
 
                                     <h1 class="bg-gray-700 rounded text-blue-500 px-3">{{ $item->pivot->quantidade }}</h1>
 
-                                    <button class="">
+                                    {{-- <button class="">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="M12 4.5v15m7.5-7.5h-15" />
                                         </svg>
-                                    </button>
+                                    </button> --}}
                                 </div>
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
