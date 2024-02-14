@@ -56,14 +56,6 @@ class PedidoItem extends Component
 
     public function adicionarProduto()
     {
-        if ($this->produtoDetalhe->preco <= 0) {
-            return $this->alert('warning', 'Produto sem Preço!', [
-                'position' => 'center',
-                'timer' => '2000',
-                'toast' => false,
-            ]);
-        }
-
         $novo = true;
 
         $pedidoItem = ModelsPedidoItem::where('pedido_id', $this->pedido->id)->where('produto_id', $this->produtoDetalhe->id)->get();
@@ -71,24 +63,17 @@ class PedidoItem extends Component
         foreach ($pedidoItem as $index => $item) {
 
             if ($this->produtoDetalhe->id == $item->produto_id) {
-                
-                return $this->alert('warning', 'Produto Já Adicionado!', [
-                    'position' => 'center',
-                    'timer' => '2000',
-                    'toast' => false,
+
+                $this->quantidade += $item->quantidade;
+
+                ModelsPedidoItem::findOrFail($pedidoItem[$index]['id'])->update([
+                    'quantidade' => $this->quantidade,
+                    'total' => $this->quantidade * $this->produtoDetalhe->preco
                 ]);
-                // $this->total = $pedidoItem[$index]['quantidade'] * $this->produtoDetalhe->preco;
-
-                // $this->totalPedido = $this->pedido->total_pedido + $this->total;
-                // $this->totalItens = $this->pedido->total_itens+ $this->total;
                 
-                // $this->quantidade = $pedidoItem[$index]['quantidade'] +  $this->quantidade;
+                $this->totalPedido = $this->pedido->total_pedido + $pedidoItem[$index]['total'];
 
-                // ModelsPedidoItem::findOrFail($pedidoItem[$index]['id'])->update([
-                //     'quantidade' => $this->quantidade,
-                //     'total' => $this->quantidade * $this->produtoDetalhe->preco
-                // ]);
-
+                $this->totalItens = $this->pedido->total_itens + $pedidoItem[$index]['total'];
             }
 
             $novo = false;
@@ -104,21 +89,81 @@ class PedidoItem extends Component
 
             $this->total = $this->quantidade * $this->produtoDetalhe->preco;
 
-            $this->totalPedido = $this->pedido->total_pedido;
-            $this->totalPedido += $this->total;
-            $this->totalItens = $this->pedido->total_itens;
-            $this->totalItens += $this->total;
+            $this->totalPedido = $this->pedido->total_pedido + $this->total;
+
+            $this->totalItens = $this->pedido->total_itens + $this->total;
         }
+
+
+
         $this->atualizarTotais();
-
-        $this->dispatch('close-produto');
-
-        $this->alert('success', 'Item Adicionado!', [
-            'position' => 'center',
-            'timer' => '1000',
-            'toast' => false,
-        ]);
     }
+
+    // public function adicionarProduto()
+    // {
+    //     if ($this->produtoDetalhe->preco <= 0) {
+    //         return $this->alert('warning', 'Produto sem Preço!', [
+    //             'position' => 'center',
+    //             'timer' => '2000',
+    //             'toast' => false,
+    //         ]);
+    //     }
+
+    //     $novo = true;
+
+    //     $pedidoItem = ModelsPedidoItem::where('pedido_id', $this->pedido->id)->where('produto_id', $this->produtoDetalhe->id)->get();
+
+    //     foreach ($pedidoItem as $index => $item) {
+
+    //         if ($this->produtoDetalhe->id == $item->produto_id) {
+
+    //             return $this->alert('warning', 'Produto Já Adicionado!', [
+    //                 'position' => 'center',
+    //                 'timer' => '2000',
+    //                 'toast' => false,
+    //             ]);
+    //             // $this->total = $pedidoItem[$index]['quantidade'] * $this->produtoDetalhe->preco;
+
+    //             // $this->totalPedido = $this->pedido->total_pedido + $this->total;
+    //             // $this->totalItens = $this->pedido->total_itens+ $this->total;
+
+    //             // $this->quantidade = $pedidoItem[$index]['quantidade'] +  $this->quantidade;
+
+    //             // ModelsPedidoItem::findOrFail($pedidoItem[$index]['id'])->update([
+    //             //     'quantidade' => $this->quantidade,
+    //             //     'total' => $this->quantidade * $this->produtoDetalhe->preco
+    //             // ]);
+
+    //         }
+
+    //         $novo = false;
+    //     }
+
+    //     if ($novo) {
+    //         ModelsPedidoItem::create([
+    //             'pedido_id' => $this->pedido->id,
+    //             'produto_id' => $this->produtoDetalhe->id,
+    //             'quantidade' => $this->quantidade,
+    //             'total' => $this->quantidade * $this->produtoDetalhe->preco
+    //         ]);
+
+    //         $this->total = $this->quantidade * $this->produtoDetalhe->preco;
+
+    //         $this->totalPedido = $this->pedido->total_pedido;
+    //         $this->totalPedido += $this->total;
+    //         $this->totalItens = $this->pedido->total_itens;
+    //         $this->totalItens += $this->total;
+    //     }
+    //     $this->atualizarTotais();
+
+    //     $this->dispatch('close-produto');
+
+    //     $this->alert('success', 'Item Adicionado!', [
+    //         'position' => 'center',
+    //         'timer' => '1000',
+    //         'toast' => false,
+    //     ]);
+    // }
 
     public function atualizarTotais()
     {
