@@ -59,6 +59,7 @@ class PedidoItem extends Component
         $novo = true;
 
         $pedidoItem = ModelsPedidoItem::where('pedido_id', $this->pedido->id)->where('produto_id', $this->produtoDetalhe->id)->get();
+        // dd($pedidoItem[0]['total']);
 
         foreach ($pedidoItem as $index => $item) {
 
@@ -70,12 +71,15 @@ class PedidoItem extends Component
                     'quantidade' => $this->quantidade,
                     'total' => $this->quantidade * $this->produtoDetalhe->preco
                 ]);
-                
-                $this->totalPedido = $this->pedido->total_pedido + $pedidoItem[$index]['total'];
 
-                $this->totalItens = $this->pedido->total_itens + $pedidoItem[$index]['total'];
+                // $this->quantidade = 1;
             }
 
+            $this->totalPedido = $this->quantidade * $this->produtoDetalhe->preco;
+            $this->totalItens = $this->quantidade * $this->produtoDetalhe->preco;
+
+            $this->quantidade = 1;
+  
             $novo = false;
         }
 
