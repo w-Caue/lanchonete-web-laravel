@@ -49,11 +49,6 @@ class Pedidos extends Component
     public function mostrarPedido(Pedido $pedido)
     {
         $this->pedidoCliente = Pedido::where('id', $pedido->id)->get()->first();
-
-        // $this->form->formaPagamento = $this->pedidoCliente->forma_de_pagamento_id;
-        // $this->totalPedido = $this->pedidoCliente->total_pedido;
-        // $this->totalItens = $this->pedidoCliente->total_itens;
-        // $this->form->descricao = $this->pedidoCliente->descricao;
     }
 
     public function pesquisaCliente()

@@ -15,21 +15,39 @@
         </label>
     </div>
 
-    <div class="my-2">
-        <button x-data x-on:click="$dispatch('open-produto')"
-            class="flex items-center gap-1 text-white font-semibold p-1 rounded bg-blue-600">
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                fill="currentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd"
-                    d="M5 3a1 1 0 0 0 0 2h.7l2.1 10.2a3 3 0 1 0 4 1.8h2.4a3 3 0 1 0 2.8-2H9.8l-.2-1h8.2a1 1 0 0 0 1-.8l1.2-6A1 1 0 0 0 19 6h-2.3c.2.3.3.6.3 1a2 2 0 0 1-2 2 2 2 0 1 1-4 0 2 2 0 0 1-1.7-3H7.9l-.4-2.2a1 1 0 0 0-1-.8H5Z"
-                    clip-rule="evenodd" />
-                <path fill-rule="evenodd"
-                    d="M14 5a1 1 0 1 0-2 0v1h-1a1 1 0 1 0 0 2h1v1a1 1 0 1 0 2 0V8h1a1 1 0 1 0 0-2h-1V5Z"
-                    clip-rule="evenodd" />
-            </svg>
+    <div class="my-2 flex justify-between">
+        @if ($pedido->status == 'Aberto')
+            <button x-data x-on:click="$dispatch('open-produto')"
+                class="flex items-center gap-1 text-white font-semibold p-1 rounded bg-blue-600 transition-all hover:scale-95">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd"
+                        d="M5 3a1 1 0 0 0 0 2h.7l2.1 10.2a3 3 0 1 0 4 1.8h2.4a3 3 0 1 0 2.8-2H9.8l-.2-1h8.2a1 1 0 0 0 1-.8l1.2-6A1 1 0 0 0 19 6h-2.3c.2.3.3.6.3 1a2 2 0 0 1-2 2 2 2 0 1 1-4 0 2 2 0 0 1-1.7-3H7.9l-.4-2.2a1 1 0 0 0-1-.8H5Z"
+                        clip-rule="evenodd" />
+                    <path fill-rule="evenodd"
+                        d="M14 5a1 1 0 1 0-2 0v1h-1a1 1 0 1 0 0 2h1v1a1 1 0 1 0 2 0V8h1a1 1 0 1 0 0-2h-1V5Z"
+                        clip-rule="evenodd" />
+                </svg>
 
-            Adicionar Item
-        </button>
+                Adicionar Item
+            </button>
+        @endif
+
+        @if ($pedido->status == 'Aberto')
+            <button x-data x-on:click="$dispatch('open-finalizar')"
+                class="flex items-center gap-1 text-white font-semibold p-1 rounded bg-blue-600 hover:bg-blue-800 transition-all hover:scale-95">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd"
+                        d="M9 1.5H5.625c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5Zm6.61 10.936a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 14.47a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                        clip-rule="evenodd" />
+                    <path
+                        d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" />
+                </svg>
+
+                Finalizar Pedido
+            </button>
+        @endif
+
     </div>
 
     <div class="w-full mt-3 overflow-hidden rounded-lg shadow-xs hidden sm:block">
@@ -55,7 +73,6 @@
                             </td>
                             <td class="px-4 py-3">
                                 <div class="flex items-center text-sm">
-                                    <!-- Avatar with inset shadow -->
                                     <div>
                                         <p class="font-semibold">{{ $item->nome }}</p>
                                         <p class="text-xs text-gray-600 dark:text-gray-400">
@@ -75,23 +92,27 @@
                             </td>
                             <td class="px-4 py-3 text-sm">
                                 <div class="flex items-center gap-1">
-                                    <button wire:click="removerProduto({{ $item->id }})">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-                                        </svg>
-                                    </button>
+                                    @if ($pedido->status == 'Aberto')
+                                        <button wire:click="removerProduto({{ $item->id }})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                            </svg>
+                                        </button>
+                                    @endif
 
                                     <h1 class="bg-gray-700 rounded text-blue-500 px-3">{{ $item->pivot->quantidade }}
                                     </h1>
 
-                                    <button class="" wire:click="adicionarProduto({{ $item->id }})">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M12 4.5v15m7.5-7.5h-15" />
-                                        </svg>
-                                    </button>
+                                    @if ($pedido->status == 'Aberto')
+                                        <button class="" wire:click="adicionarProduto({{ $item->id }})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 4.5v15m7.5-7.5h-15" />
+                                            </svg>
+                                        </button>
+                                    @endif
                                 </div>
                             </td>
                             <td class="px-4 py-3 text-sm text-center">
@@ -238,4 +259,84 @@
             </div>
         </div>
     </div>
+
+    {{-- Finalizar Pedido --}}
+    <div class="flex justify-center">
+        <div x-data="{ finalizar: false }" x-show="finalizar" x-cloak x-on:open-finalizar.window="finalizar = true"
+            x-on:close-finalizar.window="finalizar = false" x-on:keydown.escape.window="finalizar = false"
+            x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
+            <div x-on:click ="finalizar = false" class="fixed">
+            </div>
+            <div
+                class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-md">
+                <div class="flex justify-between text-purple-600 dark:text-white">
+                    {{-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd"
+                            d="M9 1.5H5.625c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0 0 16.5 9h-1.875a1.875 1.875 0 0 1-1.875-1.875V5.25A3.75 3.75 0 0 0 9 1.5Zm6.61 10.936a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 14.47a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                            clip-rule="evenodd" />
+                        <path
+                            d="M12.971 1.816A5.23 5.23 0 0 1 14.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 0 1 3.434 1.279 9.768 9.768 0 0 0-6.963-6.963Z" />
+                    </svg> --}}
+
+                    <h1 class="text-lg font-semibold">Finalizar Pedido</h1>
+
+                    <button
+                        class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
+                        aria-label="close" x-on:click="finalizar = false">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img"
+                            aria-hidden="true">
+                            <path
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="flex flex-col gap-2 text-gray-700 text-lg font-semibold my-4 dark:text-white">
+                    <label class="max-w-56">
+                        <p class="text-sm font-semibold uppercase text-gray-100">Forma de Pagamento</p>
+                        <select wire:model="pagamento"
+                            class="w-56 p-3 pl-2 text-sm text-gray-600 font-semibold rounded shadow-sm bg-white dark:bg-gray-700 dark:text-white">
+                            <option class="font-semibold" value="">Selecione</option>
+
+                            @foreach ($pagamentos as $pagamento)
+                                <option class="font-semibold" value="{{ $pagamento->id }}">{{ $pagamento->nome }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </label>
+
+                    <label class="my-2">
+                        <span>Total: {{ number_format($this->pedido->total_pedido, 2, ',', '.') }}</span>
+                    </label>
+
+                    <label>
+                        <p class="text-sm font-semibold uppercase text-gray-100">descrição</p>
+                        <textarea wire:model="descricao"
+                            class="w-full p-3 pl-2 text-sm text-gray-600 font-semibold rounded shadow-sm bg-white dark:bg-gray-700 dark:text-white"
+                            id="" rows="3"></textarea>
+                    </label>
+
+                    <div class="flex justify-center">
+                        <button wire:click="finalizarPedido()"
+                            class="flex justify-center items-center w-full sm:w-44 gap-2 text-white font-semibold border p-2 rounded-md bg-blue-500 transition-all duration-300 hover:scale-95 hover:bg-indigo-500 dark:border-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="w-6 h-6">
+                                <path fill-rule="evenodd"
+                                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+
+                            Finalizar
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
