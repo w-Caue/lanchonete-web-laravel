@@ -40,144 +40,97 @@ class PedidoItem extends Component
             'produtos.id',
             'produtos.nome',
             'produtos.descricao',
-            'produtos.marca_id',
             'produtos.preco',
         ]);
 
         return $produtos->paginate(4);
     }
 
-    public function produtoPedido($codigo)
-    {
-        $this->produtoDetalhe = Produto::where('id', $codigo)->get()->first();
-
-        $this->dispatch('open-produto');
-    }
-
-    public function adicionarProduto()
+    public function adicionarProduto($codigo)
     {
         $novo = true;
 
-        $pedidoItem = ModelsPedidoItem::where('pedido_id', $this->pedido->id)->where('produto_id', $this->produtoDetalhe->id)->get();
-        // dd($pedidoItem[0]['total']);
+        $produto = Produto::where('id', $codigo)->get()->first();
+
+        $pedidoItem = ModelsPedidoItem::where('pedido_id', $this->pedido->id)->where('produto_id', $produto->id)->get();
 
         foreach ($pedidoItem as $index => $item) {
 
-            if ($this->produtoDetalhe->id == $item->produto_id) {
+            if ($produto->id == $item->produto_id) {
 
                 $this->quantidade += $item->quantidade;
 
                 ModelsPedidoItem::findOrFail($pedidoItem[$index]['id'])->update([
                     'quantidade' => $this->quantidade,
-                    'total' => $this->quantidade * $this->produtoDetalhe->preco
+                    'total' => $this->quantidade * $produto->preco
                 ]);
-
-                // $this->quantidade = 1;
             }
 
-            $this->totalPedido = $this->quantidade * $this->produtoDetalhe->preco;
-            $this->totalItens = $this->quantidade * $this->produtoDetalhe->preco;
+            $this->alert('success', 'Item Adicionado!', [
+                'position' => 'center',
+                'timer' => '1000',
+                'toast' => true,
+            ]);
 
-            $this->quantidade = 1;
-  
             $novo = false;
         }
 
         if ($novo) {
             ModelsPedidoItem::create([
                 'pedido_id' => $this->pedido->id,
-                'produto_id' => $this->produtoDetalhe->id,
+                'produto_id' => $produto->id,
                 'quantidade' => $this->quantidade,
-                'total' => $this->quantidade * $this->produtoDetalhe->preco
+                'total' => $this->quantidade * $produto->preco
             ]);
 
-            $this->total = $this->quantidade * $this->produtoDetalhe->preco;
-
-            $this->totalPedido = $this->pedido->total_pedido + $this->total;
-
-            $this->totalItens = $this->pedido->total_itens + $this->total;
+            $this->alert('success', 'Item Adicionado!', [
+                'position' => 'center',
+                'timer' => '1000',
+                'toast' => false,
+            ]);
         }
 
+        $this->quantidade = 1;
+        $this->atualizarTotais();
+    }
 
+    public function removerProduto($codigo)
+    {
+        $produto = Produto::where('id', $codigo)->get()->first();
+
+        $pedidoItem = ModelsPedidoItem::where('pedido_id', $this->pedido->id)->where('produto_id', $produto->id)->get();
+
+        foreach ($pedidoItem as $index => $item) {
+
+            if ($produto->id == $item->produto_id) {
+
+                $this->quantidade = $item->quantidade - 1;
+
+                if ($this->quantidade < 1) {
+                    // $this->quantidade = 0;
+                    ModelsPedidoItem::where('pedido_id', $this->pedido->id)
+                        ->where('produto_id', $item->produto_id)->delete();
+
+                    return $this->alert('success', 'Item Removido!', [
+                        'position' => 'center',
+                        'timer' => '1000',
+                        'toast' => true,
+                    ]);
+                }
+
+                ModelsPedidoItem::findOrFail($pedidoItem[$index]['id'])->update([
+                    'quantidade' => $this->quantidade,
+                    'total' => $this->quantidade * $produto->preco
+                ]);
+            }
+        }
+
+        $this->quantidade = 1;
 
         $this->atualizarTotais();
     }
 
-    // public function adicionarProduto()
-    // {
-    //     if ($this->produtoDetalhe->preco <= 0) {
-    //         return $this->alert('warning', 'Produto sem Preço!', [
-    //             'position' => 'center',
-    //             'timer' => '2000',
-    //             'toast' => false,
-    //         ]);
-    //     }
-
-    //     $novo = true;
-
-    //     $pedidoItem = ModelsPedidoItem::where('pedido_id', $this->pedido->id)->where('produto_id', $this->produtoDetalhe->id)->get();
-
-    //     foreach ($pedidoItem as $index => $item) {
-
-    //         if ($this->produtoDetalhe->id == $item->produto_id) {
-
-    //             return $this->alert('warning', 'Produto Já Adicionado!', [
-    //                 'position' => 'center',
-    //                 'timer' => '2000',
-    //                 'toast' => false,
-    //             ]);
-    //             // $this->total = $pedidoItem[$index]['quantidade'] * $this->produtoDetalhe->preco;
-
-    //             // $this->totalPedido = $this->pedido->total_pedido + $this->total;
-    //             // $this->totalItens = $this->pedido->total_itens+ $this->total;
-
-    //             // $this->quantidade = $pedidoItem[$index]['quantidade'] +  $this->quantidade;
-
-    //             // ModelsPedidoItem::findOrFail($pedidoItem[$index]['id'])->update([
-    //             //     'quantidade' => $this->quantidade,
-    //             //     'total' => $this->quantidade * $this->produtoDetalhe->preco
-    //             // ]);
-
-    //         }
-
-    //         $novo = false;
-    //     }
-
-    //     if ($novo) {
-    //         ModelsPedidoItem::create([
-    //             'pedido_id' => $this->pedido->id,
-    //             'produto_id' => $this->produtoDetalhe->id,
-    //             'quantidade' => $this->quantidade,
-    //             'total' => $this->quantidade * $this->produtoDetalhe->preco
-    //         ]);
-
-    //         $this->total = $this->quantidade * $this->produtoDetalhe->preco;
-
-    //         $this->totalPedido = $this->pedido->total_pedido;
-    //         $this->totalPedido += $this->total;
-    //         $this->totalItens = $this->pedido->total_itens;
-    //         $this->totalItens += $this->total;
-    //     }
-    //     $this->atualizarTotais();
-
-    //     $this->dispatch('close-produto');
-
-    //     $this->alert('success', 'Item Adicionado!', [
-    //         'position' => 'center',
-    //         'timer' => '1000',
-    //         'toast' => false,
-    //     ]);
-    // }
-
-    public function atualizarTotais()
-    {
-        Pedido::findOrFail($this->pedido->id)->update([
-            'total_pedido' => $this->totalPedido,
-            'total_itens' => $this->totalItens
-        ]);
-    }
-
-    public function removerProduto(Produto $produto)
+    public function excluirProduto(Produto $produto)
     {
         $this->produto = $produto;
 
@@ -198,29 +151,30 @@ class PedidoItem extends Component
 
     public function deleteProduto()
     {
-        $pedido = Pedido::where('id', $this->pedido->id)->get()->first();
-
-        $pedidoItem = ModelsPedidoItem::where('pedido_id', $this->pedido->id)
-            ->where('produto_id', $this->produto->id)->get()->first();
-
-        $totalPedido = $pedido->total_pedido;
-        $totalPedido -= $this->produto->preco * $pedidoItem->quantidade;
-
-        $totalItens = $pedidoItem->total;
-        $totalItens -= $this->produto->preco * $pedidoItem->quantidade;
-
-        Pedido::findOrFail($this->pedido->id)->update([
-            'total_pedido' => $totalPedido,
-            'total_itens' => $totalItens,
-        ]);
-
         ModelsPedidoItem::where('pedido_id', $this->pedido->id)
             ->where('produto_id', $this->produto->id)->delete();
+
+        $this->atualizarTotais();
 
         $this->alert('success', 'Item Removido!', [
             'position' => 'center',
             'timer' => '1000',
             'toast' => false,
+        ]);
+    }
+
+    public function atualizarTotais()
+    {
+        $total = 0;
+        foreach ($this->pedido->itens as $key => $value) {
+            $total += $value['pivot']['total'];
+        }
+        $this->totalPedido = $total;
+        $this->totalItens = $total;
+
+        Pedido::findOrFail($this->pedido->id)->update([
+            'total_pedido' => $this->totalPedido,
+            'total_itens' => $this->totalItens
         ]);
     }
 
