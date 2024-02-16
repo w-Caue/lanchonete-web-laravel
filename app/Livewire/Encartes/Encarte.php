@@ -3,10 +3,13 @@
 namespace App\Livewire\Encartes;
 
 use App\Livewire\Forms\EncarteForm;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class Encarte extends Component
 {
+    use LivewireAlert;
+
     public EncarteForm $form;
 
     public function mount(){
@@ -19,7 +22,7 @@ class Encarte extends Component
 
         $this->dispatch('close-modal');
 
-        $this->alert('success', 'Cadastro Realizado!', [
+        $this->alert('success', 'Encarte Criado!', [
             'position' => 'center',
             'timer' => 2000,
             'toast' => false,

@@ -16,8 +16,18 @@ return new class extends Migration
             $table->string('descricao', 80);
             $table->dateTime('data_inicio');
             $table->dateTime('data_final');
-            $table->string('ativo')->default('N');
+            $table->enum('ativo', ['S', 'N'])->default('N');
             $table->timestamps();
+        });
+
+        Schema::create('encartes_produtos', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('encarte_id');
+            $table->unsignedBigInteger('produto_id');
+            $table->timestamps();
+
+            $table->foreign('encarte_id')->references('id')->on('encartes');
+            $table->foreign('produto_id')->references('id')->on('produtos');
         });
     }
 
@@ -26,6 +36,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::dropIfExists('encartes');
+        Schema::dropIfExists('encartes_produtos');
+        
+        Schema::enableForeignKeyConstraints();
     }
 };

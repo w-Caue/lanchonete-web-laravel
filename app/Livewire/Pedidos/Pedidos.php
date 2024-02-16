@@ -5,6 +5,7 @@ namespace App\Livewire\Pedidos;
 use App\Livewire\Forms\PedidoForm;
 use App\Models\Cliente;
 use App\Models\FormaDePagamento;
+use App\Models\FormaPagamento;
 use App\Models\Item;
 use App\Models\Pedido;
 use App\Models\PedidoItem;
@@ -75,7 +76,7 @@ class Pedidos extends Component
         $pedido = Pedido::create([
             'pessoa_id' => $this->cliente->id,
             'status' => 'Aberto',
-            'forma_de_pagamento_id' => $this->form->pagamento,
+            'forma_pagamento_id' => $this->form->pagamento,
             'descricao' => $this->form->descricao,
         ]);
 
@@ -94,7 +95,7 @@ class Pedidos extends Component
     {
         $this->clientes = Pessoa::all();
 
-        $this->pagamentos = FormaDePagamento::all();
+        $this->pagamentos = FormaPagamento::all();
     }
 
     public function render()

@@ -15,7 +15,7 @@ class ListagemPedidos extends Component
             'pedidos.id',
             'pedidos.pessoa_id',
             'pedidos.descricao',
-            'pedidos.forma_de_pagamento_id',
+            'pedidos.forma_pagamento_id',
             'pedidos.status',
             'pedidos.ecommerce',
             'pedidos.total_itens',

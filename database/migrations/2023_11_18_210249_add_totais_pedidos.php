@@ -16,7 +16,7 @@ return new class extends Migration
         });
 
         Schema::table('pedidos', function(Blueprint $table){
-            $table->float('total_itens', 9, 2)->nullable()->after('forma_de_pagamento_id');
+            $table->float('total_itens', 9, 2)->nullable()->after('forma_pagamento_id');
             $table->float('desconto', 5, 2)->nullable()->after('total_itens');
             $table->float('total_pedido', 9, 2)->nullable()->after('desconto');
         });

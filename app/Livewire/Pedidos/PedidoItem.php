@@ -3,6 +3,7 @@
 namespace App\Livewire\Pedidos;
 
 use App\Models\FormaDePagamento;
+use App\Models\FormaPagamento;
 use App\Models\Pedido;
 use App\Models\PedidoItem as ModelsPedidoItem;
 use App\Models\Produto;
@@ -205,7 +206,7 @@ class PedidoItem extends Component
 
     public function parametros()
     {
-        $this->pagamentos = FormaDePagamento::all();
+        $this->pagamentos = FormaPagamento::all();
         $this->pagamento = $this->pedido->forma_de_pagamento_id;
         $this->descricao = $this->pedido->descricao;
     }

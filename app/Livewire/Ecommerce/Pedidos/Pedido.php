@@ -3,6 +3,7 @@
 namespace App\Livewire\Ecommerce\Pedidos;
 
 use App\Models\FormaDePagamento;
+use App\Models\FormaPagamento;
 use Illuminate\Contracts\Session\Session;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -104,7 +105,7 @@ class Pedido extends Component
     public function render()
     {
         return view('livewire.ecommerce.pedidos.pedido', [
-            'formaPagamento' => FormaDePagamento::all(),
+            'formaPagamento' => FormaPagamento::all(),
         ]);
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pedido extends Model
 {
 
-    protected $fillable = ['pessoa_id', 'status', 'forma_de_pagamento_id', 'descricao', 'ecommerce', 'endereco_id', 'telefone', 'total_itens', 'desconto', 'total_pedido'];
+    protected $fillable = ['pessoa_id', 'status', 'forma_pagamento_id', 'descricao', 'ecommerce', 'endereco_id', 'telefone', 'total_itens', 'desconto', 'total_pedido'];
 
     public function itens(){
         return $this->belongsToMany('App\Models\Produto', 'pedidos_itens')->withPivot('quantidade', 'total');
@@ -23,7 +23,7 @@ class Pedido extends Model
     }
 
     public function formaPagamento(){
-        return $this->belongsTo('App\Models\FormaDePagamento', 'forma_de_pagamento_id');
+        return $this->belongsTo('App\Models\FormaDePagamento', 'forma_pagamento_id');
     }
 
     public function endereco(){

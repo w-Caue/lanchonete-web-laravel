@@ -9,22 +9,26 @@
                         placeholder="Pesquisar">
                 </div>
             </form>
-            <div class="flex flex-col flex-wrap w-60 h-10 sm:justify-end">
+            <div class="flex flex-col flex-wrap w-60 h-14 sm:justify-end">
                 <div class="flex items-center gap-1 mx-1">
                     <span class="w-3 h-3 bg-gray-400 rounded-full"></span>
-                    <p class="text-sm text-gray-400 font-semibold">Pedido em Aberto</p>
+                    <p class="text-xs text-gray-400 font-semibold">Pedido em Aberto</p>
                 </div>
                 <div class="flex items-center gap-1 mx-1">
-                    <span class="w-3 h-3 bg-blue-500 rounded-full"></span>
-                    <p class="text-sm text-blue-500 font-semibold">Pedido Finalizado</p>
+                    <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                    <p class="text-xs text-green-500 font-semibold">Pedido Finalizado</p>
                 </div>
                 <div class="flex items-center gap-1 mx-1">
                     <span class="w-3 h-3 bg-purple-500 rounded-full"></span>
-                    <p class="text-sm text-purple-500 font-semibold">Pedido em Entrega</p>
+                    <p class="text-xs text-purple-500 font-semibold">Pedido em Entrega</p>
                 </div>
                 <div class="flex items-center gap-1 mx-1">
                     <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
-                    <p class="text-sm text-yellow-500 font-semibold">Pedido Concluido</p>
+                    <p class="text-xs text-yellow-500 font-semibold">Pedido Concluido</p>
+                </div>
+                <div class="flex items-center gap-1 mx-1">
+                    <span class="w-3 h-3 bg-sky-500 rounded-full"></span>
+                    <p class="text-xs text-sky-500 font-semibold">Pedido Ecommerce</p>
                 </div>
             </div>
         </div>
@@ -70,7 +74,7 @@
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach ($pedidos as $pedido)
                         <tr wire:key="{{ $pedido->id }}"
-                            class="font-semibold {{ $pedido->status == 'Finalizado' ? 'dark:text-blue-500' : 'text-gray-400' }}">
+                            class="font-semibold {{ $pedido->status == 'Finalizado' ? 'dark:text-green-500' : 'text-gray-400' }}">
                             <td class="px-4 py-3 text-sm">
                                 #{{ $pedido->id }}
                             </td>

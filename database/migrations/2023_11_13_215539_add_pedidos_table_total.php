@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pedidos', function (Blueprint $table) {
-            $table->float('total', 9, 2)->after('forma_de_pagamento_id')->nullable();
+            $table->float('total', 9, 2)->after('forma_pagamento_id')->nullable();
         });
     }
 
