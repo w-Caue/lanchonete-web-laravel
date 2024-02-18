@@ -12,14 +12,7 @@ class ListagemPedidos extends Component
 
     public function dados(){
         $pedidos = Pedido::select([
-            'pedidos.id',
-            'pedidos.pessoa_id',
-            'pedidos.descricao',
-            'pedidos.forma_pagamento_id',
-            'pedidos.status',
-            'pedidos.ecommerce',
-            'pedidos.total_itens',
-            'pedidos.total_pedido',
+            'pedidos.*',
         ]);
 
         return $pedidos->paginate(5);

@@ -15,7 +15,7 @@ class EncarteProduto extends Component
 
     use WithPagination;
 
-    public $encarteDetalhe;
+    public $encarte;
 
     public $produtos;
 
@@ -25,7 +25,7 @@ class EncarteProduto extends Component
 
     public function mount($codigo)
     {
-        $this->encarteDetalhe = Encarte::where('id', $codigo)->get()->first();
+        $this->encarte = Encarte::where('id', $codigo)->get()->first();
     }
 
     public function pesquisaProdutos()
@@ -57,19 +57,8 @@ class EncarteProduto extends Component
         ]);
     }
 
-    public function encartes(){
-        $encartes = Encarte::select([
-            'id',
-            'descricao',
-        ]);
-
-        return $encartes->get();
-    }
-
     public function render()
     {
-        return view('livewire.encartes.encarte-produto', [
-            'encartes' => $this->encartes(),
-        ]);
+        return view('livewire.encartes.encarte-produto');
     }
 }

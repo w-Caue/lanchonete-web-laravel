@@ -9,4 +9,8 @@ class EncarteProduto extends Model
 {
     protected $table = 'encartes_produtos';
     protected $fillable = ['encarte_id', 'produto_id'];
+
+    public function encartes(){
+        return $this->belongsTo(Encarte::class);
+    }
 }

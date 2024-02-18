@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\FormaDePagamento;
+use App\Models\FormaPagamento;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,9 +13,9 @@ class FormaDePagamentoSeeder extends Seeder
      */
     public function run(): void
     {
-        FormaDePagamento::create(['nome' => 'Dinheiro']);
-        FormaDePagamento::create(['nome' => 'Pix']);
-        FormaDePagamento::create(['nome' => 'Cartão de Credito']);
-        FormaDePagamento::create(['nome' => 'Cartão de Debito']);
+        FormaPagamento::create(['nome' => 'Dinheiro']);
+        FormaPagamento::create(['nome' => 'Pix']);
+        FormaPagamento::create(['nome' => 'Cartão de Credito']);
+        FormaPagamento::create(['nome' => 'Cartão de Debito']);
     }
 }

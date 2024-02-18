@@ -50,6 +50,8 @@
 
     </div>
 
+    <h1>{{$pedido->itens}}</h1>
+
     <div class="w-full mt-3 overflow-hidden rounded-lg shadow-xs hidden sm:block">
         <div class="w-full overflow-x-auto">
             <table class="w-full whitespace-no-wrap">

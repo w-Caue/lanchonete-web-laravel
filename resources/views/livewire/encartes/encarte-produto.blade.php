@@ -1,22 +1,22 @@
 <div>
     <div class="text-sm font-semibold p-2 bg-gray-800 rounded">
         <div class="my-1 flex justify-between">
-            <h1 class="text-blue-500">#{{ $encarteDetalhe->id }}</h1>
-            <h1 class="text-gray-500">{{ date('d/m/Y', strtotime($encarteDetalhe->created_at)) }}</h1>
+            <h1 class="text-blue-500">#{{ $encarte->id }}</h1>
+            <h1 class="text-gray-500">{{ date('d/m/Y', strtotime($encarte->created_at)) }}</h1>
         </div>
         <label class="my-1">
-            <h1 class="text-lg text-gray-200">{{ $encarteDetalhe->descricao }}</h1>
+            <h1 class="text-lg text-gray-200">{{ $encarte->descricao }}</h1>
         </label>
         <div class="my-1 flex gap-7">
             <label for="" class="text-md dark:text-gray-300">
                 <p>Data Inicio</p>
-                <x-input value="{{ date('Y-m-d', strtotime($encarteDetalhe->data_inicio)) }}" class="w-32"
+                <x-input value="{{ date('Y-m-d', strtotime($encarte->data_inicio)) }}" class="w-32"
                     type="date" disabled></x-input>
             </label>
 
             <label for="" class="text-md dark:text-gray-300">
                 <p>Data Final</p>
-                <x-input value="{{ date('Y-m-d', strtotime($encarteDetalhe->data_final)) }}" class="w-32"
+                <x-input value="{{ date('Y-m-d', strtotime($encarte->data_final)) }}" class="w-32"
                     type="date" disabled></x-input>
             </label>
         </div>
@@ -34,8 +34,6 @@
 
         Adicionar Produto
     </button>
-
-  {{-- <h1>{{$encartes}}</h1> --}}
 
     <div class="w-full mt-2 overflow-hidden rounded-lg shadow-xs hidden sm:block">
         <div class="w-full overflow-x-auto">
@@ -55,12 +53,7 @@
                                 @include('includes.icon-filter', ['field' => 'nome'])
                             </div>
                         </th>
-                        {{-- <th class="px-4 py-3">
-                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('Decricao')">
-                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Decrição</button>
-                                @include('includes.icon-filter', ['field' => 'decricao'])
-                            </div>
-                        </th> --}}
+                        
                         <th class="px-4 py-3">
                             <div class="flex items-center cursor-pointer" wire:click="sortFilter('Preco')">
                                 <button class="text-xs font-medium leading-4 tracking-wider uppercase">Preço</button>
@@ -78,7 +71,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    {{-- @foreach ($encartes->produtos as $produto)
+                     @foreach ($encarte->produtos as $produto)
                         <tr wire:key="{{ $produto->id }}" class="text-gray-700 font-semibold dark:text-gray-400">
                             <td class="px-4 py-3 text-sm">
                                 #{{ $produto->id }}
@@ -86,31 +79,22 @@
                             <td class="px-2 py-3">
                                 <p class="">{{ $produto->nome }}</p>
                             </td>
-                            <td class="px-4 py-3 text-sm">
-                                {{ $produto->descricao }}
+                            <td class="px-4 py-3 text-xs">
+
+                                <span
+                                    class="px-2 py-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded-full dark:bg-blue-700 dark:text-blue-100">
+                                    {{ number_format($produto->preco, 2, ',', '.') }}
+                                </span>
                             </td>
-                            {{-- <td class="px-4 py-3 text-sm">
-                                {{ $produto->marca_id ?? 'Sem' }}
-                            </td> --}}
-                            {{-- <td class="px-4 py-3 text-xs">
+                            <td class="px-4 py-3 text-xs">
 
                                 <span
                                     class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                    {{ number_format($produto->preco, 2, ',', '.') }}
+                                    {{ number_format($produto->valor_promocao, 2, ',', '.') }}
                                 </span>
                             </td>
                             <td class="px-4 py-3">
                                 <div class="flex items-center space-x-2 text-sm">
-                                    <a href="{{ route('admin.produto.show', ['codigo' => $produto->id]) }}"
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-105 dark:hover:text-blue-600 dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                        aria-label="Edit">
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
-                                            </path>
-                                        </svg>
-                                    </a>
-
                                     <button wire:click="remover({{ $produto->id }})"
                                         class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-95 dark:hover:text-blue-600
                                          dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
@@ -124,7 +108,7 @@
                                 </div>
                             </td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach 
                 </tbody>
             </table>
         </div>

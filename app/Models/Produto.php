@@ -24,4 +24,8 @@ class Produto extends Model
     {
         return $this->belongsToMany('App\Models\Pedido', 'pedidos_itens', 'item_id', 'pedido_id');
     }
+
+    public function encartes(){
+        return $this->belongsToMany(Encarte::class);
+    }
 }

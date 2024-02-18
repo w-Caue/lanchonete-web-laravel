@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Encarte;
+use App\Models\Produto;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,12 +24,12 @@ return new class extends Migration
 
         Schema::create('encartes_produtos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('encarte_id');
-            $table->unsignedBigInteger('produto_id');
-            $table->timestamps();
-
-            $table->foreign('encarte_id')->references('id')->on('encartes');
-            $table->foreign('produto_id')->references('id')->on('produtos');
+            $table->foreignId('encarte_id');
+            $table->foreignId('produto_id');
+            $table->timestamps();        
+            
+            $table->foreign('encarte_id')->on('encartes')->references('id');
+            $table->foreign('produto_id')->on('produtos')->references('id');
         });
     }
 
