@@ -7,7 +7,7 @@
         </button>
     </div>
 
-    <x-modal>
+    <x-modal title="Cadastro">
         @slot('body')
             <div class="mt-4">
                 <form wire:submit="save()" class="flex flex-col gap-3">

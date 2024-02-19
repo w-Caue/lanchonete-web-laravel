@@ -95,7 +95,7 @@
                             </td>
                             <td class="px-4 py-3">
                                 <div class="flex items-center space-x-2 text-sm">
-                                    <button wire:click="remover({{ $produto->id }})"
+                                    <button wire:click="removerProduto({{ $produto->id }})"
                                         class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-95 dark:hover:text-blue-600
                                          dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Delete">
@@ -114,7 +114,7 @@
         </div>
     </div>
 
-    <x-modal>
+    <x-modal title="Produtos">
         @slot('body')
             <div class="flex justify-center gap-1">
                 <input wire:model.lazy="searchCli" type="text" name="seach"
@@ -194,7 +194,7 @@
                 <div class="flex flex-col gap-3 dark:text-white">
                     <h1 class="text-lg font-semibold">{{ $produtoDetalhe->nome ?? '' }}</h1>
                     <p class="text-sm font-semibold text-gray-400">{{ $produtoDetalhe->descricao ?? '' }}</p>
-                    <p class="text-lg text-green-400 font-bold">R${{ $produtoDetalhe->preco ?? 2 }}</p>
+                    <p class="text-lg text-green-400 font-bold">R${{ $produtoDetalhe->preco ?? '' }}</p>
 
                     <div class="flex gap-2">
                         <label for="">

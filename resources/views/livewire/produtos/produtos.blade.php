@@ -8,7 +8,7 @@
         </button>
     </div>
 
-    <x-modal>
+    <x-modal title="Cadastro">
         @slot('body')
             <div class="mt-4">
                 <form wire:submit="save()" class="flex flex-col gap-3">
@@ -36,7 +36,7 @@
                                 <option value="">Selecione</option>
 
                                 @foreach ($categorias as $categoria)
-                                    <option value="{{ $categoria->id }}">{{ $categoria->categoria }}</option>
+                                    <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
                                 @endforeach
                             </select>
                         </label>
@@ -48,9 +48,9 @@
                                 class="p-3 pl-2 text-sm text-gray-600 font-semibold rounded shadow-sm bg-white dark:bg-gray-700 dark:text-white">
                                 <option value="">Selecione</option>
 
-                                @foreach ($categorias as $categoria)
+                                {{-- @foreach ($categorias as $categoria)
                                     <option value="{{ $categoria->id }}">{{ $categoria->categoria }}</option>
-                                @endforeach
+                                @endforeach --}}
                             </select>
                         </label>
                     </div>

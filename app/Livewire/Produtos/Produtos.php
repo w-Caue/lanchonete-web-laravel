@@ -22,6 +22,11 @@ class Produtos extends Component
 
     public $search = '';
 
+    public $categorias;
+
+    public function mount(){
+        $this->parametros();
+    }
 
     public function save()
     {
@@ -43,25 +48,14 @@ class Produtos extends Component
         // $this->form->edit($item);
     }
 
-    public function update()
+    public function parametros()
     {
-        // $this->form->update();
-
-        $this->fecharItem();
-
-        $this->alert('success', 'Item Atualizado!', [
-            'position' => 'center',
-            'timer' => '1000',
-            'toast' => false,
-        ]);
+        $this->categorias = Categoria::all();
+        // $this->categorias = Categoria::all();
     }
 
     public function render()
     {
-        $categorias = Categoria::all();
-        return view('livewire.produtos.produtos', [
-            // 'tamanhos' => $tamanhos,
-            'categorias' => $categorias
-        ]);
+        return view('livewire.produtos.produtos');
     }
 }
