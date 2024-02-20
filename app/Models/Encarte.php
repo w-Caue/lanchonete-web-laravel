@@ -10,7 +10,7 @@ class Encarte extends Model
     protected $fillable = ['descricao', 'data_inicio', 'data_final', 'ativo'];
 
     public function produtos(){
-        return $this->belongsToMany('App\Models\Produto', 'encartes_produtos');
+        return $this->belongsToMany('App\Models\Produto', 'encartes_produtos')->withPivot('valor_promocao', 'quantidade_prevista');
     }
 
     public function encarteProduto(){

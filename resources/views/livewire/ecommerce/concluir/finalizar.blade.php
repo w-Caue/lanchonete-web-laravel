@@ -29,13 +29,13 @@
                 </div>
             </div>
         </div>
-        <div id="summary" class="w-full px-8 py-10 rounded-r bg-gray-100 dark:bg-gray-800 md:w-1/4">
+        <div id="summary" class="w-full px-8 py-10 rounded-r bg-gray-800 md:w-1/4">
             <div class="mt-8 border-t">
-                <div class="flex justify-between py-6 text-sm font-bold uppercase dark:text-white">
+                <div class="flex justify-between py-6 text-sm font-bold uppercase text-white">
                     <span>Total do Pedido: </span>
                     <span>R${{ number_format($pedido->total_pedido, 2, ',', '.') }}</span>
                 </div>
-                <div class="flex justify-between py-6 text-sm font-bold uppercase dark:text-white">
+                <div class="flex justify-between py-6 text-sm font-bold uppercase text-white">
                     <span>Seu pedido esta sendo: </span>
                     <span>{{ $pedido->status }}</span>
                 </div>

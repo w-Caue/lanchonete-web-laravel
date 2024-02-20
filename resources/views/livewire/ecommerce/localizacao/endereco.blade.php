@@ -96,7 +96,7 @@
                 @endif
             </div>
         </div>
-        <div id="summary" class="w-full px-8 py-10 rounded-r bg-gray-100 dark:bg-gray-800 md:w-1/4">
+        <div id="summary" class="w-full px-8 py-10 rounded-r bg-gray-800 md:w-1/4">
             <div class="mt-8 border-t">
 
                 @if ($localizacao != null)

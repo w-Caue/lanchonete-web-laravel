@@ -53,7 +53,7 @@
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach ($produtos as $produto)
-                        <tr wire:key="{{ $produto->id }}" class="text-gray-700 font-semibold dark:text-gray-400">
+                        <tr wire:key="{{ $produto->id }}" class="font-semibold {{ $produto->encarte > 0 ? 'text-purple-500' : 'text-gray-700 dark:text-gray-400'}}">
                             <td class="px-4 py-3 text-sm">
                                 #{{ $produto->id }}
                             </td>

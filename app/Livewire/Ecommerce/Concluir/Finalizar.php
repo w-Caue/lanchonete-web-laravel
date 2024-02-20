@@ -51,7 +51,7 @@ class Finalizar extends Component
             'pessoa_id' => $pessoa->id,
             'status' => 'Ecommerce',
             'ecommerce' => 'S',
-            'forma_de_pagamento_id' => $this->pagamento,
+            'forma_pagamento_id' => $this->pagamento,
             'endereco_id' => $endereco->id,
         ]);
 

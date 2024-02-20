@@ -75,14 +75,14 @@
             </a>
         </div>
 
-        <div id="summary" class="w-full px-8 py-10 rounded-r bg-gray-100 dark:bg-gray-800 md:w-1/4">
+        <div id="summary" class="w-full px-8 py-10 rounded-r bg-gray-800 md:w-1/4">
             <div class="mt-8 border-t">
-                <div class="flex justify-between py-4 text-sm font-bold uppercase dark:text-white">
+                <div class="flex justify-between py-4 text-sm font-bold uppercase text-white">
                     <span>Total: </span>
                     <span>R${{ number_format($valorTotal, 2, ',', '') }} </span>
                 </div>
 
-                <div class="flex justify-between items-center py-4 text-sm font-bold uppercase dark:text-white">
+                <div class="flex justify-between items-center py-4 text-sm font-bold uppercase text-white">
                     <span>Pagamento: </span>
                     <select wire:model="pagamento"
                         class="w-40 py-2 mt-4 text-sm font-semibold text-center text-blue-500 uppercase border rounded border-blue-500 bg-gray-800">

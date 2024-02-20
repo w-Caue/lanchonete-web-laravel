@@ -22,10 +22,10 @@ class Produto extends Model
 
     public function pedidos()
     {
-        return $this->belongsToMany('App\Models\Pedido', 'pedidos_itens', 'item_id', 'pedido_id');
+        return $this->belongsToMany('App\Models\Pedido', 'pedidos_itens', 'pruduto_id', 'pedido_id');
     }
 
-    public function encartes(){
-        return $this->belongsToMany(Encarte::class);
+    public function encarte(){
+        return $this->belongsTo('App\Models\Encarte');
     }
 }

@@ -24,6 +24,8 @@ class EncarteProduto extends Component
     public $produtoDetalhe;
 
     public $valorPromocao;
+    public $quantidadePrevista;
+
     public $porcetagem;
     public $valorPorcetagem;
 
@@ -66,10 +68,8 @@ class EncarteProduto extends Component
         ModelsEncarteProduto::create([
             'encarte_id' => $this->encarte->id,
             'produto_id' => $this->produtoDetalhe->id,
-        ]);
-
-        Produto::find($this->produtoDetalhe->id)->update([
-            'valor_promocao' => $this->valorPromocao
+            'valor_promocao' => $this->valorPromocao,
+            'quantidade_prevista' => $this->quantidadePrevista,
         ]);
 
         $this->dispatch('close-detalhe');
@@ -104,6 +104,19 @@ class EncarteProduto extends Component
             'timer' => '1000',
             'toast' => false,
         ]);
+    }
+
+    public function ativar()
+    {
+        $this->encarte->ativo = 'S';
+
+        if ($this->encarte->save()) {
+            $this->alert('success', 'Encarte Ativo!', [
+                'position' => 'center',
+                'timer' => '1000',
+                'toast' => false,
+            ]);
+        };        
     }
 
     public function render()

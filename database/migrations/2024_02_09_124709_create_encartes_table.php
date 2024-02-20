@@ -26,6 +26,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('encarte_id');
             $table->foreignId('produto_id');
+            $table->string('valor_promocao');
+            $table->integer('desconto')->nullable();
+            $table->integer('quantidade_prevista')->nullable();
             $table->timestamps();        
             
             $table->foreign('encarte_id')->on('encartes')->references('id');

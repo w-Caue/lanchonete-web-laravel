@@ -74,7 +74,7 @@
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach ($pedidos as $pedido)
                         <tr wire:key="{{ $pedido->id }}"
-                            class="font-semibold {{ $pedido->status == 'Finalizado' ? 'dark:text-green-500' : 'text-gray-400' }}">
+                            class="font-semibold {{ $pedido->status == 'Finalizado' ? 'text-green-500' : 'text-gray-400' }} {{ $pedido->status == 'Ecommerce' ? 'text-sky-500' : 'text-gray-400' }}">
                             <td class="px-4 py-3 text-sm">
                                 #{{ $pedido->id }}
                             </td>
@@ -96,26 +96,43 @@
 
                             <td class="px-4 py-3">
                                 <div class="flex items-center space-x-2 text-sm">
-                                    <a href="{{ route('admin.pedido.show', ['codigo' => $pedido->id]) }}"
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-105 dark:hover:text-blue-600 dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                        aria-label="Edit">
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
-                                            </path>
-                                        </svg>
-                                    </a>
 
-                                    <button wire:click="remover({{ $pedido->id }})"
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-95 dark:hover:text-blue-600
-                                         dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                        aria-label="Delete">
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd"
-                                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                clip-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
+                                    @if ($pedido->status == 'Ecommerce')
+                                        <a href="{{ route('admin.pedido.show', ['codigo' => $pedido->id]) }}"
+                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg hover:scale-105 focus:outline-none focus:shadow-outline-gray"
+                                            aria-label="Edit">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                fill="currentColor" class="w-6 h-6">
+                                                <path
+                                                    d="M8.25 10.875a2.625 2.625 0 1 1 5.25 0 2.625 2.625 0 0 1-5.25 0Z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.125 4.5a4.125 4.125 0 1 0 2.338 7.524l2.007 2.006a.75.75 0 1 0 1.06-1.06l-2.006-2.007a4.125 4.125 0 0 0-3.399-6.463Z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </a>
+                                    @else
+                                        <a href="{{ route('admin.pedido.show', ['codigo' => $pedido->id]) }}"
+                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg hover:scale-105 focus:outline-none focus:shadow-outline-gray"
+                                            aria-label="Edit">
+                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
+                                                </path>
+                                            </svg>
+                                        </a>
+
+                                        <button wire:click="remover({{ $pedido->id }})"
+                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5  rounded-lg hover:scale-95 focus:outline-none focus:shadow-outline-gray"
+                                            aria-label="Delete">
+                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd"
+                                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
+                                    @endif
                                 </div>
                             </td>
                         </tr>

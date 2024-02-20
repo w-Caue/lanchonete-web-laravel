@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Ecommerce\Produtos;
 
+use App\Models\Encarte;
 use App\Models\Produto;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -22,6 +23,8 @@ class ListaProdutos extends Component
 
     public $pedidoEcommerce;
 
+    public $encarte;
+
     public function load()
     {
         $this->readyLoad = true;
@@ -32,6 +35,8 @@ class ListaProdutos extends Component
         $this->carrinho = session()->get('carrinho');
         $this->pedidoEcommerce = session()->get('pedidoEcommerce');
         $this->atualizar();
+
+        $this->encarte();
     }
 
     public function dados()
@@ -43,13 +48,18 @@ class ListaProdutos extends Component
             'produtos.tamanho',
             'produtos.categoria_id',
             'produtos.preco',
-        ]); #Filtros
+        ])->where('tipo_promocao', 'N'); #Filtros
         // ->when($this->pesquisa, function ($query) {
         //     $filter = strtolower($this->sortField);
         //     return $query->where($filter, 'like', "%" . $this->pesquisa . "%");
         // });
 
         return $produtos->paginate(5);
+    }
+
+    public function encarte()
+    {
+        $this->encarte = Encarte::where('ativo', 'S')->get()->first();
     }
 
     public function produto($codigo)
@@ -113,20 +123,20 @@ class ListaProdutos extends Component
 
     public function removerItem($codigo, $quantidade)
     {
-        if($this->pedidoEcommerce == null){
+        if ($this->pedidoEcommerce == null) {
             foreach ($this->carrinho as $index => $item) {
                 if ($codigo == $item['codigo']) {
-    
+
                     $this->carrinho[$index]['quantidade'] += $quantidade;
-    
+
                     if ($this->carrinho[$index]['quantidade'] < 1) {
                         $this->carrinho[$index]['quantidade'] = 0;
                     }
-    
+
                     $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
                 }
             }
-    
+
             $this->atualizar();
         } else {
             $this->alert('info', 'Não é possivel adicionar mais itens!', [

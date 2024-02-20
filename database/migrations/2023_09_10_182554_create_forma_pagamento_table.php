@@ -16,13 +16,6 @@ return new class extends Migration
             $table->string('nome', 50);
             $table->timestamps();
         });
-
-        Schema::table('pedidos', function (Blueprint $table) {
-            $table->string('status', 15)->after('id');
-            $table->unsignedBigInteger('forma_pagamento_id')->after('status');
-
-            $table->foreign('forma_pagamento_id')->references('id')->on('formas_pagamentos');
-        });
     }
 
     /**
@@ -30,13 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pedidos', function (Blueprint $table) {
-            $table->dropColumn('status');
-            $table->dropForeign('pedidos_forma_pagamento_id_foreign');
-            $table->dropColumn('forma_pagamento_id');
-        });
-
         Schema::dropIfExists('formas_pagamentos');
-
     }
 };
