@@ -40,4 +40,16 @@ class CadastroProdutoForm extends Form
         $this->grupo = $produto->grupo_id;
         $this->dataCad = date('Y-m-d', strtotime($produto->created_at));
     }
+
+    public function edit(){
+        Produto::findOrFail($this->codigo)->update([
+            'nome' => $this->nome,
+            'descricao' => $this->descricao,
+            'preco' => $this->preco,
+            'categoria_id' => $this->categoria,
+            'marca_id' => $this->marca,
+            'grupo_id' => $this->grupo,
+            'imagem' => '',
+        ]);
+    }
 }

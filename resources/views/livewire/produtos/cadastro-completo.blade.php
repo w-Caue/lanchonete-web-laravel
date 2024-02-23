@@ -34,7 +34,7 @@
                             </svg>
 
                             <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Clique
-                                para inserir</span></p>
+                                    para inserir</span></p>
                             <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG
                             </p>
                         </div>
@@ -96,6 +96,13 @@
             </label>
         </div>
 
+        <div>
+            <button wire:click="edit()"
+                class="text-white bg-green-600 hover:bg-green-700 font-medium rounded text-sm px-3 py-2 transition-all hover:scale-95"
+                type="button">
+                Salvar
+            </button>
+        </div>
 
     </div>
 </div>
