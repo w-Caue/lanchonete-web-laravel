@@ -48,7 +48,8 @@ class ListaProdutos extends Component
             'produtos.tamanho',
             'produtos.categoria_id',
             'produtos.preco',
-        ])->where('tipo_promocao', 'N'); #Filtros
+            'produtos.tipo_ecommerce',
+        ])->where('tipo_ecommerce', 'S'); #Filtros
         // ->when($this->pesquisa, function ($query) {
         //     $filter = strtolower($this->sortField);
         //     return $query->where($filter, 'like', "%" . $this->pesquisa . "%");

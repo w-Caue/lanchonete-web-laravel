@@ -28,7 +28,10 @@ class CadastroProdutoForm extends Form
 
     public $dataCad;
 
-    public function produto($codigo){
+    public $ecommerce;
+
+    public function produto($codigo)
+    {
         $produto = Produto::where('id', '=', $codigo)->get()->first();
 
         $this->codigo = $produto->id;
@@ -39,9 +42,14 @@ class CadastroProdutoForm extends Form
         $this->marca = $produto->marca_id;
         $this->grupo = $produto->grupo_id;
         $this->dataCad = date('Y-m-d', strtotime($produto->created_at));
+
+        if ($produto->tipo_ecommerce == 'S') {
+            $this->ecommerce = true;
+        }
     }
 
-    public function edit(){
+    public function edit()
+    {
         Produto::findOrFail($this->codigo)->update([
             'nome' => $this->nome,
             'descricao' => $this->descricao,

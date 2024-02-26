@@ -24,9 +24,17 @@ class ProdutoForm extends Form
 
     public $marca;
 
+    public $ecommerce;
+
     public function save()
     {
         $this->validate();
+
+        if($this->ecommerce == true){
+            $this->ecommerce = 'S';
+        } else {
+            $this->ecommerce = 'N';
+        }
 
         Produto::create([
             'nome' => $this->nome,
@@ -34,6 +42,7 @@ class ProdutoForm extends Form
             'preco' => $this->preco,
             'categoria_id' => $this->categoria,
             'marca_id' => $this->marca,
+            'tipo_ecommerce' => $this->ecommerce,
         ]);
     }
 

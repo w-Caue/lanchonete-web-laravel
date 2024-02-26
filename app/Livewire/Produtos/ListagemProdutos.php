@@ -17,8 +17,7 @@ class ListagemProdutos extends Component
             'produtos.descricao',
             'produtos.marca_id',
             'produtos.preco',
-            'produtos.valor_promocao',
-            'produtos.tipo_promocao',
+            'produtos.tipo_ecommerce',
         ]);
 
         return $produtos->paginate(5);

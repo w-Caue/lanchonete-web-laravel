@@ -61,7 +61,6 @@ class EncarteProduto extends Component
         $preco = $this->produtoDetalhe->preco;
 
         if ($this->porcetagem != null) {
-
             $this->valorPromocao = $preco - ($preco / 100 * $porcetagem);
         }
 
@@ -116,7 +115,7 @@ class EncarteProduto extends Component
                 'timer' => '1000',
                 'toast' => false,
             ]);
-        };        
+        };
     }
 
     public function render()
