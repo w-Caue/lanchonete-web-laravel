@@ -52,8 +52,9 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    @foreach ($produtos as $produto)
-                        <tr wire:key="{{ $produto->id }}" class="font-semibold {{ $produto->encarte > 0 ? 'text-purple-500' : 'text-gray-700 dark:text-gray-400'}}">
+                    {{-- @foreach ($produtos as $produto)
+                        <tr wire:key="{{ $produto->id }}"
+                            class="font-semibold {{ $produto->encarte > 0 ? 'text-purple-500' : 'text-gray-700 dark:text-gray-400' }}">
                             <td class="px-4 py-3 text-sm">
                                 #{{ $produto->id }}
                             </td>
@@ -98,9 +99,50 @@
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
         </div>
+    </div>
+
+
+
+    <div x-data="" x-init="Sortable.create($el, {
+        animation: 150,
+        handle: '.handler'
+    })" class="flex gap-4 m-4">
+        @foreach ($categorias as $categoria)
+            <div class="bg-gray-600 w-56 rounded p-2">
+                <div class="flex justify-between text-gray-50">
+                    <h1 class="font-semibold">{{ $categoria->nome }}</h1>
+
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6 handler">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div categoria-id="{{ $categoria->id }}" class="cursor-pointer" x-data="" x-init="Sortable.create($el, {
+                    animation: 150,
+                    group: 'group',
+                    onSort({ to }){
+                        const categoriaId = to.getAttribute('categoria-id');
+                        const produtoId = Array.from(to.children).map(i => i.getAttribute('produto-id'));
+                        
+                        @this.reodernaProdutos({ categoriaId, produtoId });
+                    }
+                })">
+                    @foreach ($produtos as $produto)
+                        @if ($produto->categoria_id == $categoria->id)
+                            <div produto-id="{{ $produto->id }}" class="bg-white rounded my-1 p-1">
+                                <h1 class="font-semibold text-gray-700">{{ $produto->nome }}</h1>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+        @endforeach
     </div>
 </div>

@@ -19,7 +19,7 @@
 
     <!-- Scripts -->
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
-    @vite('resources/css/app.css', 'resources/js/alpine/start.js')
+    @vite('resources/css/app.css', 'resources/js/app.js')
 </head>
 
 <body class="dark">
@@ -36,7 +36,7 @@
     </div>
 
     @livewireScripts
-    
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <x-livewire-alert::scripts />
@@ -78,6 +78,10 @@
             }
         }
     </script>
+
+    <script src="
+    https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js
+    "></script>
 </body>
 
 </html>

@@ -16,7 +16,6 @@ class CategoriaSeeder extends Seeder
         Categoria::create(['nome' => 'Hamburguer']);
         Categoria::create(['nome' => 'Pizza']);
         Categoria::create(['nome' => 'Pastel']);
-        Categoria::create(['nome' => 'Suco']);
         Categoria::create(['nome' => 'Refrigerante']);
     }
 }
