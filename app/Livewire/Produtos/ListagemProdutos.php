@@ -15,7 +15,7 @@ class ListagemProdutos extends Component
 
     public function mount()
     {
-        $this->parametros();
+        // $this->parametros();
     }
 
     public function dados()
@@ -31,22 +31,6 @@ class ListagemProdutos extends Component
         ]);
 
         return $produtos->paginate(5);
-    }
-
-    public function reodernaProdutos($params)
-    {
-        $categoriaId = $params['categoriaId'];
-        $produtoId = $params['produtoId'];
-
-        Produto::query()->findMany( $produtoId)->each(function (Produto $produto) use ($categoriaId, $produtoId){
-            $produto->categoria_id = $categoriaId;
-            $produto->save();
-        });
-    }
-
-    public function parametros()
-    {
-        $this->categorias = Categoria::all();
     }
 
     public function render()

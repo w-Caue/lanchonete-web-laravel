@@ -52,7 +52,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    {{-- @foreach ($produtos as $produto)
+                    @foreach ($produtos as $produto)
                         <tr wire:key="{{ $produto->id }}"
                             class="font-semibold {{ $produto->encarte > 0 ? 'text-purple-500' : 'text-gray-700 dark:text-gray-400' }}">
                             <td class="px-4 py-3 text-sm">
@@ -99,18 +99,17 @@
                                 </div>
                             </td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 
 
-
-    <div x-data="" x-init="Sortable.create($el, {
+    {{-- <div x-data="" x-init="Sortable.create($el, {
         animation: 150,
         handle: '.handler'
-    })" class="flex gap-4 m-4">
+        })" class="flex gap-4 m-4">
         @foreach ($categorias as $categoria)
             <div class="bg-gray-600 w-56 rounded p-2">
                 <div class="flex justify-between text-gray-50">
@@ -144,5 +143,5 @@
                 </div>
             </div>
         @endforeach
-    </div>
+    </div> --}}
 </div>
