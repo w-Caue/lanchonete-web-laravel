@@ -26,4 +26,14 @@ class CadastroPessoaForm extends Form
         $this->status = $pessoa->status;
         $this->dataCad = date('Y-m-d', strtotime($pessoa->created_at));
     }
+
+    public function edit()
+    {
+        Pessoa::findOrFail($this->codigo)->update([
+            'nome' => $this->nome,
+            'email' => $this->email,
+            'whatsapp' => $this->whatsapp,
+            'status' => $this->status,
+        ]);
+    }
 }

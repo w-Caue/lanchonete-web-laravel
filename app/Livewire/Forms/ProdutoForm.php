@@ -30,11 +30,14 @@ class ProdutoForm extends Form
     {
         $this->validate();
 
-        if($this->ecommerce == true){
+        if ($this->ecommerce == true) {
             $this->ecommerce = 'S';
         } else {
             $this->ecommerce = 'N';
         }
+
+        $this->preco = str_replace(',', '.', $this->preco);
+        $this->preco = floatval($this->preco);
 
         Produto::create([
             'nome' => $this->nome,
@@ -46,24 +49,4 @@ class ProdutoForm extends Form
         ]);
     }
 
-    // public function edit(Item $item)
-    // {
-    //     $this->itemId = $item->id;
-    //     $this->nome = $item->nome;
-    //     $this->descricao = $item->descricao;
-    //     $this->preco = $item->preco;
-    //     $this->tamanho = $item->tamanho;
-    //     $this->categoria = $item->categoria_id;
-    // }
-
-    // public function update()
-    // {
-    //     Item::findOrFail($this->itemId)->update([
-    //         'nome' => $this->nome,
-    //         'descricao' => $this->descricao,
-    //         'preco' => $this->preco,
-    //         'tamanho' => $this->tamanho,
-    //         'categoria_id' => $this->categoria
-    //     ]);
-    // }
 }

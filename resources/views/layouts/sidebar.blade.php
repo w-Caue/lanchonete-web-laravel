@@ -102,7 +102,7 @@
                                         class="text-sm font-semibold text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Encarte</a>
                                 </li>
                                 <li>
-                                    <a href=""
+                                    <a href="{{ route('admin.produto.combos.index') }}"
                                         class="text-sm font-semibold text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Combos</a>
                                 </li>
                             </ul>
@@ -123,6 +123,7 @@
                         </a>
                     </li>
                 </ul>
+
                 <div class="pt-2 space-y-2">
                     <a href="https://github.com/themesberg/flowbite-admin-dashboard" target="_blank"
                         class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">

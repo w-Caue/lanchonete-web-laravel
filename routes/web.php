@@ -71,13 +71,21 @@ Route::prefix('/admin')->name('admin.')->group(function () {
             return view('pages.produtos.index');
         })->name('index');
 
-        
+
         Route::prefix('/encarte')->name('encarte.')->group(function () {
             Route::get('/', function () {
                 return view('pages.encarte.index');
             })->name('index');
-            
+
             Route::get('/{codigo}', [EncarteController::class, 'show'])->name('show');
+        });
+
+        Route::prefix('/combos')->name('combos.')->group(function () {
+            Route::get('/', function () {
+                return view('pages.combos.index');
+            })->name('index');
+
+            // Route::get('/{codigo}', [EncarteController::class, 'show'])->name('show');
         });
 
         Route::get('/{codigo}', [ProdutoController::class, 'show'])->name('show');

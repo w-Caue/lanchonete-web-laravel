@@ -5,7 +5,9 @@
             <div class=" mt-2">
                 <label for="">
                     <p class="text-sm font-semibold uppercase text-gray-100">Codigo</p>
-                    <input wire:model="form.codigo" class="p-1 pl-2 w-20 text-sm text-gray-600 font-semibold rounded shadow-sm bg-white dark:bg-gray-700 dark:text-white" type="text">
+                    <input wire:model="form.codigo"
+                        class="p-1 pl-2 w-20 text-sm text-gray-600 font-semibold rounded shadow-sm bg-white dark:bg-gray-700 dark:text-white"
+                        type="text">
                 </label>
             </div>
 
@@ -50,7 +52,13 @@
                 <x-input wire:model="form.dataCad" class="w-40" type="date"></x-input>
             </label>
         </div>
-        
 
+        <div>
+            <button wire:click="edit()"
+                class="text-white bg-green-600 hover:bg-green-700 font-medium rounded text-sm px-3 py-2 transition-all hover:scale-95"
+                type="button">
+                Salvar
+            </button>
+        </div>
     </div>
 </div>

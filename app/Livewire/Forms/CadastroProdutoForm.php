@@ -50,6 +50,13 @@ class CadastroProdutoForm extends Form
 
     public function edit()
     {
+        $this->preco = str_replace(',', '.', $this->preco);
+        $this->preco = floatval($this->preco);
+
+        if ($this->ecommerce) {
+            $this->ecommerce = 'S';
+        }
+
         Produto::findOrFail($this->codigo)->update([
             'nome' => $this->nome,
             'descricao' => $this->descricao,
@@ -57,6 +64,7 @@ class CadastroProdutoForm extends Form
             'categoria_id' => $this->categoria,
             'marca_id' => $this->marca,
             'grupo_id' => $this->grupo,
+            'tipo_ecommerce' => $this->ecommerce,
             'imagem' => '',
         ]);
     }
