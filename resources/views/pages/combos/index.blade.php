@@ -48,7 +48,8 @@
             <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Combos</h1>
         </div>
 
-        {{-- @livewire('Encartes.Encarte') --}}
+        @livewire('Combos.Combos')
+        @livewire('Combos.ListagemCombos')
 
     </div>
 @endsection
