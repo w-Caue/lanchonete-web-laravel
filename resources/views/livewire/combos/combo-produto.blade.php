@@ -1,29 +1,17 @@
 <div>
     <div class="text-sm font-semibold p-2 bg-gray-800 rounded">
         <div class="my-1 flex justify-between">
-            <h1 class="text-blue-500">#{{ $encarte->id }}</h1>
-            <h1 class="text-gray-500">{{ date('d/m/Y', strtotime($encarte->created_at)) }}</h1>
+            <h1 class="text-blue-500">#</h1>
+            {{-- <h1 class="text-gray-500">{{ date('d/m/Y', strtotime($encarte->created_at)) }}</h1> --}}
         </div>
         <label class="my-1">
-            <h1 class="text-lg text-gray-200">{{ $encarte->descricao }}</h1>
+            <h1 class="text-lg text-gray-200"></h1>
         </label>
-        <div class="my-1 flex gap-7">
-            <label for="" class="text-md dark:text-gray-300">
-                <p>Data Inicio</p>
-                <x-input value="{{ date('Y-m-d', strtotime($encarte->data_inicio)) }}" class="w-32" type="date"
-                    disabled></x-input>
-            </label>
 
-            <label for="" class="text-md dark:text-gray-300">
-                <p>Data Final</p>
-                <x-input value="{{ date('Y-m-d', strtotime($encarte->data_final)) }}" class="w-32" type="date"
-                    disabled></x-input>
-            </label>
-        </div>
     </div>
 
     <div class="flex justify-between">
-        @if ($encarte->ativo == 'N')
+        @if (true)
             <button x-data x-on:click="$dispatch('open-modal')"
                 class="flex gap-1 mt-2 text-white bg-blue-500 hover:bg-indigo-500 font-medium rounded text-md p-1 transition-all hover:scale-95">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
@@ -36,7 +24,6 @@
 
                 Adicionar Produto
             </button>
-
         @endif
 
     </div>
@@ -84,7 +71,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    @foreach ($encarte->produtos as $produto)
+                    {{-- @foreach ($encarte->produtos as $produto)
                         <tr wire:key="{{ $produto->id }}" class="text-gray-700 font-semibold dark:text-gray-400">
                             <td class="px-2 py-3 text-sm">
                                 #{{ $produto->id }}
@@ -130,7 +117,7 @@
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
         </div>

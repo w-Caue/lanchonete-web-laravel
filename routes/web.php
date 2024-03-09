@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComboControlle;
 use App\Http\Controllers\EncarteController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PedidoController;
@@ -85,7 +86,7 @@ Route::prefix('/admin')->name('admin.')->group(function () {
                 return view('pages.combos.index');
             })->name('index');
 
-            // Route::get('/{codigo}', [EncarteController::class, 'show'])->name('show');
+            Route::get('/{codigo}', [ComboControlle::class, 'show'])->name('show');
         });
 
         Route::get('/{codigo}', [ProdutoController::class, 'show'])->name('show');
