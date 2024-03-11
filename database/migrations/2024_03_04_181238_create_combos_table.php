@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('decricao')->nullable();
             $table->string('imagem')->nullable();
             $table->float('valor_total', 9, 2)->nullable();
+            $table->integer('desconto')->nullable();
+            $table->enum('ativo', ['S', 'N'])->default('N');
             $table->timestamps();
         });
     }

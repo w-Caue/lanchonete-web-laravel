@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('combo_id');
             $table->foreignId('produto_id');
+            $table->float('valor_produto', 9, 2)->nullable();
             $table->timestamps();
 
             $table->foreign('combo_id')->on('combos')->references('id');

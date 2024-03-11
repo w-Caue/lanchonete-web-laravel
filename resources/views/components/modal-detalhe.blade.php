@@ -11,7 +11,7 @@
         </div>
         <div class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-lg">
             <div class="flex justify-between items-center m-1 dark:text-white">
-                <h1 class="text-xl font-semibold text-center"></h1>
+                <h1 class="text-xl font-semibold text-center">{{ $title ?? ''}}</h1>
                 <button
                     class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
                     aria-label="close" x-on:click="open = false">
