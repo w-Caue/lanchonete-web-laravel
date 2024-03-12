@@ -124,7 +124,7 @@
                     </li>
                 </ul>
 
-                <div class="pt-2 space-y-2">
+                {{-- <div class="pt-2 space-y-2">
                     <a href="https://github.com/themesberg/flowbite-admin-dashboard" target="_blank"
                         class="flex items-center p-2 text-base text-gray-900 transition duration-75 rounded-lg hover:bg-gray-100 group dark:text-gray-200 dark:hover:bg-gray-700">
                         <svg aria-hidden="true"
@@ -167,7 +167,7 @@
                         </svg>
                         <span class="ml-3" sidebar-toggle-item>Support</span>
                     </a>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="absolute bottom-0 left-0 justify-center hidden w-full p-4 space-x-4 bg-white lg:flex dark:bg-gray-800"

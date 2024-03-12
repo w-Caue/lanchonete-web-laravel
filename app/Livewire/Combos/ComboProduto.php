@@ -61,15 +61,27 @@ class ComboProduto extends Component
         ]);
 
         $this->dispatch('close-detalhe');
+
+        $this->atualizaValores();
     }
 
     public function ativar()
     {
+        if ($this->desconto > 0) {
+            $this->totalProdutos = $this->totalProdutos - ($this->totalProdutos / 100 * $this->desconto);
+        }
+
         Combo::find($this->combo->id)->update([
             'descricao' => $this->descricao,
             'desconto' => $this->desconto,
             'valor_total' => $this->totalProdutos,
             'ativo' => 'S',
+        ]);
+
+        $this->alert('success', 'Combo Ativo!', [
+            'position' => 'center',
+            'timer' => '1000',
+            'toast' => false,
         ]);
     }
 

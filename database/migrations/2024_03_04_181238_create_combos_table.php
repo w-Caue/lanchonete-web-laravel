@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('combos', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 80);
-            $table->string('decricao')->nullable();
+            $table->string('descricao')->nullable();
             $table->string('imagem')->nullable();
             $table->float('valor_total', 9, 2)->nullable();
             $table->integer('desconto')->nullable();

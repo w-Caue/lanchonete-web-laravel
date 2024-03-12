@@ -234,9 +234,9 @@
 
     <x-modal-detalhe name="ativar" title="{{ $combo->nome }}">
         @slot('body')
-            <form class="my-3">
+            <form wire:submit="ativar()" class="my-3">
                 <label for="">
-                    <x-input class="w-full " placeholder="Descrição do Combo"></x-input>
+                    <x-input wire:model.live="descricao" class="w-full " placeholder="Descrição do Combo"></x-input>
                 </label>
 
                 <div class="flex my-1">
@@ -274,7 +274,7 @@
                             Desconto:
                         </h1>
 
-                        <x-input class="w-20 p-1" placeholder="%"></x-input>
+                        <x-input wire:model="desconto" class="w-20 p-1" placeholder="%"></x-input>
                     </div>
                 </div>
 

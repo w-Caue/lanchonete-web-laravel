@@ -47,6 +47,14 @@
                                 @include('includes.icon-filter', ['field' => 'cliente'])
                             </div>
                         </th>
+
+                        <th class="px-4 py-3">
+                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('Ativo')">
+                                <button
+                                    class="text-xs font-medium leading-4 tracking-wider uppercase">Ativo</button>
+                                @include('includes.icon-filter', ['field' => 'ativo'])
+                            </div>
+                        </th>
                         
                         <th class="px-4 py-3">Ações</th>
                     </tr>
@@ -68,6 +76,10 @@
                             
                             <td class="px-4 py-3 text-sm">
                                 {{ $combo->valor_total }}
+                            </td>
+
+                            <td class="px-4 py-3 text-sm">
+                                {{ $combo->ativo }}
                             </td>
 
                             <td class="px-4 py-3">
