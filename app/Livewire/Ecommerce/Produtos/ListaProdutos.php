@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Ecommerce\Produtos;
 
+use App\Models\Combo;
 use App\Models\Encarte;
 use App\Models\Produto;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -24,6 +25,7 @@ class ListaProdutos extends Component
     public $pedidoEcommerce;
 
     public $encarte;
+    public $combos;
 
     public function load()
     {
@@ -37,6 +39,8 @@ class ListaProdutos extends Component
         $this->atualizar();
 
         $this->encarte();
+
+        $this->combo();
     }
 
     public function dados()
@@ -61,6 +65,12 @@ class ListaProdutos extends Component
     public function encarte()
     {
         $this->encarte = Encarte::where('ativo', 'S')->get()->first();
+    }
+
+    public function combo()
+    {
+        $this->combos = Combo::where('ativo', 'S')->get();
+
     }
 
     public function produto($codigo)

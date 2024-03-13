@@ -4,6 +4,12 @@
     <div
         class="hidden relative sm:flex flex-col flex-1 min-h-0 pt-0 bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div class="flex flex-col flex-1 pt-5 pb-4 overflow-y-auto">
+            <div class="p-4 mt-2 bg-gray-100 dark:bg-gray-700">
+                <h2 class="text-sm font-medium tracking-widest uppercase title-font">
+                    Usuario
+                </h2>
+            </div>
+            
             <div class="flex-1 px-3 space-y-1 bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                 <ul class="pb-2 space-y-2">
                     <li>
@@ -61,8 +67,16 @@
                             <ul id="dropdown-layouts" class="py-2 space-y-2">
                                 <li>
                                     <a href="{{ route('admin.pessoal.index') }}"
-                                        class="flex items-center p-2 text-sm font-semibold text-gray-500 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">Cadastro
-                                        de Pessoa</a>
+                                        class="flex gap-1 items-center p-2 text-sm font-semibold text-gray-500 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700">
+                                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                            <path fill-rule="evenodd"
+                                                d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4.243a1 1 0 1 0-2 0V11H7.757a1 1 0 1 0 0 2H11v3.243a1 1 0 1 0 2 0V13h3.243a1 1 0 1 0 0-2H13V7.757Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+
+                                        Cadastro
+                                    </a>
                                 </li>
                             </ul>
                         </template>
@@ -91,19 +105,45 @@
                             </svg>
                         </button>
                         <template x-if="isProdutoOpen">
-                            <ul id="dropdown-crud" class="space-y-2 py-2 ">
+                            <ul id="dropdown-crud" class="space-y-1 py-1 bg-gray-700 rounded m-2">
                                 <li>
                                     <a href="{{ route('admin.produto.index') }}"
-                                        class="text-sm font-semibold text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Cadastro
-                                        de Produtos</a>
+                                        class="flex gap-1 items-center text-sm font-semibold text-gray-900 rounded-lg p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">
+                                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                            <path fill-rule="evenodd"
+                                                d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4.243a1 1 0 1 0-2 0V11H7.757a1 1 0 1 0 0 2H11v3.243a1 1 0 1 0 2 0V13h3.243a1 1 0 1 0 0-2H13V7.757Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+
+                                        Cadastro
+                                    </a>
                                 </li>
                                 <li>
                                     <a href="{{ route('admin.produto.encarte.index') }}"
-                                        class="text-sm font-semibold text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Encarte</a>
+                                        class="flex gap-1 items-center text-sm font-semibold text-gray-900 rounded-lg p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">
+                                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                            <path
+                                                d="M18.045 3.007 12.31 3a1.965 1.965 0 0 0-1.4.585l-7.33 7.394a2 2 0 0 0 0 2.805l6.573 6.631a1.957 1.957 0 0 0 1.4.585 1.965 1.965 0 0 0 1.4-.585l7.409-7.477A2 2 0 0 0 21 11.479v-5.5a2.972 2.972 0 0 0-2.955-2.972Zm-2.452 6.438a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
+                                        </svg>
+
+                                        Encarte
+                                    </a>
                                 </li>
                                 <li>
                                     <a href="{{ route('admin.produto.combos.index') }}"
-                                        class="text-sm font-semibold text-gray-900 rounded-lg flex items-center p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">Combos</a>
+                                        class="flex gap-1 items-center text-sm font-semibold text-gray-900 rounded-lg p-2 group hover:bg-gray-100 transition duration-75 pl-11 dark:text-gray-200 dark:hover:bg-gray-700">
+                                        <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            fill="currentColor" viewBox="0 0 24 24">
+                                            <path fill-rule="evenodd"
+                                                d="M5.617 2.076a1 1 0 0 1 1.09.217L8 3.586l1.293-1.293a1 1 0 0 1 1.414 0L12 3.586l1.293-1.293a1 1 0 0 1 1.414 0L16 3.586l1.293-1.293A1 1 0 0 1 19 3v18a1 1 0 0 1-1.707.707L16 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L12 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L8 20.414l-1.293 1.293A1 1 0 0 1 5 21V3a1 1 0 0 1 .617-.924ZM9 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+
+                                        Combos
+                                    </a>
                                 </li>
                             </ul>
                         </template>

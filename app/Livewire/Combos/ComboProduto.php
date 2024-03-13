@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Combos;
 
+use App\Livewire\Forms\ComboProdutoForm;
 use App\Models\Combo;
 use App\Models\ComboProduto as ModelsComboProduto;
 use App\Models\Produto;
@@ -15,9 +16,12 @@ class ComboProduto extends Component
 
     use LivewireAlert;
 
+    public ComboProdutoForm $form;
+
     public $combo;
 
     public $produtos;
+    public $produto;
     public $produtoDetalhe;
 
     public $totalProdutos;
@@ -26,11 +30,15 @@ class ComboProduto extends Component
     public $descricao;
     public $desconto;
 
+    protected $listeners = [
+        'delete'
+    ];
+
     public function mount($codigo)
     {
-        $this->combo = Combo::where('id', $codigo)->get()->first();
+        $this->form->combo($codigo);
 
-        $this->countProdutos = $this->combo->id;
+        $this->combo = Combo::where('id', $codigo)->get()->first();
 
         $this->atualizaValores();
     }
@@ -65,6 +73,39 @@ class ComboProduto extends Component
         $this->atualizaValores();
     }
 
+    public function removerProduto(Produto $produto)
+    {
+        $this->produto = $produto;
+
+        $this->alert('info', 'Remover esse produto do Encarte?', [
+            'position' => 'center',
+            'timer' => 5000,
+            'toast' => false,
+            'showConfirmButton' => true,
+            'confirmButtonColor' => '#3085d6',
+            'onConfirmed' => 'delete',
+            'showCancelButton' => true,
+            'cancelButtonColor' => '#d33',
+            'onDismissed' => '',
+            'cancelButtonText' => 'Cancelar',
+            'confirmButtonText' => 'Deletar',
+        ]);
+    }
+
+    public function delete()
+    {
+        ModelsComboProduto::where('combo_id', $this->combo->id)
+            ->where('produto_id', $this->produto->id)->delete();
+
+        $this->alert('success', 'Produto removido!', [
+            'position' => 'center',
+            'timer' => '1000',
+            'toast' => false,
+        ]);
+
+        $this->atualizaValores();
+    }
+
     public function ativar()
     {
         if ($this->desconto > 0) {
@@ -79,6 +120,17 @@ class ComboProduto extends Component
         ]);
 
         $this->alert('success', 'Combo Ativo!', [
+            'position' => 'center',
+            'timer' => '1000',
+            'toast' => false,
+        ]);
+    }
+
+    public function update()
+    {
+        $this->form->update();
+
+        $this->alert('success', 'Combo Atualizado!', [
             'position' => 'center',
             'timer' => '1000',
             'toast' => false,

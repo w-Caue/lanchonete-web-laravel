@@ -3,7 +3,11 @@
 
     <div class="bg-indigo-500 py-1 mx-auto text-center">
         <div class="flex justify-center m-2">
-            <ul class="flex gap-3">
+            <h1 class="text-2xl font-bold ml-3 tracking-widest uppercase rounded text-white">
+                Nosso Cardapio
+            </h1>
+
+            {{-- <ul class="flex gap-3">
                 <li>
                     <button
                         class="inline-flex items-center p-2 text-white rounded-xl cursor-pointer transition-all hover:scale-95">
@@ -21,8 +25,8 @@
                         class="inline-flex items-center p-2 text-white rounded-xl cursor-pointer transition-all hover:scale-95">
                         <p class="font-semibold">Combos</p>
                     </button>
-                </li>
-            </ul>
+                </li> 
+            </ul> --}}
         </div>
     </div>
 
@@ -82,10 +86,11 @@
         @endforeach
     </div>
 
-    <div class="mx-6 my-7 bg-gray-50 rounded shadow-lg p-3">
-        <div class="py-1 mx-3 w-44">
-            <h1 class="text-3xl text-center font-semibold bg-indigo-500 p-1 rounded text-white">Promoções</h1>
-        </div>
+    <h1 class="text-2xl font-bold ml-3 tracking-widest uppercase w-44 rounded text-blue-500">
+        Promoções
+    </h1>
+
+    <div class="mx-6 my-7">
 
         @if ($encarte)
             <div wire:init="load" class="flex  flex-wrap gap-3 my-1 mx-5">
@@ -153,98 +158,47 @@
         @endif
     </div>
 
-    <div class="mx-6 my-7 bg-gray-50 rounded shadow-lg p-3">
-        <div class="flex justify-end py-1 mx-3">
-            <h1 class="text-3xl text-center font-semibold bg-red-500 p-1 w-44 rounded text-white">Combos</h1>
-        </div>
+    <h1 class="text-2xl font-bold ml-3 tracking-widest uppercase w-44 rounded text-orange-500">
+        Combos
+    </h1>
 
-        @if ($encarte)
+    <div class="mx-6 my-7">
+
+        @if ($combos)
             <div wire:init="load" class="flex  flex-wrap gap-3 my-1 mx-5">
-                @foreach ($encarte->produtos as $produto)
-                    <div
-                        class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                        <a href="#">
-                            <img class="p-8 rounded-t-lg" src="/docs/images/products/apple-watch.png"
-                                alt="Combo Imagem" />
-                        </a>
-                        <div class="px-5 pb-5">
-                            <a href="#">
-                                <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                    Apple
-                                    Watch Series 7 GPS, Aluminium Case, Starlight Sport
-                                </h5>
-                            </a>
-                            <div class="flex items-center mt-2.5 mb-5">
-                                <div class="flex items-center space-x-1 rtl:space-x-reverse">
-                                    <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                        <path
-                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                    </svg>
-                                    <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                        <path
-                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                    </svg>
-                                    <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                        <path
-                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                    </svg>
-                                    <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                        <path
-                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                    </svg>
-                                    <svg class="w-4 h-4 text-gray-200 dark:text-gray-600" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
-                                        <path
-                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                    </svg>
+                @foreach ($combos as $combo)
+                    <div class=" flex flex-col justify-center">
+                        <div class="py-3 sm:max-w-lg sm:mx-auto">
+                            <div
+                                class="bg-white shadow-lg border-gray-100 max-h-80 border sm:rounded-3xl p-8 flex space-x-8">
+                                <div class="h-48 overflow-visible w-1/2">
+                                    <img class="rounded-3xl shadow-lg"
+                                        src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/1LRLLWGvs5sZdTzuMqLEahb88Pc.jpg"
+                                        alt="">
                                 </div>
-                                <span
-                                    class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-3xl font-bold text-gray-900 dark:text-white">$599</span>
-
-                                <div class="flex items-center">
-                                    <button wire:click="removerItem({{ $produto->id }}, {{ '-1' }})"
-                                        class=" dark:text-blue-500">
-                                        <svg class="w-5 fill-current" viewBox="0 0 448 512">
-                                            <path
-                                                d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
-                                        </svg>
-                                    </button>
-
-
-                                    @foreach ($carrinho as $index => $item)
-                                        @if ($produto->id == $item['codigo'])
-                                            <input class="w-12 mx-2 p-1 text-center border rounded" type="text"
-                                                value="{{ $carrinho[$index]['quantidade'] }}">
-                                        @endif
-                                    @endforeach
-                                    @if ($carrinho == null)
-                                        <input class="w-12 mx-2 p-1 text-center border rounded" type="text"
-                                            value="0">
-                                    @endif
-
-                                    <button
-                                        wire:click="adicionarItem({{ $produto->id ?? '' }}, '{{ $produto->nome ?? '' }}', '{{ $produto->descricao ?? '' }}', 1 ,  '{{ $produto->valor_promocao ?? '' }}')"
-                                        class=" dark:text-blue-500">
-                                        <svg class="w-5 fill-current" viewBox="0 0 448 512">
-                                            <path
-                                                d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
-                                        </svg>
-                                    </button>
+                                <div class="flex flex-col w-1/2 space-y-4">
+                                    <div class="flex justify-between items-start">
+                                        <h2 class="text-2xl font-bold">{{ $combo->nome }}</h2>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm text-gray-400">Series</div>
+                                        <div class="text-lg text-gray-800">2019</div>
+                                    </div>
+                                    <p class=" text-gray-400 max-h-40 overflow-y-hidden">{{ $combo->descricao }}</p>
+                                    <div class="flex text-2xl font-bold text-a">
+                                        R${{ number_format($combo->valor_total, 2, ',') }}</div>
                                 </div>
+
                             </div>
                         </div>
+
                     </div>
                 @endforeach
             </div>
         @endif
     </div>
+
+
 
     <x-modal-detalhe>
         @slot('body')

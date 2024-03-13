@@ -26,8 +26,7 @@
                         </th>
                         <th class="px-4 py-3">
                             <div class="flex items-center cursor-pointer" wire:click="sortFilter('Cliente')">
-                                <button
-                                    class="text-xs font-medium leading-4 tracking-wider uppercase">Nome</button>
+                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Nome</button>
                                 @include('includes.icon-filter', ['field' => 'cliente'])
                             </div>
                         </th>
@@ -42,54 +41,58 @@
 
                         <th class="px-4 py-3">
                             <div class="flex items-center cursor-pointer" wire:click="sortFilter('Cliente')">
-                                <button
-                                    class="text-xs font-medium leading-4 tracking-wider uppercase">Valor do Combo</button>
+                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Valor do
+                                    Combo</button>
                                 @include('includes.icon-filter', ['field' => 'cliente'])
                             </div>
                         </th>
 
                         <th class="px-4 py-3">
                             <div class="flex items-center cursor-pointer" wire:click="sortFilter('Ativo')">
-                                <button
-                                    class="text-xs font-medium leading-4 tracking-wider uppercase">Ativo</button>
+                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Ativo</button>
                                 @include('includes.icon-filter', ['field' => 'ativo'])
                             </div>
                         </th>
-                        
+
                         <th class="px-4 py-3">Ações</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach ($combos as $combo)
-                        <tr wire:key="{{ $combo->id }}" class="text-gray-700 font-semibold dark:text-gray-400">
-                            <td class="px-4 py-3 text-sm">
+                        <tr wire:key="{{ $combo->id }}"
+                            class="text-gray-700 font-semibold text-sm dark:text-gray-400">
+                            <td class="px-4 py-2">
                                 #{{ $combo->id }}
                             </td>
 
-                            <td class="px-4 py-3 text-sm">
+                            <td class="px-4 py-2">
                                 {{ $combo->nome }}
                             </td>
 
-                            <td class="px-4 py-3 text-sm">
+                            <td class="px-4 py-2">
                                 {{ $combo->descricao }}
                             </td>
-                            
-                            <td class="px-4 py-3 text-sm">
-                                {{ $combo->valor_total }}
+
+                            <td class="px-4 py-2">
+                                R${{ number_format($combo->valor_total, 2, ',') }}
                             </td>
 
-                            <td class="px-4 py-3 text-sm">
+                            <td class="px-4 py-2">
                                 {{ $combo->ativo }}
                             </td>
 
-                            <td class="px-4 py-3">
+                            <td class="px-4 py-2">
                                 <div class="flex items-center space-x-2 text-sm">
-                                    <a href="{{ route('admin.produto.combos.show', ['codigo' => $combo->id]) }}" class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-105 dark:hover:text-blue-600 dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                    <a href="{{ route('admin.produto.combos.show', ['codigo' => $combo->id]) }}"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-105 dark:hover:text-blue-600 dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Edit">
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
-                                            </path>
+                                        <svg class="w-5 h-5" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z" />
+                                            <path fill-rule="evenodd"
+                                                d="M21.707 21.707a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 0 1 1.414-1.414l3.5 3.5a1 1 0 0 1 0 1.414Z"
+                                                clip-rule="evenodd" />
                                         </svg>
                                     </a>
                                 </div>

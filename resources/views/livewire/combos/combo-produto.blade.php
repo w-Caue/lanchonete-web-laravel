@@ -1,18 +1,42 @@
 <div>
-    <div class="text-sm font-semibold p-2 bg-gray-800 rounded">
+    <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
 
         <div class="grid grid-cols-3 gap-2">
             <div class="col-span-2">
-                <h1 class="text-lg text-blue-500"># {{ $combo->id }}</h1>
-                <h1 class="text-xl font-semibold dark:text-gray-300">{{ $combo->descricao ?? 'Sem Descrição' }}</h1>
+                <div class=" mt-2">
+
+                    <div class="flex justify-between">
+                        <label for="">
+                            <p class="text-sm font-semibold uppercase text-gray-100">Codigo</p>
+                            <input wire:model="form.codigo"
+                                class="p-1 pl-2 w-20 text-sm text-gray-600 font-semibold rounded shadow-sm bg-white dark:bg-gray-700 dark:text-white"
+                                type="text">
+                        </label>
+
+                        {{-- <label class="flex items-center gap-1 ml-5">
+                            <input wire:model="form.ecommerce"
+                                class="h-[1.125rem] w-[1.125rem] appearance-none rounded-[0.25rem] border-[0.125rem] border-solid border-neutral-300 outline-none before:pointer-events-none before:absolute before:h-[0.875rem] before:w-[0.875rem] before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] checked:border-blue-600 checked:bg-blue-600 checked:before:opacity-[0.16] checked:after:absolute checked:after:-mt-px checked:after:ml-[0.25rem] checked:after:block checked:after:h-[0.8125rem] checked:after:w-[0.375rem] checked:after:rotate-45 checked:after:border-[0.125rem] checked:after:border-l-0 checked:after:border-t-0 checked:after:border-solid checked:after:border-white checked:after:bg-transparent checked:after:content-[''] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:after:-mt-px checked:focus:after:ml-[0.25rem] checked:focus:after:h-[0.8125rem] checked:focus:after:w-[0.375rem] checked:focus:after:rotate-45 checked:focus:after:rounded-none checked:focus:after:border-l-0 checked:focus:after:border-t-0 checked:focus:after:border-white"
+                                type="checkbox" value="S" />
+
+                            <span class="text-sm font-semibold uppercase text-gray-100">Ecommerce</span>
+                        </label> --}}
+                    </div>
+
+                    <label class="my-2">
+                        <p class="text-sm font-semibold uppercase text-gray-100">Nome</p>
+                        <x-input wire:model="form.nome" class="w-full"></x-input>
+                    </label>
+
+                    <label class="my-2">
+                        <p class="text-sm font-semibold uppercase text-gray-100">Decrição</p>
+                        <x-input wire:model="form.descricao" class="w-full"></x-input>
+                    </label>
+                </div>
             </div>
-
-            <div class="flex justify-end w-full">
-                <div class="flex flex-col items-end justify-between w-40 mt-2">
-                    <h1 class="text-gray-500 mb-1">{{ date('d/m/Y', strtotime($combo->created_at)) }}</h1>
-
+            <div>
+                <div class="flex items-center justify-center w-full mt-2">
                     <label for="dropzone-file"
-                        class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                        class="flex flex-col items-center justify-center w-full h-44 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6 text-gray-500">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke-width="1.5" stroke="currentColor" class="w-8 h-8 mb-4">
@@ -31,117 +55,126 @@
             </div>
 
         </div>
-        <label class="my-1">
-            <h1 class="text-lg text-gray-200"></h1>
-        </label>
 
-    </div>
+        <div>
+            @if ($combo->ativo == 'N')
+                <button x-data x-on:click="$dispatch('open-modal')"
+                    class="flex gap-1 mt-2 text-white bg-blue-500 hover:bg-indigo-500 font-medium rounded text-md p-2 transition-all hover:scale-95">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path
+                            d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375Z" />
+                        <path fill-rule="evenodd"
+                            d="m3.087 9 .54 9.176A3 3 0 0 0 6.62 21h10.757a3 3 0 0 0 2.995-2.824L20.913 9H3.087ZM12 10.5a.75.75 0 0 1 .75.75v4.94l1.72-1.72a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 1 1 1.06-1.06l1.72 1.72v-4.94a.75.75 0 0 1 .75-.75Z"
+                            clip-rule="evenodd" />
+                    </svg>
 
-    <div class="flex justify-between">
-        @if (true)
-            <button x-data x-on:click="$dispatch('open-modal')"
-                class="flex gap-1 mt-2 text-white bg-blue-500 hover:bg-indigo-500 font-medium rounded text-md p-1 transition-all hover:scale-95">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                    <path
-                        d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375Z" />
-                    <path fill-rule="evenodd"
-                        d="m3.087 9 .54 9.176A3 3 0 0 0 6.62 21h10.757a3 3 0 0 0 2.995-2.824L20.913 9H3.087ZM12 10.5a.75.75 0 0 1 .75.75v4.94l1.72-1.72a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 1 1 1.06-1.06l1.72 1.72v-4.94a.75.75 0 0 1 .75-.75Z"
-                        clip-rule="evenodd" />
-                </svg>
-
-                Adicionar Produto
-            </button>
-        @endif
-
-        <button x-on:click="$dispatch('open-detalhe', { name : 'ativar' })"
-            class="flex gap-1 mt-2 text-white bg-purple-500 hover:bg-purple-700 font-medium rounded text-md p-1 transition-all hover:scale-95">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                <path fill-rule="evenodd"
-                    d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                    clip-rule="evenodd" />
-            </svg>
-
-            Ativar Combo
-        </button>
-    </div>
-
-    <div class="w-full mt-2 overflow-hidden rounded-lg shadow-xs hidden sm:block">
-        <div class="w-full overflow-x-auto">
-            <table class="w-full whitespace-no-wrap">
-                <thead>
-                    <tr
-                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-3 py-2">
-                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('id')">
-                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Cod</button>
-                                @include('includes.icon-filter', ['field' => 'id'])
-                            </div>
-                        </th>
-                        <th class="px-3 py-2">
-                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('Nome')">
-                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Nome</button>
-                                @include('includes.icon-filter', ['field' => 'nome'])
-                            </div>
-                        </th>
-
-                        <th class="px-3 py-2">
-                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('Preco')">
-                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Preço</button>
-                                @include('includes.icon-filter', ['field' => 'preco'])
-                            </div>
-                        </th>
-                        <th class="px-3 py-2">Ações</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    @foreach ($combo->produtos as $produto)
-                        <tr wire:key="{{ $produto->id }}" class="text-gray-700 font-semibold dark:text-gray-400">
-                            <td class="px-2 py-3 text-sm">
-                                #{{ $produto->id }}
-                            </td>
-
-                            <td class="px-2 py-3">
-                                <p class="">{{ $produto->nome }}</p>
-                            </td>
-
-                            <td class="px-2 py-3 text-xs">
-                                <span
-                                    class="px-2 py-1 font-semibold leading-tight text-green-500 bg-green-100 rounded-full dark:bg-green-700 dark:text-blue-100">
-                                    R${{ number_format($produto->preco, 2, ',', '.') }}
-                                </span>
-                            </td>
-
-                            <td class="px-2 py-3">
-                                <div class="flex items-center space-x-2 text-sm">
-                                    @if (true)
-                                        <button wire:click="removerProduto({{ $produto->id }})"
-                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-95 dark:hover:text-blue-600
-                                         dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                            aria-label="Delete">
-                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-                                                viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                        </button>
-                                    @endif
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr
-                        class="font-semibold text-gray-500 border-t dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="text-base">Total</th>
-                        <td class="px-6 py-3">{{ $countProdutos }}</td>
-                        <td class="px-2 py-3">R${{ number_format($totalProdutos, 2, ',', '.') }}</td>
-                        <td class="px-6 py-3"></td>
-                    </tr>
-                </tfoot>
-            </table>
+                    Adicionar
+                </button>
+            @endif
         </div>
+
+        <div class="w-full mt-5 overflow-hidden rounded-lg shadow-xs hidden sm:block">
+            <div class="w-full overflow-x-auto">
+                <table class="w-full whitespace-no-wrap">
+                    <thead>
+                        <tr
+                            class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-600 bg-gray-50 dark:text-gray-300 dark:bg-gray-700">
+                            <th class="px-3 py-2">
+                                <div class="flex items-center cursor-pointer" wire:click="sortFilter('id')">
+                                    <button class="text-xs font-medium leading-4 tracking-wider uppercase">Cod</button>
+                                    @include('includes.icon-filter', ['field' => 'id'])
+                                </div>
+                            </th>
+                            <th class="px-3 py-2">
+                                <div class="flex items-center cursor-pointer" wire:click="sortFilter('Nome')">
+                                    <button class="text-xs font-medium leading-4 tracking-wider uppercase">Nome</button>
+                                    @include('includes.icon-filter', ['field' => 'nome'])
+                                </div>
+                            </th>
+
+                            <th class="px-3 py-2">
+                                <div class="flex items-center cursor-pointer" wire:click="sortFilter('Preco')">
+                                    <button
+                                        class="text-xs font-medium leading-4 tracking-wider uppercase">Preço</button>
+                                    @include('includes.icon-filter', ['field' => 'preco'])
+                                </div>
+                            </th>
+                            <th class="px-3 py-2">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y dark:divide-gray-600 dark:bg-gray-700">
+                        @foreach ($combo->produtos as $produto)
+                            <tr wire:key="{{ $produto->id }}"
+                                class="text-gray-700 text-sm font-semibold dark:text-gray-300">
+                                <td class="px-2 py-2">
+                                    #{{ $produto->id }}
+                                </td>
+
+                                <td class="px-2 py-2">
+                                    <p class="">{{ $produto->nome }}</p>
+                                </td>
+
+                                <td class="px-2 py-2">
+                                    <span
+                                        class="px-2 py-1 font-semibold leading-tight text-green-500 bg-green-100 rounded-full dark:bg-green-700 dark:text-blue-100">
+                                        R${{ number_format($produto->preco, 2, ',', '.') }}
+                                    </span>
+                                </td>
+
+                                <td class="px-2 py-2">
+                                    <div class="flex items-center space-x-2">
+                                        @if (true)
+                                            <button wire:click="removerProduto({{ $produto->id }})"
+                                                class="flex items-center justify-between px-2 py-2 font-medium leading-5 text-blue-600 rounded-lg hover:scale-95 dark:hover:text-blue-600
+                                             dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                aria-label="Delete">
+                                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
+                                                    viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd"
+                                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                            </button>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr
+                            class="font-semibold text-sm text-gray-500 border-t dark:border-gray-600 bg-gray-50 dark:text-gray-400 dark:bg-gray-700">
+                            <th class="">Total</th>
+                            <td class="px-2 py-2">{{ $countProdutos }}</td>
+                            <td class="px-2 py-2">R${{ number_format($totalProdutos, 2, ',', '.') }}</td>
+                            <td class="px-2 py-2"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="flex gap-3 mt-4">
+            <button wire:click="update()"
+                class="text-white bg-green-600 hover:bg-green-700 font-medium rounded text-sm px-3 py-2 transition-all hover:scale-95"
+                type="button">
+                Salvar
+            </button>
+
+            @if ($combo->ativo == 'N')
+                <button x-on:click="$dispatch('open-detalhe', { name : 'ativar' })"
+                    class="flex gap-1 text-white bg-purple-500 hover:bg-purple-700 font-medium rounded text-sm px-3 py-2 transition-all hover:scale-95">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd"
+                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
+                            clip-rule="evenodd" />
+                    </svg>
+
+                    Ativar Combo
+                </button>
+            @endif
+        </div>
+
     </div>
 
     <x-modal title="Produtos">
