@@ -30,7 +30,7 @@ class ProdutoForm extends Form
     {
         $this->validate();
 
-        if ($this->ecommerce == true) {
+        if ($this->ecommerce != Null) {
             $this->ecommerce = 'S';
         } else {
             $this->ecommerce = 'N';
@@ -48,5 +48,4 @@ class ProdutoForm extends Form
             'tipo_ecommerce' => $this->ecommerce,
         ]);
     }
-
 }

@@ -5,9 +5,12 @@ namespace App\Livewire\Produtos;
 use App\Livewire\Forms\CadastroProdutoForm;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class CadastroCompleto extends Component
 {
+    use WithFileUploads;
+
     use LivewireAlert;
 
     public CadastroProdutoForm $form;
