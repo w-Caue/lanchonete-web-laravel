@@ -70,7 +70,6 @@ class ListaProdutos extends Component
     public function combo()
     {
         $this->combos = Combo::where('ativo', 'S')->get();
-
     }
 
     public function produto($codigo)

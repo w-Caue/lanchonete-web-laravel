@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        {{-- @include('layouts.ecommerce.ecommerce-footer') --}}
+        @include('layouts.ecommerce.ecommerce-footer')
     </div>
 
     @livewireScripts
