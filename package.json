@@ -19,6 +19,7 @@
     "dependencies": {
         "alpinejs": "^3.13.2",
         "sortablejs": "^1.15.2",
-        "sweetalert2": "^11.7.32"
+        "sweetalert2": "^11.7.32",
+        "swiper": "^11.1.1"
     }
 }

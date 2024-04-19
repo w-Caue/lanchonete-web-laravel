@@ -1,8 +1,7 @@
 import './bootstrap';
 
-
-import Sortable from 'sortablejs';
-window.Sortable = Sortable;
+import Swiper from 'swiper/bundle';
+window.Swiper = Swiper;
 
 import Alpine from 'alpinejs'
 window.Alpine = Alpine;

@@ -54,7 +54,7 @@
         </div>
     </nav>
 
-    <article class="bg-purple-900">
+    <article class="element-animation bg-purple-900">
         <nav class="flex justify-center items-center gap-7 p-3" id="mobile-menu-2">
             <ul
                 class="flex flex-col mt-4 text-sm font-medium tracking-widest text-white uppercase lg:flex-row lg:space-x-8 lg:mt-0">

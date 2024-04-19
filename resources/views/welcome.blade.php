@@ -11,8 +11,10 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-    @vite('resources/css/app.css')
-    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
+    <link rel="stylesheet" href="{{ asset('css/swiper-bundle.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+
+    @vite('resources/css/app.css', 'resources/js/app.js')
 
 </head>
 
@@ -39,13 +41,13 @@
             </div>
         </div>
     </section>
-    <!-- End block -->
+    
+
     <!-- Start block -->
-    <section class="bg-gray-50 dark:bg-gray-900">
-        <div class="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-16">
-            <div
-                class="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 sm:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
-                <a href="#" class="flex items-center lg:justify-center">
+    <div class="bg-gray-50 p-4">
+        <div class="card__content overflow-hidden">
+            <div class="swiper-wrapper text-gray-500">
+                <a href="#" class="swiper-slide flex items-center lg:justify-center">
                     <svg class="h-9 hover:text-gray-900 dark:hover:text-white" viewBox="0 0 125 35" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -53,7 +55,7 @@
                             fill="currentColor" />
                     </svg>
                 </a>
-                <a href="#" class="flex items-center lg:justify-center">
+                <a class="swiper-slide flex items-center lg:justify-center">
                     <svg class="h-9 hover:text-gray-900 dark:hover:text-white" viewBox="0 0 86 29" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -61,7 +63,7 @@
                             fill="currentColor" />
                     </svg>
                 </a>
-                <a href="#" class="flex items-center lg:justify-center">
+                <a class="swiper-slide flex items-center lg:justify-center">
                     <svg class="h-8 hover:text-gray-900 dark:hover:text-white" viewBox="0 0 151 34" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_3753_27919)">
@@ -78,7 +80,7 @@
                     </svg>
                 </a>
 
-                <a href="#" class="flex items-center lg:justify-center">
+                <a class="swiper-slide flex items-center lg:justify-center">
                     <svg class="h-9 hover:text-gray-900 dark:hover:text-white" viewBox="0 0 124 38" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -86,7 +88,7 @@
                             fill="currentColor" />
                     </svg>
                 </a>
-                <a href="#" class="flex items-center lg:justify-center">
+                <a class="swiper-slide flex items-center lg:justify-center">
                     <svg class="h-9 hover:text-gray-900 dark:hover:text-white" viewBox="0 0 137 37" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -143,7 +145,7 @@
                             fill="currentColor" />
                     </svg>
                 </a>
-                <a href="#" class="flex items-center lg:justify-center">
+                <a class="swiper-slide flex items-center lg:justify-center">
                     <svg class="h-6 hover:text-gray-900 dark:hover:text-white" viewBox="0 0 124 21" fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -173,7 +175,7 @@
                 </a>
             </div>
         </div>
-    </section>
+    </div>
 
     <section>
         @livewire('Ecommerce.Produtos.ListaProdutos')
@@ -308,7 +310,10 @@
     </section> --}}
     <!-- End block -->
 
-    @include('layouts.ecommerce.ecommerce-footer')
+    {{-- @include('layouts.ecommerce.ecommerce-footer') --}}
 </body>
+
+<script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
 
 </html>
