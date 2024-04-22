@@ -40,7 +40,7 @@ class ListaProdutos extends Component
 
         $this->encarte();
 
-        $this->combo();
+        // $this->combo();
     }
 
     public function dados()
@@ -67,10 +67,10 @@ class ListaProdutos extends Component
         $this->encarte = Encarte::where('ativo', 'S')->get()->first();
     }
 
-    public function combo()
-    {
-        $this->combos = Combo::where('ativo', 'S')->get();
-    }
+    // public function combo()
+    // {
+    //     $this->combos = Combo::where('ativo', 'S')->get();
+    // }
 
     public function produto($codigo)
     {

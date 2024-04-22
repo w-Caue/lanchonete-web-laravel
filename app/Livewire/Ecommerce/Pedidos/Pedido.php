@@ -22,8 +22,6 @@ class Pedido extends Component
     public function mount()
     {
         $this->carrinho = session()->get('carrinho');
-
-        // dd(session()->all());
         $this->atualizar();
     }
 

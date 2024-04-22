@@ -59,8 +59,8 @@ class CadastroProdutoForm extends Form
         $this->preco = str_replace(',', '.', $this->preco);
         $this->preco = floatval($this->preco);
 
-        $name = $this->imagem->getClientOriginalName();
-        $path = $this->imagem->storeAs('imagens', $name, 'public');
+        // $name = $this->imagem->getClientOriginalName();
+        // $path = $this->imagem->storeAs('imagens', $name, 'public');
 
         if ($this->ecommerce) {
             $this->ecommerce = 'S';
@@ -74,7 +74,7 @@ class CadastroProdutoForm extends Form
             'marca_id' => $this->marca,
             'grupo_id' => $this->grupo,
             'tipo_ecommerce' => $this->ecommerce,
-            'imagem' => $path,
+            // 'imagem' => $path,
 
         ]);
     }
