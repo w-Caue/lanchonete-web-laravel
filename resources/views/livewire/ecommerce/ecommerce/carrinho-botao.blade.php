@@ -1,17 +1,5 @@
-{{-- <div>
-    <a href="{{ route('ecommerce.pedido') }}"
-        class="flex gap-1 text-white bg-blue-500 font-semibold rounded-full text-md p-3 text-center transition-all hover:scale-95">
-        <svg class="w-7 h-7" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-            <path fill-rule="evenodd"
-                d="M4 4c0-.6.4-1 1-1h1.5c.5 0 .9.3 1 .8L7.9 6H19a1 1 0 0 1 1 1.2l-1.3 6a1 1 0 0 1-1 .8h-8l.2 1H17a3 3 0 1 1-2.8 2h-2.4a3 3 0 1 1-4-1.8L5.7 5H5a1 1 0 0 1-1-1Z"
-                clip-rule="evenodd" />
-        </svg>
-    </a>
-</div> --}}
-
 <div class="">
-    {{--  --}}
-    <button x-cloak x-on:click="openCarrinho = !openCarrinho" 
+    <button x-cloak x-on:click="openCarrinho = !openCarrinho"
         class="relative inline-flex items-center p-2 m-1 font-semibold text-white align-middle duration-300 bg-purple-800 rounded-full transition-all cursor-pointer text-md hover:scale-95">
         <svg class="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
             <path fill-rule="evenodd"
@@ -22,8 +10,7 @@
         {{-- @if ($totalItens != 0) --}}
         <span aria-hidden="true" title="Adicionar ao carrinho"
             class="absolute top-0 right-0 inline-block w-5 h-5 text-xs text-center text-white transform translate-x-1 -translate-y-1 bg-blue-500 border-2 border-white rounded-full">
-            {{-- {{ $totalItens }} --}}
-            0
+            {{ $totalItens }}
         </span>
         {{-- @endif --}}
     </button>
@@ -51,11 +38,12 @@
                             </div>
                             <div class="flex flex-col justify-start w-full mx-2">
                                 <span
-                                    class="text-xs uppercase tracking-wider font-semibold text-gray-600">{{ $produto['descricao'] }}</span>
-                                {{-- <span class="text-xs">{{ $produto['marca'] }}</span> --}}
+                                    class="text-xs uppercase tracking-wider font-semibold text-gray-600">{{ $produto['nome'] }}</span>
+                                <span class="text-xs">{{ $produto['descricao'] }}</span>
                             </div>
 
-                            <button wire:click="remover({{ $produto['codigo'] }})" class="text-xs font-semibold text-left text-red-500 hover:text-red-600">
+                            <button wire:click="remover({{ $produto['codigo'] }})"
+                                class="text-xs font-semibold text-left text-red-500 hover:text-red-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="2" stroke="currentColor" class="w-5 h-5">
                                     <path stroke-linecap="round" stroke-linejoin="round"

@@ -22,58 +22,52 @@ class CarrinhoBotao extends Component
     public function mount()
     {
         $this->carrinho = session()->get('carrinho');
+        $this->atualizar();
     }
 
     public function adicionarItem($codigo, $nome, $descricao, $quantidade, $preco)
     {
-        if ($this->pedidoEcommerce == null) {
-            $novo = true;
 
-            foreach ($this->carrinho as $index => $item) {
-                if ($codigo == $item['codigo']) {
-                    //Produto já está no carrinho, só somar a quantidade
-                    $this->carrinho[$index]['quantidade'] += $quantidade;
-                    $this->carrinho[$index]['codigo'] = $codigo;
-                    $this->carrinho[$index]['preco'] = $preco;
-                    $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
-                    $this->carrinho[$index]['descricao'] = $descricao;
+        $novo = true;
 
-                    $novo = false;
-                }
+        foreach ($this->carrinho as $index => $item) {
+            if ($codigo == $item['codigo']) {
+                //Produto já está no carrinho, só somar a quantidade
+                $this->carrinho[$index]['quantidade'] += $quantidade;
+                $this->carrinho[$index]['codigo'] = $codigo;
+                $this->carrinho[$index]['preco'] = $preco;
+                $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
+                $this->carrinho[$index]['descricao'] = $descricao;
+
+                $novo = false;
             }
+        }
 
-            if ($novo) {
-                $novoItem = array(
-                    'codigo' => $codigo,
-                    'nome' => $nome,
-                    'descricao' => $descricao,
-                    'quantidade' => $quantidade,
-                    'preco' => $preco,
-                    'total' => $preco * $quantidade,
-                );
-                array_push($this->carrinho, $novoItem);
-            }
+        if ($novo) {
+            $novoItem = array(
+                'codigo' => $codigo,
+                'nome' => $nome,
+                'descricao' => $descricao,
+                'quantidade' => $quantidade,
+                'preco' => $preco,
+                'total' => $preco * $quantidade,
+            );
+            array_push($this->carrinho, $novoItem);
+        }
 
-            session()->put('carrinho', $this->carrinho);
+        session()->put('carrinho', $this->carrinho);
+        $this->atualizar();
 
-            if ($codigo) {
-                $this->alert('success', 'Item Adicionado!', [
-                    'position' => 'center',
-                    'timer' => 1000,
-                    'toast' => true,
-                ]);
-
-                $this->dispatch('close-detalhe');
-
-                return;
-            }
-        } else {
-            $this->alert('info', 'Não é possivel adicionar mais itens!', [
+        if ($codigo) {
+            $this->alert('success', 'Item Adicionado!', [
                 'position' => 'center',
-                'text' => 'seu pedido já esta sendo preparado',
-                'timer' => 2000,
-                'toast' => false,
+                'timer' => 1000,
+                'toast' => true,
             ]);
+
+            $this->dispatch('close-detalhe');
+
+            return;
         }
     }
 
@@ -110,6 +104,7 @@ class CarrinhoBotao extends Component
         }
 
         session()->put('carrinho', $this->carrinho);
+        $this->atualizar();
 
         $this->alert('success', 'Item Removido!', [
             'position' => 'center',
@@ -121,13 +116,13 @@ class CarrinhoBotao extends Component
     public function atualizar()
     {
         foreach ($this->carrinho as $index => $item) {
-            $this->totalItens = sizeof($this->carrinho);
             $this->valorTotal += $this->carrinho[$index]['total'];
-
+            
             if ($this->carrinho[$index]['quantidade'] == 0) {
                 unset($this->carrinho[$index]);
             }
         }
+        $this->totalItens = sizeof($this->carrinho);
 
         session()->put('carrinho', $this->carrinho);
     }
