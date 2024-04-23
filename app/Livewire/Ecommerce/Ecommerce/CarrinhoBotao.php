@@ -115,14 +115,16 @@ class CarrinhoBotao extends Component
 
     public function atualizar()
     {
-        foreach ($this->carrinho as $index => $item) {
-            $this->valorTotal += $this->carrinho[$index]['total'];
-            
-            if ($this->carrinho[$index]['quantidade'] == 0) {
-                unset($this->carrinho[$index]);
+        if ($this->carrinho) {
+            foreach ($this->carrinho as $index => $item) {
+                $this->valorTotal += $this->carrinho[$index]['total'];
+
+                if ($this->carrinho[$index]['quantidade'] == 0) {
+                    unset($this->carrinho[$index]);
+                }
             }
+            $this->totalItens = sizeof($this->carrinho);
         }
-        $this->totalItens = sizeof($this->carrinho);
 
         session()->put('carrinho', $this->carrinho);
     }

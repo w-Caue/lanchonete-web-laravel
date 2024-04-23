@@ -15,6 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 
     @livewireStyles
 
@@ -25,7 +26,7 @@
     <div class="flex flex-col h-screen" :class="{ 'overflow-hidden': isSideMenuOpen }">
         @include('layouts.ecommerce.ecommerce-nav')
 
-        <div class="flex flex-col flex-1 w-full">
+        <div class="flex flex-col flex-1 w-full my-16">
             <div class="mt-2">
                 @yield('content')
             </div>
@@ -37,6 +38,7 @@
     @livewireScripts
     
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
 
     <x-livewire-alert::scripts />
 

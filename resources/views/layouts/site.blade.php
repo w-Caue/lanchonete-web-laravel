@@ -59,8 +59,9 @@
     @yield('content')
 
     @livewireScripts
-    
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('js/alpine.js') }}"></script>
 
     <x-livewire-alert::scripts />
 </body>

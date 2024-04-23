@@ -15,7 +15,7 @@
         {{-- @endif --}}
     </button>
 
-    <div x-cloak x-show="openCarrinho" class="absolute my-4 right-10 z-20 px-3 w-96 bg-white border rounded shadow-xl">
+    <div x-cloak x-show="openCarrinho" @click.outside="openCarrinho=false" @keydown.escape="openCarrinho=false" class="absolute my-4 right-10 z-20 px-3 w-96 bg-white border rounded shadow-xl">
 
         <h1 class="text-md font-semibold uppercase text-center text-purple-800 tracking-widest mb-4">Itens Adicionados
         </h1>

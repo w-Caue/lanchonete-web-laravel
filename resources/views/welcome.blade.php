@@ -33,9 +33,10 @@
     <section class="bg-white mt-16">
         <div class="grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28">
             <div class="mr-auto place-self-center lg:col-span-7">
+                <p class="text-2xl font-bold tracking-tight text-purple-700">Sabor em Cada Mordida</p>
                 <h1
                     class="max-w-2xl mb-4 text-gray-800 text-4xl font-extrabold leading-none tracking-tight md:text-4xl xl:text-6xl">
-                    Sabor em Cada Mordida: Pizzas e Hambúrgueres Irresistíveis <br></h1>
+                    Pizzas e Hambúrgueres Irresistíveis <br></h1>
                 <p class="max-w-2xl font-light text-gray-500 md:text-lg lg:text-xl">
                     Explore a delícia em nosso menu! Pizzas cheias de sabor e hambúrgueres suculentos - [Nome da
                     Lanchonete] é o paraíso para quem ama uma boa mordida. Ingredientes frescos, combinações únicas e
@@ -336,6 +337,7 @@
 
         return {
             openCarrinho: false,
+            openUser: false,
         }
     }
 </script>
