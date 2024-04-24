@@ -1,12 +1,19 @@
 <div>
-    <div class="flex flex-col justify-center my-10 mx-7 md:flex-row">
-        <div class="w-full px-10 py-10 rounded-lg shadow-lg bg-white md:w-2/3">
-            <div class="flex justify-between pb-8 border-b">
-                <h1 class="text-2xl font-semibold">Sua Localização</h1>
-                <h2 class="text-2xl font-semibold">Entrega</h2>
+    <div class="flex flex-col items-start gap-5 my-10 mx-7 md:flex-row">
+        <div class="w-full md:w-2/3">
+            <div class="flex justify-around pb-8 border-b">
+                <button
+                    class="flex justify-center py-3 px-5 text-md font-semibold text-center text-white uppercase rounded bg-purple-700">
+                    Retirada no local
+                </button>
+
+                <button
+                    class="flex justify-center py-3 px-5 text-md font-semibold text-center text-gray-300 uppercase border rounded border-gray-300 bg-white hover:text-white transition-all delay-100 hover:bg-blue-500 hover:border-blue-500">
+                    Retirada
+                </button>
             </div>
 
-            <div class="">
+            <div class="px-10 py-5 rounded-md shadow-md bg-white">
                 <div action="" class="mt-2">
                     <div class="flex gap-1 sm:gap-2 flex-wrap">
                         <label class="">
@@ -34,8 +41,9 @@
                                 {{ __('Endereço') }}
                             </p>
 
-                            <input wire:model.defer="endereco" 
-                                class=" w-86 font-semibold text-gray-700 border-2 rounded py-3 px-4 mb-3" id="endereco">
+                            <input wire:model.defer="endereco"
+                                class=" w-86 font-semibold text-gray-700 border-2 rounded py-3 px-4 mb-3"
+                                id="endereco">
 
                         </label>
 
@@ -86,35 +94,30 @@
                     </div>
 
                 </div>
-            </div>
-            <div class="w-full flex justify-center items-end ">
-                @if ($localizacao == null)
-                    <button wire:click="salvar()"
-                        class="flex justify-center w-44 py-3 mt-4 text-sm font-semibold text-center text-blue-500 uppercase border border-blue-500 bg-white-500 cursor-pointer">
-                        Salvar
-                    </button>
-                @endif
+
+                <div class="w-full flex justify-center items-end ">
+                    @if ($localizacao == null)
+                        <button wire:click="salvar()"
+                            class="flex justify-center w-44 py-3 mt-4 text-sm font-semibold text-center text-blue-500 uppercase border border-blue-500 bg-white-500 cursor-pointer">
+                            Salvar
+                        </button>
+                    @endif
+                </div>
             </div>
         </div>
-        <div id="summary" class="w-full px-8 py-10 rounded-r bg-gray-800 md:w-1/4">
-            <div class="mt-8 border-t">
 
-                @if ($localizacao != null)
-                    <a href="{{ route('ecommerce.concluir') }}"
-                        class="flex justify-center w-full py-3 text-sm font-semibold text-center text-white uppercase hover:opacity-75">
-                        Concluir Pedido
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </svg>
-                    </a>
-                @endif
 
-                <a href="{{ route('ecommerce.produtos') }}"
-                    class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-blue-500 uppercase border border-blue-500 bg-white-500">
-                    Voltar à loja
-                </a>
-            </div>
+        <div class="w-full h-auto px-8 py-10 rounded-md shadow-md bg-white md:w-1/3">
+            <a href="{{ route('ecommerce.cliente') }}"
+                class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-white uppercase rounded bg-purple-700">
+                Fechar Carrinho
+            </a>
+
+            <a href="{{ route('ecommerce.produtos') }}"
+                class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-gray-300 uppercase border rounded border-gray-300 bg-white hover:text-white transition-all delay-100 hover:bg-blue-500 hover:border-blue-500">
+                Voltar à loja
+            </a>
         </div>
+
     </div>
 </div>

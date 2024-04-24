@@ -185,9 +185,9 @@
     </div>
 
     <section>
-        @livewire('Ecommerce.Produtos.ListaProdutos')
+        @include('ecommerce.index')
     </section>
-    <!-- End block -->
+
     <!-- Start block -->
     {{-- <section class="bg-gray-50 dark:bg-gray-800">
         <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
@@ -318,8 +318,6 @@
     <!-- End block -->
 
     @include('layouts.ecommerce.ecommerce-footer')
-
-
 
     <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>

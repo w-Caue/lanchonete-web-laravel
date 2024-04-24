@@ -84,5 +84,8 @@
             @livewire('Ecommerce.Ecommerce.CarrinhoBotao')
         </div>
     </nav>
+    <article class="p-6 bg-purple-900">
+
+    </article>
 
 </heade>

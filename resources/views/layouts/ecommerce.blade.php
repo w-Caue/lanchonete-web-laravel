@@ -19,10 +19,10 @@
 
     @livewireStyles
 
-    @vite('resources/css/app.css', 'resources/js/alpine/start.js')
+    @vite('resources/css/app.css')
 </head>
 
-<body>
+<body class="bg-gray-200">
     <div class="flex flex-col h-screen" :class="{ 'overflow-hidden': isSideMenuOpen }">
         @include('layouts.ecommerce.ecommerce-nav')
 

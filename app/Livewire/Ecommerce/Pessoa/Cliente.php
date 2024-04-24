@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Ecommerce\Pessoa;
 
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Cliente extends Component
@@ -16,8 +17,9 @@ class Cliente extends Component
 
     public function mount()
     {
-        $this->cliente = session()->get('cliente');
-        $this->atualizar();
+        if (Auth::check()) {
+            return redirect()->route('ecommerce.localizacao');
+        }
     }
 
     public function salvar()

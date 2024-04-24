@@ -1,23 +1,15 @@
 <div>
 
-    <div class="flex flex-col my-10 mx-7 shadow-md md:flex-row">
+    <div class="flex flex-col items-start gap-5 my-10 mx-7 md:flex-row">
 
-        <div class="w-full px-10 py-10 rounded-l bg-white dark:bg-gray-700 md:w-3/4">
-            <div class="flex justify-between pb-8 border-b dark:text-white">
-                <h1 class="text-2xl font-semibold">Carrinho</h1>
-                <h2 class="text-2xl font-semibold">{{ $totalItens ?? '' }} Itens</h2>
-            </div>
-            <div class="flex justify-between mt-5 dark:text-white">
-                <h3 class="w-2/5 text-xs font-semibold uppercase">Detalhe</h3>
-                <h3 class="w-1/5 text-xs font-semibold text-center uppercase">Quantidade</h3>
-                <h3 class="w-1/5 text-xs font-semibold text-center uppercase">Total</h3>
-            </div>
+        <div class="w-full px-10 py-5 rounded-md shadow-md bg-white md:w-2/3">
+
             @foreach ($carrinho as $produto)
-                <div class="flex justify-between p-4 -mx-8">
+                <div class="relative flex justify-between items-center p-2 -mx-8 my-1 ">
                     <div class="flex w-2/5">
                         <!-- product -->
                         <div class="w-20">
-                            <div class="relative flex justify-center h-24 overflow-hidden rounded ">
+                            <div class="relative flex justify-center h-20 overflow-hidden rounded ">
                                 {{-- @livewire('tenant.produto.foto-produto', ['codSeqProduto' => $produto['codSeq']], key($produto['codSeq'])) --}}
                                 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1"
                                     viewBox="0 0 24 24">
@@ -26,91 +18,76 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="flex flex-col justify-between flex-grow ml-4">
-                            <span class="text-sm font-semibold text-blue-500">{{ $produto['descricao'] ?? '' }}</span>
+                        <div class="flex flex-col justify-center ml-4">
                             <span
-                                class="text-md font-bold text-gray-700 dark:text-white">{{ $produto['nome'] ?? '' }}</span>
-                            <span class="text-sm font-semibold text-blue-500">#{{ $produto['codigo'] ?? '' }}</span>
+                                class="text-sm tracking-widest font-semibold uppercase text-gray-600">{{ $produto['nome'] ?? '' }}</span>
+                            <span
+                                class="text-sm tracking-widest font-semibold text-purple-700">{{ $produto['descricao'] ?? '' }}</span>
                             <span
                                 class="text-md font-semibold text-green-500">R${{ number_format($produto['preco'], 2, ',') }}
                             </span>
-                            <button wire:click="remover({{ $produto['codigo'] }})"
-                                class="text-xs font-semibold text-left text-red-500 hover:text-red-600">Remover</button>
+
+
                         </div>
                     </div>
                     <div class="flex justify-center w-1/5 my-auto">
-                        <button wire:click="removerItem({{ $produto['codigo'] }}, {{ '-1' }})"
-                            class=" dark:text-blue-500">
-                            <svg class="w-5 fill-current" viewBox="0 0 448 512">
-                                <path
-                                    d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
+                        <button wire:click="removerItem({{ $produto['codigo'] }}, {{ '-1' }})" class="">
+                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path d="M19 11H5V13H19V11Z"></path>
                             </svg>
                         </button>
 
 
-                        <input class="w-12 mx-2 text-center border rounded-full" type="text"
-                            value="{{ $produto['quantidade'] }}">
+                        <input class="w-12 mx-2 p-1 text-center font-semibold text-gray-600 border rounded-full"
+                            type="text" value="{{ $produto['quantidade'] }}">
 
                         <button
                             wire:click="adicionarItem({{ $produto['codigo'] }}, {{ '+1' }}, {{ $produto['preco'] }})"
-                            class=" dark:text-blue-500">
-                            <svg class="w-5 fill-current" viewBox="0 0 448 512">
-                                <path
-                                    d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
+                            class="">
+                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
                             </svg>
                         </button>
                     </div>
                     <span
-                        class="w-1/5 text-md font-semibold text-green-500 text-center">R${{ number_format($produto['total'], 2, ',') }}</span>
+                        class="w-1/5 text-lg tracking-widest font-semibold uppercase text-green-500 text-center">R${{ number_format($produto['total'], 2, ',') }}</span>
+
+                    {{-- REMOVER --}}
+                    <button wire:click="remover({{ $produto['codigo'] }})"
+                        class="absolute top-1 right-0 text-gray-500 hover:text-red-500">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z">
+                            </path>
+                        </svg>
+                    </button>
                 </div>
             @endforeach
 
+        </div>
 
-            <a href="{{ route('ecommerce.produtos') }}" class="flex mt-10 text-sm font-semibold text-blue-600">
-                <svg class="w-4 mr-2 text-blue-600 fill-current" viewBox="0 0 448 512">
-                    <path
-                        d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" />
-                </svg>
-                Continuar comprando
+
+        <div class="w-full h-auto px-8 py-10 rounded-md shadow-md bg-white md:w-1/3">
+            <div
+                class="flex justify-between py-4 text-md tracking-widest font-semibold uppercase text-gray-600 border-b">
+                <span>total: </span>
+                <span>R${{ number_format($valorTotal, 2, ',', '') }} </span>
+            </div>
+
+            <a href="{{ route('ecommerce.cliente') }}"
+                class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-white uppercase rounded bg-purple-700">
+                Fechar Carrinho
+            </a>
+
+
+            <a href="{{ route('ecommerce.produtos') }}"
+                class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-gray-300 uppercase border rounded border-gray-300 bg-white hover:text-white transition-all delay-100 hover:bg-blue-500 hover:border-blue-500">
+                Voltar à loja
             </a>
         </div>
 
-        <div id="summary" class="w-full px-8 py-10 rounded-r bg-gray-800 md:w-1/4">
-            <div class="mt-8 border-t">
-                <div class="flex justify-between py-4 text-sm font-bold uppercase text-white">
-                    <span>Total: </span>
-                    <span>R${{ number_format($valorTotal, 2, ',', '') }} </span>
-                </div>
-
-                <div class="flex justify-between items-center py-4 text-sm font-bold uppercase text-white">
-                    <span>Pagamento: </span>
-                    <select wire:model="pagamento"
-                        class="w-40 py-2 mt-4 text-sm font-semibold text-center text-blue-500 uppercase border rounded border-blue-500 bg-gray-800">
-                        <option></option>
-                        @foreach ($formaPagamento as $pagamento)
-                            <option class="font-semibold" value="{{ $pagamento->id }}">
-                                {{ $pagamento->nome }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                @if ($carrinho != null && $pagamento != '')
-                    <a href="{{ route('ecommerce.cliente') }}" wire:click="formaPagamento()"
-                        class="flex justify-center w-full py-3 text-sm font-semibold text-center text-white uppercase hover:opacity-75">
-                        Preencher Informações
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </svg>
-                    </a>
-                @endif
-
-                <a href="{{ route('ecommerce.produtos') }}"
-                    class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-blue-500 uppercase border border-blue-500 bg-white-500">
-                    Voltar à loja
-                </a>
-            </div>
-        </div>
     </div>
 
 </div>

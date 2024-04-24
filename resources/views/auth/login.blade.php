@@ -1,56 +1,6 @@
 @extends('layouts.ecommerce')
 
 @section('content')
-    {{-- <div class="w-full">
-
-        <h1 class="text-center font-semibold text-2xl ">Fazer Login</h1>
-        <div class="flex justify-center">
-            <div class="w-full max-w-prose m-4 border rounded-lg shadow-lg">
-                <form method="POST" action="{{ route('login') }}" class="bg-white rounded px-8 pt-6 pb-8 mb-4">
-                    @csrf
-                    <div class="mb-4">
-                        <label class="font-semibold text-md text-gray-600 uppercase tracking-widest">
-                            Email
-                        </label>
-                        
-                        <x-input-ecommerce class="'email') is-invalid @enderror" name="email" value="{{ old('email') }}"
-                            id="username" type="email"></x-input-ecommerce>
-
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="font-semibold text-md text-gray-600 uppercase tracking-widest" for="password">
-                            Senha
-                        </label>
-                       
-                        <x-input-ecommerce class="@error('password') is-invalid @enderror" name="password" id="password" type="password" value="{{ old('password') }}"></x-input-ecommerce>
-
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-
-                    <div class="flex justify-center gap-2">
-                        <button
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="submit">
-                            Entrar
-                        </button>
-
-                    </div>
-                </form>
-                
-            </div>
-
-        </div>
-    </div> --}}
     <div class="flex flex-col mt-8 md:flex-row body-font">
 
         <div class="flex-1 p-8">

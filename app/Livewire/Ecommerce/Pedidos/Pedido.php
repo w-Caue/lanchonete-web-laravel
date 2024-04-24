@@ -14,7 +14,6 @@ class Pedido extends Component
 
     public $carrinho;
 
-    public $codigoItem;
     public $pagamento = '';
 
     public $valorTotal = 0;
@@ -63,19 +62,15 @@ class Pedido extends Component
 
     public function remover($codigo)
     {
-        // $this->valorTotal = 0;
         foreach ($this->carrinho as $index => $item) {
             if ($codigo == $item['codigo']) {
                 unset($this->carrinho[$index]);
             } else {
                 $this->carrinho[$index]['total'] =  $this->carrinho[$index]['quantidade'] * $this->carrinho[$index]['preco'];
-                $this->valorTotal += $this->carrinho[$index]['total'];
             }
 
-            $this->codigoItem = $this->carrinho[$index]['codigo'];
         }
 
-        // dd($this->carrinho);
         session()->put('carrinho', $this->carrinho);
 
         $this->alert('success', 'Item Removido!', [
@@ -83,10 +78,13 @@ class Pedido extends Component
             'timer' => 1000,
             'toast' => false,
         ]);
+
+        $this->atualizar();
     }
 
     public function atualizar()
     {
+        $this->valorTotal = 0;
         foreach ($this->carrinho as $index => $item) {
             $this->valorTotal += $this->carrinho[$index]['total'];
 

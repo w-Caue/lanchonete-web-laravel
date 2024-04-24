@@ -65,7 +65,7 @@
                                     class="w-12 mx-2 font-semibold text-center text-sm">{{ $produto['quantidade'] }}</span>
 
                                 <button
-                                    wire:click="adicionarItem({{ $produto['codigo'] }}, {{ '+1' }}, {{ $produto['preco'] }})">
+                                    wire:click="adicionar({{ $produto['codigo'] }}, {{ '+1' }}, {{ $produto['preco'] }})">
                                     <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                         fill="currentColor">
                                         <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>

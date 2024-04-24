@@ -24,9 +24,6 @@ class ListaProdutos extends Component
 
     public $pedidoEcommerce;
 
-    public $encarte;
-    public $combos;
-
     public function load()
     {
         $this->readyLoad = true;
@@ -38,9 +35,6 @@ class ListaProdutos extends Component
         $this->pedidoEcommerce = session()->get('pedidoEcommerce');
         $this->atualizar();
 
-        $this->encarte();
-
-        // $this->combo();
     }
 
     public function dados()
@@ -60,22 +54,6 @@ class ListaProdutos extends Component
         // });
 
         return $produtos->paginate(5);
-    }
-
-    public function encarte()
-    {
-        $this->encarte = Encarte::where('ativo', 'S')->get()->first();
-    }
-
-    // public function combo()
-    // {
-    //     $this->combos = Combo::where('ativo', 'S')->get();
-    // }
-
-    public function produto($codigo)
-    {
-        $this->produtoDetalhe = Produto::where('id', $codigo)->get()->first();
-        $this->dispatch('open-detalhe');
     }
 
     public function adicionarItem($codigo, $nome, $descricao, $quantidade, $preco)
