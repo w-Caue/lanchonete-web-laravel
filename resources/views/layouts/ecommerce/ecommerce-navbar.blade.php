@@ -1,7 +1,7 @@
 <heade class="fixed top-0 z-50 w-full bg-gray-50">
     <nav class="border-gray-200 py-2">
         <div class="flex items-center justify-around max-w-screen-xl px-4 py-2 mx-auto">
-            <a href="#" class="flex items-center">
+            <a href="\" class="flex items-center">
                 {{-- <img src="./images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Landwind Logo" /> --}}
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">LancheCode</span>
             </a>

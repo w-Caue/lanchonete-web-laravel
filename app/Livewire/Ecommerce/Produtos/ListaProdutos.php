@@ -56,6 +56,11 @@ class ListaProdutos extends Component
         return $produtos->paginate(5);
     }
 
+    public function produto($codigo)
+    {
+        $this->produtoDetalhe = Produto::where('id', $codigo)->get()->first();
+    }
+
     public function adicionarItem($codigo, $nome, $descricao, $quantidade, $preco)
     {
         if ($this->pedidoEcommerce == null) {

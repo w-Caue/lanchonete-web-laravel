@@ -33,7 +33,7 @@ Route::get('/', function () {
 Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
 
     Route::get('/cardapio', function () {
-        return view('ecommerce.index');
+        return view('ecommerce.cardapio');
     })->name('produtos');
 
     Route::get('/pedido', function () {

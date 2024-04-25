@@ -37,9 +37,9 @@
                             </div>
                         </th>
                         <th class="px-4 py-3">
-                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('Marca')">
-                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Marca</button>
-                                @include('includes.icon-filter', ['field' => 'marca'])
+                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('Categoria')">
+                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Categoria</button>
+                                @include('includes.icon-filter', ['field' => 'categoria'])
                             </div>
                         </th>
                         <th class="px-4 py-3">
@@ -65,7 +65,7 @@
                                 {{ $produto->descricao }}
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                {{ $produto->marca_id ?? 'Sem' }}
+                                {{ $produto->categoria->nome ?? '(vazio)' }}
                             </td>
                             <td class="px-4 py-3 text-xs">
 

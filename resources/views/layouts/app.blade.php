@@ -8,30 +8,34 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Admin - @yield('title') </title>
+    <title>Admin</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
 
     @livewireStyles
 
-    <!-- Alpine Plugins -->
-    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/mask@3.x.x/dist/cdn.min.js"></script>
-
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <!-- Scripts -->
-    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
-    @vite('resources/css/app.css', 'resources/js/app.js')
+    @vite('resources/css/app.css')
 </head>
 
 <body class="dark">
-    @include('layouts.navbar')
-    <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
+    <div class="flex flex-col h-screen bg-gray-100 dark:bg-gray-900">
 
-        @include('layouts.sidebar')
+        @include('layouts.navbar')
 
-        <div class="relative w-full h-screen overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
-            <main class="m-2 bg-gray-50 dark:bg-gray-900">
-                @yield('content')
+        <div class="flex flex-row h-full w-full gap-1 overflow-hidden">
+            @include('layouts.sidebar')
+
+            <main class="w-full h-full overflow-y-auto">
+                <div class="container flex flex-col mx-auto p-4">
+                    @yield('content')
+                </div>
             </main>
+
         </div>
     </div>
 
@@ -41,47 +45,29 @@
 
     <x-livewire-alert::scripts />
 
-    <script>
-        function data() {
-
-            return {
-                dark: false,
-
-                darkMode() {
-                    this.dark = !this.dark
-                    if (this.dark) {
-                        document.documentElement.classList.add("dark");
-                    } else {
-                        document.documentElement.classList.remove("dark");
-                    }
-                },
-                isUserOpen: false,
-                toggleUser() {
-                    this.isUserOpen = !this.isUserOpen
-                },
-                isAppsMenuOpen: false,
-                toggleAppsMenu() {
-                    this.isAppsMenuOpen = !this.isAppsMenuOpen
-                },
-                isSidebarOpen: false,
-                toggleSidebar() {
-                    this.isSidebarOpen = !this.isSidebarOpen
-                },
-                isPessoalOpen: false,
-                togglePessoalMenu() {
-                    this.isPessoalOpen = !this.isPessoalOpen
-                },
-                isProdutoOpen: false,
-                toggleProdutoMenu() {
-                    this.isProdutoOpen = !this.isProdutoOpen
-                },
-            }
-        }
-    </script>
-
-    <script src="
-    https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js
-    "></script>
 </body>
+<script>
+    function data() {
+        return {
+            sidebar: {
+                full: false,
+                navOpen: false
+            },
+            tooltip: {
+                show: false,
+                visibleClass: 'block sm:absolute  sm:border border-gray-500 left-16 sm:text-sm sm:bg-gray-800 sm:px-2 sm:py-1 sm:rounded'
+            },
+            dropdown: {
+                open: false,
+                toggle(tap) {
+                    this.open = !this.open;
+                },
+                expandedClass: 'border-gray-400 ml-4 pl-4',
+                shrinkedClass: 'sm:absolute top-0 left-20 sm:shadow-md sm:z-10 sm:bg-gray-800 sm:rounded-md sm:p-4 border-l sm:border-none border-gray-400 ml-4 pl-4 sm:ml-0 w-36'
+            }
+
+        }
+    }
+</script>
 
 </html>

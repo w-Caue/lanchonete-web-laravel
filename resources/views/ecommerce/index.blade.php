@@ -15,5 +15,4 @@
         @livewire('Ecommerce.Produtos.CombosProdutos')
     </div>
 
-    @livewire('Ecommerce.Produtos.ListaProdutos')
 </div>
