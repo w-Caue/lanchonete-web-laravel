@@ -12,14 +12,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pedidos', function (Blueprint $table) {
-            $table->id();       
+            $table->id();
+            $table->foreignId('user_id');
+            $table->string('descricao')->nullable(); 
+            $table->string('status', 15);
+            $table->enum('ecommerce', ['S', 'N'])->default('N');
+            $table->float('total_itens', 9, 2)->nullable();
+            $table->float('desconto', 5, 2)->nullable();
+            $table->float('total_pedido', 9, 2)->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');      
         });
 
         Schema::create('pedidos_itens', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pedido_id');
             $table->unsignedBigInteger('produto_id');
+            $table->integer('quantidade');
+            $table->double('total');
             $table->timestamps();
 
             $table->foreign('pedido_id')->references('id')->on('pedidos');

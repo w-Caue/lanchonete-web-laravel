@@ -12,8 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('pedidos', function (Blueprint $table) {
-            $table->unsignedBigInteger('endereco_id')->nullable()->after('ecommerce'); 
-
+            $table->foreignId('pagamento_id')->after('ecommerce');
+            $table->foreignId('endereco_id')->nullable()->after('pagamento_id'); 
+            
+            $table->foreign('pagamento_id')->references('id')->on('formas_pagamentos');
             $table->foreign('endereco_id')->references('id')->on('enderecos');
         });
     }
@@ -24,7 +26,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('pedidos', function (Blueprint $table) {
+            $table->dropForeign('pedidos_pagamento_id_foreign');
             $table->dropForeign('pedidos_endereco_id_foreign');
+            
+            $table->dropColumn('forma_pagamento_id');
             $table->dropColumn('endereco_id');
         });
     }
