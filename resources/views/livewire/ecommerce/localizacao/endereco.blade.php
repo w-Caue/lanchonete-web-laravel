@@ -96,19 +96,17 @@
                 </div>
 
                 <div class="w-full flex justify-center items-end ">
-                    @if ($localizacao == null)
-                        <button wire:click="salvar()"
-                            class="flex justify-center w-44 py-3 mt-4 text-sm font-semibold text-center text-blue-500 uppercase border border-blue-500 bg-white-500 cursor-pointer">
-                            Salvar
-                        </button>
-                    @endif
+                    <button wire:click="salvar()"
+                        class="flex justify-center w-44 py-3 mt-4 text-sm font-semibold text-center tracking-widest text-white uppercase border rounded bg-purple-700 cursor-pointer">
+                        Salvar
+                    </button>
                 </div>
             </div>
         </div>
 
 
         <div class="w-full h-auto px-8 py-10 rounded-md shadow-md bg-white md:w-1/3">
-            <a href="{{ route('ecommerce.cliente') }}"
+            <a href="{{ route('ecommerce.pagamento') }}"
                 class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-white uppercase rounded bg-purple-700">
                 Fechar Carrinho
             </a>

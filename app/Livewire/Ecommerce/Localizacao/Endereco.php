@@ -2,11 +2,16 @@
 
 namespace App\Livewire\Ecommerce\Localizacao;
 
+use App\Models\Endereco as ModelsEndereco;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class Endereco extends Component
 {
+    use LivewireAlert;
+
     public $cep;
     public $endereco = '';
     public $numero;
@@ -19,8 +24,6 @@ class Endereco extends Component
 
     public function mount()
     {
-        $this->localizacao = session()->get('localizacao');
-        $this->atualizar();
     }
 
     public function updatedCep()
@@ -36,7 +39,10 @@ class Endereco extends Component
 
     public function salvar()
     {
-        $local = array(
+        $user = Auth::user()->id;
+
+        $endereco = ModelsEndereco::create([
+            'user_id' => $user,
             'cep' => $this->cep,
             'endereco' => $this->endereco,
             'numero' => $this->numero,
@@ -44,30 +50,19 @@ class Endereco extends Component
             'referencia' => $this->referencia,
             'bairro' => $this->bairro,
             'cidade' => $this->cidade,
-        );
+        ]);
 
-        array_push($this->localizacao, $local);
+        $this->alert('success', 'Seu endereço foi salvo!', [
+            'position' => 'center',
+            'timer' => 2000,
+            'toast' => false,
+        ]);
 
-        session()->put('localizacao', $this->localizacao);
+        return redirect();
     }
 
     public function atualizar()
     {
-        if ($this->localizacao == null)
-            $this->localizacao = array();
-
-        if ($this->localizacao != null) {
-            foreach ($this->localizacao as $index => $item) {
-
-                $this->cep = $this->localizacao[$index]['cep'];
-                $this->endereco = $this->localizacao[$index]['endereco'];
-                $this->numero = $this->localizacao[$index]['numero'];
-                $this->complemento = $this->localizacao[$index]['complemento'];
-                $this->referencia = $this->localizacao[$index]['referencia'];
-                $this->bairro = $this->localizacao[$index]['bairro'];
-                $this->cidade = $this->localizacao[$index]['cidade'];
-            }
-        }
     }
 
     public function render()

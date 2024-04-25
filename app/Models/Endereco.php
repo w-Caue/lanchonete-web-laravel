@@ -9,6 +9,6 @@ class Endereco extends Model
 {
     // protected $table = 'local_entrega';
     protected $fillable = [
-        'pessoa_id', 'cep', 'endereco', 'numero', 'complemento', 'bairro', 'referencia'
+        'user_id', 'cep', 'endereco', 'numero', 'complemento', 'bairro', 'referencia'
     ];
 }

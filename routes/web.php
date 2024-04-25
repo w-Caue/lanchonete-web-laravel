@@ -48,6 +48,10 @@ Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
         return view('ecommerce.endereco');
     })->name('localizacao');
 
+    Route::get('/pagamento', function () {
+        return view('ecommerce.pagamento');
+    })->name('pagamento');
+
     Route::get('/concluir', function () {
         return view('ecommerce.finalizar');
     })->name('concluir');
