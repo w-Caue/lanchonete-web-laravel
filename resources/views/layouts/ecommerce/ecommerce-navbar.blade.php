@@ -1,6 +1,6 @@
-<heade class="fixed top-0 z-50 w-full bg-gray-50">
-    <nav class="border-gray-200 py-2">
-        <div class="flex items-center justify-around max-w-screen-xl px-4 py-2 mx-auto">
+<heade class="fixed top-0 w-full z-50">
+    <nav class="navbar bg-gray-50 border-gray-200 p-2">
+        <div class="flex items-center justify-around max-w-screen-xl px-4 py-1 mx-auto">
             <a href="\" class="flex items-center">
                 {{-- <img src="./images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Landwind Logo" /> --}}
                 <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">LancheCode</span>
@@ -16,11 +16,11 @@
                                 class="p-1 text-md text-gray-600 font-semibold tracking-widest transition duration-300 cursor-pointer">
                                 Olá, <span class=" text-purple-700">{{ auth()->user()->name }}</span>
                             </button>
-                            <div x-show="openUser">
+                            <div x-show="openUser" class="">
                                 <ul x-transition:leave="transition ease-in duration-150"
                                     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                                     @click.away="openUser=false" @keydown.escape="openUser=false"
-                                    class="absolute right-28 p-2 mt-4 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
+                                    class="absolute right-28 z-50 p-2 mt-4 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
                                     aria-label="submenu">
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
@@ -85,7 +85,7 @@
         </div>
     </nav>
 
-    <article class="element-animation bg-purple-900">
+    <article class="element-animation bg-purple-900 z-10">
         <nav class="flex justify-center items-center gap-7 p-3" id="mobile-menu-2">
             <ul
                 class="flex flex-col mt-4 text-sm font-medium tracking-widest text-white uppercase lg:flex-row lg:space-x-8 lg:mt-0">
@@ -97,12 +97,6 @@
                 </li>
                 <li>
                     <a href="#" class="hover:text-gray-200">Combos</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:text-gray-200">Features</a>
-                </li>
-                <li>
-                    <a href="#" class="hover:text-gray-200">Team</a>
                 </li>
                 <li>
                     <a href="#" class="hover:text-gray-200">Contato</a>

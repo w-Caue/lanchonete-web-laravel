@@ -1,14 +1,14 @@
 @extends('layouts.ecommerce')
 
 @section('content')
-    <div class="flex flex-col mt-8 md:flex-row body-font">
+    <div class="flex flex-col mt-20 md:flex-row body-font">
 
         <div class="flex-1 p-8">
             <h4 class="mb-4 text-lg font-semibold text-center tracking-widest">
                 FAZER LOGIN
             </h4>
             <div class="flex flex-col w-full gap-4">
-                <form method="POST" action="{{ route('login') }}" class="bg-white rounded px-8 pt-6 pb-8 mb-4">
+                <form method="POST" action="{{ route('login') }}" class="bg-gray-100 rounded px-8 pt-6 pb-8 mb-4">
                     @csrf
                     <div class="mb-4">
                         <label class="font-semibold text-md text-gray-600 uppercase tracking-widest">
@@ -64,7 +64,7 @@
                 CRIAR MINHA CONTA
             </h4>
             {{-- <div class="flex flex-col w-full gap-5"> --}}
-            <form method="POST" action="{{ route('register') }}" class="flex flex-col w-full gap-2">
+            <form method="POST" action="{{ route('register') }}" class="flex flex-col gap-4 bg-gray-100 rounded px-8 pt-6 pb-8 mb-4">
                 @csrf
 
                 <label class="w-full" for="">
@@ -87,7 +87,7 @@
                         Email
                     </label>
 
-                    <x-input-ecommerce id="email" type="text" class="@error('email') is-invalid @enderror"
+                    <x-input-ecommerce id="email" type="email" class="@error('email') is-invalid @enderror"
                         name="email" value="{{ old('email') }}" required autocomplete="email"></x-input-ecommerce>
 
                     @error('email')
@@ -99,13 +99,13 @@
 
                 <label class="w-full" for="">
                     <label class="font-semibold text-md text-gray-600 uppercase tracking-widest">
-                        whatsapp
+                        telefone
                     </label>
 
-                    <x-input-ecommerce id="whatsapp" type="tel" class="@error('whatsapp') is-invalid @enderror"
-                        name="whatsapp" value="{{ old('whatsapp') }}" required autocomplete="whatsapp"></x-input-ecommerce>
+                    <x-input-ecommerce id="phone" type="tel" class="@error('phone') is-invalid @enderror"
+                        name="phone" value="{{ old('phone') }}" required autocomplete="phone"></x-input-ecommerce>
 
-                    @error('whatsapp')
+                    @error('phone')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -120,7 +120,7 @@
 
                         <x-input-ecommerce id="password" type="password" class="@error('password') is-invalid @enderror"
                             name="password" value="{{ old('password') }}" required
-                            autocomplete="new-password"></x-input-ecommerce>
+                            ></x-input-ecommerce>
 
                         @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -129,14 +129,14 @@
                         @enderror
                     </label>
 
-                    <label class="w-full" for="">
+                    {{-- <label class="w-full" for="">
                         <label class="font-semibold text-md text-gray-600 uppercase tracking-widest">
                             confirmar senha
                         </label>
 
                         <x-input-ecommerce id="password_confirmation" type="password" name="password_confirmation"
                             value="{{ old('password') }}" required autocomplete="new-password"></x-input-ecommerce>
-                    </label>
+                    </label> --}}
                 </div>
 
                 <div class="flex justify-center">

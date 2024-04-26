@@ -16,19 +16,33 @@ let swiper = new Swiper(".card__content", {
     },
 });
 
-const myObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add("show");
-        } else {
-            entry.target.classList.remove("show");
-        }
-    });
+const navbar = document.querySelector(".navbar");
+const elements = document.querySelector(".element-animation");
+const block = document.querySelector(".content-block");
+
+gsap.to(navbar, {
+    padding: -20,
+    duration: 2,
+    scrollTrigger: {
+        trigger: block,
+        start: 'top',
+        end: 'center',
+        scrub: true,
+    }
 });
 
-const elements = document.querySelectorAll(".element-animation");
+gsap.to(elements, {
+    y: -20,
+    opacity: 0,
+    duration: 1,
+    scrollTrigger: {
+        trigger: block,
+        start: 'top',
+        end: 'center',
+        scrub: true,
+    }
+});
 
-elements.forEach((element) => myObserver.observe(element));
 
 const wrapper = document.querySelector(".wrapper");
 const carousel = document.querySelector(".carousel");
@@ -82,7 +96,7 @@ autoPlay();
 const infiniteScroll = () => {
     if (carousel.scrollLeft === 0) {
         // console.log("chegou no começo do carrossel");
-        carousel.scrollLeft = carousel.scrollWidth - ( 2 * carousel.offsetWidth);
+        carousel.scrollLeft = carousel.scrollWidth - (2 * carousel.offsetWidth);
     } else if (
         Math.ceil(carousel.scrollLeft) ===
         carousel.scrollWidth - carousel.offsetWidth
@@ -92,7 +106,7 @@ const infiniteScroll = () => {
     }
 
     clearTimeout(timeoutId);
-    if(!wrapper.matches(":hover")) autoPlay();
+    if (!wrapper.matches(":hover")) autoPlay();
 };
 
 carousel.addEventListener("mousedown", dragStart);

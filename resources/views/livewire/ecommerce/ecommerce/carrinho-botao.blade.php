@@ -100,7 +100,7 @@
                 <h1 class="text-sm tracking-wider text-center font-semibold">
                     Nenhum item no carrinho
                 </h1>
-                <a href=""
+                <a href="{{ route('ecommerce.produtos') }}"
                     class="text-sm text-center text-purple-700 font-semibold transition-all hover:underline">
                     Ver cardapio
                 </a>

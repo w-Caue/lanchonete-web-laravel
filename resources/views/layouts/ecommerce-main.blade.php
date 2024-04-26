@@ -36,11 +36,16 @@
     </div>
 
     <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
 
     @livewireScripts
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/Observer.min.js"></script> --}}
 
     <x-livewire-alert::scripts />
 
