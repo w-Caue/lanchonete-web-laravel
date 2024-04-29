@@ -1,19 +1,19 @@
 <div>
     <div class="flex flex-col items-start gap-5 my-10 mx-7 md:flex-row">
-        <div x-data="{ endereco: 'entrega' }" class="w-full md:w-2/3">
+        <div x-data="{ endereco: 'retirada' }" class="w-full md:w-2/3">
             <div class="flex justify-around pb-8 border-b">
-                <button
-                    class="flex justify-center py-3 px-5 text-md font-semibold text-center text-gray-400 uppercase border rounded border-gray-400 transition-all delay-100"
-                    :class="{ 'active text-white bg-purple-700 border-none': endereco === 'entrega' }"
-                    x-on:click="endereco = 'entrega'">
-                    Entrega
-                </button>
-
                 <button
                     class="flex justify-center py-3 px-4 text-md font-semibold text-center text-gray-400 uppercase border rounded border-gray-400 transition-all delay-100"
                     :class="{ 'active text-white bg-purple-700 border-none': endereco === 'retirada' }"
                     x-on:click="endereco = 'retirada'">
                     Retirada no Local
+                </button>
+
+                <button
+                    class="flex justify-center py-3 px-5 text-md font-semibold text-center text-gray-400 uppercase border rounded border-gray-400 transition-all delay-100"
+                    :class="{ 'active text-white bg-purple-700 border-none': endereco === 'entrega' }"
+                    x-on:click="endereco = 'entrega'">
+                    Entrega
                 </button>
             </div>
 
@@ -97,10 +97,15 @@
                         </label>
                     </div>
 
-                    <div class="w-full flex justify-center items-end ">
+                    <div class="w-full flex justify-around items-end ">
                         <button wire:click="salvar()"
                             class="flex justify-center w-44 py-3 mt-4 text-sm font-semibold text-center tracking-widest text-white uppercase border rounded bg-purple-700 cursor-pointer">
                             Salvar
+                        </button>
+
+                        <button wire:click="enderecos" x-data x-on:click="$dispatch('open-modal')"
+                            class="flex justify-center w-44 py-3 mt-4 text-sm font-semibold text-center tracking-widest text-purple-700 uppercase border rounded border-purple-700 hover:text-white hover:bg-purple-700 transition-all duration-150 cursor-pointer">
+                            Meus Endereços
                         </button>
                     </div>
                 </div>
@@ -137,4 +142,57 @@
         </div>
 
     </div>
+
+    <div class="flex justify-center">
+        <div x-data="{ open: false }" x-show="open" x-cloak x-on:open-modal.window="open = true"
+            x-on:close-modal.window="open = false" x-on:keydown.escape.window="open = false"
+            x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-30 flex items-end bg-black bg-opacity-30 sm:items-center sm:justify-center">
+            <div x-on:click ="open = false" class="fixed">
+            </div>
+            <div
+                class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-xl">
+                <div class="flex justify-between items-center m-1 dark:text-white">
+                    <h1 class="text-md tracking-widest uppercase text-gray-600 font-semibold">Seus Endereços</h1>
+                    <button
+                        class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
+                        aria-label="close" x-on:click="open = false">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img"
+                            aria-hidden="true">
+                            <path
+                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div>
+                    @if ($enderecosUsers)
+                        @foreach ($enderecosUsers as $enderecos)
+                            <div
+                                class="w-full shadow-lg border rounded-md cursor-pointer hover:scale-95 transition-all duration-200">
+                                <div class="font-semibold tracking-widest text-gray-600 m-2">
+                                    <span>cep: {{ $enderecos->cep }}</span>
+                                    <div class="flex gap-1">
+                                        <h1>{{ $enderecos->endereco }}</h1> -
+                                        <span>{{ $enderecos->bairro }}</span> -
+                                        <span>N: {{ $enderecos->numero }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                        <h1 class="text-center text-md tracking-widest uppercase text-gray-600 font-semibold my-5">
+                            Nenhum endereço salvo!
+                        </h1>
+                    @endif
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </div>

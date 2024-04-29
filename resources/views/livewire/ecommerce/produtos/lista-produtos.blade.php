@@ -3,7 +3,7 @@
 
     <div wire:init="load" class="container">
         {{-- <div class="flex flex-wrap -m-4 "> --}}
-        <div class="grid grid-cols-1 gap-2 -m-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+        <div class="grid grid-cols-1 gap-2 -m-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
             @foreach ($produtos as $produto)
                 <div x-data x-on:click="$dispatch('open-detalhe')" wire:click="produto({{ $produto->id }})"
                     wire:key="{{ $produto->id }}" class="w-full h-full p-2 cursor-pointer">

@@ -14,13 +14,15 @@ class Endereco extends Component
 
     public $cep;
     public $endereco = '';
+    public $enderecosUsers = [];
     public $numero;
     public $complemento;
     public $referencia;
     public $bairro;
     public $cidade;
 
-    public $localizacao = [];
+    public $retirada;
+    public $localizacao;
 
     public function mount()
     {
@@ -52,17 +54,23 @@ class Endereco extends Component
             'cidade' => $this->cidade,
         ]);
 
-        $this->alert('success', 'Seu endereço foi salvo!', [
-            'position' => 'center',
-            'timer' => 2000,
-            'toast' => false,
-        ]);
+        if ($endereco) {
+            $this->alert('success', 'Seu endereço foi salvo!', [
+                'position' => 'center',
+                'timer' => 2000,
+                'toast' => false,
+            ]);
+        }
 
         return redirect();
     }
 
-    public function atualizar()
+    public function enderecos()
     {
+        $user = Auth::user()->id;
+
+        $this->enderecosUsers = ModelsEndereco::where('user_id', $user)->get();
+
     }
 
     public function render()

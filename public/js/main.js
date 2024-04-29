@@ -32,9 +32,9 @@ gsap.to(navbar, {
 });
 
 gsap.to(elements, {
-    y: -20,
+    y: -25,
     opacity: 0,
-    duration: 1,
+    duration: 2,
     scrollTrigger: {
         trigger: block,
         start: 'top',

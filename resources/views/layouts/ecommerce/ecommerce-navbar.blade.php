@@ -86,11 +86,11 @@
     </nav>
 
     <article class="element-animation bg-purple-900 z-10">
-        <nav class="flex justify-center items-center gap-7 p-3" id="mobile-menu-2">
+        <nav class="flex justify-center items-center gap-7" id="mobile-menu-2">
             <ul
-                class="flex flex-col mt-4 text-sm font-medium tracking-widest text-white uppercase lg:flex-row lg:space-x-8 lg:mt-0">
+                class="flex flex-col p-3 mt-4 text-sm font-medium tracking-widest text-white uppercase lg:flex-row lg:space-x-8 lg:mt-0">
                 <li>
-                    <a href="{{ route('ecommerce.produtos') }}" class="hover:text-gray-200">Cardapio</a>
+                    <a href="{{ route('ecommerce.produtos') }}" class="hover:text-gray-200 p-3 {{ request()->routeIs('ecommerce.produtos') ? 'text-white bg-gray-900 opacity-55' : 'text-white hover:bg-gray-900 hover:opacity-55' }}">Cardapio</a>
                 </li>
                 <li>
                     <a href="#" class="hover:text-gray-200">Promoções</a>

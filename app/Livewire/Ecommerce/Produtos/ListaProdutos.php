@@ -52,7 +52,7 @@ class ListaProdutos extends Component
         //     return $query->where($filter, 'like', "%" . $this->pesquisa . "%");
         // });
 
-        return $produtos->paginate(5);
+        return $produtos->paginate(15);
     }
 
     public function produto($codigo)
