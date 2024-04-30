@@ -6,7 +6,7 @@
             <div class="flex flex-row content-center justify-center p-4">
 
                 <!--Carrinho -->
-                <a href="{{ route('ecommerce.pedido') }}"
+                <a href="{{ route('') }}"
                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-400 border border-transparent rounded-full active:bg-blue-600 focus:shadow-outline-blue"
                     aria-label="Edit">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"

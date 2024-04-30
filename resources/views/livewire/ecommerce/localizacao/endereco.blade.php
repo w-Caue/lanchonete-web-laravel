@@ -25,9 +25,9 @@
                                 {{ __('Cep') }}
                             </p>
 
-                            <div class="flex flex-row items-center gap-1">
-                                <input wire:model.lazy="cep" type="text"
-                                    class="appearance-none block w-32 font-semibold text-gray-700 border-2 rounded py-3 px-4">
+                            <div class="flex flex-row items-center gap-1 w-32">
+                                <x-input-ecommerce wire:model.lazy="cep" type="text"></x-input-ecommerce>
+
                                 <button wire:click="updatedCep()" type="button"
                                     class="rounded py-3 px-2 text-white bg-purple-700">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -40,68 +40,63 @@
                             </div>
                         </label>
 
-                        <label class="">
+                        <label class="w-86">
                             <p class="uppercase tracking-wide text-gray-600 text-md font-semibold mb-2">
                                 {{ __('Endereço') }}
                             </p>
 
-                            <input wire:model.defer="endereco"
-                                class=" w-86 font-semibold text-gray-700 border-2 rounded py-3 px-4 mb-3"
-                                id="endereco">
+                            <x-input-ecommerce wire:model.defer="endereco" id="endereco"></x-input-ecommerce>
 
                         </label>
 
-                        <label class="">
+                        <label class="w-20">
                             <p class="uppercase tracking-wide text-gray-600 text-md font-semibold mb-2">
                                 {{ __('Número') }}
                             </p>
 
-                            <input wire:model="numero" type="number"
-                                class="appearance-none block w-20 font-semibold text-gray-700 border-2 rounded py-3 px-4 mb-3">
+                            <x-input-ecommerce wire:model="numero" type="number"></x-input-ecommerce>
                         </label>
 
-                        <label class="">
+                        <label class="w-44">
                             <p class="uppercase tracking-wide text-gray-600 text-md font-semibold mb-2">
                                 {{ __('Complemento') }}
                             </p>
 
-                            <input wire:model="complemento" type="text"
-                                class="appearance-none block w-44 font-semibold text-gray-700 border-2 rounded py-3 px-4 mb-3">
+                            <x-input-ecommerce wire:model="complemento" type="text"></x-input-ecommerce>
                         </label>
 
-                        <label class="">
+                        <label class="w-56">
                             <p class="uppercase tracking-wide text-gray-600 text-md font-semibold mb-2">
                                 {{ __('Ponto de Referencia') }}
                             </p>
 
-                            <input wire:model="referencia" type="text"
-                                class="appearance-none block w-44 font-semibold text-gray-700 border-2 rounded py-3 px-4 mb-3">
+                            <x-input-ecommerce wire:model="referencia" type="text"></x-input-ecommerce>
                         </label>
 
-                        <label class="">
+                        <label class="w-56">
                             <p class="uppercase tracking-wide text-gray-600 text-md font-semibold mb-2">
                                 {{ __('Bairro') }}
                             </p>
 
-                            <input wire:model="bairro" type="text"
-                                class="appearance-none block w-56 font-semibold text-gray-700 border-2 rounded py-3 px-4 mb-3">
+                            <x-input-ecommerce wire:model="bairro" type="text"></x-input-ecommerce>
                         </label>
 
-                        <label class="">
+                        {{-- <label class="w-44">
                             <p class="uppercase tracking-wide text-gray-600 text-md font-semibold mb-2">
                                 {{ __('Cidade') }}
                             </p>
 
-                            <input wire:model="cidade" type="text"
-                                class="appearance-none block w-44 font-semibold text-gray-700 border-2 rounded py-3 px-4 mb-3">
-                        </label>
+                            <x-input-ecommerce wire:model="cidade" type="text"></x-input-ecommerce>
+                        </label> --}}
                     </div>
 
                     <div class="w-full flex justify-around items-end ">
-                        <button wire:click="salvar()"
-                            class="flex justify-center w-44 py-3 mt-4 text-sm font-semibold text-center tracking-widest text-white uppercase border rounded bg-purple-700 cursor-pointer">
-                            Salvar
-                        </button>
+                        @if ($entrega)
+                            <button wire:click="salvar()"
+                                class="flex justify-center w-44 py-3 mt-4 text-sm font-semibold text-center tracking-widest text-white uppercase border rounded bg-purple-700 cursor-pointer">
+                                Salvar
+                            </button>
+                        @endif
 
                         <button wire:click="enderecos" x-data x-on:click="$dispatch('open-modal')"
                             class="flex justify-center w-44 py-3 mt-4 text-sm font-semibold text-center tracking-widest text-purple-700 uppercase border rounded border-purple-700 hover:text-white hover:bg-purple-700 transition-all duration-150 cursor-pointer">
@@ -110,8 +105,8 @@
                     </div>
                 </div>
 
-                <div x-clock x-show="endereco === 'retirada'">
-                    <div>
+                <div x-show="endereco === 'retirada'">
+                    <div class="flex items-center gap-3">
                         <button>
                             <svg class="w-16 h-16 text-purple-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -122,7 +117,13 @@
                         </button>
 
 
-                        <h1 class="uppercase tracking-wide text-gray-600 text-md font-semibold ">Endereço da Loja</h1>
+                        <div>
+                            <h1 class="uppercase tracking-wide text-gray-600 text-md font-semibold">Endereço</h1>
+                            <span class="uppercase tracking-wide text-gray-600 text-md font-semibold">
+                                Bairro - Cidade / CEP
+                            </span>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -159,8 +160,7 @@
                     <button
                         class="inline-flex items-center justify-center w-6 h-6 text-gray-400 transition-colors duration-150 rounded dark:hover:text-gray-200 hover: hover:text-gray-700"
                         aria-label="close" x-on:click="open = false">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img"
-                            aria-hidden="true">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" role="img" aria-hidden="true">
                             <path
                                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                                 clip-rule="evenodd" fill-rule="evenodd"></path>
@@ -171,7 +171,7 @@
                 <div>
                     @if ($enderecosUsers)
                         @foreach ($enderecosUsers as $enderecos)
-                            <div
+                            <div wire:key="{{ $enderecos->id }}" wire:click="enderecoSalvo({{ $enderecos->id }})"
                                 class="w-full shadow-lg border rounded-md cursor-pointer hover:scale-95 transition-all duration-200">
                                 <div class="font-semibold tracking-widest text-gray-600 m-2">
                                     <span>cep: {{ $enderecos->cep }}</span>

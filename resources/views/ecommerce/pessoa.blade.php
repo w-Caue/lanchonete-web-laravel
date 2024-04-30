@@ -60,17 +60,31 @@
                 <!--/Arrow -->
 
                 <!-- Entrega -->
-                <div class="border-4 border-gray-400 rounded-full p-1 opacity-35">
-                    <button
-                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5  transition-colors duration-150 rounded-full"
-                        aria-label="Edit">
-                        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M18.364 17.364L12 23.7279L5.63604 17.364C2.12132 13.8492 2.12132 8.15076 5.63604 4.63604C9.15076 1.12132 14.8492 1.12132 18.364 4.63604C21.8787 8.15076 21.8787 13.8492 18.364 17.364ZM12 15C14.2091 15 16 13.2091 16 11C16 8.79086 14.2091 7 12 7C9.79086 7 8 8.79086 8 11C8 13.2091 9.79086 15 12 15ZM12 13C10.8954 13 10 12.1046 10 11C10 9.89543 10.8954 9 12 9C13.1046 9 14 9.89543 14 11C14 12.1046 13.1046 13 12 13Z">
-                            </path>
-                        </svg>
-                    </button>
-                </div>
+                @if (session()->get('entrega') != null)
+                    <div class="border-4 border-purple-700 bg-purple-700 rounded-full p-1">
+                        <button
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white bg-purple-700 transition-colors duration-150 rounded-full"
+                            aria-label="Edit">
+                            <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M18.364 17.364L12 23.7279L5.63604 17.364C2.12132 13.8492 2.12132 8.15076 5.63604 4.63604C9.15076 1.12132 14.8492 1.12132 18.364 4.63604C21.8787 8.15076 21.8787 13.8492 18.364 17.364ZM12 15C14.2091 15 16 13.2091 16 11C16 8.79086 14.2091 7 12 7C9.79086 7 8 8.79086 8 11C8 13.2091 9.79086 15 12 15ZM12 13C10.8954 13 10 12.1046 10 11C10 9.89543 10.8954 9 12 9C13.1046 9 14 9.89543 14 11C14 12.1046 13.1046 13 12 13Z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                @else
+                    <div class="border-4 border-gray-400 rounded-full p-1 opacity-35">
+                        <button
+                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5  transition-colors duration-150 rounded-full"
+                            aria-label="Edit">
+                            <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M18.364 17.364L12 23.7279L5.63604 17.364C2.12132 13.8492 2.12132 8.15076 5.63604 4.63604C9.15076 1.12132 14.8492 1.12132 18.364 4.63604C21.8787 8.15076 21.8787 13.8492 18.364 17.364ZM12 15C14.2091 15 16 13.2091 16 11C16 8.79086 14.2091 7 12 7C9.79086 7 8 8.79086 8 11C8 13.2091 9.79086 15 12 15ZM12 13C10.8954 13 10 12.1046 10 11C10 9.89543 10.8954 9 12 9C13.1046 9 14 9.89543 14 11C14 12.1046 13.1046 13 12 13Z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                @endif
                 <!--/Entrega -->
 
                 <!--Arrow -->
@@ -105,6 +119,32 @@
                     aria-label="Edit">
                     <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 12H5m14 0-4 4m4-4-4-4" />
+                    </svg>
+                </button>
+                <!--/Arrow -->
+
+                <!-- Pedido -->
+                <div class="border-4 border-gray-400 rounded-full p-1 opacity-35">
+                    <button
+                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5  transition-colors duration-150 rounded-full"
+                        aria-label="Edit">
+                        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M19 22H5C3.34315 22 2 20.6569 2 19V3C2 2.44772 2.44772 2 3 2H17C17.5523 2 18 2.44772 18 3V15H22V19C22 20.6569 20.6569 22 19 22ZM18 17V19C18 19.5523 18.4477 20 19 20C19.5523 20 20 19.5523 20 19V17H18ZM6 7V9H14V7H6ZM6 11V13H14V11H6ZM6 15V17H11V15H6Z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <!--/Pedido -->
+
+                <!--Arrow -->
+                <button
+                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-gray-300 transition-colors duration-150"
+                    aria-label="Edit">
+                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M19 12H5m14 0-4 4m4-4-4-4" />
                     </svg>

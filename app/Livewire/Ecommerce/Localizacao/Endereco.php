@@ -21,11 +21,16 @@ class Endereco extends Component
     public $bairro;
     public $cidade;
 
-    public $retirada;
+    public $entrega = true;
     public $localizacao;
 
     public function mount()
     {
+        $this->localizacao = session()->get('entrega');
+
+        if ($this->localizacao != null) {
+            return redirect()->route('ecommerce.pagamento');
+        }
     }
 
     public function updatedCep()
@@ -62,7 +67,9 @@ class Endereco extends Component
             ]);
         }
 
-        return redirect();
+        session()->put('entrega', $endereco->id);
+
+        return redirect()->route('ecommerce.pagamento');
     }
 
     public function enderecos()
@@ -70,7 +77,25 @@ class Endereco extends Component
         $user = Auth::user()->id;
 
         $this->enderecosUsers = ModelsEndereco::where('user_id', $user)->get();
+    }
 
+    public function enderecoSalvo($codigo)
+    {
+        $endereco = ModelsEndereco::where('id', $codigo)->get()->first();
+
+        $this->dispatch('close-modal');
+
+        $this->cep = $endereco->cep;
+        $this->numero = $endereco->numero;
+        $this->endereco = $endereco->endereco;
+        $this->complemento = $endereco->complemento;
+        $this->bairro = $endereco->bairro;
+        $this->cidade = $endereco->cidade;
+        $this->referencia = $endereco->referencia;
+
+        $this->entrega = false;
+
+        session()->put('entrega', $endereco->id);
     }
 
     public function render()

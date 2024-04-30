@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Ecommerce\Pedidos;
+namespace App\Livewire\Ecommerce\Carrinho;
 
 use App\Models\FormaDePagamento;
 use App\Models\FormaPagamento;
@@ -8,7 +8,7 @@ use Illuminate\Contracts\Session\Session;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class Pedido extends Component
+class Carrinho extends Component
 {
     use LivewireAlert;
 
@@ -100,8 +100,6 @@ class Pedido extends Component
 
     public function render()
     {
-        return view('livewire.ecommerce.pedidos.pedido', [
-            'formaPagamento' => FormaPagamento::all(),
-        ]);
+        return view('livewire.ecommerce.carrinho.carrinho');
     }
 }

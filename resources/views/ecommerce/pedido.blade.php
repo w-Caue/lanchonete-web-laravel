@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="py-1 text-center mt-16">
-        <h1 class="text-4xl tracking-wider font-semibold">Entrega \ Retirada</h1>
+        <h1 class="text-4xl tracking-wider font-semibold">Confirmação</h1>
 
         <div class="flex justify-center m-1">
             <div class="flex flex-row content-center justify-center p-4">
@@ -86,7 +86,7 @@
                 <!--/Arrow -->
 
                 <!-- Pagamento -->
-                <div class="border-4 border-purple-700 rounded-full p-1">
+                <div class="border-4 border-purple-700 bg-purple-700 rounded-full p-1">
                     <button
                         class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white bg-purple-700 transition-colors duration-150 rounded-full"
                         aria-label="Edit">
@@ -112,9 +112,9 @@
                 <!--/Arrow -->
 
                 <!-- Pedido -->
-                <div class="border-4 border-gray-400 rounded-full p-1 opacity-35">
+                <div class="border-4 border-purple-700 rounded-full p-1">
                     <button
-                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5  transition-colors duration-150 rounded-full"
+                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-white bg-purple-700 transition-colors duration-150 rounded-full"
                         aria-label="Edit">
                         <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                             <path
@@ -129,8 +129,8 @@
                 <button
                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-gray-300 transition-colors duration-150"
                     aria-label="Edit">
-                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                        height="24" fill="none" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M19 12H5m14 0-4 4m4-4-4-4" />
                     </svg>
@@ -153,5 +153,5 @@
             </div>
         </div>
     </div>
-    @livewire('Ecommerce.Pagamento.Pagamento')
+    @livewire('Ecommerce.Pedido.Pedido')
 @endsection

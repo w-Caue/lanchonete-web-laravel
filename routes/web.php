@@ -36,9 +36,9 @@ Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
         return view('ecommerce.cardapio');
     })->name('produtos');
 
-    Route::get('/pedido', function () {
+    Route::get('/carrinho', function () {
         return view('ecommerce.carrinho');
-    })->name('pedido');
+    })->name('carrinho');
 
     Route::get('/cliente', function () {
         return view('ecommerce.pessoa');
@@ -51,6 +51,10 @@ Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
     Route::get('/pagamento', function () {
         return view('ecommerce.pagamento');
     })->name('pagamento');
+
+    Route::get('/pedido', function () {
+        return view('ecommerce.pedido');
+    })->name('pedido');
 
     Route::get('/concluir', function () {
         return view('ecommerce.finalizar');

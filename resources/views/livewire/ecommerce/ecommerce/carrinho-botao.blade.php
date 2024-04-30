@@ -90,7 +90,7 @@
             </div>
 
             <div class="flex justify-center w-full m-2">
-                <a href="{{ route('ecommerce.pedido') }}"
+                <a href="{{ route('ecommerce.carrinho') }}"
                     class="text-md font-semibold tracking-widest text-center text-purple-700 p-2 border rounded transition-all hover:scale-95">
                     Finalizar Compra
                 </a>
