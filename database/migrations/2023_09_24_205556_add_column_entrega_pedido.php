@@ -29,7 +29,7 @@ return new class extends Migration
             $table->dropForeign('pedidos_pagamento_id_foreign');
             $table->dropForeign('pedidos_endereco_id_foreign');
             
-            $table->dropColumn('forma_pagamento_id');
+            $table->dropColumn('pagamento_id');
             $table->dropColumn('endereco_id');
         });
     }

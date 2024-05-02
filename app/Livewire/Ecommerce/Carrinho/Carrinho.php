@@ -56,10 +56,7 @@ class Carrinho extends Component
 
         $this->atualizar();
     }
-    public function formaPagamento(){
-        session()->put('pagamento', $this->pagamento);
-    }
-
+    
     public function remover($codigo)
     {
         foreach ($this->carrinho as $index => $item) {

@@ -56,9 +56,9 @@ Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
         return view('ecommerce.pedido');
     })->name('pedido');
 
-    Route::get('/concluir', function () {
+    Route::get('/finalizar', function () {
         return view('ecommerce.finalizar');
-    })->name('concluir');
+    })->name('finalizar');
 });
 
 Route::prefix('/admin')->name('admin.')->group(function () {

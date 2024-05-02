@@ -10,8 +10,10 @@ use Livewire\Component;
 class Pedido extends Component
 {
     public $carrinho;
-    public $enderecos = [];
+    public $enderecos;
+    public $pagamento;
 
+    public $valorProdutos;
     public $valorTotal;
 
     public function mount()
@@ -19,15 +21,17 @@ class Pedido extends Component
         $this->carrinho();
 
         $this->entregaRetirada();
+
+        $this->formaPagamento();
     }
 
     public function carrinho()
     {
         $this->carrinho = session()->get('carrinho');
 
-        $this->valorTotal = 0;
+        $this->valorProdutos = 0;
         foreach ($this->carrinho as $index => $item) {
-            $this->valorTotal += $this->carrinho[$index]['total'];
+            $this->valorProdutos += $this->carrinho[$index]['total'];
         }
     }
 
@@ -45,24 +49,53 @@ class Pedido extends Component
         }
     }
 
-    public function endereco(){
+    public function formaPagamento()
+    {
+        $pagamento = session()->get('pagamento');
+
+        $this->pagamento = $pagamento;
+    }
+
+    public function endereco()
+    {
         session()->remove('entrega');
 
         return redirect()->route('ecommerce.localizacao');
     }
 
-    public function pagamento(){
+    public function pagamentoPedido()
+    {
         // session()->remove('entrega');
 
         return redirect()->route('ecommerce.pagamento');
     }
 
-    public function finalizar(){
+    public function finalizar()
+    {
+        if (!$this->enderecos) {
+            $retirada = 'S';
+            $endereco = 0;
+        } else {
+            $endereco = $this->enderecos->id;
+            $retirada = 'N';
+        }
+
         $user = Auth::user()->id;
 
         $pedido = ModelsPedido::create([
             'user_id' => $user,
+            'status' => 'análise',
+            'ecommerce' => 'S',
+            'retirada' => $retirada,
+            'pagamento_id' => 1,
+            'endereco_id' => $endereco,
+            'total_itens' => $this->valorProdutos,
+            'total_pedido' => $this->valorProdutos,
         ]);
+
+        $pedido->save();
+
+        return redirect()->route('ecommerce.finalizar');
     }
 
     public function render()

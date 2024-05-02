@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
-            $table->string('descricao')->nullable(); 
+            $table->string('observacao')->nullable(); 
             $table->string('status', 15);
             $table->enum('ecommerce', ['S', 'N'])->default('N');
+            $table->enum('retirada', ['S', 'N'])->default('N');
             $table->float('total_itens', 9, 2)->nullable();
             $table->float('desconto', 5, 2)->nullable();
             $table->float('total_pedido', 9, 2)->nullable();

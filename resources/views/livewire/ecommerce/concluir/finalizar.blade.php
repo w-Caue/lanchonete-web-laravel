@@ -1,5 +1,5 @@
 <div>
-    <div class="flex flex-col justify-center my-10 mx-7 md:flex-row">
+    {{-- <div class="flex flex-col justify-center my-10 mx-7 md:flex-row">
         <div class="w-full px-10 py-10 rounded-lg shadow-lg bg-white md:w-1/2">
             <div class="flex justify-between pb-8 border-b">
                 <h1 class="text-2xl font-semibold">Informações do Pedido</h1>
@@ -48,11 +48,7 @@
                     </svg>
                 </button>
 
-                {{-- <a
-                    class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-blue-500 uppercase border border-blue-500 bg-white-500">
-                    Voltar à loja
-                </a> --}}
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>

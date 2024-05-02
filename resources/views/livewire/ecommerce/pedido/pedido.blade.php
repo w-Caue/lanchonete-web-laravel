@@ -120,9 +120,13 @@
 
                         <h1 class="uppercase tracking-wide text-gray-600 text-md font-semibold">Forma de Pagamento:</h1>
 
+                        <span class="uppercase tracking-wide text-gray-500 text-sm font-semibold">
+                            {{ $pagamento }}
+                        </span>
+
                     </div>
 
-                    <button wire:click="pagamento()"
+                    <button wire:click="pagamentoPedido()"
                         class="uppercase tracking-wide text-gray-500 text-sm font-semibold transition-all hover:underline">
                         Alterar
                     </button>
@@ -134,17 +138,25 @@
         <div class="w-full h-auto px-8 py-10 rounded-md shadow-md bg-white md:w-1/3">
             <div
                 class="flex justify-between py-4 text-sm tracking-widest font-semibold uppercase text-gray-600 border-b">
+                <span>produtos: </span>
+                <span>R${{ number_format($valorProdutos, 2, ',', '') }} </span>
+            </div>
+
+            <div class="flex flex-col py-4 text-md tracking-widest font-semibold uppercase text-gray-600 border-b">
+                <span class="mb-3">forma de pagamento: </span>
+
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-500">{{ $pagamento }}:</span>
+                    <span>R${{ number_format($valorProdutos, 2, ',', '') }} </span>
+                </div>
+            </div>
+
+            <div class="flex justify-between py-4 text-lg tracking-widest font-semibold uppercase text-gray-600">
                 <span>total: </span>
-                <span>R${{ number_format($valorTotal, 2, ',', '') }} </span>
+                <span class="text-xl text-green-500">R${{ number_format($valorProdutos, 2, ',', '') }} </span>
             </div>
 
-            <div class="flex flex-col py-4 text-sm tracking-widest font-semibold uppercase text-gray-600 border-b">
-                <span>forma de pagamento: </span>
-                {{-- Nome da forma de pagamento --}}
-                <span> </span>
-            </div>
-
-            <a href=""
+            <a wire:click="finalizar()"
                 class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-white uppercase rounded bg-purple-700">
                 Finalizar Compra
             </a>

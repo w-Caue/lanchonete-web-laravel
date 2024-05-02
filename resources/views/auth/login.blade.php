@@ -8,7 +8,7 @@
                 FAZER LOGIN
             </h4>
             <div class="flex flex-col w-full gap-4">
-                <form method="POST" action="{{ route('login') }}" class="bg-gray-100 rounded px-8 pt-6 pb-8 mb-4">
+                <form method="POST" action="{{ route('login') }}" class="rounded px-8 pt-6 pb-8 mb-4">
                     @csrf
                     <div class="mb-4">
                         <label class="font-semibold text-md text-gray-600 uppercase tracking-widest">
@@ -16,7 +16,7 @@
                         </label>
 
                         <x-input-ecommerce class="'email') is-invalid @enderror" name="email" value="{{ old('email') }}"
-                            id="username" type="email"></x-input-ecommerce>
+                            id="username" type="email" placeholder="insira seu email aqui"></x-input-ecommerce>
 
                         @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -31,7 +31,7 @@
                         </label>
 
                         <x-input-ecommerce class="@error('password') is-invalid @enderror" name="password" id="password"
-                            type="password" value="{{ old('password') }}"></x-input-ecommerce>
+                            type="password" value="{{ old('password') }}" placeholder="insira sua senha aqui"></x-input-ecommerce>
 
                         @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -64,16 +64,16 @@
                 CRIAR MINHA CONTA
             </h4>
             {{-- <div class="flex flex-col w-full gap-5"> --}}
-            <form method="POST" action="{{ route('register') }}" class="flex flex-col gap-4 bg-gray-100 rounded px-8 pt-6 pb-8 mb-4">
+            <form method="POST" action="{{ route('register') }}" class="flex flex-col gap-4 rounded px-8 pt-6 pb-8 mb-4">
                 @csrf
 
                 <label class="w-full" for="">
                     <label class="font-semibold text-md text-gray-600 uppercase tracking-widest">
-                        Nome
+                        Nome*
                     </label>
 
                     <x-input-ecommerce id="name" type="text" class="@error('name') is-invalid @enderror"
-                        name="name" value="{{ old('name') }}" required autocomplete="name"></x-input-ecommerce>
+                        name="name" value="{{ old('name') }}" required placeholder="insira seu nome aqui"></x-input-ecommerce>
 
                     @error('name')
                         <span class="invalid-feedback" role="alert">
@@ -84,11 +84,11 @@
 
                 <label class="w-full" for="">
                     <label class="font-semibold text-md text-gray-600 uppercase tracking-widest">
-                        Email
+                        Email*
                     </label>
 
                     <x-input-ecommerce id="email" type="email" class="@error('email') is-invalid @enderror"
-                        name="email" value="{{ old('email') }}" required autocomplete="email"></x-input-ecommerce>
+                        name="email" value="{{ old('email') }}" required placeholder="insira seu email aqui"></x-input-ecommerce>
 
                     @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -103,7 +103,7 @@
                     </label>
 
                     <x-input-ecommerce id="phone" type="tel" class="@error('phone') is-invalid @enderror"
-                        name="phone" value="{{ old('phone') }}" required autocomplete="phone"></x-input-ecommerce>
+                        name="phone" value="{{ old('phone') }}" required placeholder="insira seu número aqui"></x-input-ecommerce>
 
                     @error('phone')
                         <span class="invalid-feedback" role="alert">
@@ -115,11 +115,11 @@
                 <div class="flex gap-2">
                     <label class="w-full" for="">
                         <label class="font-semibold text-md text-gray-600 uppercase tracking-widest">
-                            senha
+                            senha*
                         </label>
 
                         <x-input-ecommerce id="password" type="password" class="@error('password') is-invalid @enderror"
-                            name="password" value="{{ old('password') }}" required
+                            name="password" value="{{ old('password') }}" required placeholder="insira sua senha aqui"
                             ></x-input-ecommerce>
 
                         @error('password')
@@ -129,14 +129,14 @@
                         @enderror
                     </label>
 
-                    {{-- <label class="w-full" for="">
+                    <label class="w-full" for="">
                         <label class="font-semibold text-md text-gray-600 uppercase tracking-widest">
-                            confirmar senha
+                            confirmar senha*
                         </label>
 
                         <x-input-ecommerce id="password_confirmation" type="password" name="password_confirmation"
-                            value="{{ old('password') }}" required autocomplete="new-password"></x-input-ecommerce>
-                    </label> --}}
+                            value="{{ old('password') }}" required autocomplete="new-password" placeholder="confirme sua senha aqui"></x-input-ecommerce>
+                    </label>
                 </div>
 
                 <div class="flex justify-center">

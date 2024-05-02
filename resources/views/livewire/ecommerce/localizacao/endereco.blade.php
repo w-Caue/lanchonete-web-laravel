@@ -19,6 +19,10 @@
 
             <div class="px-10 py-5 rounded-md shadow-md bg-white">
                 <div x-show="endereco === 'entrega'" class="mt-2">
+                    <h1 class="text-sm tracking-widest font-semibold uppercase text-gray-400 mb-4">
+                        Local para entrega
+                    </h1>
+
                     <div class="flex gap-1 sm:gap-2 flex-wrap">
                         <label class="">
                             <p class="uppercase tracking-wide text-gray-600 text-md font-semibold mb-2">
@@ -106,6 +110,10 @@
                 </div>
 
                 <div x-show="endereco === 'retirada'">
+                    <h1 class="text-sm tracking-widest font-semibold uppercase text-gray-400 mb-4">
+                        Local para retirada
+                    </h1>
+
                     <div class="flex items-center gap-3">
                         <button>
                             <svg class="w-16 h-16 text-purple-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -134,11 +142,6 @@
             <a href="{{ route('ecommerce.pagamento') }}"
                 class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-white uppercase rounded bg-purple-700">
                 Fechar Carrinho
-            </a>
-
-            <a href="{{ route('ecommerce.produtos') }}"
-                class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-gray-300 uppercase border rounded border-gray-300 bg-white hover:text-white transition-all delay-100 hover:bg-blue-500 hover:border-blue-500">
-                Voltar à loja
             </a>
         </div>
 
