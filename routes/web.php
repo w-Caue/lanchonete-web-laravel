@@ -32,6 +32,17 @@ Route::get('/', function () {
 
 Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
 
+    Route::prefix('/conta')->name('conta.')->group(function () {
+        Route::get('/meu-cadastro', function () {
+            return view('ecommerce.conta.cadastro');
+        })->name('cadastro');
+
+        Route::get('/pedidos', function () {
+            return view('ecommerce.conta.dados');
+        })->name('index');
+
+    });
+
     Route::get('/cardapio', function () {
         return view('ecommerce.cardapio');
     })->name('produtos');
