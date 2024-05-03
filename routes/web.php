@@ -37,9 +37,9 @@ Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
             return view('ecommerce.conta.cadastro');
         })->name('cadastro');
 
-        Route::get('/pedidos', function () {
-            return view('ecommerce.conta.dados');
-        })->name('index');
+        Route::get('/meus-pedidos', function () {
+            return view('ecommerce.conta.pedidos');
+        })->name('pedidos');
 
     });
 

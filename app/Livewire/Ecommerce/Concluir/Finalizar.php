@@ -34,6 +34,8 @@ class Finalizar extends Component
 
     public function render()
     {
+        $this->informacoes();
+        
         return view('livewire.ecommerce.concluir.finalizar');
     }
 }

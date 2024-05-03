@@ -25,7 +25,7 @@ class Pedido extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function formaPagamento()
+    public function pagamento()
     {
         return $this->belongsTo(FormaPagamento::class);
     }

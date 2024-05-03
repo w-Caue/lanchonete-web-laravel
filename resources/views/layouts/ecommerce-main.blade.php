@@ -18,7 +18,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/swiper-bundle.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-
+    
     @vite('resources/css/app.css', 'resources/js/alpine/start.js')
 
     @livewireStyles
@@ -28,7 +28,7 @@
     <div>
         @include('layouts.ecommerce.ecommerce-navbar')
 
-        <div class="mt-40">
+        <div class="mt-20">
             @yield('content')
         </div>
 
@@ -37,7 +37,7 @@
 
     <script src="{{ asset('js/swiper-bundle.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-
+    
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
 

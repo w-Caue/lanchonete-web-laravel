@@ -1,14 +1,15 @@
 @extends('layouts.ecommerce-main')
 
 @section('content')
-    <div class="flex flex-col items-start gap-5 my-56 mx-7 md:flex-row">
+    <div class="grid grid-cols-4 items-start gap-2 my-44 mx-5">
 
-        <div class="w-full rounded-md shadow-md border md:w-1/5">
-            <h4 class="mb-4 text-md uppercase ml-6 text-gray-600 font-semibold tracking-widest">
-                Categorias
-            </h4>
+        <div class="w-full col-span-1 rounded-md shadow-md border">
+            @include('layouts.ecommerce.account.ecommerce-menu')
         </div>
 
+        <div class="w-full col-span-3">
+            @livewire('Ecommerce.Conta.Cadastro')
+        </div>
     </div>
 
 @endsection

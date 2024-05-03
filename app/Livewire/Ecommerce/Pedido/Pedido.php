@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Ecommerce\Pedido;
 
+use App\Livewire\Pedidos\PedidoItem;
 use App\Models\Endereco;
 use App\Models\Pedido as ModelsPedido;
+use App\Models\PedidoItem as ModelsPedidoItem;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -94,6 +96,15 @@ class Pedido extends Component
         ]);
 
         $pedido->save();
+
+        foreach ($this->carrinho as $index => $item) {
+            ModelsPedidoItem::create([
+                'pedido_id' => $pedido->id,
+                'produto_id' => $this->carrinho[$index]['codigo'],
+                'quantidade' => $this->carrinho[$index]['quantidade'],
+                'total' => $this->carrinho[$index]['total'],
+            ]);
+        }
 
         return redirect()->route('ecommerce.finalizar');
     }

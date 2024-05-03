@@ -1,16 +1,16 @@
 <heade class="fixed top-0 w-full z-50">
-    <nav class="navbar bg-gray-50 border-gray-200 p-2">
+    <nav class="navbar bg-gray-50 border-gray-200 p-1">
         <div class="flex items-center justify-around max-w-screen-xl px-4 py-1 mx-auto">
             <a href="\" class="flex items-center">
                 {{-- <img src="./images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Landwind Logo" /> --}}
-                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">LancheCode</span>
+                <span class="self-center text-xl font-semibold whitespace-nowrap">LancheCode</span>
             </a>
 
             @livewire('Ecommerce.Ecommerce.PesquisaProduto')
 
             <div class="flex items-center">
                 @if (Route::has('login'))
-                    <div class=" p-4 text-right ">
+                    <div class="p-4 text-right ">
                         @auth
                             <button x-on:click="openUser = !openUser"
                                 class="p-1 text-md text-gray-600 font-semibold tracking-widest transition duration-300 cursor-pointer">
@@ -20,16 +20,16 @@
                                 <ul x-transition:leave="transition ease-in duration-150"
                                     x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
                                     @click.away="openUser=false" @keydown.escape="openUser=false"
-                                    class="absolute right-28 z-50 p-2 mt-4 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
+                                    class="absolute right-32 z-50 p-2 mt-4 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md"
                                     aria-label="submenu">
+
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                                             href="{{ route('ecommerce.conta.cadastro') }}">
-                                            <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
-                                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg class="w-4 h-4 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                fill="currentColor">
                                                 <path
-                                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z">
+                                                    d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H18C18 18.6863 15.3137 16 12 16C8.68629 16 6 18.6863 6 22H4ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11Z">
                                                 </path>
                                             </svg>
                                             <span>Meus Dados</span>
@@ -37,12 +37,14 @@
                                     </li>
                                     <li class="flex">
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
-                                            href="">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-3" fill="none"
-                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                            href="{{ route('ecommerce.conta.pedidos') }}">
+                                            <svg class="w-4 h-4 mr-3"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                fill="currentColor">
+                                                <path
+                                                    d="M9 6H15C15 4.34315 13.6569 3 12 3C10.3431 3 9 4.34315 9 6ZM7 6C7 3.23858 9.23858 1 12 1C14.7614 1 17 3.23858 17 6H20C20.5523 6 21 6.44772 21 7V21C21 21.5523 20.5523 22 20 22H4C3.44772 22 3 21.5523 3 21V7C3 6.44772 3.44772 6 4 6H7ZM5 8V20H19V8H5ZM9 10C9 11.6569 10.3431 13 12 13C13.6569 13 15 11.6569 15 10H17C17 12.7614 14.7614 15 12 15C9.23858 15 7 12.7614 7 10H9Z">
+                                                </path>
                                             </svg>
+
                                             <span>Meus Pedidos</span>
                                         </a>
                                     </li>
@@ -51,14 +53,14 @@
                                         <a class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800"
                                             href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            <svg class="w-4 h-4 mr-3" aria-hidden="true" fill="none"
-                                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                viewBox="0 0 24 24" stroke="currentColor">
-                                                <path
-                                                    d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
-                                                </path>
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-3">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
                                             </svg>
-                                            <span>Sair</span>
+
+                                            <span>Sair da Conta</span>
                                         </a>
                                         <form id="logout-form"
                                             action="{{ route('logout', ['prefix' => \Request::route('prefix')]) }}"
@@ -90,7 +92,8 @@
             <ul
                 class="flex flex-col p-3 mt-4 text-sm font-medium tracking-widest text-white uppercase lg:flex-row lg:space-x-8 lg:mt-0">
                 <li>
-                    <a href="{{ route('ecommerce.produtos') }}" class="hover:text-gray-200 p-3 {{ request()->routeIs('ecommerce.produtos') ? 'text-white bg-gray-900 opacity-55' : 'text-white hover:bg-gray-900 hover:opacity-55' }}">Cardapio</a>
+                    <a href="{{ route('ecommerce.produtos') }}"
+                        class="hover:text-gray-200 p-3 {{ request()->routeIs('ecommerce.produtos') ? 'text-white bg-gray-900 opacity-55' : 'text-white hover:bg-gray-900 hover:opacity-55' }}">Cardapio</a>
                 </li>
                 <li>
                     <a href="#" class="hover:text-gray-200">Promoções</a>
