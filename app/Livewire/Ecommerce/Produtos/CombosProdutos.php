@@ -9,6 +9,10 @@ class CombosProdutos extends Component
 {
     public $combos;
 
+    public function mount(){
+        $this->combo();
+    }
+
     public function combo()
     {
         $this->combos = Combo::where('ativo', 'S')->get();

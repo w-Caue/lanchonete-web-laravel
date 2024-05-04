@@ -57,6 +57,7 @@
         return {
             openCarrinho: false,
             openUser: false,
+            search: false,
         }
     }
 </script>

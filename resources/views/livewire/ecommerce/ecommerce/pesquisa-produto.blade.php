@@ -1,5 +1,6 @@
-<div class="w-2/4">
-    <div class="relative  hidden sm:block">
+
+<div class="w-full">
+    <div class="relative">
         <input
             class="block p-3 w-full shadow-md font-semibold rounded-full z-20 text-sm tracking-widest focus:outline-none focus:ring-2 active:ring-purple-500"
             placeholder="O que você procura?">

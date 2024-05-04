@@ -1,10 +1,11 @@
 <div>
-    <div class="mx-6 my-7">
+    <div class="mx-6 my-10">
 
         @if ($combos)
-            <div wire:init="load" class="flex  flex-wrap gap-3 my-1 mx-5">
+            <div class="flex  flex-wrap gap-3 my-1 mx-5">
                 @foreach ($combos as $combo)
-                    <div class=" flex flex-col justify-center">
+                    <div x-data x-on:click="$dispatch('open-detalhe')" wire:key="{{ $combo->id }}"
+                        class=" flex flex-col justify-center">
                         <div class="py-3 sm:max-w-lg sm:mx-auto">
                             <div
                                 class="bg-white shadow-lg border-gray-100 max-h-80 border sm:rounded-3xl p-8 flex space-x-8">
@@ -34,4 +35,5 @@
             </div>
         @endif
     </div>
+
 </div>

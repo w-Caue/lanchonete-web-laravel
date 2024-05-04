@@ -1,14 +1,16 @@
 <heade class="fixed top-0 w-full z-50">
     <nav class="navbar bg-gray-50 border-gray-200 p-1">
-        <div class="flex items-center justify-around max-w-screen-xl px-4 py-1 mx-auto">
+        <div class="flex items-center justify-between max-w-screen-xl px-4 py-1 mx-auto sm:justify-around">
             <a href="\" class="flex items-center">
                 {{-- <img src="./images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Landwind Logo" /> --}}
                 <span class="self-center text-xl font-semibold whitespace-nowrap">LancheCode</span>
             </a>
 
-            @livewire('Ecommerce.Ecommerce.PesquisaProduto')
+            <div class="hidden sm:flex w-2/4 justify-center">
+                @livewire('Ecommerce.Ecommerce.PesquisaProduto')
+            </div>
 
-            <div class="flex items-center">
+            <div class="hidden sm:flex items-center ">
                 @if (Route::has('login'))
                     <div class="p-4 text-right ">
                         @auth
@@ -84,10 +86,29 @@
                 @livewire('Ecommerce.Ecommerce.CarrinhoBotao')
 
             </div>
+
+            <div class="flex items-center gap-3 sm:hidden">
+                @livewire('Ecommerce.Ecommerce.CarrinhoBotao')
+
+                <button x-on:click="search = !search" class="text-purple-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </button>
+
+                <button class="text-purple-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" stroke-width="1.5" viewBox="0 0 24 24"
+                        fill="currentColor">
+                        <path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <article class="element-animation bg-purple-900 z-10">
+    <article class="hidden sm:block element-animation bg-purple-900 z-10">
         <nav class="flex justify-center items-center gap-7" id="mobile-menu-2">
             <ul
                 class="flex flex-col p-3 mt-4 text-sm font-medium tracking-widest text-white uppercase lg:flex-row lg:space-x-8 lg:mt-0">
@@ -107,5 +128,11 @@
             </ul>
         </nav>
 
+    </article>
+
+    <article x-show="search" @click.outside="search = false" @keydown.escape="search = false" x-transition.scale.origin.top x-transition.delay.100ms class="flex justify-center bg-purple-900 z-10">
+        <div class="w-3/4 p-1">
+            @livewire('Ecommerce.Ecommerce.PesquisaProduto')
+        </div>
     </article>
 </heade>

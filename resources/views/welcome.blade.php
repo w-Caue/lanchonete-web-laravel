@@ -156,8 +156,8 @@
         </div>
     </div>
 
-    <section>
+    {{-- <section>
         @include('ecommerce.index')
-    </section>
+    </section> --}}
 
 @endsection
