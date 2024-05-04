@@ -25,7 +25,7 @@ let swiper = new Swiper(".card__content", {
           slidesPerView: 4,
         //   spaceBetween: 40
         }
-      }
+      },
 
     // Navigation arrows
     navigation: {
