@@ -27,6 +27,7 @@
 <body>
     <div>
         @include('layouts.ecommerce.ecommerce-navbar')
+        @include('layouts.ecommerce.ecommerce-sidebar')
 
         <div class="mt-20">
             @yield('content')
@@ -58,6 +59,11 @@
             openCarrinho: false,
             openUser: false,
             search: false,
+
+            sidebar: {
+                full : false,
+                navOpen : false,
+            }
         }
     }
 </script>

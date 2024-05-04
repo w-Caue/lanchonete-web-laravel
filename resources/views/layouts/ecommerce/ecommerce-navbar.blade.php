@@ -12,7 +12,7 @@
 
             <div class="hidden sm:flex items-center ">
                 @if (Route::has('login'))
-                    <div class="p-4 text-right ">
+                    <div class="text-right ">
                         @auth
                             <button x-on:click="openUser = !openUser"
                                 class="p-1 text-md text-gray-600 font-semibold tracking-widest transition duration-300 cursor-pointer">
@@ -73,12 +73,22 @@
                                 </ul>
                             </div>
                         @else
-                            <a href="{{ route('login') }}" class="font-semibold text-gray-700 hover:text-gray-900">
-                                <span>Bem vindo : ) </span><br>
-                                <p class="text-left text-purple-700">Entre <span class="text-gray-700">ou</span> cadastre-se
-                                </p>
+                            <div class="flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" class="w-12 h-12 text-purple-700">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                </svg>
 
-                            </a>
+                                <a href="{{ route('login') }}"
+                                    class="font-semibold text-start text-gray-700 hover:text-gray-900">
+                                    <span>Bem vindo : ) </span><br>
+                                    <p class="text-left text-purple-700">Entre <span class="text-gray-700">ou</span>
+                                        cadastre-se
+                                    </p>
+
+                                </a>
+                            </div>
                         @endauth
                     </div>
                 @endif
@@ -98,7 +108,7 @@
                     </svg>
                 </button>
 
-                <button class="text-purple-600">
+                <button x-on:click="sidebar.open = !sidebar.open" class="text-purple-600">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" stroke-width="1.5" viewBox="0 0 24 24"
                         fill="currentColor">
                         <path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path>
@@ -130,7 +140,8 @@
 
     </article>
 
-    <article x-show="search" @click.outside="search = false" @keydown.escape="search = false" x-transition.scale.origin.top x-transition.delay.100ms class="flex justify-center bg-purple-900 z-10">
+    <article x-show="search" @click.outside="search = false" @keydown.escape="search = false"
+        x-transition.scale.origin.top x-transition.delay.100ms class="flex justify-center bg-purple-900 z-10">
         <div class="w-3/4 p-1">
             @livewire('Ecommerce.Ecommerce.PesquisaProduto')
         </div>

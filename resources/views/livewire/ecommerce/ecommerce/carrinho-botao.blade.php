@@ -1,6 +1,6 @@
 <div>
     <div class="block sm:hidden">
-        <button x-cloak x-on:click="openCarrinho = !openCarrinho"
+        <a href="{{ route('ecommerce.carrinho') }}" x-cloak x-on:click="openCarrinho = !openCarrinho"
             class="relative inline-flex items-center p-2 m-1 font-semibold text-purple-600 align-middle duration-300 transition-all cursor-pointer text-md hover:scale-95">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                 stroke-width="2">
@@ -12,7 +12,7 @@
                 class="absolute top-0 right-0 inline-block w-5 h-5 mb-1 text-sm text-center font-bold text-purple-600 transform translate-x-1 -translate-y-1 rounded-full">
                 {{ $totalItens }}
             </span>
-        </button>
+        </a>
     </div>
 
     <div class="hidden sm:block">
