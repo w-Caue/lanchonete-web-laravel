@@ -1,5 +1,5 @@
 <heade class="fixed top-0 w-full z-50">
-    <nav class="navbar bg-gray-50 border-gray-200 p-1">
+    <nav class="navbar bg-gray-50 border-gray-200 py-2">
         <div class="flex items-center justify-between max-w-screen-xl px-4 py-1 mx-auto sm:justify-around">
             <a href="\" class="flex items-center">
                 {{-- <img src="./images/logo.svg" class="h-6 mr-3 sm:h-9" alt="Landwind Logo" /> --}}
@@ -73,15 +73,15 @@
                                 </ul>
                             </div>
                         @else
-                            <div class="flex">
+                            <div class="flex mr-6">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                    stroke="currentColor" class="w-12 h-12 text-purple-700">
+                                    stroke="currentColor" class="w-10 h-10 text-purple-700">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                 </svg>
 
                                 <a href="{{ route('login') }}"
-                                    class="font-semibold text-start text-gray-700 hover:text-gray-900">
+                                    class="font-semibold text-sm text-start text-gray-700 hover:text-gray-900">
                                     <span>Bem vindo : ) </span><br>
                                     <p class="text-left text-purple-700">Entre <span class="text-gray-700">ou</span>
                                         cadastre-se
@@ -118,20 +118,20 @@
         </div>
     </nav>
 
-    <article class="hidden sm:block element-animation bg-purple-900 z-10">
+    <article class="hidden sm:block element-animation bg-purple-800 z-10">
         <nav class="flex justify-center items-center gap-7" id="mobile-menu-2">
             <ul
                 class="flex flex-col p-3 mt-4 text-sm font-medium tracking-widest text-white uppercase lg:flex-row lg:space-x-8 lg:mt-0">
                 <li>
                     <a href="{{ route('ecommerce.produtos') }}"
-                        class="hover:text-gray-200 p-3 {{ request()->routeIs('ecommerce.produtos') ? 'text-white bg-gray-900 opacity-55' : 'text-white hover:bg-gray-900 hover:opacity-55' }}">Cardapio</a>
+                        class="hover:text-gray-200 p-3 {{ request()->routeIs('ecommerce.produtos') ? 'text-white bg-purple-900 ' : 'text-white hover:bg-gray-900 hover:opacity-55' }}">Cardapio</a>
                 </li>
-                <li>
-                    <a href="#" class="hover:text-gray-200">Promoções</a>
+                {{-- <li>
+                    <a href="" class="hover:text-gray-200">Promoções</a>
                 </li>
                 <li>
                     <a href="#" class="hover:text-gray-200">Combos</a>
-                </li>
+                </li> --}}
                 <li>
                     <a href="#" class="hover:text-gray-200">Contato</a>
                 </li>

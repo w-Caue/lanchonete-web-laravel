@@ -1,7 +1,7 @@
 <!-- ====== Footer Section Start -->
 <footer class="relative z-10 bg-gray-100 pt-20 pb-10 lg:pt-[120px] lg:pb-20">
     <div class="container mx-auto">
-        <div class="flex flex-wrap -mx-4">
+        <div class="flex flex-wrap ">
             <div class="w-full px-4 sm:w-2/3 lg:w-3/12">
                 <div class="w-full mb-10">
                     <p class="text-xl font-semibold uppercase tracking-widest text-gray-700 mb-6 inline-block max-w-[160px]">
