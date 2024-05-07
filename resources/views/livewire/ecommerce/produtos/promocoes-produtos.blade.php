@@ -73,7 +73,13 @@
                     <p class="text-sm font-semibold uppercase tracking-widest text-gray-400">
                         {{ $produtoDetalhe->descricao ?? '' }}
                     </p>
-                    <p class="text-lg font-semibold tracking-wider text-green-500">R${{ $produtoDetalhe->preco ?? 0 }}</p>
+
+                    <div class="flex items-center gap-1">
+                        <span
+                            class="text-sm line-through font-semibold text-red-500">R${{ number_format($produto->preco, 2, ',', '.') }}</span>
+                        <span
+                            class="text-lg font-semibold text-green-500">R${{ number_format($produto->valor_promocao, 2, ',', '.') }}</span>
+                    </div>
 
                     <div class="h-auto max-h-56 overflow-y-auto my-2 p-2 border rounded">
                         <div>
@@ -140,7 +146,7 @@
                                 </svg>
                             </button>
 
-                            <input class="w-4 mx-2 text-center" type="text" value="{{$quantidade}}">
+                            <input class="w-4 mx-2 text-center" type="text" value="{{ $quantidade }}">
 
                             <button wire:click="add()" class="p-1 rounded-full hover:bg-gray-100">
                                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -151,7 +157,7 @@
                         </div>
 
                         <button
-                            x-on:click="Livewire.dispatchTo('ecommerce.ecommerce.carrinho-botao', 'adicionarItem', {codigo:'{{ $produtoDetalhe->id ?? '' }}', nome:'{{ $produtoDetalhe->nome ?? '' }}', descricao:'{{ $produtoDetalhe->descricao ?? '' }}', quantidade: '1', preco:'{{ $produtoDetalhe->preco ?? '' }}'})"
+                            x-on:click="Livewire.dispatchTo('ecommerce.ecommerce.carrinho-botao', 'adicionarItem', {codigo:'{{ $produtoDetalhe->id ?? '' }}', nome:'{{ $produtoDetalhe->nome ?? '' }}', descricao:'{{ $produtoDetalhe->descricao ?? '' }}', quantidade: '{{ $quantidade }}', preco:'{{ $produtoDetalhe->valor_promocao ?? '' }}'})"
                             class="flex justify-center w-56 gap-2 py-2 font-semibold text-purple-600 border rounded dark:text-white">
                             <span>Adicionar</span>
 

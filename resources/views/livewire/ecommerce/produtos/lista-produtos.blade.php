@@ -10,7 +10,6 @@
                     <div href="#" class="">
                         <div class="p-4 bg-white border rounded-lg shadow-md hover:shadow-lg">
                             <div class="relative flex justify-center h-48 overflow-hidden rounded ">
-                                {{-- @livewire('tenant.produto.foto-produto', ['onePhoto' => true ,'codSeqProduto' => $produto->COD_SEQ], key($produto->COD_SEQ)) --}}
                                 <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1"
                                     viewBox="0 0 24 24">
                                     <path
@@ -24,8 +23,18 @@
                                 </h3>
                                 <h1 class="font-medium tracking-wide text-xs uppercase title-font text-gray-500">
                                     {{ $produto->descricao }}</h1>
-                                <p class="mt-1 text-lg font-semibold text-green-600">
-                                    R${{ number_format($produto->preco, 2, ',') }}</p>
+
+                                @if ($produto->promocao == 'S')
+                                    <div class="flex items-center gap-1 mt-1">
+                                        <span
+                                            class="text-sm line-through font-semibold text-red-500">R${{ number_format($produto->preco, 2, ',', '.') }}</span>
+                                        <span
+                                            class="text-lg font-semibold text-green-500">R${{ number_format($produto->valor_promocao, 2, ',', '.') }}</span>
+                                    </div>
+                                @else
+                                    <p class="mt-1 text-lg font-semibold text-green-600">
+                                        R${{ number_format($produto->preco, 2, ',') }}</p>
+                                @endif
                             </div>
 
                         </div>
@@ -125,7 +134,7 @@
                                 </svg>
                             </button>
 
-                            <input class="w-4 mx-2 text-center" type="text" value="{{$quantidade}}">
+                            <input class="w-4 mx-2 text-center" type="text" value="{{ $quantidade }}">
 
                             <button wire:click="add()" class="p-1 rounded-full hover:bg-gray-100">
                                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"

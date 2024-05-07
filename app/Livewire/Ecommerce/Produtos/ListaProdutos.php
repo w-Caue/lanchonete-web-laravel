@@ -46,6 +46,8 @@ class ListaProdutos extends Component
             'produtos.categoria_id',
             'produtos.preco',
             'produtos.tipo_ecommerce',
+            'produtos.promocao',
+            'produtos.valor_promocao',
         ])->where('tipo_ecommerce', 'S'); #Filtros
         // ->when($this->pesquisa, function ($query) {
         //     $filter = strtolower($this->sortField);
