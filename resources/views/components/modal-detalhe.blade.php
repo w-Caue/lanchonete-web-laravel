@@ -11,7 +11,7 @@
         </div>
         <div class="w-full px-6 py-4 overflow-hidden bg-white rounded-t-lg sm:rounded-lg sm:m-4 sm:max-w-3xl">
             <div class="flex justify-end items-center m-1">
-                <h1 class="mr-24 text-xl tracking-widest uppercase text-gray-600 font-semibold">{{ $title ?? 'tttttt'}}</h1>
+                <h1 class="mr-24 text-xl tracking-widest uppercase text-gray-600 font-semibold">{{ $title ?? ''}}</h1>
                 <button
                     class="inline-flex items-center justify-center  text-gray-400 transition-colors duration-150 rounded hover:text-gray-700"
                     aria-label="close" x-on:click="open = false">

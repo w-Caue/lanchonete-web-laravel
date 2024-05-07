@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Encartes;
 
+use App\Livewire\Forms\EncarteForm;
 use App\Models\Encarte;
 use App\Models\EncarteProduto as ModelsEncarteProduto;
 use App\Models\Produto;
@@ -14,6 +15,8 @@ class EncarteProduto extends Component
     use LivewireAlert;
 
     use WithPagination;
+
+    public EncarteForm $form;
 
     public $encarte;
 
@@ -29,13 +32,25 @@ class EncarteProduto extends Component
     public $porcetagem;
     public $valorPorcetagem;
 
+    public $totalProdutos;
+    public $totalEncarte;
+
     protected $listeners = [
         'delete'
     ];
 
     public function mount($codigo)
     {
-        $this->encarte = Encarte::where('id', $codigo)->get()->first();
+        $this->form->exibir($codigo);
+
+        $this->valores();
+    }
+
+    public function valores()
+    {
+        foreach ($this->form->encarte->produtos as $produtos) {
+            $this->totalProdutos += $produtos->preco;
+        }
     }
 
     public function pesquisaProdutos()
@@ -65,12 +80,13 @@ class EncarteProduto extends Component
         }
 
         ModelsEncarteProduto::create([
-            'encarte_id' => $this->encarte->id,
+            'encarte_id' => $this->form->encarte->id,
             'produto_id' => $this->produtoDetalhe->id,
             'valor_promocao' => $this->valorPromocao,
             'quantidade_prevista' => $this->quantidadePrevista,
         ]);
 
+        $this->valores();
         $this->dispatch('close-detalhe');
     }
 
@@ -95,7 +111,7 @@ class EncarteProduto extends Component
 
     public function delete()
     {
-        ModelsEncarteProduto::where('encarte_id', $this->encarte->id)
+        ModelsEncarteProduto::where('encarte_id', $this->form->encarte->id)
             ->where('produto_id', $this->produto->id)->delete();
 
         $this->alert('success', 'Produto removido!', [
@@ -103,17 +119,27 @@ class EncarteProduto extends Component
             'timer' => '1000',
             'toast' => false,
         ]);
+
+        $this->valores();
     }
 
     public function ativar()
     {
-        $this->encarte->ativo = 'S';
+        foreach ($this->form->encarte->produtos as $produtos) {
+            $this->totalEncarte += $produtos->pivot->valor_promocao;
+            
+            Produto::findOrFail($produtos->id)->update([
+                'promocao' => 'S',
+                'valor_promocao' => $produtos->pivot->valor_promocao,
+            ]);
+        };
 
-        if ($this->encarte->save()) {
+        $this->form->encarte->ativo = 'S';
+
+        if ($this->form->encarte->save()) {
             $this->alert('success', 'Encarte Ativo!', [
-                'position' => 'center',
-                'timer' => '1000',
-                'toast' => false,
+                'timer' => '2000',
+                'toast' => true,
             ]);
         };
     }

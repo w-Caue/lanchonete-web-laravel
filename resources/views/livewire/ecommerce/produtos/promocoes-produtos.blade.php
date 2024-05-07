@@ -133,24 +133,16 @@
 
                     <div class="absolute bottom-1 flex gap-1">
                         <div class="flex justify-center border rounded bg-white">
-                            <button class="p-1 rounded-full hover:bg-gray-100">
+                            <button wire:click="remover()" class="p-1 rounded-full hover:bg-gray-100">
                                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                     fill="currentColor">
                                     <path d="M19 11H5V13H19V11Z"></path>
                                 </svg>
                             </button>
 
+                            <input class="w-4 mx-2 text-center" type="text" value="{{$quantidade}}">
 
-                            {{-- @foreach ($carrinho as $index => $item)
-                                @if ($produtoDetalhe->id == $item['codigo'])
-                                    <input class="w-4 mx-2 text-center" type="text"
-                                        value="{{ $carrinho[$index]['quantidade'] }}">
-                                @else
-                                    <input class="w-4 mx-2 text-center" type="text" value="1">
-                                @endif
-                            @endforeach --}}
-
-                            <button class="p-1 rounded-full hover:bg-gray-100">
+                            <button wire:click="add()" class="p-1 rounded-full hover:bg-gray-100">
                                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                     fill="currentColor">
                                     <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>

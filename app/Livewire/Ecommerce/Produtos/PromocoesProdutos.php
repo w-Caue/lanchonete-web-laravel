@@ -12,8 +12,21 @@ class PromocoesProdutos extends Component
     public $encarte;
     public $produtoDetalhe;
 
-    public function mount(){
+    public $quantidade = 1;
+
+    public function mount()
+    {
         $this->encarte();
+    }
+
+    public function add()
+    {
+        $this->quantidade++;
+    }
+
+    public function remover()
+    {
+        $this->quantidade--;
     }
 
     public function encarte()

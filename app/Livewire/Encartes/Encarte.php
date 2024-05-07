@@ -23,13 +23,11 @@ class Encarte extends Component
         $this->dispatch('close-modal');
 
         $this->alert('success', 'Encarte Criado!', [
-            'position' => 'center',
             'timer' => 2000,
-            'toast' => false,
-            'text' => 'com sucesso',
+            'toast' => true,
         ]);
 
-        $this->js('window.location.reload()');
+       return redirect()->route('admin.produto.encarte.show', ['codigo' => $this->form->codigo]);
     }
 
     public function render()

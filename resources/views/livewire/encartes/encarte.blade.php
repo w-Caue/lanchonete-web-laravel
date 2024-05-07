@@ -10,22 +10,24 @@
     <x-modal title="Cadastro">
         @slot('body')
             <div class="mt-4">
-                <form wire:submit="save()" class="flex flex-col gap-3">
-                    <label for="">
-                        <p class="text-sm font-semibold uppercase text-gray-100">Descrição</p>
+                <form wire:submit="save()" class="flex flex-col gap-4">
+                    <label class="w-full">
+                        <p class="font-semibold text-sm text-white uppercase tracking-widest mb-1">
+                            Descrição
+                        </p>
 
-                        <x-input wire:model="form.descricao" class="w-full"></x-input>
+                        <x-input wire:model="form.descricao" placeholder="Descrição do Encarte" class="w-full"></x-input>
                     </label>
 
-                    <div class="flex gap-2">
-                        <label class="max-w-36">
-                            <p class="text-sm font-semibold uppercase text-gray-100">Data Inicio</p>
-                            <x-input wire:model="form.dataInicio" class="w-full" type="date"></x-input>
-                        </label>
-    
-                        <label class="max-w-36">
-                            <p class="text-sm font-semibold uppercase text-gray-100">Data Final</p>
-                            <x-input wire:model="form.dataFinal" class="w-full" type="date"></x-input>
+                    <div class="">
+                        <p class="text-sm font-semibold uppercase text-gray-100 mb-1">Periodo da Promoção</p>
+
+                        <label class="flex flex-col sm:items-center gap-2 sm:flex-row">
+                            <x-input wire:model="form.dataInicio" class="max-w-36" type="date"></x-input>
+
+                            <p class="text-sm tracking-wider font-semibold text-gray-500">Até</p>
+
+                            <x-input wire:model="form.dataFinal" class="max-w-36" type="date"></x-input>
                         </label>
                     </div>
 

@@ -1,149 +1,190 @@
 <div>
-    <div class="text-sm font-semibold p-2 bg-gray-800 rounded">
-        <div class="my-1 flex justify-between">
-            <h1 class="text-blue-500">#{{ $encarte->id }}</h1>
-            <h1 class="text-gray-500">{{ date('d/m/Y', strtotime($encarte->created_at)) }}</h1>
+
+    <div class="flex flex-col items-start gap-5 my-10 mx-1 md:flex-row">
+
+        <div class="w-full md:w-2/3">
+            <div class=" text-sm font-semibold bg-gray-800 rounded w-full px-5 py-5 shadow-md">
+                <h1 class="text-sm tracking-widest font-semibold uppercase text-gray-500 mb-4">Informações</h1>
+                <form wire:submit="">
+
+                    <div class="flex flex-col gap-5 sm:flex-row">
+                        <label class="w-full sm:w-1/3">
+                            <p class="font-semibold text-md text-white uppercase tracking-widest mb-1">
+                                Descrição do Encarte
+                            </p>
+
+                            <x-input disabled wire:model="form.descricao" placeholder="Descrição do Encarte"
+                                class="w-full"></x-input>
+                        </label>
+
+                        <div class="">
+                            <p class="text-sm font-semibold uppercase text-gray-100 mb-1">Periodo da Promoção</p>
+
+                            <label class="flex flex-col justify-center sm:items-center gap-2 sm:flex-row">
+                                <x-input disabled wire:model="form.dataInicio" class="max-w-36"
+                                    type="date"></x-input>
+
+                                <p class="tracking-widest font-semibold text-gray-500">Até</p>
+
+                                <x-input disabled wire:model="form.dataFinal" class="max-w-36" type="date"></x-input>
+                            </label>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+
+            <div class=" text-sm font-semibold bg-gray-800 rounded w-full px-5 py-5 shadow-md mt-10">
+
+                <div class="flex justify-between items-start">
+                    <h1 class="text-sm tracking-widest font-semibold uppercase text-gray-500 mb-4">Itens</h1>
+
+                    @if ($form->encarte->ativo == 'N')
+                        <button x-data x-on:click="$dispatch('open-modal')"
+                            class="font-semibold rounded text-xs uppercase p-2 text-white bg-blue-500 hover:bg-indigo-500 transition-all hover:scale-95">
+                            Adicionar Item
+                        </button>
+                    @endif
+
+                </div>
+                <div>
+
+
+
+                    <div class="relative overflow-x-auto border border-gray-700 shadow-xl sm:rounded-lg mt-3">
+                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead
+                                class="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-700 dark:bg-gray-800 dark:text-gray-400">
+                                <tr class="text-xs font-semibold tracking-wide text-left uppercase">
+                                    <th class="px-3 py-2">
+                                        <div class="flex items-center cursor-pointer" wire:click="sortFilter('id')">
+                                            <button
+                                                class="text-xs font-medium leading-4 tracking-wider uppercase">Cod</button>
+                                            @include('includes.icon-filter', ['field' => 'id'])
+                                        </div>
+                                    </th>
+                                    <th class="px-3 py-2">
+                                        <div class="flex justify-center items-center cursor-pointer"
+                                            wire:click="sortFilter('Nome')">
+                                            <button
+                                                class="text-xs font-medium leading-4 tracking-wider uppercase">Nome</button>
+                                            @include('includes.icon-filter', ['field' => 'nome'])
+                                        </div>
+                                    </th>
+
+                                    <th class="px-3 py-2">
+                                        <div class="flex justify-center items-center cursor-pointer"
+                                            wire:click="sortFilter('Preco')">
+                                            <button
+                                                class="text-xs font-medium leading-4 tracking-wider uppercase">Preço</button>
+                                            @include('includes.icon-filter', ['field' => 'preco'])
+                                        </div>
+                                    </th>
+                                    <th class="px-3 py-2">
+                                        <div class="flex justify-center items-center cursor-pointer"
+                                            wire:click="sortFilter('Promocao')">
+                                            <button class="text-xs font-medium leading-4 tracking-wider uppercase">Valor
+                                                Promoção</button>
+                                            @include('includes.icon-filter', ['field' => 'promocao'])
+                                        </div>
+                                    </th>
+                                    <th class="px-3 py-2">
+                                        <div class="flex items-center cursor-pointer"
+                                            wire:click="sortFilter('Quantidade')">
+                                            <button
+                                                class="text-xs font-medium leading-4 tracking-wider uppercase">Quant.
+                                                Prevista</button>
+                                            @include('includes.icon-filter', ['field' => 'quantidade'])
+                                        </div>
+                                    </th>
+                                    <th class="px-3 py-2">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                                @foreach ($form->encarte->produtos as $produto)
+                                    <tr wire:key="{{ $produto->id }}"
+                                        class="text-gray-700 font-semibold dark:text-gray-400">
+                                        <td class="px-2 py-3 text-sm">
+                                            #{{ $produto->id }}
+                                        </td>
+
+                                        <td class="px-2 py-3">
+                                            <p class="">{{ $produto->nome }}</p>
+                                        </td>
+
+                                        <td class="px-2 py-3 text-xs">
+                                            <span class="px-2 py-1 font-semibold leading-tight  rounded-full">
+                                                R${{ number_format($produto->preco, 2, ',', '.') }}
+                                            </span>
+                                        </td>
+
+                                        <td class="px-2 py-3 text-xs text-center">
+                                            <span
+                                                class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                                                R${{ number_format($produto->pivot->valor_promocao, 2, ',', '.') }}
+                                            </span>
+                                        </td>
+
+                                        <td class="px-2 py-3 w-10 text-center">
+                                            <h1 class="text-blue-500">{{ $produto->pivot->quantidade_prevista }}</h1>
+                                        </td>
+
+                                        <td class="px-2 py-3">
+                                            <div class="flex items-center space-x-2 text-sm">
+                                                @if ($form->encarte->ativo == 'N')
+                                                    <button wire:click="removerProduto({{ $produto->id }})"
+                                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-95 dark:hover:text-blue-600
+                                                 dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                        aria-label="Delete">
+                                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
+                                                            viewBox="0 0 20 20">
+                                                            <path fill-rule="evenodd"
+                                                                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                                clip-rule="evenodd"></path>
+                                                        </svg>
+                                                    </button>
+                                                @endif
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <label class="my-1">
-            <h1 class="text-lg text-gray-200">{{ $encarte->descricao }}</h1>
-        </label>
-        <div class="my-1 flex gap-7">
-            <label for="" class="text-md dark:text-gray-300">
-                <p>Data Inicio</p>
-                <x-input value="{{ date('Y-m-d', strtotime($encarte->data_inicio)) }}" class="w-32" type="date"
-                    disabled></x-input>
-            </label>
-
-            <label for="" class="text-md dark:text-gray-300">
-                <p>Data Final</p>
-                <x-input value="{{ date('Y-m-d', strtotime($encarte->data_final)) }}" class="w-32" type="date"
-                    disabled></x-input>
-            </label>
-        </div>
-    </div>
-
-    <div class="flex justify-between">
-        @if ($encarte->ativo == 'N')
-            <button x-data x-on:click="$dispatch('open-modal')"
-                class="flex gap-1 mt-2 text-white bg-blue-500 hover:bg-indigo-500 font-medium rounded text-md p-1 transition-all hover:scale-95">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                    <path
-                        d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375Z" />
-                    <path fill-rule="evenodd"
-                        d="m3.087 9 .54 9.176A3 3 0 0 0 6.62 21h10.757a3 3 0 0 0 2.995-2.824L20.913 9H3.087ZM12 10.5a.75.75 0 0 1 .75.75v4.94l1.72-1.72a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 1 1 1.06-1.06l1.72 1.72v-4.94a.75.75 0 0 1 .75-.75Z"
-                        clip-rule="evenodd" />
-                </svg>
-
-                Adicionar Produto
-            </button>
 
 
-            <button wire:click="ativar()"
-                class="flex gap-1 mt-2 text-white bg-purple-500 hover:bg-purple-700 font-medium rounded text-md p-1 transition-all hover:scale-95">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                    <path fill-rule="evenodd"
-                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z"
-                        clip-rule="evenodd" />
-                </svg>
+        <div class="w-full h-auto px-8 py-10 rounded-md shadow-md bg-gray-800 md:w-1/3">
+            <div
+                class="flex justify-between py-4 text-xs tracking-widest font-semibold uppercase text-gray-400 border-b border-gray-700">
+                <span>total de produtos: </span>
+                <span>{{ sizeof($form->encarte->produtos) }}</span>
+            </div>
 
-                Ativar Encarte
-            </button>
-        @endif
+            <div
+                class="flex justify-between py-4 text-xs tracking-widest font-semibold uppercase text-gray-400 border-b border-gray-700">
+                <span>total em produtos: </span>
+                <span> R${{ number_format($totalProdutos, 2, ',') }}</span>
+            </div>
 
-    </div>
+            @if ($form->encarte->ativo != 'N')
+                <div class="flex justify-between py-4 text-xs tracking-widest font-semibold uppercase text-gray-400">
+                    <span>total do encarte: </span>
+                    <span> R${{ number_format($totalEncarte, 2, ',') }}</span>
+                </div>
+            @endif
 
-    <div class="w-full mt-2 overflow-hidden rounded-lg shadow-xs hidden sm:block">
-        <div class="w-full overflow-x-auto">
-            <table class="w-full whitespace-no-wrap">
-                <thead>
-                    <tr
-                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                        <th class="px-3 py-2">
-                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('id')">
-                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Cod</button>
-                                @include('includes.icon-filter', ['field' => 'id'])
-                            </div>
-                        </th>
-                        <th class="px-3 py-2">
-                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('Nome')">
-                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Nome</button>
-                                @include('includes.icon-filter', ['field' => 'nome'])
-                            </div>
-                        </th>
 
-                        <th class="px-3 py-2">
-                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('Preco')">
-                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Preço</button>
-                                @include('includes.icon-filter', ['field' => 'preco'])
-                            </div>
-                        </th>
-                        <th class="px-3 py-2">
-                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('Promocao')">
-                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Valor
-                                    Promoção</button>
-                                @include('includes.icon-filter', ['field' => 'promocao'])
-                            </div>
-                        </th>
-                        <th class="px-3 py-2">
-                            <div class="flex items-center cursor-pointer" wire:click="sortFilter('Quantidade')">
-                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Quantidade
-                                    Prevista</button>
-                                @include('includes.icon-filter', ['field' => 'quantidade'])
-                            </div>
-                        </th>
-                        <th class="px-3 py-2">Ações</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    @foreach ($encarte->produtos as $produto)
-                        <tr wire:key="{{ $produto->id }}" class="text-gray-700 font-semibold dark:text-gray-400">
-                            <td class="px-2 py-3 text-sm">
-                                #{{ $produto->id }}
-                            </td>
-
-                            <td class="px-2 py-3">
-                                <p class="">{{ $produto->nome }}</p>
-                            </td>
-
-                            <td class="px-2 py-3 text-xs">
-                                <span
-                                    class="px-2 py-1 font-semibold leading-tight text-blue-700 bg-blue-100 rounded-full dark:bg-blue-700 dark:text-blue-100">
-                                    {{ number_format($produto->preco, 2, ',', '.') }}
-                                </span>
-                            </td>
-
-                            <td class="px-2 py-3 text-xs">
-                                <span
-                                    class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                    {{ number_format($produto->pivot->valor_promocao, 2, ',', '.') }}
-                                </span>
-                            </td>
-
-                            <td class="px-2 py-3 w-10 text-center">
-                                <h1 class="text-blue-500">{{ $produto->pivot->quantidade_prevista }}</h1>
-                            </td>
-
-                            <td class="px-2 py-3">
-                                <div class="flex items-center space-x-2 text-sm">
-                                    @if ($encarte->ativo == 'N')
-                                        <button wire:click="removerProduto({{ $produto->id }})"
-                                            class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-95 dark:hover:text-blue-600
-                                         dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                            aria-label="Delete">
-                                            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
-                                                viewBox="0 0 20 20">
-                                                <path fill-rule="evenodd"
-                                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                        </button>
-                                    @endif
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            @if ($form->encarte->ativo == 'N')
+                <button wire:click="ativar()"
+                    class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-white uppercase rounded bg-purple-700">
+                    Ativar Encarte
+                </button>
+            @endif
         </div>
     </div>
 
@@ -183,10 +224,6 @@
                                 <div class="flex justify-between">
                                     <p class="flex flex-wrap font-semibold">{{ $produto->nome }}</p>
                                 </div>
-
-                                <p class="flex flex-wrap text-sm text-gray-600 dark:text-gray-400">
-                                    {{ $produto->descricao }}
-                                </p>
 
                                 <div class="flex justify-between items-center">
                                     @if ($produto->preco > 0)
@@ -246,7 +283,7 @@
                     </label>
 
                     <button wire:click="adicionarProduto()"
-                        class="flex justify-center w-56 gap-2 py-2 font-semibold text-purple-600 border rounded transition-all hover:scale-95">
+                        class="flex justify-center w-56 gap-2 py-2 font-semibold text-white bg-purple-600 border rounded transition-all hover:scale-95">
                         <span>Adicionar</span>
 
                     </button>

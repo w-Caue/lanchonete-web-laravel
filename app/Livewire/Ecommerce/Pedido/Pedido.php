@@ -106,7 +106,7 @@ class Pedido extends Component
             ]);
         }
 
-        return redirect()->route('ecommerce.finalizar');
+        return t()->route('ecommerce.finalizar');
     }
 
     public function render()
