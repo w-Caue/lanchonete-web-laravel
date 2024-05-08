@@ -106,7 +106,7 @@ class Pedido extends Component
             ]);
         }
 
-        return t()->route('ecommerce.finalizar');
+        return redirect()->route('ecommerce.finalizar', ['codigo' => $pedido->id]);
     }
 
     public function render()

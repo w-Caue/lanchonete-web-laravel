@@ -30,7 +30,7 @@
                             </p>
 
                             <div class="flex flex-row items-center gap-1 w-32">
-                                <x-input-ecommerce wire:model.lazy="cep" type="text"></x-input-ecommerce>
+                                <x-input-ecommerce wire:model.lazy="cep" type="text" placeholder="Cep"></x-input-ecommerce>
 
                                 <button wire:click="updatedCep()" type="button"
                                     class="rounded py-3 px-2 text-white bg-purple-700">
@@ -49,16 +49,16 @@
                                 {{ __('Endereço') }}
                             </p>
 
-                            <x-input-ecommerce wire:model.defer="endereco" id="endereco"></x-input-ecommerce>
+                            <x-input-ecommerce wire:model.defer="endereco" id="endereco" placeholder="endereço"></x-input-ecommerce>
 
                         </label>
 
-                        <label class="w-20">
+                        <label class="w-32">
                             <p class="uppercase tracking-wide text-gray-600 text-md font-semibold mb-2">
                                 {{ __('Número') }}
                             </p>
 
-                            <x-input-ecommerce wire:model="numero" type="number"></x-input-ecommerce>
+                            <x-input-ecommerce wire:model="numero" type="number" placeholder="número"></x-input-ecommerce>
                         </label>
 
                         <label class="w-44">
@@ -66,7 +66,7 @@
                                 {{ __('Complemento') }}
                             </p>
 
-                            <x-input-ecommerce wire:model="complemento" type="text"></x-input-ecommerce>
+                            <x-input-ecommerce wire:model="complemento" type="text" placeholder="complemento"></x-input-ecommerce>
                         </label>
 
                         <label class="w-56">
@@ -74,7 +74,7 @@
                                 {{ __('Ponto de Referencia') }}
                             </p>
 
-                            <x-input-ecommerce wire:model="referencia" type="text"></x-input-ecommerce>
+                            <x-input-ecommerce wire:model="referencia" type="text" placeholder="ponto de referencia"></x-input-ecommerce>
                         </label>
 
                         <label class="w-56">
@@ -82,7 +82,7 @@
                                 {{ __('Bairro') }}
                             </p>
 
-                            <x-input-ecommerce wire:model="bairro" type="text"></x-input-ecommerce>
+                            <x-input-ecommerce wire:model="bairro" type="text" placeholder="bairro"></x-input-ecommerce>
                         </label>
 
                         {{-- <label class="w-44">

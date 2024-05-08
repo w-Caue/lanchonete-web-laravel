@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ComboControlle;
+use App\Http\Controllers\EcommerceController;
 use App\Http\Controllers\EncarteController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PedidoController;
@@ -40,7 +41,6 @@ Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
         Route::get('/meus-pedidos', function () {
             return view('ecommerce.conta.pedidos');
         })->name('pedidos');
-
     });
 
     Route::get('/cardapio', function () {
@@ -67,9 +67,7 @@ Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
         return view('ecommerce.pedido');
     })->name('pedido');
 
-    Route::get('/finalizar', function () {
-        return view('ecommerce.finalizar');
-    })->name('finalizar');
+    Route::get('/finalizar/{codigo}', [EcommerceController::class, 'finalizar'])->name('finalizar');
 });
 
 Route::prefix('/admin')->name('admin.')->group(function () {

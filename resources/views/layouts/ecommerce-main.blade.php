@@ -26,6 +26,12 @@
 
     @vite('resources/css/app.css', 'resources/js/alpine/start.js')
 
+    <style>
+        [x-cloak] {
+            display: none;
+        }
+    </style>
+
     @livewireStyles
 </head>
 

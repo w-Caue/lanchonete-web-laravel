@@ -76,9 +76,9 @@
 
                     <div class="flex items-center gap-1">
                         <span
-                            class="text-sm line-through font-semibold text-red-500">R${{ number_format($produto->preco, 2, ',', '.') }}</span>
+                            class="text-sm line-through font-semibold text-red-500">R${{ $produtoDetalhe->preco ?? '' }}</span>
                         <span
-                            class="text-lg font-semibold text-green-500">R${{ number_format($produto->valor_promocao, 2, ',', '.') }}</span>
+                            class="text-lg font-semibold text-green-500">R${{ $produtoDetalhe->valor_promocao ?? '' }}</span>
                     </div>
 
                     <div class="h-auto max-h-56 overflow-y-auto my-2 p-2 border rounded">

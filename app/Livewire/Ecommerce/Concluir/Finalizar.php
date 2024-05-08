@@ -11,18 +11,11 @@ use Livewire\Component;
 
 class Finalizar extends Component
 {
-    public $cliente;
-    public $carrinho;
-    public $localizacao;
-    public $pagamento;
-
-    public $valorTotal;
-
     public $pedido;
-    public $pedidoEcommerce;
 
-    public function mount()
+    public function mount($codigo)
     {
+        $this->pedido = $codigo;
     }
 
     public function informacoes()

@@ -26,8 +26,6 @@
                             <span
                                 class="text-md font-semibold text-green-500">R${{ number_format($produto['preco'], 2, ',') }}
                             </span>
-
-
                         </div>
                     </div>
                     <div class="flex justify-center w-1/5 my-auto">

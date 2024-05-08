@@ -23,5 +23,5 @@
             </div>
         </div>
     </div>
-    @livewire('Ecommerce.Concluir.Finalizar')
+    @livewire('Ecommerce.Concluir.Finalizar', ['codigo' => $codigo])
 @endsection

@@ -63,96 +63,116 @@
                     </svg>
                 </div>
                 <div class="flex flex-col gap-1 dark:text-white">
+                    @if ($produtoDetalhe)
+                        <p class="text-sm font-semibold uppercase tracking-widest text-gray-400">
+                            {{ $produtoDetalhe->descricao }}
+                        </p>
 
-                    <p class="text-sm font-semibold uppercase tracking-widest text-gray-400">
-                        {{ $produtoDetalhe->descricao ?? '' }}
-                    </p>
-                    <p class="text-lg font-semibold tracking-wider text-green-500">R${{ $produtoDetalhe->preco ?? 0 }}</p>
-
-                    <div class="h-auto max-h-56 overflow-y-auto my-2 p-2 border rounded">
-                        <div>
-                            <div class="sticky top-0 ...">A</div>
-                            <div>
-                                <div>
-                                    <img src="..." />
-                                    <strong>Andrew Alfred</strong>
-                                </div>
-                                <div>
-                                    <img src="..." />
-                                    <strong>Aisha Houston</strong>
-                                </div>
-                                <div>
-                                    <img src="..." />
-                                    <strong>Aisha Houston</strong>
-                                </div>
-                                <div>
-                                    <img src="..." />
-                                    <strong>Aisha Houston</strong>
-                                </div>
-                                <div>
-                                    <img src="..." />
-                                    <strong>Aisha Houston</strong>
-                                </div>
-                                <!-- ... -->
+                        @if ($produtoDetalhe->promocao == 'S')
+                            <div class="flex items-center gap-1">
+                                <span
+                                    class="text-sm line-through font-semibold text-red-500">R${{ $produtoDetalhe->preco }}</span>
+                                <span
+                                    class="text-lg font-semibold text-green-500">R${{ $produtoDetalhe->valor_promocao }}</span>
                             </div>
-                        </div>
-                        <div>
-                            <div class="sticky top-0">B</div>
+                        @else
+                            <span class="text-lg font-semibold text-green-500">R${{ $produtoDetalhe->preco }}</span>
+                        @endif
+
+                        <div class="h-auto max-h-56 overflow-y-auto my-2 p-2 border rounded">
                             <div>
+                                <div class="sticky top-0 ...">A</div>
                                 <div>
-                                    <img src="..." />
-                                    <strong>Bob Alfred</strong>
+                                    <div>
+                                        <img src="..." />
+                                        <strong>Andrew Alfred</strong>
+                                    </div>
+                                    <div>
+                                        <img src="..." />
+                                        <strong>Aisha Houston</strong>
+                                    </div>
+                                    <div>
+                                        <img src="..." />
+                                        <strong>Aisha Houston</strong>
+                                    </div>
+                                    <div>
+                                        <img src="..." />
+                                        <strong>Aisha Houston</strong>
+                                    </div>
+                                    <div>
+                                        <img src="..." />
+                                        <strong>Aisha Houston</strong>
+                                    </div>
+                                    <!-- ... -->
                                 </div>
-                                <div>
-                                    <img src="..." />
-                                    <strong>Bob Alfred</strong>
-                                </div>
-                                <div>
-                                    <img src="..." />
-                                    <strong>Bob Alfred</strong>
-                                </div>
-                                <div>
-                                    <img src="..." />
-                                    <strong>Bob Alfred</strong>
-                                </div>
-                                <div>
-                                    <img src="..." />
-                                    <strong>Bob Alfred</strong>
-                                </div>
-                                <!-- ... -->
                             </div>
+                            <div>
+                                <div class="sticky top-0">B</div>
+                                <div>
+                                    <div>
+                                        <img src="..." />
+                                        <strong>Bob Alfred</strong>
+                                    </div>
+                                    <div>
+                                        <img src="..." />
+                                        <strong>Bob Alfred</strong>
+                                    </div>
+                                    <div>
+                                        <img src="..." />
+                                        <strong>Bob Alfred</strong>
+                                    </div>
+                                    <div>
+                                        <img src="..." />
+                                        <strong>Bob Alfred</strong>
+                                    </div>
+                                    <div>
+                                        <img src="..." />
+                                        <strong>Bob Alfred</strong>
+                                    </div>
+                                    <!-- ... -->
+                                </div>
+                            </div>
+                            <!-- ... -->
                         </div>
-                        <!-- ... -->
-                    </div>
 
-                    <div class="absolute bottom-1 flex gap-1">
-                        <div class="flex justify-center border rounded bg-white">
-                            <button wire:click="remover()" class="p-1 rounded-full hover:bg-gray-100">
-                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <path d="M19 11H5V13H19V11Z"></path>
-                                </svg>
-                            </button>
+                        <div class="absolute bottom-1 flex gap-1">
+                            <div class="flex justify-center border rounded bg-white">
+                                <button wire:click="remover()" class="p-1 rounded-full hover:bg-gray-100">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path d="M19 11H5V13H19V11Z"></path>
+                                    </svg>
+                                </button>
 
-                            <input class="w-4 mx-2 text-center" type="text" value="{{ $quantidade }}">
+                                <input class="w-4 mx-2 text-center" type="text" value="{{ $quantidade }}">
 
-                            <button wire:click="add()" class="p-1 rounded-full hover:bg-gray-100">
-                                <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                    fill="currentColor">
-                                    <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
-                                </svg>
+                                <button wire:click="add()" class="p-1 rounded-full hover:bg-gray-100">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                        fill="currentColor">
+                                        <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            @php
+                                if ($produtoDetalhe->promocao == 'S') {
+                                    $valor = $produtoDetalhe->valor_promocao;
+                                } else {
+                                    $valor = $produtoDetalhe->preco;
+                                }
+                            @endphp
+
+                            <button
+                                x-on:click="Livewire.dispatchTo('ecommerce.ecommerce.carrinho-botao', 'adicionarItem', {codigo:'{{ $produtoDetalhe->id }}', nome:'{{ $produtoDetalhe->nome }}', descricao:'{{ $produtoDetalhe->descricao }}', quantidade: '{{ $quantidade }}', preco:'{{ $valor }}'})"
+                                class="flex justify-center w-56 gap-2 py-2 font-semibold text-purple-600 border rounded dark:text-white">
+                                <span>Adicionar</span>
+
                             </button>
                         </div>
-
-                        <button
-                            x-on:click="Livewire.dispatchTo('ecommerce.ecommerce.carrinho-botao', 'adicionarItem', {codigo:'{{ $produtoDetalhe->id ?? '' }}', nome:'{{ $produtoDetalhe->nome ?? '' }}', descricao:'{{ $produtoDetalhe->descricao ?? '' }}', quantidade: '{{ $quantidade }}', preco:'{{ $produtoDetalhe->preco ?? '' }}'})"
-                            class="flex justify-center w-56 gap-2 py-2 font-semibold text-purple-600 border rounded dark:text-white">
-                            <span>Adicionar</span>
-
-                        </button>
-                    </div>
+                    @endif
                 </div>
             </div>
         @endslot
     </x-modal-detalhe>
+
 </div>
