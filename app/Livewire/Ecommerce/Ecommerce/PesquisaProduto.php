@@ -14,6 +14,7 @@ class PesquisaProduto extends Component
     public function mount()
     {
         $this->search = '';
+        $this->produtos = [];
     }
 
     public function updatedSearch()
@@ -33,12 +34,11 @@ class PesquisaProduto extends Component
             'produtos.valor_promocao',
         ]) #Filtros
             ->when($this->search, function ($query) {
-                return $query->where('descricao', 'LIKE', "%" . $this->search . "%");
+                return $query->where('nome', 'LIKE', "%" . $this->search . "%");
             })
             ->get()->take(5);
 
-       $this->produtos = $dados;
-
+        $this->produtos = $dados;
     }
 
     public function render()

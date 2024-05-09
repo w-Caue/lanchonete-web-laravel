@@ -47,6 +47,10 @@ Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
         return view('ecommerce.cardapio');
     })->name('produtos');
 
+    Route::get('/produto/{codigo}', function () {
+        return view('ecommerce.produto-detalhe');
+    })->name('produto-detalhe');
+
     Route::get('/carrinho', function () {
         return view('ecommerce.carrinho');
     })->name('carrinho');
