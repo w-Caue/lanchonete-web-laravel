@@ -25,7 +25,7 @@ class CarrinhoBotao extends Component
         $this->atualizar();
     }
 
-    public function adicionarItem($codigo, $nome, $descricao, $quantidade, $preco)
+    public function adicionarItem($codigo, $nome, $descricao, $observacao, $quantidade, $preco)
     {
         $novo = true;
 
@@ -47,6 +47,7 @@ class CarrinhoBotao extends Component
                 'codigo' => $codigo,
                 'nome' => $nome,
                 'descricao' => $descricao,
+                'observacao' => $observacao,
                 'quantidade' => $quantidade,
                 'preco' => $preco,
                 'total' => $preco * $quantidade,

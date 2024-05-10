@@ -1,7 +1,7 @@
 <div class="w-full relative">
     <div class="relative">
         <input wire:model.lazy="search"
-            class="block p-3 w-full shadow-md font-semibold rounded-full z-20 text-sm tracking-widest focus:outline-none focus:ring-2 active:ring-purple-500"
+            class="block p-3 w-full shadow-md font-semibold rounded-full z-20 text-sm tracking-widest focus:outline-none focus:ring-2 focus:ring-purple-600 active:ring-purple-500"
             placeholder="O que você procura?">
 
         <button wire:click="updatedCep()"

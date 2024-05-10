@@ -5,7 +5,7 @@
 
         <a href="{{ route('ecommerce.conta.pedidos') }}"
             class="mt-4 text-lg font-semibold text-gray-800 tracking-widest text-center hover:text-blue-500 hover:underline cursor-pointer">
-            verificar seu pedido
+            acompanhe seu pedido
         </a>
     </div>
 </div>

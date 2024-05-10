@@ -30,6 +30,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('pedido_id');
             $table->unsignedBigInteger('produto_id');
+            $table->text('observacao', 300)->nullable();
             $table->integer('quantidade');
             $table->double('total');
             $table->timestamps();

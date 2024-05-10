@@ -21,6 +21,13 @@ class EcommerceController extends Controller
         return view('ecommerce.finalizar', compact(['codigo']));
     }
 
+    public function produto(Request $request)
+    {
+        $codigo = $request->codigo;
+        
+        return view('ecommerce.produto-detalhe', compact(['codigo']));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
