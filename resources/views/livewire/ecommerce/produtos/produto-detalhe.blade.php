@@ -21,7 +21,7 @@
                         <div class="flex py-2  rounded-lg">
                             @if ($produto->promocao == 'S')
                                 <div class="flex flex-col">
-                                    <span class="text-xl font-bold text-red-500">
+                                    <span class="text-md font-bold line-through text-gray-500">
                                         R${{ number_format($produto->preco, 2, ',') }}
                                     </span>
                                     <span class="text-3xl font-bold text-blue-500">
