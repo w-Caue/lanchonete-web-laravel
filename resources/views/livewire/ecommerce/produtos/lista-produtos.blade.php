@@ -163,7 +163,7 @@
                             @endphp
 
                             <button
-                                x-on:click="Livewire.dispatchTo('ecommerce.ecommerce.carrinho-botao', 'adicionarItem', {codigo:'{{ $produtoDetalhe->id }}', nome:'{{ $produtoDetalhe->nome }}', descricao:'{{ $produtoDetalhe->descricao }}', quantidade: '{{ $quantidade }}', preco:'{{ $valor }}'})"
+                                x-on:click="Livewire.dispatchTo('ecommerce.ecommerce.carrinho-botao', 'adicionarItem', {codigo:'{{ $produtoDetalhe->id }}', nome:'{{ $produtoDetalhe->nome }}', descricao:'{{ $produtoDetalhe->descricao }}', observacao:'{{ $observacao }}', quantidade: '{{ $quantidade }}', preco:'{{ $valor }}'})"
                                 class="flex justify-center w-56 gap-2 py-2 font-semibold text-purple-600 border rounded dark:text-white">
                                 <span>Adicionar</span>
 

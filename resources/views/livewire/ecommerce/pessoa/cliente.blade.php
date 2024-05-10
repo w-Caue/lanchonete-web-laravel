@@ -1,25 +1,27 @@
 <div>
-    <div class="flex flex-col mt-2 md:flex-row body-font">
+    <div class="flex flex-col mt-20 md:flex-row body-font">
+
         <div class="flex-1 p-8">
             <h4 class="mb-4 text-lg font-semibold text-center tracking-widest">
                 FAZER LOGIN
             </h4>
             <div class="flex flex-col w-full gap-4">
-                <form method="POST" action="{{ route('login') }}" class="rounded px-8 pt-6 pb-8 mb-4">
+                <form method="POST" wire:submit="login()" class="rounded px-8 pt-6 pb-8 mb-4">
                     @csrf
                     <div class="mb-4">
                         <label class="font-semibold text-md text-gray-600 uppercase tracking-widest">
                             Email
                         </label>
 
-                        <x-input-ecommerce class="'email') is-invalid @enderror" name="email" value="{{ old('email') }}"
-                            id="username" type="email" placeholder="insira seu email aqui"></x-input-ecommerce>
+                        <x-input-ecommerce wire:model="emailLogin" class="'email') is-invalid @enderror" name="email"
+                            value="{{ old('email') }}" id="username" type="email"
+                            placeholder="insira seu email aqui"></x-input-ecommerce>
 
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
+                        {{-- @error('email')
+                            <span class="text-sm font-normal tracking-widest text-red-500" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                        @enderror --}}
                     </div>
 
                     <div class="mb-4">
@@ -27,14 +29,15 @@
                             Senha
                         </label>
 
-                        <x-input-ecommerce class="@error('password') is-invalid @enderror" name="password" id="password"
-                            type="password" value="{{ old('password') }}" placeholder="insira sua senha aqui"></x-input-ecommerce>
+                        <x-input-ecommerce wire:model="passwordLogin" class="@error('password') is-invalid @enderror"
+                            name="password" id="password" type="password" value="{{ old('password') }}"
+                            placeholder="insira sua senha aqui"></x-input-ecommerce>
 
-                        @error('password')
-                            <span class="invalid-feedback" role="alert">
+                        {{-- @error('password')
+                            <span class="text-sm font-normal tracking-widest text-red-500" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                        @enderror --}}
                     </div>
 
                     <div class="flex justify-center gap-2">
@@ -61,7 +64,8 @@
                 CRIAR MINHA CONTA
             </h4>
             {{-- <div class="flex flex-col w-full gap-5"> --}}
-            <form method="POST" action="{{ route('register') }}" class="flex flex-col gap-4 rounded px-8 pt-6 pb-8 mb-4">
+            <form wire:submit="register()"
+                class="flex flex-col gap-4 rounded px-8 pt-6 pb-8 mb-4">
                 @csrf
 
                 <label class="w-full" for="">
@@ -69,11 +73,12 @@
                         Nome*
                     </label>
 
-                    <x-input-ecommerce id="name" type="text" class="@error('name') is-invalid @enderror"
-                        name="name" value="{{ old('name') }}" required placeholder="insira seu nome aqui"></x-input-ecommerce>
+                    <x-input-ecommerce wire:model="name" id="name" type="text" class="@error('name') is-invalid @enderror"
+                        name="name" value="{{ old('name') }}"
+                        placeholder="insira seu nome aqui"></x-input-ecommerce>
 
                     @error('name')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="text-sm font-normal tracking-widest text-red-500" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -84,11 +89,12 @@
                         Email*
                     </label>
 
-                    <x-input-ecommerce id="email" type="email" class="@error('email') is-invalid @enderror"
-                        name="email" value="{{ old('email') }}" required placeholder="insira seu email aqui"></x-input-ecommerce>
+                    <x-input-ecommerce wire:model="email" id="email" type="email" class="@error('email') is-invalid @enderror"
+                        name="email" value="{{ old('email') }}"
+                        placeholder="insira seu email aqui"></x-input-ecommerce>
 
                     @error('email')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="text-sm font-normal tracking-widest text-red-500" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -99,11 +105,12 @@
                         telefone
                     </label>
 
-                    <x-input-ecommerce id="phone" type="tel" class="@error('phone') is-invalid @enderror"
-                        name="phone" value="{{ old('phone') }}" required placeholder="insira seu número aqui"></x-input-ecommerce>
+                    <x-input-ecommerce wire:model="phone" id="phone" type="tel" class="@error('phone') is-invalid @enderror"
+                        name="phone" value="{{ old('phone') }}"
+                        placeholder="insira seu número aqui"></x-input-ecommerce>
 
                     @error('phone')
-                        <span class="invalid-feedback" role="alert">
+                        <span class="text-sm font-normal tracking-widest text-red-500" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
@@ -115,12 +122,13 @@
                             senha*
                         </label>
 
-                        <x-input-ecommerce id="password" type="password" class="@error('password') is-invalid @enderror"
-                            name="password" value="{{ old('password') }}" required placeholder="insira sua senha aqui"
-                            ></x-input-ecommerce>
+                        <x-input-ecommerce wire:model="password" id="password" type="password"
+                            class="@error('password') is-invalid @enderror" name="password"
+                            value="{{ old('password') }}"
+                            placeholder="insira sua senha aqui"></x-input-ecommerce>
 
                         @error('password')
-                            <span class="invalid-feedback" role="alert">
+                            <span class="text-sm font-normal tracking-widest text-red-500" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
@@ -132,7 +140,8 @@
                         </label>
 
                         <x-input-ecommerce id="password_confirmation" type="password" name="password_confirmation"
-                            value="{{ old('password') }}" required autocomplete="new-password" placeholder="confirme sua senha aqui"></x-input-ecommerce>
+                            value="{{ old('password') }}" autocomplete="new-password"
+                            placeholder="confirme sua senha aqui"></x-input-ecommerce>
                     </label>
                 </div>
 
@@ -143,8 +152,6 @@
                 </div>
 
             </form>
-
-            {{-- </div> --}}
 
         </div>
 

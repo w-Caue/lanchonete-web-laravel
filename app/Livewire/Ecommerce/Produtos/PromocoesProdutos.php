@@ -11,6 +11,7 @@ class PromocoesProdutos extends Component
 
     public $encarte;
     public $produtoDetalhe;
+    public $observacao;
 
     public $quantidade = 1;
 

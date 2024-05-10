@@ -18,6 +18,7 @@ class ListaProdutos extends Component
     public $readyLoad = false;
 
     public $produtoDetalhe;
+    public $observacao;
 
     public $carrinho = [];
     public $quantidade = 1;
