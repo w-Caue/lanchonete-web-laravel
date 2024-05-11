@@ -1,10 +1,11 @@
 <!-- ====== Footer Section Start -->
-<footer class="relative z-10 bg-gray-100 pt-20 pb-10 lg:pt-[120px] lg:pb-20">
+<footer class="relative z-10 text-gray-500 font-semibold bg-gray-100 pt-20 pb-10 lg:pt-[120px] lg:pb-20">
     <div class="container mx-auto">
         <div class="flex flex-wrap ">
             <div class="w-full px-4 sm:w-2/3 lg:w-3/12">
                 <div class="w-full mb-10">
-                    <p class="text-xl font-semibold uppercase tracking-widest text-gray-700 mb-6 inline-block max-w-[160px]">
+                    <p
+                        class="text-xl font-semibold uppercase tracking-widest text-gray-700 mb-6 inline-block max-w-[160px]">
                         Logo
                     </p>
                     <p class="text-base text-body-color mb-7">
@@ -40,30 +41,30 @@
             <div class="w-full px-4 sm:w-1/2 lg:w-2/12">
                 <div class="w-full mb-10">
                     <h4 class="text-lg font-semibold text-dark mb-9">
-                        Resources
+                        Atendimento
                     </h4>
-                    <ul class="space-y-3">
+                    <ul class="space-y-3 text-sm">
                         <li>
                             <a href="javascript:void(0)"
-                                class="inline-block text-base leading-loose text-body-color hover:text-primary">
+                                class="inline-block leading-loose text-body-color hover:text-primary">
                                 SaaS Development
                             </a>
                         </li>
                         <li>
                             <a href="javascript:void(0)"
-                                class="inline-block text-base leading-loose text-body-color hover:text-primary">
+                                class="inline-block leading-loose text-body-color hover:text-primary">
                                 Our Products
                             </a>
                         </li>
                         <li>
                             <a href="javascript:void(0)"
-                                class="inline-block text-base leading-loose text-body-color hover:text-primary">
+                                class="inline-block leading-loose text-body-color hover:text-primary">
                                 User Flow
                             </a>
                         </li>
                         <li>
                             <a href="javascript:void(0)"
-                                class="inline-block text-base leading-loose text-body-color hover:text-primary">
+                                class="inline-block leading-loose text-body-color hover:text-primary">
                                 User Strategy
                             </a>
                         </li>
@@ -73,31 +74,40 @@
             <div class="w-full px-4 sm:w-1/2 lg:w-2/12">
                 <div class="w-full mb-10">
                     <h4 class="text-lg font-semibold text-dark mb-9">
-                        Company
+                        Navegação
                     </h4>
-                    <ul class="space-y-3">
+                    <ul class="space-y-3 text-sm">
                         <li>
-                            <a href="javascript:void(0)"
-                                class="inline-block text-base leading-loose text-body-color hover:text-primary">
-                                About TailGrids
+                            <a href="/" class="inline-block leading-loose text-body-color hover:text-primary">
+                                Inicio
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:void(0)"
-                                class="inline-block text-base leading-loose text-body-color hover:text-primary">
-                                Contact & Support
+                            <a href="{{ route('ecommerce.produtos') }}"
+                                class="inline-block leading-loose text-body-color hover:text-primary">
+                                Cardapio
                             </a>
                         </li>
+
+                        @auth
+                            <li>
+                                <a href="{{ route('ecommerce.conta.cadastro') }}"
+                                    class="inline-block leading-loose text-body-color hover:text-primary">
+                                    Meus dados
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('ecommerce.conta.pedidos') }}"
+                                    class="inline-block leading-loose text-body-color hover:text-primary">
+                                    Meus pedidos
+                                </a>
+                            </li>
+                        @endauth
+
                         <li>
-                            <a href="javascript:void(0)"
-                                class="inline-block text-base leading-loose text-body-color hover:text-primary">
-                                Success History
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0)"
-                                class="inline-block text-base leading-loose text-body-color hover:text-primary">
-                                Setting & Privacy
+                            <a href="" class="inline-block leading-loose text-body-color hover:text-primary">
+                                Contato
                             </a>
                         </li>
                     </ul>
@@ -106,30 +116,30 @@
             <div class="w-full px-4 sm:w-1/2 lg:w-2/12">
                 <div class="w-full mb-10">
                     <h4 class="text-lg font-semibold text-dark mb-9">
-                        Quick Links
+                        Endereço
                     </h4>
-                    <ul class="space-y-3">
+                    <ul class="space-y-3 text-sm">
                         <li>
                             <a href="javascript:void(0)"
-                                class="inline-block text-base leading-loose text-body-color hover:text-primary">
+                                class="inline-block leading-loose text-body-color hover:text-primary">
                                 Premium Support
                             </a>
                         </li>
                         <li>
                             <a href="javascript:void(0)"
-                                class="inline-block text-base leading-loose text-body-color hover:text-primary">
+                                class="inline-block leading-loose text-body-color hover:text-primary">
                                 Our Services
                             </a>
                         </li>
                         <li>
                             <a href="javascript:void(0)"
-                                class="inline-block text-base leading-loose text-body-color hover:text-primary">
+                                class="inline-block leading-loose text-body-color hover:text-primary">
                                 Know Our Team
                             </a>
                         </li>
                         <li>
                             <a href="javascript:void(0)"
-                                class="inline-block text-base leading-loose text-body-color hover:text-primary">
+                                class="inline-block leading-loose text-body-color hover:text-primary">
                                 Download App
                             </a>
                         </li>
@@ -139,7 +149,7 @@
             <div class="w-full px-4 sm:w-1/2 lg:w-3/12">
                 <div class="w-full mb-10">
                     <h4 class="text-lg font-semibold text-dark mb-9">
-                        Follow Us On
+                        Siga-nos no
                     </h4>
                     <div class="flex items-center mb-6">
                         <a href="javascript:void(0)"
@@ -171,12 +181,14 @@
                             </svg>
                         </a>
                     </div>
-                    <p class="text-base text-body-color">
-                        &copy; 2025 TailGrids
-                    </p>
+
                 </div>
             </div>
         </div>
+
+        <p class="text-sm text-center text-body-color mt-4">
+            &copy; 2024 desenvolvido por CodeSete
+        </p>
     </div>
 </footer>
 <!-- ====== Footer Section End -->
