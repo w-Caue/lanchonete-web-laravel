@@ -18,6 +18,8 @@ class Pedido extends Component
     public $valorProdutos;
     public $valorTotal;
 
+    public $entrega;
+
     public function mount()
     {
         $this->carrinho();
@@ -39,10 +41,10 @@ class Pedido extends Component
 
     public function entregaRetirada()
     {
-        $entrega = session()->get('entrega');
+        $this->entrega = session()->get('entrega');
 
-        if ($entrega != null) {
-            $this->enderecos = Endereco::where('user_id', $entrega)->get()->first();
+        if ($this->entrega != null) {
+            $this->enderecos = Endereco::where('id', $this->entrega)->get()->first();
             return;
         } else {
             // a variavel $endereço vai receber o endeço da loja para retirada
@@ -74,7 +76,7 @@ class Pedido extends Component
 
     public function finalizar()
     {
-        if (!$this->enderecos) {
+        if ($this->enderecos == null) {
             $retirada = 'S';
             $endereco = 0;
         } else {

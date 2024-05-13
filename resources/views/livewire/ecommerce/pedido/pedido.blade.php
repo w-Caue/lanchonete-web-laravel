@@ -156,10 +156,10 @@
                 <span class="text-xl text-green-500">R${{ number_format($valorProdutos, 2, ',', '') }} </span>
             </div>
 
-            <a wire:click="finalizar()"
+            <button wire:click="finalizar()"
                 class="flex justify-center w-full py-3 mt-4 text-sm font-semibold text-center text-white uppercase rounded bg-purple-700">
                 Finalizar Compra
-            </a>
+            </button>
         </div>
 
     </div>
