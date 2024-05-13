@@ -3,36 +3,37 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Pessoa;
+use App\Models\User;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
 class CadastroPessoaForm extends Form
 {
     public $codigo;
-    public $nome;
+    public $name;
     public $email;
-    public $whatsapp;
+    public $phone;
     public $status;
     public $dataCad;
 
     public function pessoa($codigo)
     {
-        $pessoa = Pessoa::where('id', '=', $codigo)->get()->first();
+        $pessoa = User::where('id', '=', $codigo)->get()->first();
 
         $this->codigo = $pessoa->id;
-        $this->nome = $pessoa->nome;
+        $this->name = $pessoa->name;
         $this->email = $pessoa->email;
-        $this->whatsapp = $pessoa->whatsapp;
+        $this->phone = $pessoa->phone;
         $this->status = $pessoa->status;
         $this->dataCad = date('Y-m-d', strtotime($pessoa->created_at));
     }
 
     public function edit()
     {
-        Pessoa::findOrFail($this->codigo)->update([
-            'nome' => $this->nome,
+        User::findOrFail($this->codigo)->update([
+            'name' => $this->name,
             'email' => $this->email,
-            'whatsapp' => $this->whatsapp,
+            'phone' => $this->phone,
             'status' => $this->status,
         ]);
     }

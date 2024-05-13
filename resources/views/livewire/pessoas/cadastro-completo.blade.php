@@ -33,7 +33,7 @@
 
         <label class="my-2">
             <p class="text-sm font-semibold uppercase text-gray-100">Nome</p>
-            <x-input wire:model="form.nome" class="w-full"></x-input>
+            <x-input wire:model="form.name" class="w-full"></x-input>
         </label>
 
         <label class="my-2">
@@ -43,8 +43,8 @@
 
         <div class="flex gap-3 my-2">
             <label class="">
-                <p class="text-sm font-semibold uppercase text-gray-100">whatsapp</p>
-                <x-input wire:model="form.whatsapp" class="w-56" type="tel"></x-input>
+                <p class="text-sm font-semibold uppercase text-gray-100">Telefone</p>
+                <x-input wire:model="form.phone" class="w-56" type="tel"></x-input>
             </label>
 
             <label class="">

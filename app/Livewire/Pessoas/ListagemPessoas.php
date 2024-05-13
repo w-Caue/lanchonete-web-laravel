@@ -3,6 +3,7 @@
 namespace App\Livewire\Pessoas;
 
 use App\Models\Pessoa;
+use App\Models\User;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -21,14 +22,10 @@ class ListagemPessoas extends Component
 
     public function dados()
     {
-        $pessoas = Pessoa::select([
-            'pessoas.id',
-            'pessoas.nome',
-            'pessoas.whatsapp',
-            'pessoas.email',
-            'pessoas.status',
-            'pessoas.tipo_ecommerce',
-        ]);
+        $pessoas = User::select([
+            'users.*',
+        ]) 
+        ->where('access_level' , '=', 'client');
 
         return $pessoas->paginate(5);
     }

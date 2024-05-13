@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('phone', 14)->nullable();
             $table->string('password');
             $table->string('access_level')->default('client');
+            $table->string('status')->default('Ativo');
+            $table->enum('ecommerce', ['S', 'N'])->default('N');
             $table->rememberToken();
             $table->timestamps();
         });

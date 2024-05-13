@@ -68,29 +68,50 @@
                         </th>
                         <th class="px-4 py-3">
                             <div class="flex items-center cursor-pointer" wire:click="sortFilter('Whatsapp')">
-                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Whatsapp</button>
+                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Telefone</button>
                                 @include('includes.icon-filter', ['field' => 'whatsapp'])
                             </div>
                         </th>
-                        <th class="px-4 py-3">Email</th>
                         <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3">Data Cadastro</th>
                         <th class="px-4 py-3">Ações</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach ($pessoas as $pessoa)
-                        <tr wire:key="{{ $pessoa->id }}" class="text-gray-700 font-semibold dark:text-gray-400">
+                        <tr wire:key="{{ $pessoa->id }}" class="text-gray-700 dark:text-gray-400">
                             <td class="px-4 py-3 text-sm">
-                                #{{ $pessoa->id }}
+                                {{ $pessoa->id }}
                             </td>
                             <td class="px-2 py-3">
-                                <p class="">{{ $pessoa->nome }}</p>
+                                <div class="flex items-center text-sm">
+                                    <!-- Avatar with inset shadow -->
+                                    <div class="relative hidden mx-2 md:block">
+                                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="1.5"
+                                                d="M10 19a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 11 14H9a3.987 3.987 0 0 0-3.951 3.512A8.948 8.948 0 0 0 10 19Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold">{{ $pessoa->name }}</p>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400">
+                                            {{-- @if ($pessoa->tipo_cliente == 'S')
+                                                Cliente
+                                            @endif
+                                            @if ($pessoa->tipo_funcionario == 'S')
+                                                Funcionario
+                                            @endif
+                                            @if ($pessoa->tipo_fornecedor == 'S')
+                                                Fornecedor
+                                            @endif --}}
+                                        </p>
+                                    </div>
+                                </div>
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                {{ $pessoa->whatsapp }}
-                            </td>
-                            <td class="px-4 py-3 text-sm">
-                                {{ $pessoa->email }}
+                                {{ $pessoa->phone }}
                             </td>
                             <td class="px-4 py-3 text-xs">
                                 @if ($pessoa->status == 'Ativo')
@@ -105,10 +126,13 @@
                                     </span>
                                 @endif
                             </td>
+                            <td class="px-4 py-3 text-sm">
+                                {{ date('d/m/Y', strtotime($pessoa->created_at)) }}
+                            </td>
                             <td class="px-4 py-3">
                                 <div class="flex items-center space-x-2 text-sm">
                                     <a href="{{ route('admin.pessoal.show', ['codigo' => $pessoa->id]) }}"
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-105 dark:hover:text-blue-600 dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg hover:scale-105 dark:hover:text-purple-600 dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Edit">
                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                             <path
@@ -118,13 +142,24 @@
                                     </a>
 
                                     <button wire:click="remover({{ $pessoa->id }})"
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-95 dark:hover:text-blue-600
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg hover:scale-95 dark:hover:text-purple-600
                                          dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Delete">
-                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
+                                            viewBox="0 0 20 20">
                                             <path fill-rule="evenodd"
                                                 d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
                                                 clip-rule="evenodd"></path>
+                                        </svg>
+                                    </button>
+
+                                    <button
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                        aria-label="Delete">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"
+                                            stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                                         </svg>
                                     </button>
                                 </div>
