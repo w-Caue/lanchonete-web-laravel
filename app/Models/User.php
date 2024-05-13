@@ -23,6 +23,7 @@ class User extends Authenticatable
         'phone',
         'password',
         'access_level',
+        'ecommerce',
     ];
 
     public function pedidos(){

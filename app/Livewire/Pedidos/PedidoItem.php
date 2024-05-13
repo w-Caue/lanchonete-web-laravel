@@ -16,6 +16,8 @@ class PedidoItem extends Component
     use WithPagination;
     use LivewireAlert;
 
+    public $searchProduct;
+
     public $pedido;
 
     public $produtoDetalhe;
@@ -39,7 +41,6 @@ class PedidoItem extends Component
     public function mount($codigo)
     {
         $this->pedido = Pedido::where('id', '=', $codigo)->get()->first();
-
         $this->parametros();
     }
 
@@ -50,7 +51,10 @@ class PedidoItem extends Component
             'produtos.nome',
             'produtos.descricao',
             'produtos.preco',
-        ]);
+        ]) #Filtros
+            ->when($this->searchProduct, function ($query) {
+                return $query->where('nome', 'LIKE', "%" . $this->searchProduct . "%");
+            });
 
         return $produtos->paginate(4);
     }
@@ -76,8 +80,7 @@ class PedidoItem extends Component
             }
 
             $this->alert('success', 'Item Adicionado!', [
-                'position' => 'center',
-                'timer' => '1000',
+                'timer' => '2000',
                 'toast' => true,
             ]);
 
@@ -93,9 +96,8 @@ class PedidoItem extends Component
             ]);
 
             $this->alert('success', 'Item Adicionado!', [
-                'position' => 'center',
-                'timer' => '1000',
-                'toast' => false,
+                'timer' => '2000',
+                'toast' => true,
             ]);
         }
 
@@ -187,18 +189,31 @@ class PedidoItem extends Component
         ]);
     }
 
+    public function formaPagamento($codigo)
+    {
+        Pedido::findOrFail($this->pedido->id)->update([
+            'pagamento_id' => $codigo,
+        ]);
+
+        $this->alert('success', 'Pagamento Alterado!', [
+            'timer' => '2000',
+            'toast' => true,
+        ]);
+
+        $this->dispatch('close-modal-dark');
+
+        return $this->js('window.location.reload()');
+    }
+
     public function finalizarPedido()
     {
         Pedido::findOrFail($this->pedido->id)->update([
-            'forma_pagamento_id' => $this->pagamento,
-            'descricao' => $this->descricao,
             'status' => 'Finalizado'
         ]);
 
         $this->alert('success', 'Pedido Finalizado!', [
-            'position' => 'center',
-            'timer' => '1000',
-            'toast' => false,
+            'timer' => '2000',
+            'toast' => true,
         ]);
 
         $this->js('window.location.reload()');
@@ -207,8 +222,6 @@ class PedidoItem extends Component
     public function parametros()
     {
         $this->pagamentos = FormaPagamento::all();
-        $this->pagamento = $this->pedido->forma_de_pagamento_id;
-        $this->descricao = $this->pedido->descricao;
     }
 
     public function render()

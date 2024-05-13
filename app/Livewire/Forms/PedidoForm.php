@@ -12,8 +12,8 @@ class PedidoForm extends Form
     #[Rule('required', message: 'Selecione a Forma de Pagamento')] 
     public $pagamento = '';
 
-    #[Rule('min:5', message: 'A descrição precisa ter mais de 5 caracteres')] 
-    public $descricao = '';
+    #[Rule('min:3', message: 'A observação precisa ter mais de 3 caracteres')] 
+    public $observacao = '';
 
     
 }

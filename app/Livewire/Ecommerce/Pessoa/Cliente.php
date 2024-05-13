@@ -75,6 +75,7 @@ class Cliente extends Component
                 'email' => $this->email,
                 'phone' => $this->phone,
                 'password' => Hash::make($this->password),
+                'ecommerce' => 'S',
             ]);
 
             if ($user) {

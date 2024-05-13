@@ -61,7 +61,7 @@
                         <th class="px-4 py-3">
                             <div class="flex items-center cursor-pointer" wire:click="sortFilter('Descricao')">
                                 <button
-                                    class="text-xs font-medium leading-4 tracking-wider uppercase">Descrição</button>
+                                    class="text-xs font-medium leading-4 tracking-wider uppercase">Observação</button>
                                 @include('includes.icon-filter', ['field' => 'descricao'])
                             </div>
                         </th>
@@ -80,18 +80,18 @@
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @foreach ($pedidos as $pedido)
                         <tr wire:key="{{ $pedido->id }}"
-                            class="font-semibold {{ $pedido->status == 'Finalizado' ? 'text-green-500' : 'text-gray-400' }} {{ $pedido->status == 'Ecommerce' ? 'text-sky-500' : 'text-gray-400' }}">
+                            class="font-semibold {{ $pedido->status == 'Finalizado' ? 'text-green-500' : 'text-gray-400' }} {{ $pedido->ecommerce == 'S' ? 'text-sky-500' : 'text-gray-400' }}">
                             <td class="px-4 py-3 text-sm">
                                 #{{ $pedido->id }}
                             </td>
                             <td class="px-2 py-3">
-                                <p class="">{{ $pedido->pessoa->nome }}</p>
+                                <p class="">{{ $pedido->cliente_nome }}</p>
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                {{ $pedido->descricao }}
+                                {{ $pedido->observacao }}
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                {{ $pedido->formaPagamento->nome }}
+                                {{ $pedido->pagamento->nome }}
                             </td>
                             <td class="px-4 py-3 text-sm">
                                 {{ number_format($pedido->total_itens, 2, ',', '.') }}

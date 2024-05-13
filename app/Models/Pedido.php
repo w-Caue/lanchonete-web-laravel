@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pedido extends Model
 {
 
-    protected $fillable = ['user_id', 'status', 'pagamento_id', 'descricao', 'ecommerce', 'retirada', 'endereco_id', 'total_itens', 'desconto', 'total_pedido'];
+    protected $fillable = ['user_id', 'status', 'pagamento_id', 'observacao', 'ecommerce', 'retirada', 'endereco_id', 'total_itens', 'desconto', 'total_pedido'];
 
     public function itens()
     {
@@ -22,7 +22,7 @@ class Pedido extends Model
 
     public function pessoa()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 
     public function pagamento()

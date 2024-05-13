@@ -54,19 +54,20 @@ class Pedidos extends Component
 
     public function pesquisaCliente()
     {
-        $pessoas = Pessoa::select([
-            'pessoas.id',
-            'pessoas.nome',
-            'pessoas.email',
-            'pessoas.whatsapp',
-        ]);
+        $pessoas = User::select([
+            'users.id',
+            'users.name',
+            'users.email',
+            'users.phone',
+            'users.ecommerce',
+        ])->where('ecommerce', '=', 'N');
 
-        $this->pessoas = $pessoas->orderBy('nome')->get();
+        $this->pessoas = $pessoas->orderBy('name')->get();
     }
 
     public function selecionarCliente($codigo)
     {
-        $this->cliente = Pessoa::where('id', $codigo)->get()->first();
+        $this->cliente = User::where('id', $codigo)->get()->first();
 
         $this->dispatch('close-detalhe');
     }
@@ -74,21 +75,20 @@ class Pedidos extends Component
     public function save()
     {
         $pedido = Pedido::create([
-            'pessoa_id' => $this->cliente->id,
+            'user_id' => $this->cliente->id,
             'status' => 'Aberto',
-            'forma_pagamento_id' => $this->form->pagamento,
-            'descricao' => $this->form->descricao,
+            'pagamento_id' => $this->form->pagamento,
+            'observacao' => $this->form->observacao,
         ]);
 
         $this->alert('success', 'Pedido Criado!', [
-            'position' => 'center',
-            'timer' => 1000,
-            'toast' => false,
+            'timer' => 3000,
+            'toast' => true,
         ]);
 
         $this->dispatch('close-modal');
 
-        $this->redirectRoute('admin.pedido.show', ['codigo'=> $pedido->id]);
+        $this->redirectRoute('admin.pedido.show', ['codigo' => $pedido->id]);
     }
 
     public function parametros()

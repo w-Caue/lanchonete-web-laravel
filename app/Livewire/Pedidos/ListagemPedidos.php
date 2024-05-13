@@ -10,10 +10,25 @@ class ListagemPedidos extends Component
 {
     use WithPagination;
 
-    public function dados(){
+    public $search;
+
+    public function dados()
+    {
         $pedidos = Pedido::select([
-            'pedidos.*',
-        ]);
+            'pedidos.id',
+            'pedidos.user_id',
+            'users.name as cliente_nome',
+            'pedidos.observacao',
+            'pedidos.status',
+            'pedidos.pagamento_id',
+            'pedidos.total_itens',
+            'pedidos.total_pedido',
+        ])
+            ->leftjoin('users', 'users.id', '=', 'pedidos.user_id')
+            #Filtros
+            ->when($this->search, function ($query) {
+                return $query->where('name', 'LIKE', "%" . $this->search . "%");
+            });
 
         return $pedidos->paginate(5);
     }

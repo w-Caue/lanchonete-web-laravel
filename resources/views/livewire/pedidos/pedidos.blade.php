@@ -14,17 +14,18 @@
                     <label for="">
                         <p class="text-sm font-semibold uppercase text-gray-100">Cliente</p>
 
-                        <div class="flex item-center">
-                            <x-input value="{{ $cliente->nome ?? '' }}" class="w-80"></x-input>
+                        <div class="relative w-60">
+                            <input value="{{ $cliente->name ?? '' }}"
+                                class="block p-3 w-full font-semibold rounded-md uppercase text-xs tracking-widest shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 active:ring-purple-500 dark:bg-gray-700 dark:text-gray-300"
+                                placeholder="selecione o cliente">
 
                             <button type="button" x-data x-on:click="$dispatch('open-detalhe', { name : 'clientes' })"
-                                class="p-2 text-white bg-blue-500 rounded-r">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                    stroke="currentColor" class="w-6 h-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                class="absolute top-0 right-0 p-3 text-sm text-gray-500 font-medium rounded transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
-
                             </button>
                         </div>
 
@@ -43,9 +44,9 @@
                     </label>
 
                     <label>
-                        <p class="text-sm font-semibold uppercase text-gray-100">descrição</p>
-                        <textarea wire:model="form.descricao"
-                            class="w-full p-3 pl-2 text-sm text-gray-600 font-semibold rounded shadow-sm bg-white dark:bg-gray-700 dark:text-white"
+                        <p class="text-sm font-semibold uppercase text-gray-100">Observação</p>
+                        <textarea placeholder="insira a observação aqui" wire:model="form.observacao"
+                            class="w-full p-3 pl-2 uppercase text-xs text-gray-600 font-semibold rounded shadow-sm bg-white dark:bg-gray-700 dark:text-white"
                             id="" rows="3"></textarea>
                     </label>
 
@@ -86,8 +87,8 @@
                             class="m-2 p-2 text-gray-700 shadow border rounded w-44 h-24 hover:bg-gray-100 hover:shadow-xl hover:border-2 cursor-pointer dark:text-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-none">
                             <h1 class="text-sm  font-semibold">#{{ $pessoa->id }}</h1>
                             <h1 class="text-lg font-semibold ">
-                                {{ $pessoa->nome }}</h1>
-                            <h1 class="text-sm  font-semibold ">{{ $pessoa->whatsapp }}</h1>
+                                {{ $pessoa->name }}</h1>
+                            <h1 class="text-sm  font-semibold ">{{ $pessoa->phone }}</h1>
                         </div>
                     @endforeach
                 </div>
