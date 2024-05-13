@@ -11,11 +11,10 @@ class ListagemProdutos extends Component
 {
     use WithPagination;
 
-    public $categorias;
+    public $search;
 
     public function mount()
     {
-        // $this->parametros();
     }
 
     public function dados()
@@ -28,7 +27,10 @@ class ListagemProdutos extends Component
             'produtos.categoria_id',
             'produtos.preco',
             'produtos.tipo_ecommerce',
-        ]);
+        ]) #Filtros
+            ->when($this->search, function ($query) {
+                return $query->where('nome', 'LIKE', "%" . $this->search . "%");
+            });
 
         return $produtos->paginate(5);
     }

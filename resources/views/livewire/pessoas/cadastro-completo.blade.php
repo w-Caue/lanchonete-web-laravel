@@ -6,7 +6,7 @@
                 <label for="">
                     <p class="text-sm font-semibold uppercase text-gray-100">Codigo</p>
                     <input wire:model="form.codigo"
-                        class="p-1 pl-2 w-20 text-sm text-gray-600 font-semibold rounded shadow-sm bg-white dark:bg-gray-700 dark:text-white"
+                        class="p-1 pl-2 w-16 text-sm text-gray-600 font-semibold rounded shadow-sm bg-white dark:bg-gray-700 dark:text-white"
                         type="text">
                 </label>
             </div>

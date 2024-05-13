@@ -1,14 +1,19 @@
 <div>
     <div class="items-center justify-between block sm:flex md:divide-x md:divide-gray-100 dark:divide-gray-700">
         <div class="flex items-center mb-4 sm:mb-0">
-            <form class="sm:pr-3" action="#" method="GET">
-                <label for="products-search" class="sr-only">Pesquisa</label>
-                <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
-                    <input type="text" name="email" id="products-search"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Pesquisa por produto">
-                </div>
-            </form>
+            <div class="relative w-60">
+                <input wire:model.live="search"
+                    class="block p-3 w-full shadow-md font-semibold rounded-md text-sm tracking-widest focus:outline-none focus:ring-2 focus:ring-purple-600 active:ring-purple-500 dark:bg-gray-800 dark:text-gray-400"
+                    placeholder="Pesquisa pelo o Nome">
+
+                <button class="absolute top-0 right-0 p-3 text-sm text-gray-500 font-medium rounded transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -38,7 +43,8 @@
                         </th>
                         <th class="px-4 py-3">
                             <div class="flex items-center cursor-pointer" wire:click="sortFilter('Categoria')">
-                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">Categoria</button>
+                                <button
+                                    class="text-xs font-medium leading-4 tracking-wider uppercase">Categoria</button>
                                 @include('includes.icon-filter', ['field' => 'categoria'])
                             </div>
                         </th>
@@ -71,7 +77,7 @@
 
                                 <span
                                     class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                    {{ number_format($produto->preco, 2, ',', '.') }}
+                                    R${{ number_format($produto->preco, 2, ',', '.') }}
                                 </span>
                             </td>
                             <td class="px-4 py-3">

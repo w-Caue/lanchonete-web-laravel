@@ -14,18 +14,18 @@
                 <form wire:submit="save()" class="flex flex-col gap-3">
                     <label for="">
                         <p class="text-sm font-semibold uppercase text-gray-100">Nome</p>
-                        <x-input wire:model="form.nome" class="w-full"></x-input>
+                        <x-input placeholder="Insira o nome aqui" wire:model="form.nome" class="w-full"></x-input>
                     </label>
 
                     <label for="">
                         <p class="text-sm font-semibold uppercase text-gray-100">Descrição</p>
-                        <x-input wire:model="form.descricao" class="w-full"></x-input>
+                        <x-input placeholder="Insira a descrição aqui" wire:model="form.descricao" class="w-full"></x-input>
                     </label>
 
                     <div class="flex items-center gap-2">
                         <label class="max-w-20">
                             <p class="text-sm font-semibold uppercase text-gray-100">Preço</p>
-                            <x-input wire:model="form.preco" class="w-full" type="number"></x-input>
+                            <x-input placeholder="Valor" wire:model="form.preco" class="w-full" type="number"></x-input>
                         </label>
 
                         <label class="max-w-36">
@@ -33,10 +33,10 @@
 
                             <select wire:model='form.categoria'
                                 class="p-3 pl-2 text-sm text-gray-600 font-semibold rounded shadow-sm bg-white dark:bg-gray-700 dark:text-white">
-                                <option value="">Selecione</option>
+                                <option class="font-semibold text-sm text-gray-300" value="">Selecione</option>
 
                                 @foreach ($categorias as $categoria)
-                                    <option value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
+                                    <option class="font-semibold text-sm text-gray-300" value="{{ $categoria->id }}">{{ $categoria->nome }}</option>
                                 @endforeach
                             </select>
                         </label>

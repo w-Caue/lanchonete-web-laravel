@@ -1,14 +1,19 @@
 <div>
     <div class="items-center justify-between block sm:flex md:divide-x md:divide-gray-100 dark:divide-gray-700">
         <div class="flex items-center mb-4 sm:mb-0">
-            <form class="sm:pr-3" action="#" method="GET">
-                <label for="products-search" class="sr-only">Pesquisa</label>
-                <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
-                    <input type="text" name="email" id="products-search"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Pesquisa">
-                </div>
-            </form>
+            <div class="relative w-60">
+                <input wire:model.live="search"
+                    class="block p-3 w-full shadow-md font-semibold rounded-md text-sm tracking-widest focus:outline-none focus:ring-2 focus:ring-purple-600 active:ring-purple-500 dark:bg-gray-800 dark:text-gray-400"
+                    placeholder="Pesquisa pelo o Nome">
+
+                <button class="absolute top-0 right-0 p-3 text-sm text-gray-500 font-medium rounded transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -86,9 +91,8 @@
                                     <a href="{{ route('admin.produto.combos.show', ['codigo' => $combo->id]) }}"
                                         class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-105 dark:hover:text-blue-600 dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Edit">
-                                        <svg class="w-5 h-5" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                            fill="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                             <path d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16Z" />
                                             <path fill-rule="evenodd"
                                                 d="M21.707 21.707a1 1 0 0 1-1.414 0l-3.5-3.5a1 1 0 0 1 1.414-1.414l3.5 3.5a1 1 0 0 1 0 1.414Z"

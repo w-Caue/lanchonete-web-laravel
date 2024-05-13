@@ -2,27 +2,27 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\Pessoa;
+use App\Models\User;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
 
 class PessoaForm extends Form
 {
-    #[Rule('required|min:3|max:40')]
-    public $nome = '';
+    #[Rule('required|min:3|max:60')]
+    public $name = '';
 
     public $email = '';
 
-    public $whatsapp = '';
+    public $phone = '';
 
     public function save()
     {
         $this->validate();
         
-        Pessoa::create([
-            'nome' => $this->nome,
+        User::create([
+            'name' => $this->name,
             'email' => $this->email,
-            'whatsapp' => $this->whatsapp  
+            'phone' => $this->phone  
         ]);
 
     }

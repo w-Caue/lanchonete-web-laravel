@@ -22,10 +22,8 @@ class CadastroCompleto extends Component
         $this->form->edit();
 
         $this->alert('success', 'Cadastro Atualizado', [
-            'position' => 'center',
-            'timer' => 1000,
-            'toast' => false,
-            'text' => 'com sucesso!',
+            'timer' => 3000,
+            'toast' => true,
         ]);
     }
 

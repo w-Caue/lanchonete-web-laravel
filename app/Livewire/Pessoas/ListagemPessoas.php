@@ -14,6 +14,8 @@ class ListagemPessoas extends Component
 
     use LivewireAlert;
 
+    public $search;
+
     public $pessoa;
 
     protected $listeners = [
@@ -24,8 +26,11 @@ class ListagemPessoas extends Component
     {
         $pessoas = User::select([
             'users.*',
-        ]) 
-        ->where('access_level' , '=', 'client');
+        ])->where('access_level', '=', 'client')
+            #Filtros
+            ->when($this->search, function ($query) {
+                return $query->where('name', 'LIKE', "%" . $this->search . "%");
+            });
 
         return $pessoas->paginate(5);
     }
