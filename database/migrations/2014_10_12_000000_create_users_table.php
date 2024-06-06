@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone', 14)->nullable();
             $table->string('password')->nullable();
+            $table->enum('type', ['Cliente', 'Admin'])->default('Cliente');
             $table->string('access_level')->default('client');
             $table->string('status')->default('Ativo');
             $table->enum('ecommerce', ['S', 'N'])->default('N');

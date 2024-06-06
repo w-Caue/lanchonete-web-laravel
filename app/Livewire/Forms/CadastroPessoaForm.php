@@ -13,6 +13,7 @@ class CadastroPessoaForm extends Form
     public $name;
     public $email;
     public $phone;
+    public $type;
     public $status;
     public $dataCad;
 
@@ -24,6 +25,7 @@ class CadastroPessoaForm extends Form
         $this->name = $pessoa->name;
         $this->email = $pessoa->email;
         $this->phone = $pessoa->phone;
+        $this->type = $pessoa->type;
         $this->status = $pessoa->status;
         $this->dataCad = date('Y-m-d', strtotime($pessoa->created_at));
     }
@@ -34,6 +36,7 @@ class CadastroPessoaForm extends Form
             'name' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
+            'type' => $this->type,
             'status' => $this->status,
         ]);
     }
