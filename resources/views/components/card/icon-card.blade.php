@@ -15,7 +15,7 @@
             </p>
         @endisset
         @isset($subtitle)
-            <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+            <p class="text-lg text-center font-semibold text-gray-700 dark:text-gray-200">
                 {{ $subtitle }}
             </p>
         @endisset

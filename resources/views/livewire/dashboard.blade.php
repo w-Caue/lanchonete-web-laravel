@@ -1,12 +1,11 @@
 <div>
-    {{-- Close your eyes. Count to one. That is how long forever feels. --}}
     <!-- Cards -->
     <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4" wfd-id="87">
 
         <!-- Card -->
         <a href="" class="hover:shadow-lg"
             title="Total de clientes que você tem acesso">
-            <x-card.icon-card title="Clientes" subtitle="" color="yellow">
+            <x-card.icon-card title="Clientes" subtitle="{{$clientes}}" color="yellow">
                 <x-icons.pessoas />
             </x-card.icon-card>
         </a>

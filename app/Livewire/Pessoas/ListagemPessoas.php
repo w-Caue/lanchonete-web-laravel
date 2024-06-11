@@ -14,6 +14,13 @@ class ListagemPessoas extends Component
 
     use LivewireAlert;
 
+    public $load = false;
+
+    // Filtros tabela
+    public $sortFilter = 'name';
+
+    public $sortAsc = true;
+
     public $search;
 
     public $pessoa;
@@ -22,15 +29,31 @@ class ListagemPessoas extends Component
         'delete'
     ];
 
+    public function sortBy($field)
+    {
+        if ($this->sortFilter === $field) {
+            $this->sortAsc = !$this->sortAsc;
+        } else {
+            $this->sortAsc = true;
+        }
+        $this->sortFilter = $field;
+    }
+
+    public function load()
+    {
+        $this->load = true;
+    }
+
     public function dados()
     {
         $pessoas = User::select([
             'users.*',
         ])->where('access_level', '=', 'client')
             #Filtros
-            ->when($this->search, function ($query) {
-                return $query->where('name', 'LIKE', "%" . $this->search . "%");
-            });
+            ->when(!empty($this->search), function ($query) {
+                return $query->where($this->sortFilter, 'LIKE', "%" . $this->search . "%");
+            })
+            ->orderBy($this->sortFilter, $this->sortAsc ? 'ASC' : 'DESC');
 
         return $pessoas->paginate(5);
     }
