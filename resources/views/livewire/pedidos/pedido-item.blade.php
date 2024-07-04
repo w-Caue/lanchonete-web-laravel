@@ -20,11 +20,11 @@
 
                     <div class="relative w-56">
                         <input disabled value="{{ $pedido->pessoa->name }}"
-                            class="p-3 w-full font-semibold rounded-md uppercase text-xs tracking-widest shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 active:ring-purple-500 dark:bg-gray-700 dark:text-gray-400">
+                            class="p-3 w-full font-semibold rounded-md uppercase text-xs tracking-widest shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-600 active:ring-purple-500 dark:bg-gray-700 dark:text-gray-100">
 
                         <a href="{{ route('admin.pessoal.show', ['codigo' => $pedido->pessoa->id]) }}"
                             x-on:mouseover="client = true" x-on:mouseleave="client = false"
-                            class="absolute top-0 right-0 p-3 text-gray-400 transition-all">
+                            class="absolute top-0 right-0 p-3 text-gray-100 transition-all hover:text-blue-500">
                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                 fill="currentColor">
                                 <path
@@ -50,7 +50,7 @@
                                 class="w-56 text-gray-400 font-semibold text-md text-center p-1 mt-1 rounded bg-gray-700">
                                 <p>{{ $pedido->pagamento->nome }}</p>
                             </label>
-                            <button x-data x-on:click.prevent="$dispatch('open-modal-dark', { name : 'pagamento' })"
+                            <button x-data x-on:click.prevent="$dispatch('open-modal-small', { name : 'pagamento' })"
                                 x-on:mouseover="pagamento = true" x-on:mouseleave="pagamento = false">
                                 <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                     fill="currentColor">
@@ -82,8 +82,7 @@
                     <h1 class="text-sm tracking-widest font-semibold uppercase text-gray-500 mb-4">Itens</h1>
 
                     @if ($pedido->status == 'Aberto')
-                        <button x-data x-on:click="$dispatch('open-produto')" x-data
-                            x-on:click.prevent="$dispatch('open-modal-dark', { name : 'produtos' })"
+                        <button x-data x-on:click.prevent="$dispatch('open-modal', { name : 'produtos' })"
                             class="font-semibold rounded text-xs uppercase p-2 text-white bg-blue-500 hover:bg-indigo-500 transition-all hover:scale-95">
                             Adicionar Item
                         </button>
@@ -92,28 +91,70 @@
                 </div>
                 <div>
 
-                    <div
-                        class="relative w-full mt-3 overflow-hidden border border-gray-700 rounded-lg shadow-xs hidden sm:block">
+                    <div class="w-full overflow-hidden mt-5 rounded-lg shadow-xs hidden sm:block">
                         <div class="w-full overflow-x-auto">
-                            <table class="w-full whitespace-no-wrap">
+                            <table class="w-full">
                                 <thead>
                                     <tr
-                                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                        <th class="px-4 py-3">#</th>
-                                        <th class="px-4 py-3">Item</th>
-                                        <th class="px-4 py-3">Categoria</th>
-                                        <th class="px-4 py-3">Preço</th>
-                                        <th class="px-4 py-3">Quantidade</th>
-                                        <th class="px-4 py-3">Total</th>
-                                        <th class="px-4 py-3">Ações</th>
+                                        class="text-xs font-semibold tracking-wide text-center text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-300 dark:bg-gray-800">
+                                        <th class="py-2">
+                                            <div class="flex justify-center items-center cursor-pointer"
+                                                wire:click="sortFilter('id')">
+                                                <button
+                                                    class="text-xs font-medium leading-4 tracking-wider uppercase">Cod</button>
+                                                @include('includes.icon-filter', ['field' => 'id'])
+                                            </div>
+                                        </th>
+
+                                        <th class="py-2">
+                                            <div class="flex justify-center items-center cursor-pointer"
+                                                wire:click="sortFilter('Item')">
+                                                <button
+                                                    class="text-xs font-medium leading-4 tracking-wider uppercase">Item</button>
+                                                @include('includes.icon-filter', ['field' => 'Item'])
+                                            </div>
+                                        </th>
+
+                                        <th class="py-2">
+                                            <div class="flex justify-center items-center cursor-pointer"
+                                                wire:click="sortFilter('Promocao')">
+                                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">
+                                                    Preço
+                                                </button>
+                                                @include('includes.icon-filter', ['field' => 'promocao'])
+                                            </div>
+                                        </th>
+
+                                        <th class="py-2">
+                                            <div class="flex justify-center items-center cursor-pointer"
+                                                wire:click="sortFilter('Quantidade')">
+                                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">
+                                                    Quantidade
+                                                </button>
+                                                @include('includes.icon-filter', ['field' => 'quantidade'])
+                                            </div>
+                                        </th>
+
+                                        <th class="py-2">
+                                            <div class="flex justify-center items-center cursor-pointer"
+                                                wire:click="sortFilter('Quantidade')">
+                                                <button class="text-xs font-medium leading-4 tracking-wider uppercase">
+                                                    Total
+                                                </button>
+                                                @include('includes.icon-filter', ['field' => 'quantidade'])
+                                            </div>
+                                        </th>
+
+                                        <th class="py-2">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                    @foreach ($pedido->itens as $item)
+                                    @forelse ($pedido->itens as $item)
                                         <tr wire:key="{{ $item->id }}" class="text-gray-700 dark:text-gray-400">
                                             <td class="px-4 py-3 text-sm">
                                                 {{ $item->id }}
                                             </td>
+
                                             <td class="px-4 py-3">
                                                 <div class="flex items-center text-xs">
                                                     <div>
@@ -124,15 +165,14 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-4 py-3 text-sm">
-                                                {{ $item->categoria->nome }}
-                                            </td>
+                                           
                                             <td class="px-4 py-3 text-xs">
                                                 <span
                                                     class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
                                                     R${{ number_format($item->preco, 2, ',', '.') }}
                                                 </span>
                                             </td>
+
                                             <td class="px-4 py-3 text-sm">
                                                 <div class="flex items-center gap-1">
                                                     @if ($pedido->status == 'Aberto')
@@ -163,9 +203,11 @@
                                                     @endif
                                                 </div>
                                             </td>
+
                                             <td class="px-4 py-3 text-sm text-center">
                                                 R${{ number_format($item->pivot->total, 2, ',', '.') }}
                                             </td>
+                                            
                                             <td x-data="{ excluir: false }" class="px-4 py-3">
                                                 <div class="flex items-center space-x-2 text-sm">
                                                     @if ($pedido->status == 'Aberto')
@@ -173,7 +215,7 @@
                                                             x-on:mouseleave="excluir = false"
                                                             wire:click="excluirProduto({{ $item->id }})"
                                                             class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-95 dark:hover:text-blue-600
-                                                         dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                     dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                             aria-label="Delete">
                                                             <svg class="w-5 h-5" aria-hidden="true"
                                                                 fill="currentColor" viewBox="0 0 20 20">
@@ -191,7 +233,14 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    @empty
+                                        <div class="absolute left-[31%] mt-16 flex justify-center">
+                                            <h1
+                                                class="text-sm font-semibold text-center tracking-widest uppercase bg-red-200 rounded w-44 p-1 dark:text-red-600">
+                                                Sem registros
+                                            </h1>
+                                        </div>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
@@ -237,7 +286,8 @@
                         <h1 class="text-lg">{{ $pedido->endereco->complemento }}
                             {{ $pedido->endereco->numero }}</h1>
 
-                        <span class="text-sm">{{ $pedido->endereco->endereco }} - {{ $pedido->endereco->bairro }}</span>
+                        <span class="text-sm">{{ $pedido->endereco->endereco }} -
+                            {{ $pedido->endereco->bairro }}</span>
                         <span class="text-sm">CEP: {{ $pedido->endereco->cep }}</span>
                     </div>
 
@@ -249,7 +299,7 @@
     </div>
 
     {{-- Pesquisar Produto --}}
-    <x-modal.modal-dark name="produtos" title="Produtos">
+    <x-modal.modal-large name="produtos" title="Produtos">
         @slot('body')
             <div>
                 <div class="relative w-72">
@@ -320,10 +370,10 @@
 
             </div>
         @endslot
-    </x-modal.modal-dark>
+    </x-modal.modal-large>
 
     {{-- Formas de Pagamento --}}
-    <x-modal.modal-dark name="pagamento" title="Formas de Pagamento">
+    <x-modal.modal-small name="pagamento" title="Formas de Pagamento">
         @slot('body')
             <div>
                 <h1 class="text-sm tracking-widest font-semibold uppercase text-gray-400 mb-2">Selecione a Forma de
@@ -355,6 +405,6 @@
                 </div>
             </div>
         @endslot
-    </x-modal.modal-dark>
+    </x-modal.modal-small>
 
 </div>

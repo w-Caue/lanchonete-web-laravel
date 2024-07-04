@@ -13,6 +13,8 @@ class ListagemProdutos extends Component
 
     public $search;
 
+    public $sortFilter = false;
+
     public function mount()
     {
     }

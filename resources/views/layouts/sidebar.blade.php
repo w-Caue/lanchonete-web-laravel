@@ -1,4 +1,3 @@
-
 <div class="flex justify-between">
 
     {{-- Mobile menu Toggle --}}
@@ -24,12 +23,12 @@
                 Usuario
             </h1> --}}
 
-        <div class="mt-7 px-4 space-y-4">
+        <div class="mt-7 px-4 space-y-4 text-xs uppercase font-bold">
 
 
             {{-- HOME --}}
             <a href="{{ route('admin.dashboard') }}"
-                class="relative flex justify-between items-center font-semibold space-x-2 rounded-md p-2 cursor-pointer {{ request()->routeIs('admin.dashboard') ? 'text-purple-500 border-2 border-purple-500' : 'text-gray-500 dark:text-gray-400' }}"
+                class="relative flex justify-between items-center space-x-2 p-2 cursor-pointer {{ request()->routeIs('admin.dashboard') ? 'text-purple-500 border-l-2 border-purple-500' : 'text-gray-500 dark:text-gray-400' }}"
                 x-bind:class="{
                     'justify-start': sidebar.full,
                     'sm:justify-center': !sidebar.full,
@@ -46,14 +45,14 @@
                     <h1 x-clock
                         x-bind:class="!sidebar.full && tooltip.show ? visibleClass : '' || !sidebar.full && !tooltip.show ?
                             'sm:hidden' : ''">
-                        Dashboard
+                        Inicio
                     </h1>
                 </div>
             </a>
 
             {{-- Clientes --}}
             <a href="{{ route('admin.pessoal.index') }}"
-                class="relative flex justify-between items-center font-semibold space-x-2 rounded-md p-2 cursor-pointer {{ request()->routeIs('admin.pessoal.*') ? 'text-purple-500 border-2 border-purple-500' : 'text-gray-500 dark:text-gray-400' }}"
+                class="relative flex justify-between items-center space-x-2 p-2 cursor-pointer {{ request()->routeIs('admin.pessoal.*') ? 'text-purple-500 border-l-2 border-purple-500' : 'text-gray-500 dark:text-gray-400' }}"
                 x-bind:class="{
                     'justify-start': sidebar.full,
                     'sm:justify-center': !sidebar.full,
@@ -79,7 +78,7 @@
             {{-- Reserva --}}
             {{-- <div x-data="tooltip" x-on:mouseover="show = true" x-on:mouseleave="show = false"
                 x-on:click="$store.sidebar.active = 'reserva' "
-                class="relative flex justify-between items-center font-semibold text-gray-400 hover:text-gray-200 hover:bg-gray-700 space-x-2 rounded-md p-2 cursor-pointer"
+                class="relative flex justify-between items-center text-gray-400 hover:text-gray-200 hover:bg-gray-700 space-x-2 rounded-md p-2 cursor-pointer"
                 x-bind:class="{
                     'justify-start': $store.sidebar.full,
                     'sm:justify-center': !$store.sidebar
@@ -113,28 +112,26 @@
 
             {{-- Produtos --}}
             <div x-data="dropdown" class="relative">
-                {{-- Dropdown Head --}}
+                <!-- Dropdown Head -->
                 <div x-on:click="toggle('tickets')"
-                    class="relative flex justify-between items-center font-semibold space-x-2 rounded-md p-2 cursor-pointer {{ request()->routeIs('admin.produto.*') ? 'text-purple-500 border-2 border-purple-500' : 'text-gray-500 dark:text-gray-400' }}"
+                    class="relative flex justify-between items-center space-x-2 p-2 cursor-pointer {{ request()->routeIs('admin.produto.*') ? 'text-purple-500 border-l-2 border-purple-500' : 'text-gray-500 dark:text-gray-400' }}"
                     x-bind:class="{
                         'justify-start': sidebar.full,
                         'sm:justify-center': !sidebar.full,
                     }">
-                    <div class="flex items-center ">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z" />
-                            <path fill-rule="evenodd"
-                                d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"
-                                clip-rule="evenodd" />
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-6 h-6 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                            fill="currentColor">
+                            <path
+                                d="M22 20V7L20 3H4L2 7.00353V20C2 20.5523 2.44772 21 3 21H21C21.5523 21 22 20.5523 22 20ZM5.23582 5H18.7638L19.7638 7H4.23682L5.23582 5ZM9 11H15V13H9V11Z">
+                            </path>
                         </svg>
 
-                        <a href="">
-                            <h1 x-clock class="ml-2"
-                                x-bind:class="!sidebar.full && tooltip.show ? visibleClass : '' || !sidebar.full && !tooltip.show ?
-                                    'sm:hidden' : ''">
-                                Produtos
-                            </h1>
-                        </a>
+                        <h1 x-clock
+                            x-bind:class="!sidebar.full && tooltip.show ? visibleClass : '' || !sidebar.full && !tooltip.show ?
+                                'sm:hidden' : ''">
+                            Produtos
+                        </h1>
                     </div>
 
                     <svg x-clock x-bind:class="sidebar.full ? '' : 'sm:hidden'" class="w-6 h-6 " aria-hidden="true"
@@ -143,13 +140,13 @@
                             d="m8 10 4 4 4-4" />
                     </svg>
                 </div>
-                {{-- Dropdown --}}
+                <!-- Dropdown -->
                 <div x-clock x-show="open" @click.outside="open =false"
                     x-bind:class="sidebar.full ? dropdown.expandedClass : dropdown.shrinkedClass"
-                    class="text-gray-400 space-y-3 bg-gray-700 rounded p-1 m-1">
+                    class="text-gray-400 space-y-3 border-l-2 p-1 m-1 {{ request()->routeIs('admin.produto.*') ? ' border-purple-500' : 'border-gray-400' }}">
 
                     <a href="{{ route('admin.produto.index') }}"
-                        class="flex gap-1 items-center text-sm font-semibold rounded-lg group transition duration-75">
+                        class="flex gap-1 items-center pb-2 group transition duration-75 {{ request()->routeIs('admin.produto.index') ? 'text-purple-500 border-b-2 border-purple-500' : 'text-gray-500 dark:text-gray-400' }}">
                         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                             height="24" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd"
@@ -157,37 +154,65 @@
                                 clip-rule="evenodd" />
                         </svg>
 
-                        Cadastro
+                        Cadastros
                     </a>
 
                     <a href="{{ route('admin.produto.encarte.index') }}"
-                        class="flex gap-1 items-center text-sm font-semibold rounded-lg group transition duration-75">
-                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                        class="flex gap-1 items-center pb-2 group transition duration-75 {{ request()->routeIs('admin.produto.encarte.*') ? 'text-purple-500 border-b-2 border-purple-500' : 'text-gray-500 dark:text-gray-400' }}">
+                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                             height="24" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M18.045 3.007 12.31 3a1.965 1.965 0 0 0-1.4.585l-7.33 7.394a2 2 0 0 0 0 2.805l6.573 6.631a1.957 1.957 0 0 0 1.4.585 1.965 1.965 0 0 0 1.4-.585l7.409-7.477A2 2 0 0 0 21 11.479v-5.5a2.972 2.972 0 0 0-2.955-2.972Zm-2.452 6.438a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
+                            <path fill-rule="evenodd"
+                                d="M20.29 8.567c.133.323.334.613.59.85v.002a3.536 3.536 0 0 1 0 5.166 2.442 2.442 0 0 0-.776 1.868 3.534 3.534 0 0 1-3.651 3.653 2.483 2.483 0 0 0-1.87.776 3.537 3.537 0 0 1-5.164 0 2.44 2.44 0 0 0-1.87-.776 3.533 3.533 0 0 1-3.653-3.654 2.44 2.44 0 0 0-.775-1.868 3.537 3.537 0 0 1 0-5.166 2.44 2.44 0 0 0 .775-1.87 3.55 3.55 0 0 1 1.033-2.62 3.594 3.594 0 0 1 2.62-1.032 2.401 2.401 0 0 0 1.87-.775 3.535 3.535 0 0 1 5.165 0 2.444 2.444 0 0 0 1.869.775 3.532 3.532 0 0 1 3.652 3.652c-.012.35.051.697.184 1.02ZM9.927 7.371a1 1 0 1 0 0 2h.01a1 1 0 0 0 0-2h-.01Zm5.889 2.226a1 1 0 0 0-1.414-1.415L8.184 14.4a1 1 0 0 0 1.414 1.414l6.218-6.217Zm-2.79 5.028a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01Z"
+                                clip-rule="evenodd" />
                         </svg>
 
-                        Encarte
+                        <span>
+                            Encarte
+                        </span>
                     </a>
 
                     <a href="{{ route('admin.produto.combos.index') }}"
-                        class="flex gap-1 items-center text-sm font-semibold rounded-lg group transition duration-75">
-                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                        class="flex gap-1 items-center pb-2 group transition duration-75 {{ request()->routeIs('admin.produto.combos.*') ? 'text-purple-500 border-b-2 border-purple-500' : 'text-gray-500 dark:text-gray-400' }}">
+                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                             height="24" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd"
                                 d="M5.617 2.076a1 1 0 0 1 1.09.217L8 3.586l1.293-1.293a1 1 0 0 1 1.414 0L12 3.586l1.293-1.293a1 1 0 0 1 1.414 0L16 3.586l1.293-1.293A1 1 0 0 1 19 3v18a1 1 0 0 1-1.707.707L16 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L12 20.414l-1.293 1.293a1 1 0 0 1-1.414 0L8 20.414l-1.293 1.293A1 1 0 0 1 5 21V3a1 1 0 0 1 .617-.924ZM9 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Zm0 4a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z"
                                 clip-rule="evenodd" />
                         </svg>
 
-                        Combos
+                        <span>
+                            Combos
+                        </span>
                     </a>
                 </div>
             </div>
 
+            {{-- Produto --}}
+            {{-- <a href="{{ route('admin.produto.index') }}"
+                class="relative flex justify-between items-center space-x-2 p-2 cursor-pointer {{ request()->routeIs('admin.produto.index') ? 'text-purple-500 border-l-2 border-purple-500' : 'text-gray-500 dark:text-gray-400' }}"
+                x-bind:class="{
+                    'justify-start': sidebar.full,
+                    'sm:justify-center': !sidebar
+                        .full,
+                }">
+                <div class="flex items-center space-x-2">
+                    <svg class="w-6 h-6 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M22 20V7L20 3H4L2 7.00353V20C2 20.5523 2.44772 21 3 21H21C21.5523 21 22 20.5523 22 20ZM5.23582 5H18.7638L19.7638 7H4.23682L5.23582 5ZM9 11H15V13H9V11Z">
+                        </path>
+                    </svg>
+
+                    <h1 x-clock
+                        x-bind:class="!sidebar.full && tooltip.show ? visibleClass : '' || !sidebar.full && !tooltip.show ?
+                            'sm:hidden' : ''">
+                        Produtos
+                    </h1>
+                </div>
+            </a> --}}
+
             {{-- Pedido --}}
             <a href="{{ route('admin.pedido.index') }}"
-            class="relative flex justify-between items-center font-semibold space-x-2 rounded-md p-2 cursor-pointer {{ request()->routeIs('admin.pedido.*') ? 'text-purple-500 border-2 border-purple-500' : 'text-gray-500 dark:text-gray-400' }}"
+                class="relative flex justify-between items-center space-x-2 p-2 cursor-pointer {{ request()->routeIs('admin.pedido.*') ? 'text-purple-500 border-l-2 border-purple-500' : 'text-gray-500 dark:text-gray-400' }}"
                 x-bind:class="{
                     'justify-start': sidebar.full,
                     'sm:justify-center': !sidebar

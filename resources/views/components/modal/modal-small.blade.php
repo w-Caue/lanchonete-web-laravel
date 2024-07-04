@@ -1,7 +1,6 @@
-@props(['name', 'title'])
 <div class="flex justify-center">
-    <div x-data="{ open: false, name: '{{ $name }}'  }" x-show="open" x-cloak x-on:open-modal-dark.window="open = ($event.detail.name === name)"
-        x-on:close-modal-dark.window="open = false" x-on:keydown.escape.window="open = false"
+    <div x-data="{ open: false, name: '{{ $name }}' }" x-show="open" x-cloak x-on:open-modal-small.window="open = ($event.detail.name === name)"
+        x-on:close-modal-small.window="open = false" x-on:keydown.escape.window="open = false"
         x-on:escape.window="open = false" x-transition:enter="transition ease-out duration-150"
         x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
@@ -9,7 +8,8 @@
         class="fixed inset-0 z-50 flex items-end bg-black bg-opacity-50 sm:items-center sm:justify-center">
         <div x-on:click ="open = false" class="fixed">
         </div>
-        <div class="w-full px-6 py-4 overflow-hidden dark:text-gray-400 bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-3xl">
+        <div
+            class="w-full px-4 py-4 overflow-hidden dark:text-gray-400 bg-white rounded-t-lg dark:bg-gray-800 sm:rounded-lg sm:m-4 sm:max-w-lg">
             <div class="flex justify-between items-center mx-1 mb-5">
                 <h1 class="text-md tracking-widest uppercase text-gray-500 font-semibold">{{ $title ?? '' }}</h1>
                 <button

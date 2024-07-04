@@ -12,6 +12,8 @@ class ListagemPedidos extends Component
 
     public $search;
 
+    public $sortFilter = false;
+
     public function dados()
     {
         $pedidos = Pedido::select([

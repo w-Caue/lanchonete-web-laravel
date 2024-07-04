@@ -69,11 +69,21 @@ class Pedidos extends Component
     {
         $this->cliente = User::where('id', $codigo)->get()->first();
 
-        $this->dispatch('close-detalhe');
+        $this->dispatch('close-modal-small');
     }
 
     public function save()
     {
+        if ($this->cliente == null) {
+            return $this->alert('warning', 'Cliente não selecionado!', [
+                'position' => 'center',
+                'timer' => 2000,
+                'toast' => true,
+            ]);
+        }
+
+        $this->validate();
+
         $pedido = Pedido::create([
             'user_id' => $this->cliente->id,
             'status' => 'Aberto',

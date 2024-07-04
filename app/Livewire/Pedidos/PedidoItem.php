@@ -18,6 +18,8 @@ class PedidoItem extends Component
 
     public $searchProduct;
 
+    public $sortFilter = false;
+
     public $pedido;
 
     public $produtoDetalhe;
@@ -207,6 +209,16 @@ class PedidoItem extends Component
 
     public function finalizarPedido()
     {
+        $itens = ModelsPedidoItem::where('pedido_id', $this->pedido->id)->get()->first();
+
+        if($itens == null){
+            return $this->alert('info', 'Adicione os itens no pedido!', [
+                'position' => 'center',
+                'timer' => '2000',
+                'toast' => true,
+            ]);
+        }
+
         Pedido::findOrFail($this->pedido->id)->update([
             'status' => 'Finalizado'
         ]);

@@ -18,6 +18,8 @@ class EncarteProduto extends Component
 
     public EncarteForm $form;
 
+    public $sortFilter = false;
+
     public $encarte;
 
     public $produtos;

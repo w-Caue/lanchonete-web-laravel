@@ -35,36 +35,36 @@
 
             </div>
 
-            <div class=" text-sm font-semibold bg-gray-800 rounded w-full px-5 py-5 shadow-md mt-10">
+            <div class=" text-sm font-semibold bg-gray-800 rounded w-full py-5 shadow-md mt-10">
 
-                <div class="flex justify-between items-start">
+                <div class="flex justify-between items-start px-5">
                     <h1 class="text-sm tracking-widest font-semibold uppercase text-gray-500 mb-4">Itens</h1>
 
                     @if ($form->encarte->ativo == 'N')
-                        <button x-data x-on:click="$dispatch('open-modal')"
-                            class="font-semibold rounded text-xs uppercase p-2 text-white bg-blue-500 hover:bg-indigo-500 transition-all hover:scale-95">
-                            Adicionar Item
-                        </button>
+                        <x-button.primary x-data x-on:click="$dispatch('open-modal')"
+                            >
+                            Adicionar Produto
+                        </x-button.primary>
                     @endif
 
                 </div>
-                <div>
 
-
-
-                    <div class="relative overflow-x-auto border border-gray-700 shadow-xl sm:rounded-lg mt-3">
-                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                            <thead
-                                class="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-700 dark:bg-gray-800 dark:text-gray-400">
-                                <tr class="text-xs font-semibold tracking-wide text-left uppercase">
-                                    <th class="px-3 py-2">
-                                        <div class="flex items-center cursor-pointer" wire:click="sortFilter('id')">
+                <div class="w-full overflow-hidden mt-5 rounded-lg shadow-xs hidden sm:block">
+                    <div class="w-full overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr
+                                    class="text-xs font-semibold tracking-wide text-center text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-300 dark:bg-gray-800">
+                                    <th class="py-2">
+                                        <div class="flex justify-center items-center cursor-pointer"
+                                            wire:click="sortFilter('id')">
                                             <button
                                                 class="text-xs font-medium leading-4 tracking-wider uppercase">Cod</button>
                                             @include('includes.icon-filter', ['field' => 'id'])
                                         </div>
                                     </th>
-                                    <th class="px-3 py-2">
+
+                                    <th class="py-2">
                                         <div class="flex justify-center items-center cursor-pointer"
                                             wire:click="sortFilter('Nome')">
                                             <button
@@ -73,7 +73,7 @@
                                         </div>
                                     </th>
 
-                                    <th class="px-3 py-2">
+                                    <th class="py-2">
                                         <div class="flex justify-center items-center cursor-pointer"
                                             wire:click="sortFilter('Preco')">
                                             <button
@@ -81,7 +81,8 @@
                                             @include('includes.icon-filter', ['field' => 'preco'])
                                         </div>
                                     </th>
-                                    <th class="px-3 py-2">
+
+                                    <th class="py-2">
                                         <div class="flex justify-center items-center cursor-pointer"
                                             wire:click="sortFilter('Promocao')">
                                             <button class="text-xs font-medium leading-4 tracking-wider uppercase">Valor
@@ -89,8 +90,9 @@
                                             @include('includes.icon-filter', ['field' => 'promocao'])
                                         </div>
                                     </th>
-                                    <th class="px-3 py-2">
-                                        <div class="flex items-center cursor-pointer"
+
+                                    <th class="py-2">
+                                        <div class="flex justify-center items-center cursor-pointer"
                                             wire:click="sortFilter('Quantidade')">
                                             <button
                                                 class="text-xs font-medium leading-4 tracking-wider uppercase">Quant.
@@ -98,44 +100,46 @@
                                             @include('includes.icon-filter', ['field' => 'quantidade'])
                                         </div>
                                     </th>
-                                    <th class="px-3 py-2">Ações</th>
+
+                                    <th class="py-2">Ações</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                                @foreach ($form->encarte->produtos as $produto)
-                                    <tr wire:key="{{ $produto->id }}"
-                                        class="text-gray-700 font-semibold dark:text-gray-400">
-                                        <td class="px-2 py-3 text-sm">
+                                @forelse ($form->encarte->produtos as $produto)
+                                    <tr wire:key="{{ $pessoa->id }}"
+                                        class="text-gray-700 font-semibold text-sm dark:text-gray-400">
+                                        <td class="py-3 text-sm">
                                             #{{ $produto->id }}
                                         </td>
 
-                                        <td class="px-2 py-3">
-                                            <p class="">{{ $produto->nome }}</p>
+                                        <td class="py-3">
+                                            {{ $produto->nome }}
                                         </td>
 
-                                        <td class="px-2 py-3 text-xs">
+                                        <td class="py-3 text-xs">
                                             <span class="px-2 py-1 font-semibold leading-tight  rounded-full">
                                                 R${{ number_format($produto->preco, 2, ',', '.') }}
                                             </span>
                                         </td>
 
-                                        <td class="px-2 py-3 text-xs text-center">
+                                        <td class="py-3 text-xs text-center">
                                             <span
                                                 class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
                                                 R${{ number_format($produto->pivot->valor_promocao, 2, ',', '.') }}
                                             </span>
                                         </td>
 
-                                        <td class="px-2 py-3 w-10 text-center">
-                                            <h1 class="text-blue-500">{{ $produto->pivot->quantidade_prevista }}</h1>
+                                        <td class="py-3 w-10 text-center">
+                                            <h1 class="text-blue-500">{{ $produto->pivot->quantidade_prevista }}
+                                            </h1>
                                         </td>
 
-                                        <td class="px-2 py-3">
+                                        <td class="py-3">
                                             <div class="flex items-center space-x-2 text-sm">
                                                 @if ($form->encarte->ativo == 'N')
                                                     <button wire:click="removerProduto({{ $produto->id }})"
                                                         class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg hover:scale-95 dark:hover:text-blue-600
-                                                 dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                                     dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                                         aria-label="Delete">
                                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
                                                             viewBox="0 0 20 20">
@@ -148,12 +152,24 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <div class="absolute left-[31%] mt-16 flex justify-center">
+                                        <h1
+                                            class="text-sm font-semibold text-center tracking-widest uppercase bg-red-200 rounded w-44 p-1 dark:text-red-600">
+                                            Sem registros
+                                        </h1>
+                                    </div>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
                 </div>
 
+                <div class="border my-4 mx-32 dark:border-gray-700"></div>
+
+                <div class="mx-4 py-3">
+                    {{-- {{ $pessoas }} --}}
+                </div>
             </div>
         </div>
 

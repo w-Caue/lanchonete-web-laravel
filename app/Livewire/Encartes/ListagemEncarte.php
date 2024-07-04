@@ -10,6 +10,8 @@ class ListagemEncarte extends Component
 {
     use WithPagination;
 
+    public $sortFilter = false;
+
     public function dados(){
         $encartes = Encarte::select([
             'encartes.id',

@@ -10,6 +10,8 @@ class ListagemCombos extends Component
 {
     use WithPagination;
 
+    public $sortFilter = false;
+
     public function dados()
     {
         $combos = Combo::select([
