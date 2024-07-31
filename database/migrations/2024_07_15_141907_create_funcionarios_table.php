@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clientes', function (Blueprint $table) {
+        Schema::create('funcionarios', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
             $table->string('status')->default('Ativo');
-            $table->enum('tipo_ecommerce', ['S', 'N'])->default('N');
             $table->timestamps();
 
             $table->foreign('user_id')->on('users')->references('id');
         });
-        
     }
 
     /**
@@ -30,7 +28,7 @@ return new class extends Migration
     {
         Schema::disableForeignKeyConstraints();
 
-        Schema::dropIfExists('clientes');
+        Schema::dropIfExists('funcionarios');
 
         Schema::enableForeignKeyConstraints();
     }

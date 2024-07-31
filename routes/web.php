@@ -29,7 +29,7 @@ Auth::routes();
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('/');
 
 Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
 
@@ -117,6 +117,16 @@ Route::prefix('/admin')->name('admin.')->group(function () {
         })->name('index');
 
         Route::get('/{codigo}', [PedidoController::class, 'show'])->name('show');
+    });
+
+    Route::prefix('/configuracao')->name('configuracao.')->group(function () {
+        Route::get('/', function () {
+            return view('pages.configuracao.index');
+        })->name('index');
+
+        Route::get('/usuarios', function () {
+            return view('pages.configuracao.users.index');
+        })->name('users');
     });
 });
 

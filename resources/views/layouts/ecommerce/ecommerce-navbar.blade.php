@@ -16,7 +16,7 @@
                         @auth
                             <button x-on:click="openUser = !openUser"
                                 class="p-1 text-md text-gray-600 font-semibold tracking-widest transition duration-300 cursor-pointer">
-                                Olá, <span class=" text-purple-700">{{ auth()->user()->name }}</span>
+                                Olá, <span class=" text-purple-700">{{ auth()->user()->nome }}</span>
                             </button>
                             <div x-show="openUser" class="">
                                 <ul x-transition:leave="transition ease-in duration-150"

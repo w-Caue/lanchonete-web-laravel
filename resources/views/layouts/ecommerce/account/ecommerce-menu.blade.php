@@ -2,7 +2,7 @@
     <div class="h-full px-2 py-4 bg-white rounded-md">
         <div class="tracking-widest ml-3 mb-6">
             <span class="text-lg font-medium text-gray-600">Olá,</span>
-            <h1 class="text-2xl font-semibold">{{ Auth::user()->name }}</h1>
+            <h1 class="text-2xl font-semibold">{{ Auth::user()->nome }}</h1>
         </div>
 
         <ul class="font-semibold">

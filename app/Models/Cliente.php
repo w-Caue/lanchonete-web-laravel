@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pessoa extends Model
+class Cliente extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome', 'email', 'whatsapp', 'status', 'tipo_ecommerce'];
+    protected $fillable = ['user_id', 'status', 'tipo_ecommerce'];
 }

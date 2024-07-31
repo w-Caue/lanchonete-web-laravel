@@ -39,7 +39,7 @@
                                     clip-rule="evenodd" />
                             </svg>
 
-                            <span class="text-xs font-semibold uppercase">{{ auth()->user()->name }}</span>
+                            <span class="text-xs font-semibold uppercase">{{ auth()->user()->nome }}</span>
 
                             <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                 fill="currentColor">
@@ -57,7 +57,7 @@
 
                             <div class="px-4 py-3" role="none">
                                 <p class="text-sm text-gray-900 dark:text-white" role="none">
-                                    {{ auth()->user()->name }}
+                                    {{ auth()->user()->nome }}
                                 </p>
                                 {{-- <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
                                     {{ auth()->user()->email }}

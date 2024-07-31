@@ -34,7 +34,7 @@
                                 <div>
                                     <p>Bem vindo(a) : ) </p>
                                     <p class="text-lg text-left text-purple-700">
-                                        {{ auth()->user()->name }}
+                                        {{ auth()->user()->nome }}
                                     </p>
                                 </div>
 
