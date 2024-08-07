@@ -16,18 +16,18 @@ class Cadastro extends Component
     {
         $cadastro = User::where('id', Auth::user()->id)->get()->first();
 
-        $this->name = $cadastro->name;
+        $this->name = $cadastro->nome;
         $this->email = $cadastro->email;
-        $this->phone = $cadastro->phone;
+        $this->phone = $cadastro->telefone;
 
         return;
     }
 
     public function atualizar(){
         User::findOrFail(Auth::user()->id)->update([
-            'name' => $this->name,
+            'nome' => $this->name,
             'email' => $this->email,
-            'phone' => $this->phone,
+            'telefone' => $this->phone,
         ]);
 
         return $this->js('window.location.reload()');

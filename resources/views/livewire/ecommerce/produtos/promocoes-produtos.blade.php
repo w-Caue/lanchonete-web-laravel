@@ -2,9 +2,6 @@
     <div class="content">
         <div class="wrapper relative mx-7 my-5">
             @if ($encarte)
-                <h1 class="text-3xl my-7 text-center text-purple-600 font-bold ml-3 tracking-widest uppercase">
-                    Em Promoção
-                </h1>
                 
                 <button id="left"
                     class="absolute z-10 top-[50%] translate-y-[-50%] left-[-22px] bg-gray-100 p-1 rounded-full btn">

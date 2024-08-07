@@ -27,17 +27,17 @@ class Login extends Component
 
     public function login()
     {
-        $user = User::where('email', '=', $this->email)->get()->first();
+        $cliente = User::where('access_level', 'client')->where('email', '=', $this->email)->get()->first();
 
-        if ($user != null && $this->email != null && $user->email == $this->email) {
+        if ($cliente != null && $this->email != null && $cliente->email == $this->email) {
 
-            if (Hash::check($this->password, $user->password)) {
-                Auth::login($user, false);
+            if (Hash::check($this->password, $cliente->password)) {
+                Auth::login($cliente, false);
 
-                $this->alert('success', 'Login efetuado com sucesso!', [
-                    'timer' => '2000',
-                    'toast' => true,
-                ]);
+                // $this->alert('success', 'Login efetuado com sucesso!', [
+                //     'timer' => '2000',
+                //     'toast' => true,
+                // ]);
 
                 return redirect()->route('/');
             } else {
@@ -60,9 +60,9 @@ class Login extends Component
     {
         // $this->validate();
 
-        $usuario = User::where('email', '=', $this->email)->get()->first();
+        $cliente = User::where('access_level', 'client')->where('email', '=', $this->email)->get()->first();
 
-        if ($usuario == null) {
+        if ($cliente == null) {
             $user = User::create([
                 'nome' => $this->nome,
                 'email' => $this->email,

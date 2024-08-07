@@ -2,9 +2,6 @@
     <div class="mx-6 my-10">
 
         @if ($combos)
-            <h1 class="text-3xl my-16 text-center text-orange-600 font-bold ml-3 tracking-widest uppercase">
-                Combos
-            </h1>
             
             <div class="flex  flex-wrap gap-3 my-1 mx-5">
                 @foreach ($combos as $combo)

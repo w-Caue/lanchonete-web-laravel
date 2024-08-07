@@ -56,14 +56,13 @@
                     Esqueci minha senha
                 </button>
             </div>
-
         </div>
 
         <div class="flex-1 p-8 border-t-2 md:border-l-2 md:border-t-0">
             <h4 class="mb-4 text-lg font-semibold text-center">
                 CRIAR MINHA CONTA
             </h4>
-            
+
             <form method="POST" wire:submit="register()" class="flex flex-col gap-4 rounded px-8 pt-6 pb-8 mb-4">
                 @csrf
 
@@ -102,10 +101,10 @@
                         telefone
                     </label>
 
-                    <x-input-ecommerce wire:model="telefone" id="telefone" type="tel" required
+                    <x-input-ecommerce wire:model="phone" id="telefone" type="tel" required
                         placeholder="insira seu número aqui"></x-input-ecommerce>
 
-                    @error('telefone')
+                    @error('phone')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
