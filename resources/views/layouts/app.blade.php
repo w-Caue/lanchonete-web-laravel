@@ -1,5 +1,6 @@
 <!doctype html>
-<html x-data="data()" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html  lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ isDarkMode: localStorage.getItem('dark') === 'true' }"
+    x-init="$watch('isDarkMode', val => localStorage.setItem('dark', val))" x-bind:class="{ 'dark': isDarkMode }">
 
 <head>
     <meta charset="utf-8">
@@ -32,21 +33,22 @@
     @livewireStyles
 </head>
 
-<body class="dark">
-    <div class="flex flex-col h-screen bg-gray-100 dark:bg-gray-900">
+<body x-data="data()">
 
-        @include('layouts.navbar')
+    <div class="flex h-screen bg-neutral-200 dark:bg-gray-900">
 
-        <div class="flex flex-row h-full w-full gap-1 overflow-hidden">
-            @include('layouts.sidebar')
+        @include('layouts.sidebar')
 
-            <main class="w-full h-full overflow-y-auto">
-                <div class="container flex flex-col mx-auto p-4">
+        <div class="flex flex-col flex-1 ">
+            @include('layouts.navbar')
+            <main class="h-full w-full pb-16 mt-10">
+
+                <div class="px-6 sm:mx-auto xl:mx-9">
                     @yield('content')
                 </div>
             </main>
-
         </div>
+
     </div>
 
     @livewireScripts
@@ -75,7 +77,6 @@
                 expandedClass: 'border-gray-400 ml-4 pl-4',
                 shrinkedClass: 'sm:absolute top-0 left-20 sm:shadow-md sm:z-10 sm:bg-gray-800 sm:rounded-md sm:p-4 border-l sm:border-none border-gray-400 ml-4 pl-4 sm:ml-0 w-36'
             }
-
         }
     }
 </script>

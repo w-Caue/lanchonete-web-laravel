@@ -1,95 +1,73 @@
-<nav class="w-full bg-white dark:bg-gray-800">
-    <div class="px-3 py-3 lg:px-5 lg:pl-3">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center justify-start mx-5 text-white">
-                <button x-on:click="sidebar.full = !sidebar.full" class=" focus:outline-none">
-                    {{-- Menu Icon --}}
-                    <svg class="w-6 h-6" x-bind:class="sidebar.full ? 'hidden' : ''" xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z"></path>
-                    </svg>
+<header class="py-2 border-b mx-5 mt-7 border-white dark:border-gray-700">
+    <div class="flex items-center justify-between">
+        <div class="flex my-1">
+            
+        </div>
 
-                    {{-- Close Icon --}}
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-6 h-6" x-bind:class="sidebar.full ? '' : 'hidden'">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+        <ul class="flex items-center flex-shrink-0 space-x-6">
+            <!-- Theme toggler -->
+            <li class="flex">
+                <button class="rounded-md focus:outline-none focus:shadow-outline-purple" @click="isDarkMode = !isDarkMode"
+                    aria-label="Toggle color mode">
+                    <template x-if="isDarkMode">
+                        <svg class="w-6 h-6 text-neutral-300" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                    </template>
+                    <template x-if="!isDarkMode">
+                        <svg class="w-6 h-6 text-yellow-500" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </template>
+                </button>
+            </li>
 
+            <!-- Profile menu -->
+            <li x-title="NavBar:ProfileMenu" x-data="{ isProfileMenuOpen: false }" class="relative" wfd-id="105">
+                <button
+                    class="flex items-center gap-1 border-2 rounded-full p-2 dark:text-neutral-300 dark:border-gray-600"
+                    x-on:click="isProfileMenuOpen = !isProfileMenuOpen;" @keydown.escape="isProfileMenuOpen = false"
+                    @click.away="isProfileMenuOpen = false;" aria-label="Account" aria-haspopup="true" wfd-id="146">
+
+                    <span class="text-xs font-semibold tracking-widest uppercase hidden sm:block">Olá,
+                        {{ auth()->user()->name }}
+                    </span>
+
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M11.9999 13.1714L16.9497 8.22168L18.3639 9.63589L11.9999 15.9999L5.63599 9.63589L7.0502 8.22168L11.9999 13.1714Z">
+                        </path>
+                    </svg>
                 </button>
 
-                <a href="" class="flex ml-2 md:mr-24">
-                    {{-- <img src="/images/logo.svg" class="h-8 mr-3" alt="FlowBite Logo" /> --}}
-                    <span
-                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">LancheAdmin</span>
-                </a>
+                <template x-if="isProfileMenuOpen">
+                    <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0" @keydown.escape="isProfileMenuOpen = false; "
+                        class="absolute right-0 z-40 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-800"
+                        aria-label="submenu">
 
-            </div>
-            <div class="flex items-center">
-
-                <!-- Profile -->
-                <div x-data="{ isOpen: false }" class="flex items-center ml-3">
-                    <div class="text-gray-400">
-                        <button x-on:click="isOpen = !isOpen" @click.outside="isOpen = false" type="button"
-                            class="flex items-center gap-2 text-sm rounded-full border-2 py-1 px-2 dark:border-gray-600"
-                            id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
-                            <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                fill="currentColor" class="size-6">
-                                <path fill-rule="evenodd"
-                                    d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-
-                            <span class="text-xs font-semibold uppercase">{{ auth()->user()->nome }}</span>
-
-                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                fill="currentColor">
-                                <path
-                                    d="M11.9999 13.1714L16.9497 8.22168L18.3639 9.63589L11.9999 15.9999L5.63599 9.63589L7.0502 8.22168L11.9999 13.1714Z">
-                                </path>
-                            </svg>
-
-                        </button>
-                    </div>
-                    <!-- Dropdown menu -->
-                    <div x-show="isOpen">
-                        <div class="z-50 fixed right-7 top-14 my-4 text-gray-400 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-800 dark:divide-gray-600"
-                            id="dropdown-2">
-
-                            <div class="px-4 py-3" role="none">
-                                <p class="text-sm text-gray-900 dark:text-white" role="none">
-                                    {{ auth()->user()->nome }}
-                                </p>
-                                {{-- <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                                    {{ auth()->user()->email }}
-                                </p> --}}
-                            </div>
-
-                            <ul class="py-1" role="none">
-                                <li class="flex">
-                                    <a class="inline-flex items-center gap-1 w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md"
-                                        href="{{ route('logout') }}"
-                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
-                                        </svg>
-
-                                        <span class="text-xs uppercase">Sair</span>
-                                    </a>
-                                    <form id="logout-form"
-                                        action="{{ route('logout', ['prefix' => \Request::route('prefix')]) }}"
-                                        method="POST" style="display: none;">
-                                        {{ csrf_field() }}
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+                        <li class="flex">
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                class="inline-flex items-center w-full px-2 py-1 text-xs font-semibold uppercase transition-colors duration-150 rounded-md hover:bg-red-100 hover:text-gray-800 dark:hover:bg-red-800 dark:hover:text-gray-200">
+                                <svg class="w-5 h-5 mr-3" aria-hidden="true" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path
+                                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1">
+                                    </path>
+                                </svg>
+                                <span>Sair</span>
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
+                    </ul>
+                </template>
+            </li>
+            <!-- Profile menu -->
+        </ul>
     </div>
-</nav>
+</header>

@@ -1,7 +1,8 @@
 <div class="flex justify-between">
 
     {{-- Mobile menu Toggle --}}
-    <div class="h-full flex-shrink-0 bg-white transition-all duration-300 hidden sm:block dark:bg-gray-800"
+    <div class="flex-shrink-0 bg-white transition-all duration-300 mx-5 my-7 rounded-lg p-3 hidden sm:block dark:bg-gray-800"
+        x-on:mouseover="sidebar.full = true" x-on:mouseout="sidebar.full = false"
         x-bind:class="{
             'w-64': sidebar.full,
             'w-64 sm:w-20': !sidebar.full,
@@ -9,22 +10,20 @@
                 .navOpen,
             '-left-64 sm:left-0': !sidebar.navOpen
         }">
-        {{-- <h1 class=" py-4  font-extrabold text-transparent text-gradient-to-r from-purple-700 to-blue-600 bg-clip-text bg-gradient-to-br"
-                x-bind:class="sidebar.full ? 'text-3xl px-4' : 'hidden'">
-                Rica Admin
+        
+        <div class="flex items-center gap-2">
+            <h1 class="text-white font-black py-4">
+                LOGO
             </h1>
 
-            <h1 class="text-white font-black py-4" x-bind:class="sidebar.full ? 'hidden' : 'text-xl px-4 xm:px-2'">
-                LOGO
-            </h1> 
+            <span class="text-white font-black" x-bind:class="sidebar.full ? '' : 'hidden'">
+                Nome Empresa
+            </span>
+        </div>
 
-            <h1 class="text-white font-black py-4 bg-gray-100 dark:bg-gray-700"
-                x-bind:class="sidebar.full ? 'text-lg  px-4' : 'hidden'">
-                Usuario
-            </h1> --}}
+        <div class="mt-4 space-y-4 text-xs uppercase font-bold">
 
-        <div class="mt-7 px-4 space-y-4 text-xs uppercase font-bold">
-
+            <div class="border dark:border-gray-700"></div>
 
             {{-- HOME --}}
             <a href="{{ route('admin.dashboard') }}"
@@ -34,8 +33,8 @@
                     'sm:justify-center': !sidebar.full,
                 }">
                 <div class="flex items-center space-x-2">
-                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        fill="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd"
                             d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z"
                             clip-rule="evenodd" />
@@ -45,10 +44,14 @@
                     <h1 x-clock
                         x-bind:class="!sidebar.full && tooltip.show ? visibleClass : '' || !sidebar.full && !tooltip.show ?
                             'sm:hidden' : ''">
-                        Inicio
+                        Dashboard
                     </h1>
                 </div>
             </a>
+
+            <div class="text-center">
+                <span class="font-extrabold dark:text-gray-500">Páginas</span>
+            </div>
 
             {{-- Clientes --}}
             <a href="{{ route('admin.pessoal.index') }}"
@@ -70,7 +73,8 @@
                     <h1 x-clock
                         x-bind:class="!sidebar.full && tooltip.show ? visibleClass : '' || !sidebar.full && !tooltip.show ?
                             'sm:hidden' : ''">
-                        Clientes</h1>
+                        Clientes
+                    </h1>
                 </div>
 
             </a>
@@ -253,6 +257,8 @@
                     </h1>
                 </div>
             </a>
+
+            <div class="border dark:border-gray-700"></div>
 
         </div>
     </div>
