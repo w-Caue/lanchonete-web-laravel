@@ -1,7 +1,7 @@
 <div class="flex justify-between">
 
     {{-- Mobile menu Toggle --}}
-    <div class="flex-shrink-0 bg-white transition-all duration-300 mx-5 my-7 rounded-lg p-3 hidden sm:block dark:bg-gray-800"
+    <div class="flex-shrink-0 bg-white transition-all duration-300 mx-5 my-7 rounded-lg shadow-lg shadow-gray-300 p-4 hidden sm:block dark:bg-gray-800 dark:shadow-gray-700"
         x-on:mouseover="sidebar.full = true" x-on:mouseout="sidebar.full = false"
         x-bind:class="{
             'w-64': sidebar.full,
