@@ -58,7 +58,7 @@ class ListagemPessoas extends Component
         return $pessoas->paginate(5);
     }
 
-    public function remover(Pessoa $pessoa)
+    public function remover(User $pessoa)
     {
         $this->pessoa = $pessoa;
 
@@ -79,7 +79,7 @@ class ListagemPessoas extends Component
 
     public function delete()
     {
-        Pessoa::where('id', $this->pessoa->id)->update([
+        User::where('id', $this->pessoa->id)->update([
             'status' => 'Excluido'
         ]);
 

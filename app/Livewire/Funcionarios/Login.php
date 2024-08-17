@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Funcionarios;
 
+use App\Models\Funcionario;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,12 +22,12 @@ class Login extends Component
 
     public function login()
     {
-        $funcionario = User::where('access_level', 'admin')->where('email', '=', $this->email)->get()->first();
+        $funcionario = Funcionario::where('access_level', 'admin')->where('email', '=', $this->email)->get()->first();
 
         if ($funcionario != null && $this->email != null && $funcionario->email == $this->email) {
 
             if (Hash::check($this->password, $funcionario->password)) {
-                Auth::login($funcionario, false);
+                Auth::guard('admin')->login($funcionario, false);
 
                 // $this->alert('success', 'Login efetuado com sucesso!', [
                 //     'timer' => '2000',

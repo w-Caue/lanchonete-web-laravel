@@ -18,8 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('telefone', 14)->nullable();
             $table->string('password')->nullable();
-            $table->enum('type',['Cliente', 'Funcionario'])->default('Cliente');
-            $table->enum('access_level', ['client', 'admin']);
+            $table->string('status')->default('Ativo');
             $table->rememberToken();
             $table->timestamps();
         });

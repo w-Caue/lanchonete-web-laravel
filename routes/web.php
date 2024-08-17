@@ -7,8 +7,6 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\PessoalController;
 use App\Http\Controllers\ProdutoController;
-use App\Models\Item;
-use App\Models\Pedido;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +22,9 @@ use Illuminate\Support\Facades\Storage;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+//Routes Admin
+require_once "admin.php";
 
 Auth::routes();
 
@@ -71,84 +72,6 @@ Route::prefix('/suaempresa')->name('ecommerce.')->group(function () {
 
     Route::get('/finalizar/{codigo}', [EcommerceController::class, 'finalizar'])->name('finalizar');
 });
-
-Route::prefix('/admin')->name('admin.')->group(function () {
-
-    Route::get('/dashboard', function () {
-        return view('pages.dashboard');
-    })->name('dashboard');
-
-    Route::prefix('/pessoal')->name('pessoal.')->group(function () {
-        Route::get('/', function () {
-            return view('pages.pessoal.index');
-        })->name('index');
-
-        Route::get('/{codigo}', [PessoalController::class, 'show'])->name('show');
-    });
-
-    Route::prefix('/produto')->name('produto.')->group(function () {
-        Route::get('/', function () {
-            return view('pages.produtos.index');
-        })->name('index');
-
-
-        Route::prefix('/encarte')->name('encarte.')->group(function () {
-            Route::get('/', function () {
-                return view('pages.encarte.index');
-            })->name('index');
-
-            Route::get('/{codigo}', [EncarteController::class, 'show'])->name('show');
-        });
-
-        Route::prefix('/combos')->name('combos.')->group(function () {
-            Route::get('/', function () {
-                return view('pages.combos.index');
-            })->name('index');
-
-            Route::get('/{codigo}', [ComboControlle::class, 'show'])->name('show');
-        });
-
-        Route::get('/{codigo}', [ProdutoController::class, 'show'])->name('show');
-    });
-
-    Route::prefix('/pedido')->name('pedido.')->group(function () {
-        Route::get('/', function () {
-            return view('pages.pedidos.index');
-        })->name('index');
-
-        Route::get('/{codigo}', [PedidoController::class, 'show'])->name('show');
-    });
-
-    Route::prefix('/configuracao')->name('configuracao.')->group(function () {
-        Route::get('/', function () {
-            return view('pages.configuracao.index');
-        })->name('index');
-
-        Route::get('/usuarios', function () {
-            return view('pages.configuracao.users.index');
-        })->name('users');
-    });
-});
-
-// Route::middleware('can:painel')->prefix('/painel')->name('painel.')->group(function () {
-
-
-//     Route::get('/dashboard', function () {
-//         return view('pages.dashboard');
-//     })->name('dashboard');
-
-//     Route::get('/clientes', function () {
-//         return view('pages.cliente.index');
-//     })->name('clientes');
-
-//     Route::get('/itens', function () {
-//         return view('pages.item.index');
-//     })->name('itens');
-
-//     Route::get('/pedidos', function () {
-//         return view('pages.pedidos.index');
-//     })->name('pedidos');
-// });
 
 Route::get('/limpar', function () {
     try {

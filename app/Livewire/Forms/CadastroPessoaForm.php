@@ -33,7 +33,7 @@ class CadastroPessoaForm extends Form
     public function edit()
     {
         User::findOrFail($this->codigo)->update([
-            'name' => $this->name,
+            'nome' => $this->name,
             'email' => $this->email,
             'phone' => $this->phone,
             'type' => $this->type,

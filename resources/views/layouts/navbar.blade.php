@@ -56,7 +56,7 @@
                     @click.away="isProfileMenuOpen = false;" aria-label="Account" aria-haspopup="true" wfd-id="146">
 
                     <span class="text-xs font-semibold tracking-widest uppercase hidden sm:block">Olá,
-                        {{ auth()->user()->name }}
+                        {{ Auth::guard('admin')->user()->nome }}
                     </span>
 
                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">

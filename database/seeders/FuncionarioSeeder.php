@@ -15,13 +15,10 @@ class FuncionarioSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::create([
-            'nome' => 'Admin',
-            'password' => Hash::make(123),
-        ]);
-
         Funcionario::create([
-            'user_id' => $user->id,
+            'nome' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make(123),
             'status' => 'Ativo',
         ]);
     }

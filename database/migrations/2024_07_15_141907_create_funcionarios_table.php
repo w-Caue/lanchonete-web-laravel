@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('funcionarios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->string('nome');
+            $table->string('email')->unique()->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('telefone', 14)->nullable();
+            $table->string('password')->nullable();
+            $table->string('type')->default('Funcionario');
+            $table->string('access_level')->default('admin');
             $table->string('status')->default('Ativo');
             $table->timestamps();
-
-            $table->foreign('user_id')->on('users')->references('id');
         });
     }
 
